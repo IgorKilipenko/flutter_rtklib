@@ -36,7 +36,7 @@ flutter:
     # -------------------
       android:
         pluginClass: FlutterRtklibPlugin
-        package: com.example.flutter_rtklib
+        package: dev.igorkili.flutter_rtklib
       linux:
         pluginClass: FlutterRtklibPlugin
       windows:
