@@ -34,8 +34,13 @@ flutter:
     # then add platforms following the instruction here:
     # https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin-platforms
     # -------------------
-      some_platform:
-        pluginClass: somePluginClass
+      android:
+        pluginClass: FlutterRtklibPlugin
+        package: com.example.flutter_rtklib
+      linux:
+        pluginClass: FlutterRtklibPlugin
+      windows:
+        pluginClass: FlutterRtklibPlugin
     # -------------------
 
   # To add assets to your plugin package, add an assets section, like this:
@@ -72,12 +77,44 @@ flutter:
 ffigen:
   output: 'generated_bindings.dart'
   name: 'RtkLib'
-  description: 'Bindings to SQLite'
+  description: 'Bindings to Rtklib'
   headers:
     entry-points:
-      - 'folder/**.h'
-      - 'folder/specific_header.h'
-    include-directives:
-      - '**index.h'
-      - '**/clang-c/**'
-      - '/full/path/to/a/header.h'
+      - 'third_party/RTKLIB/src/rtklib.h'
+  functions:
+    rename:
+      '(_+)(.*)': '$2$1_ffilocal'
+  structs:
+    rename:
+      '(_+)(.*)': '$2$1_ffilocal'
+    member-rename:
+      '.*':
+        '(_+)(.*)': '$2$1_ffilocal'
+  enums:
+    rename:
+      '(_+)(.*)': '$2$1_ffilocal'
+    member-rename:
+      '.*':
+        '(_+)(.*)': '$2$1_ffilocal'
+  globals:
+    rename:
+      '(_+)(.*)': '$2$1_ffilocal'
+  macros:
+    rename:
+      '(_+)(.*)': '$2$1_ffilocal'
+  unions:
+    rename:
+      '(_+)(.*)': '$2$1_ffilocal'
+  unnamed-enums:
+    rename:
+      '(_+)(.*)': '$2$1_ffilocal'
+  typedefs:
+    rename:
+      '(_+)(.*)': '$2$1_ffilocal'
+
+  preamble: |
+    // Part of the LLVM Project, under the Apache License v2.0 with LLVM
+    // Exceptions.
+    // See https://llvm.org/LICENSE.txt for license information.
+    // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+    // ignore_for_file: camel_case_types, non_constant_identifier_names
