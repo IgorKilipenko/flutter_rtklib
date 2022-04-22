@@ -3,60 +3,30 @@
   description: 'Bindings to Rtklib (ublox)'
   headers:
     entry-points:
-      #- 'third_party/RTKLIB/src/rcv/**'
       - 'third_party/RTKLIB/src/rcv/ublox.c'
-      #- 'third_party/RTKLIB/src/rtklib.h'
     include-directives:
-      #- 'third_party/RTKLIB/src/rcv/ublox.h'
-      #- 'third_party/RTKLIB/src/rtklib.h'
-      #- '**index.h'
-      #- '**/rcv/**'
-      - '**ublox.h'
-      #- '**rtklib.h'
+      - '**ublox.c'
   functions:
     exclude:
       - '^_.*'
-    #rename:
-    #  '(_+)(.*)': '$2$1_ffilocal'
   structs:
     exclude:
       - '^_.*'
-    #rename:
-    #  '(_+)(.*)': '$2$1_ffilocal'
-    member-rename:
-      '.*':
-        '^(_+)(.*)': '$2$1_ffilocal'
   enums:
     exclude:
       - '^_.*'
-    #rename:
-    #  '^(_+)(.*)': '$2$1_ffilocal'
-    member-rename:
-      '.*':
-        '^(_+)(.*)': '$2$1_ffilocal'
   globals:
     exclude:
       - '^_.*'
-    #rename:
-    #  '^(_+)(.*)': '$2$1_ffilocal'
   macros:
     exclude:
       - '^_.*'
-    #rename:
-    #  '^(_+)(.*)': '$2$1_ffilocal'
   unions:
     exclude:
       - '^_.*'
-    #rename:
-    #  '^(_+)(.*)': '$2$1_ffilocal'
-  unnamed-enums:
-    #rename:
-    #  '^(_+)(.*)': '$2$1_ffilocal'
   typedefs:
     exclude:
       - '^_.*'
-    #rename:
-    #  '^(_+)(.*)': '$2$1_ffilocal'
   compiler-opts:
     - '-Wall -O3 -ansi -pedantic -Wno-unused-but-set-variable -DTRACE -DENAGLO -DENAQZS -DENACMP -DENAGAL -DENAIRN -DNFREQ=3 -DSVR_REUSEADDR -DWIN32'
     - '-I./third_party/RTKLIB/src/'
