@@ -6,6 +6,7 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+export 'src/rcv/ublox.dart';
 
 class FlutterRtklib {
   static const MethodChannel _channel = MethodChannel('flutter_rtklib');
@@ -15,3 +16,4 @@ class FlutterRtklib {
     return version;
   }
 }
+

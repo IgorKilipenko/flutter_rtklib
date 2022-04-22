@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_rtklib/flutter_rtklib.dart';
 
 void main() {
+  final ubx = UbloxImpl();
   runApp(const MyApp());
 }
 
