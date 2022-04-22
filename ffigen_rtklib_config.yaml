@@ -1,0 +1,37 @@
+  output: 'lib/src/rtklib_bindings.dart'
+  name: 'RtkLib'
+  description: 'Bindings to Rtklib'
+  headers:
+    entry-points:
+      - 'third_party/RTKLIB/src/rtklib.h'
+    include-directives:
+      - '**rtklib.h'
+  functions:
+    exclude:
+      - '^_.*'
+  structs:
+    exclude:
+      - '^_.*'
+  enums:
+    exclude:
+      - '^_.*'
+  globals:
+    exclude:
+      - '^_.*'
+  macros:
+    exclude:
+      - '^_.*'
+  unions:
+    exclude:
+      - '^_.*'
+  typedefs:
+    exclude:
+      - '^_.*'
+  compiler-opts:
+    - '-Wall -O3 -ansi -pedantic -Wno-unused-but-set-variable -DTRACE -DENAGLO -DENAQZS -DENACMP -DENAGAL -DENAIRN -DNFREQ=3 -DSVR_REUSEADDR -DWIN32 -g'
+  preamble: |
+    // Part of the LLVM Project, under the Apache License v2.0 with LLVM
+    // Exceptions.
+    // See https://llvm.org/LICENSE.txt for license information.
+    // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+    // ignore_for_file: camel_case_types, non_constant_identifier_names
