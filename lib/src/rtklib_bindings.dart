@@ -23,7 +23,7 @@ class RtkLib {
           lookup)
       : _lookup = lookup;
 
-  /// global variables
+  /// fatal callback function type
   late final ffi.Pointer<ffi.Pointer<ffi.Double>> _chisqr =
       _lookup<ffi.Pointer<ffi.Double>>('chisqr');
 
@@ -78,7 +78,7 @@ class RtkLib {
 
   set sysopts(ffi.Pointer<opt_t> value) => _sysopts.value = value;
 
-  /// satellites, systems, codes functions
+  /// system options table
   int satno(
     int sys,
     int prn,
@@ -302,7 +302,6 @@ class RtkLib {
   late final _getcodepri = _getcodepriPtr
       .asFunction<int Function(int, int, ffi.Pointer<ffi.Int8>)>();
 
-  /// matrix and vector functions
   ffi.Pointer<ffi.Double> mat(
     int n,
     int m,
@@ -727,7 +726,6 @@ class RtkLib {
   late final _add_fatal =
       _add_fatalPtr.asFunction<void Function(ffi.Pointer<fatalfunc_t>)>();
 
-  /// time and string functions
   double str2num(
     ffi.Pointer<ffi.Int8> s,
     int i,
@@ -1198,7 +1196,6 @@ class RtkLib {
           ffi.Pointer<ffi.Int8>,
           ffi.Pointer<ffi.Int8>)>();
 
-  /// coordinates transformation
   void ecef2pos(
     ffi.Pointer<ffi.Double> r,
     ffi.Pointer<ffi.Double> pos,
@@ -1385,7 +1382,6 @@ class RtkLib {
   late final _dms2deg =
       _dms2degPtr.asFunction<double Function(ffi.Pointer<ffi.Double>)>();
 
-  /// input and output functions
   void readpos(
     ffi.Pointer<ffi.Int8> file,
     ffi.Pointer<ffi.Int8> rcv,
@@ -1575,7 +1571,6 @@ class RtkLib {
   late final _geterp = _geterpPtr.asFunction<
       int Function(ffi.Pointer<erp_t>, gtime_t, ffi.Pointer<ffi.Double>)>();
 
-  /// debug trace functions
   void traceopen(
     ffi.Pointer<ffi.Int8> file,
   ) {
@@ -1793,7 +1788,6 @@ class RtkLib {
       _lookup<ffi.NativeFunction<ffi.Int32 Function()>>('gettracelevel');
   late final _gettracelevel = _gettracelevelPtr.asFunction<int Function()>();
 
-  /// platform dependent functions
   int execcmd(
     ffi.Pointer<ffi.Int8> cmd,
   ) {
@@ -1842,7 +1836,6 @@ class RtkLib {
   late final _createdir =
       _createdirPtr.asFunction<void Function(ffi.Pointer<ffi.Int8>)>();
 
-  /// positioning models
   double satazel(
     ffi.Pointer<ffi.Double> pos,
     ffi.Pointer<ffi.Double> e,
@@ -1905,7 +1898,6 @@ class RtkLib {
       void Function(
           int, ffi.Pointer<ffi.Double>, double, ffi.Pointer<ffi.Double>)>();
 
-  /// atmosphere models
   double ionmodel(
     gtime_t t,
     ffi.Pointer<ffi.Double> ion,
@@ -2171,7 +2163,6 @@ class RtkLib {
           'seliflc');
   late final _seliflc = _seliflcPtr.asFunction<int Function(int, int)>();
 
-  /// antenna models
   int readpcv(
     ffi.Pointer<ffi.Int8> file,
     ffi.Pointer<pcvs_t> pcvs,
@@ -2258,7 +2249,6 @@ class RtkLib {
   late final _antmodel_s = _antmodel_sPtr.asFunction<
       void Function(ffi.Pointer<pcv_t>, double, ffi.Pointer<ffi.Double>)>();
 
-  /// earth tide models
   void sunmoonpos(
     gtime_t tutc,
     ffi.Pointer<ffi.Double> erpv,
@@ -2318,7 +2308,6 @@ class RtkLib {
       void Function(gtime_t, ffi.Pointer<ffi.Double>, int, ffi.Pointer<erp_t>,
           ffi.Pointer<ffi.Double>, ffi.Pointer<ffi.Double>)>();
 
-  /// geiod models
   int opengeoid(
     int model,
     ffi.Pointer<ffi.Int8> file,
@@ -2357,7 +2346,6 @@ class RtkLib {
   late final _geoidh =
       _geoidhPtr.asFunction<double Function(ffi.Pointer<ffi.Double>)>();
 
-  /// datum transformation
   int loaddatump(
     ffi.Pointer<ffi.Int8> file,
   ) {
@@ -2400,7 +2388,6 @@ class RtkLib {
   late final _jgd2tokyo =
       _jgd2tokyoPtr.asFunction<int Function(ffi.Pointer<ffi.Double>)>();
 
-  /// rinex functions
   int readrnx(
     ffi.Pointer<ffi.Int8> file,
     int rcv,
@@ -2845,7 +2832,6 @@ class RtkLib {
   late final _input_rnxctr = _input_rnxctrPtr
       .asFunction<int Function(ffi.Pointer<rnxctr_t>, ffi.Pointer<FILE>)>();
 
-  /// ephemeris and clock functions
   double eph2clk(
     gtime_t time,
     ffi.Pointer<eph_t> eph,
@@ -3336,7 +3322,6 @@ class RtkLib {
           ffi.Pointer<erp_t>,
           ffi.Pointer<ffi.Double>)>();
 
-  /// receiver raw data functions
   int getbitu(
     ffi.Pointer<ffi.Uint8> buff,
     int pos,
@@ -4260,7 +4245,6 @@ class RtkLib {
   late final _gen_nvs = _gen_nvsPtr.asFunction<
       int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Uint8>)>();
 
-  /// rtcm functions
   int init_rtcm(
     ffi.Pointer<rtcm_t> rtcm,
   ) {
@@ -4395,7 +4379,6 @@ class RtkLib {
   late final _gen_rtcm3 = _gen_rtcm3Ptr
       .asFunction<int Function(ffi.Pointer<rtcm_t>, int, int, int)>();
 
-  /// solution functions
   void initsolbuf(
     ffi.Pointer<solbuf_t> solbuf,
     int cyclic,
@@ -4840,7 +4823,6 @@ class RtkLib {
       int Function(
           ffi.Pointer<ffi.Uint8>, ffi.Pointer<sol_t>, ffi.Pointer<ssat_t>)>();
 
-  /// google earth kml converter
   int convkml(
     ffi.Pointer<ffi.Int8> infile,
     ffi.Pointer<ffi.Int8> outfile,
@@ -4887,7 +4869,6 @@ class RtkLib {
       int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Int8>, gtime_t,
           gtime_t, double, int, ffi.Pointer<ffi.Double>, int, int, int, int)>();
 
-  /// gpx converter
   int convgpx(
     ffi.Pointer<ffi.Int8> infile,
     ffi.Pointer<ffi.Int8> outfile,
@@ -4934,7 +4915,6 @@ class RtkLib {
       int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Int8>, gtime_t,
           gtime_t, double, int, ffi.Pointer<ffi.Double>, int, int, int, int)>();
 
-  /// sbas functions
   int sbsreadmsg(
     ffi.Pointer<ffi.Int8> file,
     int sel,
@@ -5126,7 +5106,6 @@ class RtkLib {
       double Function(gtime_t, ffi.Pointer<ffi.Double>, ffi.Pointer<ffi.Double>,
           ffi.Pointer<ffi.Double>)>();
 
-  /// options functions
   ffi.Pointer<opt_t> searchopt(
     ffi.Pointer<ffi.Int8> name,
     ffi.Pointer<opt_t> opts,
@@ -5282,7 +5261,6 @@ class RtkLib {
       void Function(ffi.Pointer<prcopt_t>, ffi.Pointer<solopt_t>,
           ffi.Pointer<filopt_t>)>();
 
-  /// stream data input and output functions
   void strinitcom() {
     return _strinitcom();
   }
@@ -5598,7 +5576,6 @@ class RtkLib {
   late final _strsetproxy =
       _strsetproxyPtr.asFunction<void Function(ffi.Pointer<ffi.Int8>)>();
 
-  /// integer ambiguity resolution
   int lambda(
     int n,
     int m,
@@ -5680,7 +5657,6 @@ class RtkLib {
       int Function(int, int, ffi.Pointer<ffi.Double>, ffi.Pointer<ffi.Double>,
           ffi.Pointer<ffi.Double>, ffi.Pointer<ffi.Double>)>();
 
-  /// standard positioning
   int pntpos(
     ffi.Pointer<obsd_t> obs,
     int n,
@@ -5725,7 +5701,6 @@ class RtkLib {
           ffi.Pointer<ssat_t>,
           ffi.Pointer<ffi.Int8>)>();
 
-  /// precise positioning
   void rtkinit(
     ffi.Pointer<rtk_t> rtk,
     ffi.Pointer<prcopt_t> opt,
@@ -5820,7 +5795,6 @@ class RtkLib {
   late final _rtkoutstat = _rtkoutstatPtr
       .asFunction<int Function(ffi.Pointer<rtk_t>, ffi.Pointer<ffi.Int8>)>();
 
-  /// precise point positioning
   void pppos(
     ffi.Pointer<rtk_t> rtk,
     ffi.Pointer<obsd_t> obs,
@@ -5918,7 +5892,6 @@ class RtkLib {
           ffi.Pointer<ffi.Double>,
           ffi.Pointer<ffi.Double>)>();
 
-  /// post-processing positioning
   int postpos(
     gtime_t ts,
     gtime_t te,
@@ -5979,7 +5952,6 @@ class RtkLib {
           ffi.Pointer<ffi.Int8>,
           ffi.Pointer<ffi.Int8>)>();
 
-  /// stream server functions
   void strsvrinit(
     ffi.Pointer<strsvr_t> svr,
     int nout,
@@ -6143,7 +6115,6 @@ class RtkLib {
   late final _strconvfree =
       _strconvfreePtr.asFunction<void Function(ffi.Pointer<strconv_t>)>();
 
-  /// rtk server functions
   int rtksvrinit(
     ffi.Pointer<rtksvr_t> svr,
   ) {
@@ -6423,7 +6394,6 @@ class RtkLib {
       int Function(ffi.Pointer<rtksvr_t>, ffi.Pointer<ffi.Int8>,
           ffi.Pointer<ffi.Int8>)>();
 
-  /// downloader functions
   int dl_readurls(
     ffi.Pointer<ffi.Int8> file,
     ffi.Pointer<ffi.Pointer<ffi.Int8>> types,
@@ -6604,7 +6574,6 @@ class RtkLib {
           int,
           ffi.Pointer<FILE>)>();
 
-  /// GIS data functions
   int gis_read(
     ffi.Pointer<ffi.Int8> file,
     ffi.Pointer<gis_t> gis,
@@ -6638,7 +6607,6 @@ class RtkLib {
   late final _gis_free =
       _gis_freePtr.asFunction<void Function(ffi.Pointer<gis_t>)>();
 
-  /// application defined functions
   int showmsg(
     ffi.Pointer<ffi.Int8> format,
   ) {
@@ -6682,9 +6650,8 @@ class RtkLib {
   late final _settime = _settimePtr.asFunction<void Function(gtime_t)>();
 }
 
-/// type definitions
+/// time struct
 class gtime_t extends ffi.Struct {
-  /// time struct
   @time_t()
   external int time;
 
@@ -6695,8 +6662,8 @@ class gtime_t extends ffi.Struct {
 
 typedef time_t = ffi.Int64;
 
+/// observation data record
 class obsd_t extends ffi.Struct {
-  /// observation data record
   external gtime_t time;
 
   /// receiver sampling time (GPST)
@@ -6742,8 +6709,8 @@ class obsd_t extends ffi.Struct {
   external int freq;
 }
 
+/// observation data
 class obs_t extends ffi.Struct {
-  /// observation data
   @ffi.Int32()
   external int n;
 
@@ -6766,8 +6733,8 @@ class obs_t extends ffi.Struct {
   external ffi.Pointer<obsd_t> data;
 }
 
+/// earth rotation parameter data type
 class erpd_t extends ffi.Struct {
-  /// earth rotation parameter data type
   @ffi.Double()
   external double mjd;
 
@@ -6794,8 +6761,8 @@ class erpd_t extends ffi.Struct {
   external double lod;
 }
 
+/// earth rotation parameter type
 class erp_t extends ffi.Struct {
-  /// earth rotation parameter type
   @ffi.Int32()
   external int n;
 
@@ -6806,8 +6773,8 @@ class erp_t extends ffi.Struct {
   external ffi.Pointer<erpd_t> data;
 }
 
+/// antenna parameter type
 class pcv_t extends ffi.Struct {
-  /// antenna parameter type
   @ffi.Int32()
   external int sat;
 
@@ -6829,8 +6796,8 @@ class pcv_t extends ffi.Struct {
   external ffi.Array<ffi.Array<ffi.Double>> var1;
 }
 
+/// antenna parameters type
 class pcvs_t extends ffi.Struct {
-  /// antenna parameters type
   @ffi.Int32()
   external int n;
 
@@ -6841,8 +6808,8 @@ class pcvs_t extends ffi.Struct {
   external ffi.Pointer<pcv_t> pcv;
 }
 
+/// almanac type
 class alm_t extends ffi.Struct {
-  /// almanac type
   @ffi.Int32()
   external int sat;
 
@@ -6895,8 +6862,8 @@ class alm_t extends ffi.Struct {
   external double f1;
 }
 
+/// GPS/QZS/GAL broadcast ephemeris type
 class eph_t extends ffi.Struct {
-  /// GPS/QZS/GAL broadcast ephemeris type
   @ffi.Int32()
   external int sat;
 
@@ -7016,8 +6983,8 @@ class eph_t extends ffi.Struct {
   external double ndot;
 }
 
+/// GLONASS broadcast ephemeris type
 class geph_t extends ffi.Struct {
-  /// GLONASS broadcast ephemeris type
   @ffi.Int32()
   external int sat;
 
@@ -7066,8 +7033,8 @@ class geph_t extends ffi.Struct {
   external double dtaun;
 }
 
+/// precise ephemeris type
 class peph_t extends ffi.Struct {
-  /// precise ephemeris type
   external gtime_t time;
 
   /// time (GPST)
@@ -7093,8 +7060,8 @@ class peph_t extends ffi.Struct {
   external ffi.Array<ffi.Array<ffi.Float>> vco;
 }
 
+/// precise clock type
 class pclk_t extends ffi.Struct {
-  /// precise clock type
   external gtime_t time;
 
   /// time (GPST)
@@ -7108,8 +7075,8 @@ class pclk_t extends ffi.Struct {
   external ffi.Array<ffi.Array<ffi.Float>> std;
 }
 
+/// SBAS ephemeris type
 class seph_t extends ffi.Struct {
-  /// SBAS ephemeris type
   @ffi.Int32()
   external int sat;
 
@@ -7144,6 +7111,7 @@ class seph_t extends ffi.Struct {
   external double af1;
 }
 
+/// NORAL TLE data type
 class tled_t extends ffi.Struct {
   @ffi.Array.multi([32])
   external ffi.Array<ffi.Int8> name;
@@ -7213,8 +7181,8 @@ class tled_t extends ffi.Struct {
   external int rev;
 }
 
+/// NORAD TLE (two line element) type
 class tle_t extends ffi.Struct {
-  /// NORAD TLE (two line element) type
   @ffi.Int32()
   external int n;
 
@@ -7225,8 +7193,8 @@ class tle_t extends ffi.Struct {
   external ffi.Pointer<tled_t> data;
 }
 
+/// TEC grid type
 class tec_t extends ffi.Struct {
-  /// TEC grid type
   external gtime_t time;
 
   @ffi.Array.multi([3])
@@ -7252,8 +7220,8 @@ class tec_t extends ffi.Struct {
   external ffi.Pointer<ffi.Float> rms;
 }
 
+/// SBAS message type
 class sbsmsg_t extends ffi.Struct {
-  /// SBAS message type
   @ffi.Int32()
   external int week;
 
@@ -7271,8 +7239,8 @@ class sbsmsg_t extends ffi.Struct {
   external ffi.Array<ffi.Uint8> msg;
 }
 
+/// SBAS messages type
 class sbs_t extends ffi.Struct {
-  /// SBAS messages type
   @ffi.Int32()
   external int n;
 
@@ -7283,8 +7251,8 @@ class sbs_t extends ffi.Struct {
   external ffi.Pointer<sbsmsg_t> msgs;
 }
 
+/// SBAS fast correction type
 class sbsfcorr_t extends ffi.Struct {
-  /// SBAS fast correction type
   external gtime_t t0;
 
   /// time of applicability (TOF)
@@ -7312,8 +7280,8 @@ class sbsfcorr_t extends ffi.Struct {
   external int ai;
 }
 
+/// SBAS long term satellite error correction type
 class sbslcorr_t extends ffi.Struct {
-  /// SBAS long term satellite error correction type
   external gtime_t t0;
 
   /// correction time
@@ -7334,8 +7302,8 @@ class sbslcorr_t extends ffi.Struct {
   external double daf1;
 }
 
+/// SBAS satellite correction type
 class sbssatp_t extends ffi.Struct {
-  /// SBAS satellite correction type
   @ffi.Int32()
   external int sat;
 
@@ -7346,8 +7314,8 @@ class sbssatp_t extends ffi.Struct {
   external sbslcorr_t lcorr;
 }
 
+/// SBAS satellite corrections type
 class sbssat_t extends ffi.Struct {
-  /// SBAS satellite corrections type
   @ffi.Int32()
   external int iodp;
 
@@ -7363,8 +7331,8 @@ class sbssat_t extends ffi.Struct {
   external ffi.Array<sbssatp_t> sat;
 }
 
+/// SBAS ionospheric correction type
 class sbsigp_t extends ffi.Struct {
-  /// SBAS ionospheric correction type
   external gtime_t t0;
 
   /// correction time
@@ -7383,8 +7351,8 @@ class sbsigp_t extends ffi.Struct {
   external double delay;
 }
 
+/// IGP band type
 class sbsigpband_t extends ffi.Struct {
-  /// IGP band type
   @ffi.Int16()
   external int x;
 
@@ -7400,8 +7368,8 @@ class sbsigpband_t extends ffi.Struct {
   external int bite;
 }
 
+/// SBAS ionospheric corrections type
 class sbsion_t extends ffi.Struct {
-  /// SBAS ionospheric corrections type
   @ffi.Int32()
   external int iodi;
 
@@ -7413,8 +7381,8 @@ class sbsion_t extends ffi.Struct {
   external ffi.Array<sbsigp_t> igp;
 }
 
+/// DGPS/GNSS correction type
 class dgps_t extends ffi.Struct {
-  /// DGPS/GNSS correction type
   external gtime_t t0;
 
   /// correction time
@@ -7434,6 +7402,7 @@ class dgps_t extends ffi.Struct {
   external double udre;
 }
 
+/// SSR correction type
 class ssr_t extends ffi.Struct {
   @ffi.Array.multi([6])
   external ffi.Array<gtime_t> t0;
@@ -7494,8 +7463,8 @@ class ssr_t extends ffi.Struct {
   external int update;
 }
 
+/// navigation data type
 class nav_t extends ffi.Struct {
-  /// navigation data type
   @ffi.Int32()
   external int n;
 
@@ -7629,6 +7598,7 @@ class nav_t extends ffi.Struct {
   external ffi.Array<ssr_t> ssr;
 }
 
+/// station parameter type
 class sta_t extends ffi.Struct {
   @ffi.Array.multi([64])
   external ffi.Array<ffi.Int8> name;
@@ -7681,8 +7651,8 @@ class sta_t extends ffi.Struct {
   external ffi.Array<ffi.Double> glo_cp_bias;
 }
 
+/// solution type
 class sol_t extends ffi.Struct {
-  /// solution type
   external gtime_t time;
 
   /// time (GPST)
@@ -7733,8 +7703,8 @@ class sol_t extends ffi.Struct {
   external double thres;
 }
 
+/// solution buffer type
 class solbuf_t extends ffi.Struct {
-  /// solution buffer type
   @ffi.Int32()
   external int n;
 
@@ -7769,8 +7739,8 @@ class solbuf_t extends ffi.Struct {
   external int nb;
 }
 
+/// solution status type
 class solstat_t extends ffi.Struct {
-  /// solution status type
   external gtime_t time;
 
   /// time (GPST)
@@ -7821,8 +7791,8 @@ class solstat_t extends ffi.Struct {
   external int rejc;
 }
 
+/// solution status buffer type
 class solstatbuf_t extends ffi.Struct {
-  /// solution status buffer type
   @ffi.Int32()
   external int n;
 
@@ -7833,8 +7803,8 @@ class solstatbuf_t extends ffi.Struct {
   external ffi.Pointer<solstat_t> data;
 }
 
+/// RTCM control struct type
 class rtcm_t extends ffi.Struct {
-  /// RTCM control struct type
   @ffi.Int32()
   external int staid;
 
@@ -7933,8 +7903,8 @@ class rtcm_t extends ffi.Struct {
   external ffi.Array<ffi.Int8> opt;
 }
 
+/// RINEX control struct type
 class rnxctr_t extends ffi.Struct {
-  /// RINEX control struct type
   external gtime_t time;
 
   /// message time
@@ -7977,6 +7947,7 @@ class rnxctr_t extends ffi.Struct {
   external ffi.Array<ffi.Int8> opt;
 }
 
+/// download URL type
 class url_t extends ffi.Struct {
   @ffi.Array.multi([32])
   external ffi.Array<ffi.Int8> type;
@@ -7992,8 +7963,8 @@ class url_t extends ffi.Struct {
   external double tint;
 }
 
+/// option type
 class opt_t extends ffi.Struct {
-  /// option type
   external ffi.Pointer<ffi.Int8> name;
 
   /// option name
@@ -8007,6 +7978,7 @@ class opt_t extends ffi.Struct {
   external ffi.Pointer<ffi.Int8> comment;
 }
 
+/// SNR mask type
 class snrmask_t extends ffi.Struct {
   @ffi.Array.multi([2])
   external ffi.Array<ffi.Int32> ena;
@@ -8015,8 +7987,8 @@ class snrmask_t extends ffi.Struct {
   external ffi.Array<ffi.Array<ffi.Double>> mask;
 }
 
+/// processing options type
 class prcopt_t extends ffi.Struct {
-  /// processing options type
   @ffi.Int32()
   external int mode;
 
@@ -8244,8 +8216,8 @@ class prcopt_t extends ffi.Struct {
   external ffi.Array<ffi.Int8> pppopt;
 }
 
+/// solution options type
 class solopt_t extends ffi.Struct {
-  /// solution options type
   @ffi.Int32()
   external int posf;
 
@@ -8315,6 +8287,7 @@ class solopt_t extends ffi.Struct {
   external double maxsolstd;
 }
 
+/// file options type
 class filopt_t extends ffi.Struct {
   @ffi.Array.multi([1024])
   external ffi.Array<ffi.Int8> satantp;
@@ -8353,8 +8326,8 @@ class filopt_t extends ffi.Struct {
   external ffi.Array<ffi.Int8> trace;
 }
 
+/// RINEX options type
 class rnxopt_t extends ffi.Struct {
-  /// RINEX options type
   external gtime_t ts;
 
   external gtime_t te;
@@ -8485,8 +8458,8 @@ class rnxopt_t extends ffi.Struct {
   external ffi.Array<ffi.Int32> nobs;
 }
 
+/// satellite status type
 class ssat_t extends ffi.Struct {
-  /// satellite status type
   @ffi.Uint8()
   external int sys;
 
@@ -8553,6 +8526,7 @@ class ssat_t extends ffi.Struct {
   external ffi.Array<ffi.Array<ffi.Double>> ph;
 }
 
+/// ambiguity control type
 class ambc_t extends ffi.Struct {
   @ffi.Array.multi([4])
   external ffi.Array<gtime_t> epoch;
@@ -8574,8 +8548,8 @@ class ambc_t extends ffi.Struct {
   external ffi.Array<ffi.Int8> flags;
 }
 
+/// RTK control/result type
 class rtk_t extends ffi.Struct {
-  /// RTK control/result type
   external sol_t sol;
 
   @ffi.Array.multi([6])
@@ -8639,8 +8613,8 @@ class rtk_t extends ffi.Struct {
   external int initial_mode;
 }
 
+/// receiver raw data control type
 class raw_t extends ffi.Struct {
-  /// receiver raw data control type
   external gtime_t time;
 
   @ffi.Array.multi([204, 3])
@@ -8748,8 +8722,8 @@ class raw_t extends ffi.Struct {
   external ffi.Pointer<ffi.Void> rcv_data;
 }
 
+/// stream type
 class stream_t extends ffi.Struct {
-  /// stream type
   @ffi.Int32()
   external int type;
 
@@ -8870,8 +8844,8 @@ typedef LONG = ffi.Int64;
 typedef HANDLE = ffi.Pointer<ffi.Void>;
 typedef ULONG_PTR = ffi.Uint64;
 
+/// stream converter type
 class strconv_t extends ffi.Struct {
-  /// stream converter type
   @ffi.Int32()
   external int itype;
 
@@ -8908,8 +8882,8 @@ class strconv_t extends ffi.Struct {
   external rtcm_t out;
 }
 
+/// stream server type
 class strsvr_t extends ffi.Struct {
-  /// stream server type
   @ffi.Int32()
   external int state;
 
@@ -8969,8 +8943,8 @@ class strsvr_t extends ffi.Struct {
   external CRITICAL_SECTION lock;
 }
 
+/// RTK server type
 class rtksvr_t extends ffi.Struct {
-  /// RTK server type
   @ffi.Int32()
   external int state;
 
@@ -9101,13 +9075,14 @@ class rtksvr_t extends ffi.Struct {
   external CRITICAL_SECTION lock;
 }
 
+/// GIS data point type
 class gis_pnt_t extends ffi.Struct {
   @ffi.Array.multi([3])
   external ffi.Array<ffi.Double> pos;
 }
 
+/// GIS data polyline type
 class gis_poly_t extends ffi.Struct {
-  /// GIS data polyline type
   @ffi.Int32()
   external int npnt;
 
@@ -9118,8 +9093,8 @@ class gis_poly_t extends ffi.Struct {
   external ffi.Pointer<ffi.Double> pos;
 }
 
+/// GIS data polygon type
 class gis_polygon_t extends ffi.Struct {
-  /// GIS data polygon type
   @ffi.Int32()
   external int npnt;
 
@@ -9131,7 +9106,6 @@ class gis_polygon_t extends ffi.Struct {
 }
 
 class gisd_tag extends ffi.Struct {
-  /// GIS data list type
   @ffi.Int32()
   external int type;
 
@@ -9142,6 +9116,7 @@ class gisd_tag extends ffi.Struct {
   external ffi.Pointer<gisd_tag> next;
 }
 
+/// GIS type
 class gis_t extends ffi.Struct {
   @ffi.Array.multi([32, 256])
   external ffi.Array<ffi.Array<ffi.Int8>> name;
