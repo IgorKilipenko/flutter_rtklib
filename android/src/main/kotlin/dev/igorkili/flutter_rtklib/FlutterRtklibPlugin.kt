@@ -1,4 +1,4 @@
-package com.example.flutter_rtklib
+package dev.igorkili.flutter_rtklib
 
 import androidx.annotation.NonNull
 
