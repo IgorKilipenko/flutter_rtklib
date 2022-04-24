@@ -27,11 +27,17 @@
   typedefs:
     exclude:
       - '^_.*'
+  comments:
+    style: any
+    length: full
   compiler-opts:
-    - '-Wall -O3 -ansi -pedantic -Wno-unused-but-set-variable -DTRACE -DENAGLO -DENAQZS -DENACMP -DENAGAL -DENAIRN -DNFREQ=3 -DSVR_REUSEADDR -DWIN32 -g'
+    - '-Wall -O3 -ansi -pedantic -Wno-unused-but-set-variable -DTRACE -DFLUTTER_DEBUG -DENAGLO -DENAQZS -DENACMP -DENAGAL -DENAIRN -DNFREQ=3 -DSVR_REUSEADDR -g'
+    - '-IC:\msys64\mingw64\x86_64-w64-mingw32\include'
   preamble: |
     // Part of the LLVM Project, under the Apache License v2.0 with LLVM
     // Exceptions.
     // See https://llvm.org/LICENSE.txt for license information.
     // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
     // ignore_for_file: camel_case_types, non_constant_identifier_names
+  llvm_path:
+    - 'C:\Program Files\llvm'
