@@ -22,14 +22,17 @@
 
 cmake_minimum_required(VERSION 3.6)
 set(PROJECT_NAME "rtklib")
-#project(${PROJECT_NAME} LANGUAGES C)
+project(${PROJECT_NAME} LANGUAGES C)
 
 set(SRC_DIR "../../third_party/RTKLIB/src")
 #set(FFI_DIR ${SRC_DIR}/ffi_api)
 
 
-set(CTARGET -DTRACE -DENAGLO -DENAQZS -DENAGAL -DENACMP -DENAIRN -DNFREQ=3 -DNEXOBS=3)
-set(CFLAGS -O3 -ansi -pedantic -Wall -Wno-unused-but-set-variable -I${SRC_DIR} -DFLUTTER_DEBUG ${CTARGET} -g)
+set(CTARGET -DTRACE -DENAGLO -DENAQZS -DENAGAL -DENACMP -DENAIRN -DNFREQ=3 -DNEXOBS=3 -DFLUTTER_DEBUG)
+#set(CFLAGS -O3 -ansi -pedantic -Wall -Wno-unused-but-set-variable -I${SRC_DIR} -g)
+#set(CFLAGS -std=c11 -Wall -Wextra -pedantic -Wmissing-prototypes -Wshadow)
+set(CFLAGS -std=c11 -Wall -pedantic -Wmissing-prototypes)
+
 #set(LDLIBS  = -lm -lrt -lpthread)
 
 set(RTKLIB 
@@ -39,9 +42,14 @@ set(RTKLIB
  ${SRC_DIR}/rcv/rt17.c ${SRC_DIR}/ephemeris.c ${SRC_DIR}/rinex.c ${SRC_DIR}/ionex.c ${SRC_DIR}/rtcm2.c ${SRC_DIR}/rtcm3.c ${SRC_DIR}/rtcm3e.c 
  ${SRC_DIR}/tides.c ${SRC_DIR}/rcv/septentrio.c ${SRC_DIR}/rcv/swiftnav.c)
 
-set_source_files_properties(${RTKLIB}, PROPERTIES ${CFLAGS})
-include_directories(${SRC_DIR})
+#set_source_files_properties(${RTKLIB}, PROPERTIES ${CFLAGS})
+#include_directories(${SRC_DIR})
 add_library(${PROJECT_NAME} SHARED ${RTKLIB})
 #target_include_directories(${PROJECT_NAME} PRIVATE
 #  "${CMAKE_CURRENT_SOURCE_DIR}"
 #  "${CMAKE_CURRENT_SOURCE_DIR}/${SRC_DIR}")
+target_compile_options(${PROJECT_NAME} PRIVATE ${CFLAGS})
+target_compile_definitions(${PROJECT_NAME} PRIVATE ${CTARGET})
+target_include_directories(${PROJECT_NAME} PUBLIC
+  "${CMAKE_CURRENT_SOURCE_DIR}"
+  "${CMAKE_CURRENT_SOURCE_DIR}/${SRC_DIR}")
