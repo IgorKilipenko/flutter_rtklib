@@ -22,14 +22,14 @@
 
 cmake_minimum_required(VERSION 3.6)
 set(PROJECT_NAME "rtklib")
-project(${PROJECT_NAME} LANGUAGES C)
+#project(${PROJECT_NAME} LANGUAGES C)
 
 set(SRC_DIR "../../third_party/RTKLIB/src")
-set(FFI_DIR ${SRC_DIR}/ffi_api)
+#set(FFI_DIR ${SRC_DIR}/ffi_api)
 
 
-set(CTARGET -DENAGLO -DENAQZS -DENACMP -DENAGAL -DENAIRN -DNFREQ=3 -DSVR_REUSEADDR)
-set(CFLAGS -Wall -O3 -ansi -pedantic -Wno-unused-but-set-variable -I${SRC_DIR} -I.. -DTRACE ${CTARGET} -g)
+set(CTARGET -DTRACE -DENAGLO -DENAQZS -DENAGAL -DENACMP -DENAIRN -DNFREQ=3 -DNEXOBS=3)
+set(CFLAGS -O3 -ansi -pedantic -Wall -Wno-unused-but-set-variable -I${SRC_DIR} -DFLUTTER_DEBUG ${CTARGET} -g)
 #set(LDLIBS  = -lm -lrt -lpthread)
 
 set(RTKLIB 
