@@ -30,14 +30,24 @@
   comments:
     style: any
     length: full
+  typedef-map:
+    'time_t': 'Int32'
   compiler-opts:
-    - '-Wall -O3 -ansi -pedantic -Wno-unused-but-set-variable -DTRACE -DFLUTTER_DEBUG -DENAGLO -DENAQZS -DENACMP -DENAGAL -DENAIRN -DNFREQ=3 -DSVR_REUSEADDR -g'
-    - '-IC:\msys64\mingw64\x86_64-w64-mingw32\include'
+    - '-std=c11 -ansi -Wall -pedantic -Wmissing-prototypes'
+    - '-m32'
+    #- '-lm -lrt -lpthread'
+    - '-DTRACE -DENAGLO -DENAQZS -DENAGAL -DENACMP -DENAIRN -DNFREQ=5 -DNEXOBS=3'
+    - '-DFLUTTER_DEBUG'
+    - '-D_USE_32BIT_TIME_T'
+    #- '-IC:\msys64\mingw64\x86_64-w64-mingw32\include'
+    #- '-IC:\msys64\usr\include'
+    - '-IC:\Users\Igor\AppData\Local\Android\Sdk\ndk\21.1.6352462\sysroot\usr\include'
+    - '-g'
   preamble: |
     // Part of the LLVM Project, under the Apache License v2.0 with LLVM
     // Exceptions.
     // See https://llvm.org/LICENSE.txt for license information.
     // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
     // ignore_for_file: camel_case_types, non_constant_identifier_names
-  llvm_path:
+  llvm-path:
     - 'C:\Program Files\llvm'
