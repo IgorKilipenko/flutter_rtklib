@@ -41,12 +41,14 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 28
     }
 
     externalNativeBuild {
         cmake {
             path "rtklib/CMakeLists.txt"
+            //arguments '-DANDROID_TOOLCHAIN=gcc'
+            //arguments "-DANDROID_TOOLCHAIN=gcc"
         }
     }
 }
