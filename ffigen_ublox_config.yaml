@@ -27,6 +27,9 @@
   typedefs:
     exclude:
       - '^_.*'
+  comments:
+    style: any
+    length: full
   compiler-opts:
     - '-Wall -O3 -ansi -pedantic -Wno-unused-but-set-variable -DTRACE -DENAGLO -DENAQZS -DENACMP -DENAGAL -DENAIRN -DNFREQ=3 -DSVR_REUSEADDR -DWIN32'
     - '-I./third_party/RTKLIB/src/'
