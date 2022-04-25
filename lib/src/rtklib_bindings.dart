@@ -2,7 +2,7 @@
 // Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
-// ignore_for_file: camel_case_types, non_constant_identifier_names, constant_identifier_names
+// ignore_for_file: camel_case_types, non_constant_identifier_names
 
 // AUTO GENERATED FILE, DO NOT EDIT.
 //
@@ -6756,20 +6756,27 @@ class RtkLib {
       _lookup<ffi.NativeFunction<ffi.Void Function(gtime_t)>>('settime');
   late final _settime = _settimePtr.asFunction<void Function(gtime_t)>();
 
+  /// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  /// ! ADD FOR TRACE TO FLUTTER CONSOLE
   late final ffi.Pointer<
           ffi.Pointer<
-              ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Int8>)>>>
+              ffi.NativeFunction<
+                  ffi.Void Function(ffi.Pointer<ffi.Int8>, ffi.Uint64)>>>
       _flutter_print = _lookup<
           ffi.Pointer<
               ffi.NativeFunction<
-                  ffi.Void Function(ffi.Pointer<ffi.Int8>)>>>('flutter_print');
+                  ffi.Void Function(
+                      ffi.Pointer<ffi.Int8>, ffi.Uint64)>>>('flutter_print');
 
-  ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Int8>)>>
+  ffi.Pointer<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Pointer<ffi.Int8>, ffi.Uint64)>>
       get flutter_print => _flutter_print.value;
 
   set flutter_print(
           ffi.Pointer<
-                  ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Int8>)>>
+                  ffi.NativeFunction<
+                      ffi.Void Function(ffi.Pointer<ffi.Int8>, ffi.Uint64)>>
               value) =>
       _flutter_print.value = value;
 
@@ -6787,8 +6794,27 @@ class RtkLib {
   late final _flutter_printf =
       _flutter_printfPtr.asFunction<int Function(ffi.Pointer<ffi.Int8>)>();
 
+  int flutter_vprintf(
+    ffi.Pointer<ffi.Int8> format,
+    va_list args,
+  ) {
+    return _flutter_vprintf(
+      format,
+      args,
+    );
+  }
+
+  late final _flutter_vprintfPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int32 Function(
+              ffi.Pointer<ffi.Int8>, va_list)>>('flutter_vprintf');
+  late final _flutter_vprintf = _flutter_vprintfPtr
+      .asFunction<int Function(ffi.Pointer<ffi.Int8>, va_list)>();
+
   void flutter_initialize(
-    ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Int8>)>>
+    ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(ffi.Pointer<ffi.Int8>, ffi.Uint64)>>
         printCallback,
   ) {
     return _flutter_initialize(
@@ -6801,26 +6827,60 @@ class RtkLib {
           ffi.Void Function(
               ffi.Pointer<
                   ffi.NativeFunction<
-                      ffi.Void Function(
-                          ffi.Pointer<ffi.Int8>)>>)>>('flutter_initialize');
+                      ffi.Void Function(ffi.Pointer<ffi.Int8>,
+                          ffi.Uint64)>>)>>('flutter_initialize');
   late final _flutter_initialize = _flutter_initializePtr.asFunction<
       void Function(
           ffi.Pointer<
-              ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Int8>)>>)>();
+              ffi.NativeFunction<
+                  ffi.Void Function(ffi.Pointer<ffi.Int8>, ffi.Uint64)>>)>();
+
+  void set_level_trace(
+    int level,
+  ) {
+    return _set_level_trace(
+      level,
+    );
+  }
+
+  late final _set_level_tracePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int32)>>(
+          'set_level_trace');
+  late final _set_level_trace =
+      _set_level_tracePtr.asFunction<void Function(int)>();
+
+  /// @brief Create new raw controller
+  /// @param[in] format - [int] format raw data
+  /// @param[in, out] status - [uint32_t *] status code (0: memory allocation error, 1: success)
+  /// @return [raw_t *] pointer to raw_t instance
+  ffi.Pointer<raw2_t> create_raw(
+    int format,
+    ffi.Pointer<ffi.Uint32> status,
+  ) {
+    return _create_raw(
+      format,
+      status,
+    );
+  }
+
+  late final _create_rawPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<raw2_t> Function(
+              ffi.Int32, ffi.Pointer<ffi.Uint32>)>>('create_raw');
+  late final _create_raw = _create_rawPtr
+      .asFunction<ffi.Pointer<raw2_t> Function(int, ffi.Pointer<ffi.Uint32>)>();
 }
 
 /// time struct
 class gtime_t extends ffi.Struct {
   /// time (s) expressed by standard time_t
-  @time_t()
+  @ffi.Int32()
   external int time;
 
   /// fraction of second under 1 s
   @ffi.Double()
   external double sec;
 }
-
-typedef time_t = ffi.Int64;
 
 /// observation data record
 class obsd_t extends ffi.Struct {
@@ -6834,22 +6894,22 @@ class obsd_t extends ffi.Struct {
   @ffi.Uint8()
   external int rcv;
 
-  @ffi.Array.multi([3])
+  @ffi.Array.multi([8])
   external ffi.Array<ffi.Uint16> SNR;
 
-  @ffi.Array.multi([3])
+  @ffi.Array.multi([8])
   external ffi.Array<ffi.Uint8> LLI;
 
-  @ffi.Array.multi([3])
+  @ffi.Array.multi([8])
   external ffi.Array<ffi.Uint8> code;
 
-  @ffi.Array.multi([3])
+  @ffi.Array.multi([8])
   external ffi.Array<ffi.Double> L;
 
-  @ffi.Array.multi([3])
+  @ffi.Array.multi([8])
   external ffi.Array<ffi.Double> P;
 
-  @ffi.Array.multi([3])
+  @ffi.Array.multi([8])
   external ffi.Array<ffi.Float> D;
 
   /// time is valid (Valid GNSS fix) for time mark
@@ -6859,10 +6919,10 @@ class obsd_t extends ffi.Struct {
   /// time of event (GPST)
   external gtime_t eventime;
 
-  @ffi.Array.multi([3])
+  @ffi.Array.multi([8])
   external ffi.Array<ffi.Uint8> Lstd;
 
-  @ffi.Array.multi([3])
+  @ffi.Array.multi([8])
   external ffi.Array<ffi.Uint8> Pstd;
 
   /// GLONASS frequency channel (0-13)
@@ -6954,10 +7014,10 @@ class pcv_t extends ffi.Struct {
 
   external gtime_t te;
 
-  @ffi.Array.multi([3, 3])
+  @ffi.Array.multi([5, 3])
   external ffi.Array<ffi.Array<ffi.Double>> off;
 
-  @ffi.Array.multi([3, 19])
+  @ffi.Array.multi([5, 19])
   external ffi.Array<ffi.Array<ffi.Double>> var1;
 }
 
@@ -8045,16 +8105,16 @@ class rtcm_t extends ffi.Struct {
   @ffi.Int32()
   external int ephset;
 
-  @ffi.Array.multi([204, 3])
+  @ffi.Array.multi([204, 8])
   external ffi.Array<ffi.Array<ffi.Double>> cp;
 
-  @ffi.Array.multi([204, 3])
+  @ffi.Array.multi([204, 8])
   external ffi.Array<ffi.Array<ffi.Uint16>> lock;
 
-  @ffi.Array.multi([204, 3])
+  @ffi.Array.multi([204, 8])
   external ffi.Array<ffi.Array<ffi.Uint16>> loss;
 
-  @ffi.Array.multi([204, 3])
+  @ffi.Array.multi([204, 8])
   external ffi.Array<ffi.Array<gtime_t>> lltime;
 
   /// number of bytes in message buffer
@@ -8168,7 +8228,7 @@ class snrmask_t extends ffi.Struct {
   @ffi.Array.multi([2])
   external ffi.Array<ffi.Int32> ena;
 
-  @ffi.Array.multi([3, 9])
+  @ffi.Array.multi([5, 9])
   external ffi.Array<ffi.Array<ffi.Double>> mask;
 }
 
@@ -8293,7 +8353,7 @@ class prcopt_t extends ffi.Struct {
   @ffi.Int32()
   external int refpos;
 
-  @ffi.Array.multi([3])
+  @ffi.Array.multi([5])
   external ffi.Array<ffi.Double> eratio;
 
   @ffi.Array.multi([8])
@@ -8659,59 +8719,59 @@ class ssat_t extends ffi.Struct {
   @ffi.Array.multi([2])
   external ffi.Array<ffi.Double> azel;
 
-  @ffi.Array.multi([3])
+  @ffi.Array.multi([5])
   external ffi.Array<ffi.Double> resp;
 
-  @ffi.Array.multi([3])
+  @ffi.Array.multi([5])
   external ffi.Array<ffi.Double> resc;
 
-  @ffi.Array.multi([3])
+  @ffi.Array.multi([5])
   external ffi.Array<ffi.Double> icbias;
 
-  @ffi.Array.multi([3])
+  @ffi.Array.multi([5])
   external ffi.Array<ffi.Uint8> vsat;
 
-  @ffi.Array.multi([3])
+  @ffi.Array.multi([5])
   external ffi.Array<ffi.Uint16> snr_rover;
 
-  @ffi.Array.multi([3])
+  @ffi.Array.multi([5])
   external ffi.Array<ffi.Uint16> snr_base;
 
-  @ffi.Array.multi([3])
+  @ffi.Array.multi([5])
   external ffi.Array<ffi.Uint8> fix;
 
-  @ffi.Array.multi([3])
+  @ffi.Array.multi([5])
   external ffi.Array<ffi.Uint8> slip;
 
-  @ffi.Array.multi([3])
+  @ffi.Array.multi([5])
   external ffi.Array<ffi.Uint8> half;
 
-  @ffi.Array.multi([3])
+  @ffi.Array.multi([5])
   external ffi.Array<ffi.Int32> lock;
 
-  @ffi.Array.multi([3])
+  @ffi.Array.multi([5])
   external ffi.Array<ffi.Uint32> outc;
 
-  @ffi.Array.multi([3])
+  @ffi.Array.multi([5])
   external ffi.Array<ffi.Uint32> slipc;
 
-  @ffi.Array.multi([3])
+  @ffi.Array.multi([5])
   external ffi.Array<ffi.Uint32> rejc;
 
-  @ffi.Array.multi([2])
+  @ffi.Array.multi([4])
   external ffi.Array<ffi.Double> gf;
 
-  @ffi.Array.multi([2])
+  @ffi.Array.multi([4])
   external ffi.Array<ffi.Double> mw;
 
   /// phase windup (cycle)
   @ffi.Double()
   external double phw;
 
-  @ffi.Array.multi([2, 3])
+  @ffi.Array.multi([2, 5])
   external ffi.Array<ffi.Array<gtime_t>> pt;
 
-  @ffi.Array.multi([2, 3])
+  @ffi.Array.multi([2, 5])
   external ffi.Array<ffi.Array<ffi.Double>> ph;
 }
 
@@ -8808,7 +8868,7 @@ class raw_t extends ffi.Struct {
   /// message time
   external gtime_t time;
 
-  @ffi.Array.multi([204, 3])
+  @ffi.Array.multi([204, 8])
   external ffi.Array<ffi.Array<gtime_t>> tobs;
 
   /// observation data
@@ -8840,10 +8900,10 @@ class raw_t extends ffi.Struct {
   @ffi.Array.multi([204, 380])
   external ffi.Array<ffi.Array<ffi.Uint8>> subfrm;
 
-  @ffi.Array.multi([204, 3])
+  @ffi.Array.multi([204, 8])
   external ffi.Array<ffi.Array<ffi.Double>> lockt;
 
-  @ffi.Array.multi([204, 3])
+  @ffi.Array.multi([204, 8])
   external ffi.Array<ffi.Array<ffi.Uint8>> lockflag;
 
   @ffi.Array.multi([204])
@@ -8861,7 +8921,7 @@ class raw_t extends ffi.Struct {
   @ffi.Array.multi([204])
   external ffi.Array<ffi.Double> dpCA;
 
-  @ffi.Array.multi([204, 3])
+  @ffi.Array.multi([204, 8])
   external ffi.Array<ffi.Array<ffi.Uint8>> halfc;
 
   @ffi.Array.multi([96])
@@ -8908,6 +8968,115 @@ class raw_t extends ffi.Struct {
   /// receiver type within format
   @ffi.Int32()
   external int rcvtype;
+
+  /// receiver dependent data
+  external ffi.Pointer<ffi.Void> rcv_data;
+}
+
+class raw2_t extends ffi.Struct {
+  /// number of bytes in message buffer
+  @ffi.Int32()
+  external int nbyte;
+
+  /// receiver stream format
+  @ffi.Int32()
+  external int format;
+
+  /// receiver type within format
+  @ffi.Int32()
+  external int rcvtype;
+
+  /// message length (bytes)
+  @ffi.Int32()
+  external int len;
+
+  /// issue of data
+  @ffi.Int32()
+  external int iod;
+
+  /// time of day (ms)
+  @ffi.Int32()
+  external int tod;
+
+  /// time base (0:gpst,1:utc(usno),2:glonass,3:utc(su)
+  @ffi.Int32()
+  external int tbase;
+
+  /// general purpose flag
+  @ffi.Int32()
+  external int flag;
+
+  /// output message type
+  @ffi.Int32()
+  external int outtype;
+
+  /// message time
+  external gtime_t time;
+
+  /// update satelle of ephemeris (0:no satellite)
+  @ffi.Int32()
+  external int ephsat;
+
+  /// update set of ephemeris (0-1)
+  @ffi.Int32()
+  external int ephset;
+
+  @ffi.Array.multi([204, 8])
+  external ffi.Array<ffi.Array<gtime_t>> tobs;
+
+  /// observation data
+  external obs_t obs;
+
+  /// observation data buffer
+  external obs_t obuf;
+
+  /// satellite ephemerides
+  external nav_t nav;
+
+  /// station parameters
+  external sta_t sta;
+
+  /// SBAS message
+  external sbsmsg_t sbsmsg;
+
+  @ffi.Array.multi([256])
+  external ffi.Array<ffi.Int8> msgtype;
+
+  @ffi.Array.multi([204, 380])
+  external ffi.Array<ffi.Array<ffi.Uint8>> subfrm;
+
+  @ffi.Array.multi([204, 8])
+  external ffi.Array<ffi.Array<ffi.Double>> lockt;
+
+  @ffi.Array.multi([204, 8])
+  external ffi.Array<ffi.Array<ffi.Uint8>> lockflag;
+
+  @ffi.Array.multi([204])
+  external ffi.Array<ffi.Double> icpp;
+
+  @ffi.Array.multi([204])
+  external ffi.Array<ffi.Double> off;
+
+  @ffi.Double()
+  external double icpc;
+
+  @ffi.Array.multi([204])
+  external ffi.Array<ffi.Double> prCA;
+
+  @ffi.Array.multi([204])
+  external ffi.Array<ffi.Double> dpCA;
+
+  @ffi.Array.multi([204, 8])
+  external ffi.Array<ffi.Array<ffi.Uint8>> halfc;
+
+  @ffi.Array.multi([96])
+  external ffi.Array<ffi.Int8> freqn;
+
+  @ffi.Array.multi([16384])
+  external ffi.Array<ffi.Uint8> buff;
+
+  @ffi.Array.multi([256])
+  external ffi.Array<ffi.Int8> opt;
 
   /// receiver dependent data
   external ffi.Pointer<ffi.Void> rcv_data;
@@ -8961,8 +9130,7 @@ class stream_t extends ffi.Struct {
   external int outbt;
 
   /// lock flag
-  @pthread_mutex_t()
-  external int lock;
+  external pthread_mutex_t lock;
 
   /// type dependent port control struct
   external ffi.Pointer<ffi.Void> port;
@@ -8974,7 +9142,10 @@ class stream_t extends ffi.Struct {
   external ffi.Array<ffi.Int8> msg;
 }
 
-typedef pthread_mutex_t = ffi.IntPtr;
+class pthread_mutex_t extends ffi.Struct {
+  @ffi.Array.multi([1])
+  external ffi.Array<ffi.Int32> __private;
+}
 
 /// stream converter type
 class strconv_t extends ffi.Struct {
@@ -9075,18 +9246,10 @@ class strsvr_t extends ffi.Struct {
   external int thread;
 
   /// lock flag
-  @pthread_mutex_t()
-  external int lock;
+  external pthread_mutex_t lock;
 }
 
-/// struct _pthread_v;
-///
-/// typedef struct pthread_t {
-/// struct _pthread_v *p;
-/// int x;
-/// } pthread_t;
-typedef pthread_t = uintptr_t;
-typedef uintptr_t = ffi.Uint64;
+typedef pthread_t = ffi.Int64;
 
 /// RTK server type
 class rtksvr_t extends ffi.Struct {
@@ -9219,8 +9382,7 @@ class rtksvr_t extends ffi.Struct {
   external double bl_reset;
 
   /// lock flag
-  @pthread_mutex_t()
-  external int lock;
+  external pthread_mutex_t lock;
 }
 
 /// GIS data point type
@@ -9285,33 +9447,13 @@ class gis_t extends ffi.Struct {
 
 /// GIS data list type
 typedef gisd_t = gisd_tag;
-typedef FILE = _iobuf;
+typedef FILE = __sFILE;
 
-class _iobuf extends ffi.Struct {
-  external ffi.Pointer<ffi.Int8> _ptr;
-
-  @ffi.Int32()
-  external int _cnt;
-
-  external ffi.Pointer<ffi.Int8> _base;
-
-  @ffi.Int32()
-  external int _flag;
-
-  @ffi.Int32()
-  external int _file;
-
-  @ffi.Int32()
-  external int _charbuf;
-
-  @ffi.Int32()
-  external int _bufsiz;
-
-  external ffi.Pointer<ffi.Int8> _tmpfname;
-}
+class __sFILE extends ffi.Opaque {}
 
 typedef fatalfunc_t
     = ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Int8>)>;
+typedef va_list = ffi.Pointer<ffi.Int8>;
 
 const String VER_RTKLIB = 'demo5';
 
@@ -9427,8 +9569,6 @@ const int TSYS_CMP = 5;
 const int TSYS_IRN = 6;
 
 const int NFREQGLO = 2;
-
-const int NEXOBS = 0;
 
 const double SNR_UNIT = 0.001;
 
