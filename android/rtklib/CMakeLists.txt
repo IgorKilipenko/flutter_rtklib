@@ -28,7 +28,7 @@ set(SRC_DIR "../../third_party/RTKLIB/src")
 #set(FFI_DIR ${SRC_DIR}/ffi_api)
 
 
-set(CTARGET -DTRACE -DENAGLO -DENAQZS -DENAGAL -DENACMP -DENAIRN -DNFREQ=3 -DNEXOBS=3 -DFLUTTER_DEBUG)
+set(CTARGET -DTRACE -DENAGLO -DENAQZS -DENAGAL -DENACMP -DENAIRN -DNFREQ=5 -DNEXOBS=3 -DFLUTTER_DEBUG -D_USE_32BIT_TIME_T)
 #set(CFLAGS -O3 -ansi -pedantic -Wall -Wno-unused-but-set-variable -I${SRC_DIR} -g)
 #set(CFLAGS -std=c11 -Wall -Wextra -pedantic -Wmissing-prototypes -Wshadow)
 set(CFLAGS -std=c11 -Wall -pedantic -Wmissing-prototypes)
@@ -50,6 +50,7 @@ add_library(${PROJECT_NAME} SHARED ${RTKLIB})
 #  "${CMAKE_CURRENT_SOURCE_DIR}/${SRC_DIR}")
 target_compile_options(${PROJECT_NAME} PRIVATE ${CFLAGS})
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${CTARGET})
-target_include_directories(${PROJECT_NAME} PUBLIC
+#target_link_libraries(${PROJECT_NAME} PUBLIC ${LDLIBS})
+target_include_directories(${PROJECT_NAME} PRIVATE
   "${CMAKE_CURRENT_SOURCE_DIR}"
   "${CMAKE_CURRENT_SOURCE_DIR}/${SRC_DIR}")
