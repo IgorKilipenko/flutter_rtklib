@@ -6811,6 +6811,42 @@ class RtkLib {
   late final _flutter_vprintf = _flutter_vprintfPtr
       .asFunction<int Function(ffi.Pointer<ffi.Int8>, va_list)>();
 
+  int flutter_trace(
+    int level,
+    ffi.Pointer<ffi.Int8> format,
+  ) {
+    return _flutter_trace(
+      level,
+      format,
+    );
+  }
+
+  late final _flutter_tracePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int32 Function(
+              ffi.Int32, ffi.Pointer<ffi.Int8>)>>('flutter_trace');
+  late final _flutter_trace =
+      _flutter_tracePtr.asFunction<int Function(int, ffi.Pointer<ffi.Int8>)>();
+
+  int flutter_vtrace(
+    int level,
+    ffi.Pointer<ffi.Int8> format,
+    va_list args,
+  ) {
+    return _flutter_vtrace(
+      level,
+      format,
+      args,
+    );
+  }
+
+  late final _flutter_vtracePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int32 Function(
+              ffi.Int32, ffi.Pointer<ffi.Int8>, va_list)>>('flutter_vtrace');
+  late final _flutter_vtrace = _flutter_vtracePtr
+      .asFunction<int Function(int, ffi.Pointer<ffi.Int8>, va_list)>();
+
   void flutter_initialize(
     ffi.Pointer<
             ffi.NativeFunction<
@@ -6853,7 +6889,7 @@ class RtkLib {
   /// @param[in] format - [int] format raw data
   /// @param[in, out] status - [uint32_t *] status code (0: memory allocation error, 1: success)
   /// @return [raw_t *] pointer to raw_t instance
-  ffi.Pointer<raw2_t> create_raw(
+  ffi.Pointer<raw_t> create_raw(
     int format,
     ffi.Pointer<ffi.Uint32> status,
   ) {
@@ -6865,10 +6901,10 @@ class RtkLib {
 
   late final _create_rawPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Pointer<raw2_t> Function(
+          ffi.Pointer<raw_t> Function(
               ffi.Int32, ffi.Pointer<ffi.Uint32>)>>('create_raw');
   late final _create_raw = _create_rawPtr
-      .asFunction<ffi.Pointer<raw2_t> Function(int, ffi.Pointer<ffi.Uint32>)>();
+      .asFunction<ffi.Pointer<raw_t> Function(int, ffi.Pointer<ffi.Uint32>)>();
 }
 
 /// time struct
@@ -8968,115 +9004,6 @@ class raw_t extends ffi.Struct {
   /// receiver type within format
   @ffi.Int32()
   external int rcvtype;
-
-  /// receiver dependent data
-  external ffi.Pointer<ffi.Void> rcv_data;
-}
-
-class raw2_t extends ffi.Struct {
-  /// number of bytes in message buffer
-  @ffi.Int32()
-  external int nbyte;
-
-  /// receiver stream format
-  @ffi.Int32()
-  external int format;
-
-  /// receiver type within format
-  @ffi.Int32()
-  external int rcvtype;
-
-  /// message length (bytes)
-  @ffi.Int32()
-  external int len;
-
-  /// issue of data
-  @ffi.Int32()
-  external int iod;
-
-  /// time of day (ms)
-  @ffi.Int32()
-  external int tod;
-
-  /// time base (0:gpst,1:utc(usno),2:glonass,3:utc(su)
-  @ffi.Int32()
-  external int tbase;
-
-  /// general purpose flag
-  @ffi.Int32()
-  external int flag;
-
-  /// output message type
-  @ffi.Int32()
-  external int outtype;
-
-  /// message time
-  external gtime_t time;
-
-  /// update satelle of ephemeris (0:no satellite)
-  @ffi.Int32()
-  external int ephsat;
-
-  /// update set of ephemeris (0-1)
-  @ffi.Int32()
-  external int ephset;
-
-  @ffi.Array.multi([204, 8])
-  external ffi.Array<ffi.Array<gtime_t>> tobs;
-
-  /// observation data
-  external obs_t obs;
-
-  /// observation data buffer
-  external obs_t obuf;
-
-  /// satellite ephemerides
-  external nav_t nav;
-
-  /// station parameters
-  external sta_t sta;
-
-  /// SBAS message
-  external sbsmsg_t sbsmsg;
-
-  @ffi.Array.multi([256])
-  external ffi.Array<ffi.Int8> msgtype;
-
-  @ffi.Array.multi([204, 380])
-  external ffi.Array<ffi.Array<ffi.Uint8>> subfrm;
-
-  @ffi.Array.multi([204, 8])
-  external ffi.Array<ffi.Array<ffi.Double>> lockt;
-
-  @ffi.Array.multi([204, 8])
-  external ffi.Array<ffi.Array<ffi.Uint8>> lockflag;
-
-  @ffi.Array.multi([204])
-  external ffi.Array<ffi.Double> icpp;
-
-  @ffi.Array.multi([204])
-  external ffi.Array<ffi.Double> off;
-
-  @ffi.Double()
-  external double icpc;
-
-  @ffi.Array.multi([204])
-  external ffi.Array<ffi.Double> prCA;
-
-  @ffi.Array.multi([204])
-  external ffi.Array<ffi.Double> dpCA;
-
-  @ffi.Array.multi([204, 8])
-  external ffi.Array<ffi.Array<ffi.Uint8>> halfc;
-
-  @ffi.Array.multi([96])
-  external ffi.Array<ffi.Int8> freqn;
-
-  @ffi.Array.multi([16384])
-  external ffi.Array<ffi.Uint8> buff;
-
-  @ffi.Array.multi([256])
-  external ffi.Array<ffi.Int8> opt;
 
   /// receiver dependent data
   external ffi.Pointer<ffi.Void> rcv_data;

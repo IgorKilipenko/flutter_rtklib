@@ -37,84 +37,67 @@ class UbloxImpl {
   }
 
   UbloxImpl() {
-    //ublox = dylibUblox;
-    //raw.value = ffi.calloc<rtklib.raw_t>();
-
-    //print('IN : ADRESS -> ${raw.value.address}');
-    //print('IN : DATA ADRESS -> ${raw.value.ref.obs.data.address}');
-    //raw.value.ref.
-
-/*
-    _rtkInstance ??= dylibRtklib;
-    if (_rtkInstance!.init_raw_2(raw, rtklib.STRFMT_UBX) == 0) {
-      //ffi.calloc.free(raw);
-      throw Exception('Memory allocation error');
-    }
-
-*/
-    //__obs = raw.ref.obs;
-    //print('OUT : ADRESS -> ${raw.value.address}');
-    //print('OUT : DATA ADRESS -> ${raw.value.ref.obs.data.address}');
-
     _rtkInstance!.flutter_initialize(wrappedPrintPointer);
-    _rtkInstance!.set_level_trace(5);
+    _rtkInstance!.set_level_trace(2);
   }
 
-  //var raw = ffi.calloc<ffi.Pointer<rtklib.raw_t>>();
-  //var sss = ffi.malloc<rtklib.raw_t>();
-  //ffi.malloc.allocate<rtklib.raw_t>(ffi.sizeOf<rtklib.raw_t>());
-  //late rtklib.obs_t __obs;
 
-/*
-  int test_input_ubx(int data) {
-    var _raw = ffi.Pointer<rtklib.raw_t>.fromAddress(
-        raw.value.address); //raw.value.ref;
-    print(_raw.ref.nbyte);
-    print(raw.value.ref.icpc);
-    //print(sss.ref.nbyte);
-    final status = _rtkInstance!.input_ubx(_raw, data);
+  int _input_ubx(ffi.Pointer<rtklib.raw_t> raw, int data) {
+    final status = _rtkInstance!.input_ubx(raw, data);
     if (status == -1) {
-      const String msg = 'Error';
-      //ffi.calloc.free(raw);
-      //throw Exception(msg);
-    }
-    //_raw = raw.value.ref;
-
-    if (_raw.ref.nbyte > 0) {
-      print('!!!!!!!!!!!!!!!!!!');
+      return -1;
     }
     // -1: error message, 0: no message, 1: input observation data, 2: input ephemeris, 3: input sbas message, 9: input ion/utc parameter
     switch (status) {
       case 0: // 0: no message
         return 0;
       case 1: // 1: input observation data
-        final obs = ObservationControllerImpl._(_raw.ref.obs);
-        //_obsSreamController.add(obs);
-        print(obs.toString());
+        final obs = ObservationControllerImpl._(raw.ref.obs);
+        //final obsPtr = ffi.calloc<rtklib.obs_t>()..ref = raw.ref.obs.data;
+        _obsSreamController.add(obs);
+        //!print(obs.toString());
+        _rtkInstance!.traceobs(2, raw.ref.obs.data, raw.ref.obs.n);
         return 1;
       case 2: // 2: input ephemeris
-        return _raw.ref.ephsat;
+        return raw.ref.ephsat;
     }
     return -1;
-  }*/
+  }
+
+  void input_ubx(Uint8List buffer) {
+    final raw = ffi.calloc<rtklib.raw_t>();
+    final initStatus = _rtkInstance!.init_raw(raw, rtklib.STRFMT_UBX);
+    if (initStatus == 0) {
+      const String msg = 'Error';
+      _rtkInstance!.free_raw(raw);
+      ffi.calloc.free(raw);
+      throw Exception(msg);
+    }
+
+    for (int i = 0; i < buffer.length; i++) {
+      final inputStatus = _input_ubx(raw, buffer[i]);
+      if (inputStatus == -1) {
+        continue;
+      }
+    }
+  }
 
   int test_input_ubx2(Uint8List buffer) {
     using((Arena arena) {
       final rawPrt = arena.allocate<rtklib.raw_t>(ffi.sizeOf<rtklib.raw_t>());
       print(rawPrt);
-      final initRes = _rtkInstance!.init_raw(rawPrt, 4 /*rtklib.STRFMT_UBX*/);
+      final initRes = _rtkInstance!.init_raw(rawPrt, rtklib.STRFMT_UBX);
       print('return : ${initRes.toString()}');
       print('nbyte : ${rawPrt.elementAt(0).ref.nbyte}');
       print(rawPrt);
-      /*for (int i = 0; i < buffer.length; i++) {
-        
+      for (int i = 0; i < buffer.length; i++) {
         if (initRes == 1) {
           if (kDebugMode) {
             print('return : ${initRes.toString()}');
             print('nbyte : ${rawPrt.ref.nbyte}');
           }
         }
-      }*/
+      }
     });
 
     return 0;
@@ -158,9 +141,9 @@ class UbloxImpl {
   int test_input_ubx5(Uint8List buffer) {
     final statusPtr = ffi.calloc<ffi.Uint32>(1);
     print('status : ${statusPtr.value}');
-    
+
     print('gtime_t size: ${ffi.sizeOf<rtklib.gtime_t>()}');
-    print('raw_t size: ${ffi.sizeOf<rtklib.raw2_t>()}');
+    print('raw_t size: ${ffi.sizeOf<rtklib.raw_t>()}');
 
     final rawVal = _rtkInstance!.create_raw(4, statusPtr).ref;
     print('status : ${statusPtr.value}');
@@ -221,25 +204,6 @@ class ObservationControllerImpl {
     }
     return res;
   }
-
-/*
-  extern void traceobs(int level, const obsd_t *obs, int n)
-{
-    char str[64],id[16];
-    int i;
-    
-    if (!fp_trace||level>level_trace) return;
-    for (i=0;i<n;i++) {
-        time2str(obs[i].time,str,3);
-        satno2id(obs[i].sat,id);
-        fprintf(fp_trace," (%2d) %s %-3s rcv%d %13.3f %13.3f %13.3f %13.3f %d %d %d %d %x %x %3.1f %3.1f\n",
-              i+1,str,id,obs[i].rcv,obs[i].L[0],obs[i].L[1],obs[i].P[0],
-              obs[i].P[1],obs[i].LLI[0],obs[i].LLI[1],obs[i].code[0],
-              obs[i].code[1],obs[i].Lstd[0],obs[i].Pstd[0],obs[i].SNR[0]*SNR_UNIT,obs[i].SNR[1]*SNR_UNIT);
-    }
-    fflush(fp_trace);
-  }*/
-
 }
 
 

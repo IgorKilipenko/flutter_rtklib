@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
       }
     }).listen((obs) {
       if (kDebugMode) {
-        print(obs.toString());
+        //print(obs.toString());
       }
     });
     testUbx2();
@@ -87,10 +87,10 @@ class _MyAppState extends State<MyApp> {
   */
 
   Future<void> testUbx2() async {
-    final bytes = await rootBundle.load('assets/data/RAW_15.UBX');
+    final bytes = await rootBundle.load('assets/data/ubx_20080526.ubx');
     final buffer =
         bytes.buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes);
-    widget.ublox.test_input_ubx5(buffer);
+    widget.ublox.input_ubx(buffer);
   }
 
   @override
