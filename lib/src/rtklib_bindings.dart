@@ -3693,23 +3693,6 @@ class RtkLib {
   late final _init_raw =
       _init_rawPtr.asFunction<int Function(ffi.Pointer<raw_t>, int)>();
 
-  int init_raw_2(
-    ffi.Pointer<ffi.Pointer<raw_t>> raw,
-    int format,
-  ) {
-    return _init_raw_2(
-      raw,
-      format,
-    );
-  }
-
-  late final _init_raw_2Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Pointer<raw_t>>, ffi.Int32)>>('init_raw_2');
-  late final _init_raw_2 = _init_raw_2Ptr
-      .asFunction<int Function(ffi.Pointer<ffi.Pointer<raw_t>>, int)>();
-
   void free_raw(
     ffi.Pointer<raw_t> raw,
   ) {
@@ -6885,6 +6868,45 @@ class RtkLib {
   late final _set_level_trace =
       _set_level_tracePtr.asFunction<void Function(int)>();
 
+  /// @brief Convert obs to string
+  /// @param[in] obs - [obsd_t *] observation
+  /// @param[out] strLen - [size_t *] output string length
+  /// @return [char*] result string
+  ffi.Pointer<ffi.Int8> obs2str(
+    ffi.Pointer<obsd_t> obs,
+    ffi.Pointer<size_t> strLen,
+  ) {
+    return _obs2str(
+      obs,
+      strLen,
+    );
+  }
+
+  late final _obs2strPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Int8> Function(
+              ffi.Pointer<obsd_t>, ffi.Pointer<size_t>)>>('obs2str');
+  late final _obs2str = _obs2strPtr.asFunction<
+      ffi.Pointer<ffi.Int8> Function(
+          ffi.Pointer<obsd_t>, ffi.Pointer<size_t>)>();
+
+  int obs2str2(
+    ffi.Pointer<obsd_t> obs,
+    ffi.Pointer<ffi.Pointer<ffi.Int8>> outStr,
+  ) {
+    return _obs2str2(
+      obs,
+      outStr,
+    );
+  }
+
+  late final _obs2str2Ptr = _lookup<
+      ffi.NativeFunction<
+          size_t Function(ffi.Pointer<obsd_t>,
+              ffi.Pointer<ffi.Pointer<ffi.Int8>>)>>('obs2str2');
+  late final _obs2str2 = _obs2str2Ptr.asFunction<
+      int Function(ffi.Pointer<obsd_t>, ffi.Pointer<ffi.Pointer<ffi.Int8>>)>();
+
   /// @brief Create new raw controller
   /// @param[in] format - [int] format raw data
   /// @param[in, out] status - [uint32_t *] status code (0: memory allocation error, 1: success)
@@ -6905,6 +6927,23 @@ class RtkLib {
               ffi.Int32, ffi.Pointer<ffi.Uint32>)>>('create_raw');
   late final _create_raw = _create_rawPtr
       .asFunction<ffi.Pointer<raw_t> Function(int, ffi.Pointer<ffi.Uint32>)>();
+
+  int init_raw_2(
+    ffi.Pointer<ffi.Pointer<raw_t>> raw,
+    int format,
+  ) {
+    return _init_raw_2(
+      raw,
+      format,
+    );
+  }
+
+  late final _init_raw_2Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int32 Function(
+              ffi.Pointer<ffi.Pointer<raw_t>>, ffi.Int32)>>('init_raw_2');
+  late final _init_raw_2 = _init_raw_2Ptr
+      .asFunction<int Function(ffi.Pointer<ffi.Pointer<raw_t>>, int)>();
 }
 
 /// time struct
@@ -9381,6 +9420,7 @@ class __sFILE extends ffi.Opaque {}
 typedef fatalfunc_t
     = ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Int8>)>;
 typedef va_list = ffi.Pointer<ffi.Int8>;
+typedef size_t = ffi.Uint32;
 
 const String VER_RTKLIB = 'demo5';
 
