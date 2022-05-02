@@ -4,8 +4,10 @@
   headers:
     entry-points:
       - 'third_party/RTKLIB/src/rtklib.h'
+      - 'third_party/rtklib_wraps/utils.h'
     include-directives:
       - '**rtklib.h'
+      - '**utils.h'
   functions:
     exclude:
       - '^_.*'
@@ -35,13 +37,13 @@
   compiler-opts:
     - '-std=c11 -ansi -Wall -pedantic -Wmissing-prototypes'
     - '-m32'
-    #- '-lm -lrt -lpthread'
     - '-DTRACE -DENAGLO -DENAQZS -DENAGAL -DENACMP -DENAIRN -DNFREQ=5 -DNEXOBS=3'
     - '-DFLUTTER_DEBUG'
     - '-D_USE_32BIT_TIME_T'
     #- '-IC:\msys64\mingw64\x86_64-w64-mingw32\include'
     #- '-IC:\msys64\usr\include'
     - '-IC:\Users\Igor\AppData\Local\Android\Sdk\ndk\21.1.6352462\sysroot\usr\include'
+    - '-Ithird_party\RTKLIB\src\'
     - '-g'
   preamble: |
     // Part of the LLVM Project, under the Apache License v2.0 with LLVM
