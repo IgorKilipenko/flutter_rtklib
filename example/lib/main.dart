@@ -90,7 +90,7 @@ class _MyAppState extends State<MyApp> {
     final bytes = await rootBundle.load('assets/data/ubx_20080526.ubx');
     final buffer =
         bytes.buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes);
-    widget.ublox.input_ubx(buffer);
+    widget.ublox.decodeUbx(buffer);
   }
 
   @override
