@@ -4,10 +4,10 @@ project(${PROJECT_NAME} LANGUAGES CXX)
 
 # This value is used when generating builds using this plugin, so it must
 # not be changed
-set(PLUGIN_NAME "flutter_rtklib_plugin")
+set(PLUGIN_NAME "${PROJECT_NAME}_plugin")
 
 add_library(${PLUGIN_NAME} SHARED
-  "flutter_rtklib_plugin.cc"
+  "${PLUGIN_NAME}.cc"
 )
 apply_standard_settings(${PLUGIN_NAME})
 set_target_properties(${PLUGIN_NAME} PROPERTIES
@@ -20,6 +20,8 @@ target_link_libraries(${PLUGIN_NAME} PRIVATE PkgConfig::GTK)
 
 # List of absolute paths to libraries that should be bundled with the plugin
 set(flutter_rtklib_bundled_libraries
-  ""
+  "$<TARGET_FILE:rtklib>"
   PARENT_SCOPE
 )
+
+add_subdirectory(rtklib)
