@@ -3,7 +3,7 @@
 import 'dart:typed_data';
 import 'dart:math';
 
-import 'package:flutter_rtklib/src/rcv/ublox/class_ids.dart';
+import 'package:flutter_rtklib/src/ublox_interface/class_ids.dart';
 
 const MAX_MSG_LEN = 8192;
 const HEADER_BYTES = [181, 98];
@@ -38,7 +38,7 @@ class UbxDecoder {
     return buffer[0] == HEADER_BYTES[0] && buffer[1] == HEADER_BYTES[1];
   }
 
-  dynamic decodePvtMsg(UbxPacket ubxPacket) {
+  PvtMessage? decodePvtMsg(UbxPacket ubxPacket) {
     if (ubxPacket.payloadLength < 92) {
       print('Warn decode PVT message, payload length < 92');
       return null;
@@ -47,8 +47,8 @@ class UbxDecoder {
     var payload = ubxPacket.payload;
 
     final PvtMessage pvtMsg = PvtMessage.init(
-      classId: ClassIds['NAV'],
-      msgId: NavMessageIds['PVT'],
+      classId: ClassIds.NAV,
+      msgId: NavMessageIds.PVT,
       iTow: payload.getUint32(0, Endian.little),
       year: payload.getUint16(4, Endian.little),
       month: payload.getUint8(6),
@@ -111,8 +111,8 @@ class UbxDecoder {
             _cloneByteBuffer(_uintBuffer.buffer, 0, _length)));
         if (ubxPacket != null) {
           //////this.emit(UbxDecoder._emits.ubxPacket, ubxPacket);
-          if (ubxPacket.classId == ClassIds['NAV']) {
-            if (ubxPacket.msgId == NavMessageIds['PVT']) {
+          if (ubxPacket.classId == ClassIds.NAV) {
+            if (ubxPacket.msgId == NavMessageIds.PVT) {
               var pvtMsg = decodePvtMsg(ubxPacket);
               if (pvtMsg != null) {
                 /////this.emit(
