@@ -64,13 +64,13 @@ class ConfigurationSettings {
 }*/
 
 // CFG-BDS: BeiDou system configuration
-class BDS {
+class CFG_BDS {
   /// Use BeiDou geostationary satellites (PRN 1-5)
   static final Uint32 USE_PRN_1_TO_5 = 0x10340014 as Uint32;
 }
 
 // CFG-HW: Hardware configuration
-class HW {
+class CFG_HW {
   /// Active antenna voltage control flag
   static final Uint32 ANT_CFG_VOLTCTRL = 0x10a3002e as Uint32;
 
@@ -115,7 +115,7 @@ class HW {
 }
 
 // CFG-I2C: Configuration of the I2C interface
-class I2C {
+class CFG_I2C {
   /// I2C slave address of the receiver (7 bits)
   static final Uint32 ADDRESS = 0x20510001 as Uint32;
 
@@ -127,7 +127,7 @@ class I2C {
 }
 
 // CFG-I2CINPROT: Input protocol configuration of the I2C interface
-class I2CINPROT {
+class CFG_I2CINPROT {
   /// Flag to indicate if UBX should be an input protocol on I2C
   static final Uint32 UBX = 0x10710001 as Uint32;
 
@@ -142,7 +142,7 @@ class I2CINPROT {
 }
 
 // CFG-I2COUTPROT: Output protocol configuration of the I2C interface
-class I2COUTPROT {
+class CFG_I2COUTPROT {
   /// Flag to indicate if UBX should be an output protocol on I2C
   static final Uint32 UBX = 0x10720001 as Uint32;
 
@@ -154,7 +154,7 @@ class I2COUTPROT {
 }
 
 // CFG-INFMSG: Information message configuration
-class INFMSG {
+class CFG_INFMSG {
   /// Information message enable flags for the UBX protocol on the I2C interface
   static final Uint32 UBX_I2C = 0x20920001 as Uint32;
 
@@ -187,7 +187,7 @@ class INFMSG {
 }
 
 // CFG-ITFM: Jamming and interference monitor configuration
-class ITFM {
+class CFG_ITFM {
   /// Broadband jamming detection threshold
   static final Uint32 BBTHRESHOLD = 0x20410001 as Uint32;
 
@@ -205,7 +205,7 @@ class ITFM {
 }
 
 /// CFG-LOGFILTER: Data logger configuration
-class LOGFILTER {
+class CFG_LOGFILTER {
   /// Recording enabled
   static final Uint32 UBLOX_CFG_LOGFILTER_RECORD_ENA = 0x10de0002 as Uint32;
 
@@ -231,7 +231,7 @@ class LOGFILTER {
 }
 
 /// CFG-MOT: Motion detector configuration
-class MOT {
+class CFG_MOT {
   /// GNSS speed threshold below which platform is considered as stationary (a.k.a. static hold threshold)
   static final Uint32 GNSSSPEED_THRS = 0x20250038 as Uint32;
 
@@ -240,7 +240,7 @@ class MOT {
 }
 
 /// Additional CFG_MSGOUT keys for the ZED-F9R HPS121
-class MSGOUT_AdditionalZED_F9R_HPS121 {
+class CFG_MSGOUT_AdditionalZED_F9R_HPS121 {
   /// Output rate of the UBX-NAV-COV message on port I2C
   static final Uint32 UBX_NAV_COV_I2C = 0x20910083 as Uint32;
 
@@ -378,7 +378,7 @@ class MSGOUT_AdditionalZED_F9R_HPS121 {
 }
 
 /// Additional CFG_MSGOUT keys for the ZED-F9T
-class MSGOUT_AdditionalZED_F9T {
+class CFG_MSGOUT_AdditionalZED_F9T {
   /// Output rate of the NMEA-NAV2-GX-GGA message on port I2C
   static final Uint32 NMEA_NAV2_ID_GGA_I2C = 0x20910661 as Uint32;
 
@@ -891,7 +891,7 @@ class MSGOUT_AdditionalZED_F9T {
 }
 
 /// Additional CFG_MSGOUT keys for the NEO-D9S
-class MSGOUT_AdditionalNEO_D9S {
+class CFG_MSGOUT_AdditionalNEO_D9S {
   /// Output rate of the UBX_RXM_PMP message on port I2C
   static final Uint32 UBX_RXM_PMP_I2C = 0x2091031d as Uint32;
 
@@ -924,7 +924,7 @@ class MSGOUT_AdditionalNEO_D9S {
 }
 
 /// CFG-NAV2: Secondary output configuration
-class NAV2 {
+class CFG_NAV2 {
   /// Enable secondary (NAV2) output
   static final Uint32 OUT_ENABLED = 0x10170001 as Uint32;
 
@@ -933,13 +933,13 @@ class NAV2 {
 }
 
 /// CFG-NAVHPG: High precision navigation configuration
-class NAVHPG {
+class CFG_NAVHPG {
   /// Diﬀerential corrections mode
   static final Uint32 DGNSSMODE = 0x20140011 as Uint32;
 }
 
 /// CFG-NAVSPG: Standard precision navigation configuration
-class NAVSPG {
+class CFG_NAVSPG {
   /// Position fix mode
   static final Uint32 FIXMODE = 0x20110011 as Uint32;
 
@@ -1041,7 +1041,7 @@ class NAVSPG {
 }
 
 /// CFG-NMEA: NMEA protocol configuration
-class NMEA {
+class CFG_NMEA {
   /// NMEA protocol version
   static final Uint32 PROTVER = 0x20930001 as Uint32;
 
@@ -1110,7 +1110,7 @@ class NMEA {
 }
 
 /// CFG-ODO: Odometer and low-speed course over ground filter
-class ODO {
+class CFG_ODO {
   /// Use odometer
   static final Uint32 USE_ODO = 0x10220001 as Uint32;
 
@@ -1140,7 +1140,7 @@ class ODO {
 }
 
 /// CFG-PM: Configuration for receiver power management (NEO-D9S)
-class PM {
+class CFG_PM {
   /// EXTINT pin select
   static final Uint32 EXTINTSEL = 0x20d0000b as Uint32;
 
@@ -1158,7 +1158,7 @@ class PM {
 }
 
 /// CFG-PMP: Point to multipoint (PMP) configuration (NEO-D9S)
-class PMP {
+class CFG_PMP {
   /// Center frequency. The center frequency for the receiver can be set from 1525000000 to 1559000000 Hz.
   static final Uint32 CENTER_FREQUENCY = 0x40b10011 as Uint32;
 
@@ -1188,7 +1188,7 @@ class PMP {
 }
 
 /// CFG-QZSS: QZSS system configuration
-class QZSS {
+class CFG_QZSS {
   /// Apply QZSS SLAS DGNSS corrections
   static final Uint32 USE_SLAS_DGNSS = 0x10370005 as Uint32;
 
@@ -1203,7 +1203,7 @@ class QZSS {
 }
 
 /// CFG-RATE: Navigation and measurement rate configuration
-class RATE {
+class CFG_RATE {
   /// Nominal time between GNSS measurements
   static final Uint32 MEAS = 0x30210001 as Uint32;
 
@@ -1218,7 +1218,7 @@ class RATE {
 }
 
 /// CFG-RINV: Remote inventory
-class RINV {
+class CFG_RINV {
   /// Dump data at startup
   static final Uint32 DUMP = 0x10c70001 as Uint32;
 
@@ -1242,7 +1242,7 @@ class RINV {
 }
 
 /// CFG-RTCM: RTCM protocol configuration
-class RTCM {
+class CFG_RTCM {
   /// RTCM DF003 (Reference station ID) output value
   static final Uint32 DF003_OUT = 0x30090001 as Uint32;
 
@@ -1254,7 +1254,7 @@ class RTCM {
 }
 
 /// CFG-SBAS: SBAS configuration
-class SBAS {
+class CFG_SBAS {
   /// Use SBAS data when it is in test mode (SBAS msg 0)
   static final Uint32 USE_TESTMODE = 0x10360002 as Uint32;
 
@@ -1272,7 +1272,7 @@ class SBAS {
 }
 
 ///  CFG-SEC: Security configuration (ZED-F9R)
-class SEC {
+class CFG_SEC {
   /// Configuration lockdown
   static final Uint32 CFG_LOCK = 0x10f60009 as Uint32;
 
@@ -1284,13 +1284,13 @@ class SEC {
 }
 
 /// CFG-SFCORE: Sensor fusion (SF) core configuration (ZED-F9R)
-class SFCORE {
+class CFG_SFCORE {
   /// Use ADR/UDR sensor fusion
   static final Uint32 USE_SF = 0x10080001 as Uint32;
 }
 
 /// CFG-SFIMU: Sensor fusion (SF) inertial measurement unit (IMU) configuration (ZED-F9R)
-class SFIMU {
+class CFG_SFIMU {
   /// Time period between each update for the saved temperature-dependent gyroscope bias table
   static final Uint32 GYRO_TC_UPDATE_PERIOD = 0x30060007 as Uint32;
 
@@ -1341,7 +1341,7 @@ class SFIMU {
 }
 
 /// CFG-SFODO: Sensor fusion (SF) odometer configuration (ZED-F9R)
-class SFODO {
+class CFG_SFODO {
   /// Use combined rear wheel ticks instead of the single tick
   static final Uint32 UBLOX_CFG_SFODO_COMBINE_TICKS = 0x10070001 as Uint32;
 
@@ -1389,7 +1389,7 @@ class SFODO {
 }
 
 /// CFG-SIGNAL: Satellite systems (GNSS) signal configuration
-class SIGNAL {
+class CFG_SIGNAL {
   /// GPS enable
   static final Uint32 UBLOX_CFG_SIGNAL_GPS_ENA = 0x1031001f as Uint32;
 
@@ -1461,12 +1461,12 @@ class SIGNAL {
 }
 
 // CFG-SPARTN: Configuration of the SPARTN interface
-class SPARTN {
+class CFG_SPARTN {
   static final Uint32 USE_SOURCE = 0x20a70001 as Uint32;
 }
 
 // CFG-SPI: Configuration of the SPI interface
-class SPI {
+class CFG_SPI {
   /// Number of bytes containing 0xFF to receive before switching oﬀ reception. Range: 0 (mechanism oﬀ) - 63
   static final Uint32 MAXFF = 0x20640001 as Uint32;
 
@@ -1484,7 +1484,7 @@ class SPI {
 }
 
 /// CFG-SPIINPROT: Input protocol configuration of the SPI interface
-class SPIINPROT {
+class CFG_SPIINPROT {
   /// Flag to indicate if UBX should be an input protocol on SPI
   static final Uint32 UBX = 0x10790001 as Uint32;
 
@@ -1499,7 +1499,7 @@ class SPIINPROT {
 }
 
 /// CFG-SPIOUTPROT: Output protocol configuration of the SPI interface
-class SPIOUTPROT {
+class CFG_SPIOUTPROT {
   /// Flag to indicate if UBX should be an output protocol on SPI
   static final Uint32 UBX = 0x107a0001 as Uint32;
 
@@ -1511,7 +1511,7 @@ class SPIOUTPROT {
 }
 
 // CFG-TMODE: Time mode configuration
-class TMODE {
+class CFG_TMODE {
   /// Receiver mode
   static final Uint32 MODE = 0x20030001 as Uint32;
 
@@ -1565,7 +1565,7 @@ class TMODE {
 }
 
 /// CFG-TP: Timepulse configuration
-class TP {
+class CFG_TP {
   /// Determines whether the time pulse is interpreted as frequency or period
   static final Uint32 PULSE_DEF = 0x20050023 as Uint32;
 
@@ -1673,7 +1673,7 @@ class TP {
 }
 
 /// CFG-TXREADY: TX ready configuration
-class TXREADY {
+class CFG_TXREADY {
   /// Flag to indicate if TX ready pin mechanism should be enabled
   static final Uint32 ENABLED = 0x10a20001 as Uint32;
 
@@ -1691,7 +1691,7 @@ class TXREADY {
 }
 
 /// CFG-UART1: Configuration of the UART1 interface
-class UART1 {
+class CFG_UART1 {
   /// The baud rate that should be configured on the UART1
   static final Uint32 UBLOX_CFG_UART1_BAUDRATE = 0x40520001 as Uint32;
 
@@ -1709,7 +1709,7 @@ class UART1 {
 }
 
 /// CFG-UART1INPROT: Input protocol configuration of the UART1 interface
-class UART1INPROT {
+class CFG_UART1INPROT {
   /// Flag to indicate if UBX should be an input protocol on UART1
   static final Uint32 UBX = 0x10730001 as Uint32;
 
@@ -1724,7 +1724,7 @@ class UART1INPROT {
 }
 
 /// CFG-UART1OUTPROT: Output protocol configuration of the UART1 interface
-class UART1OUTPROT {
+class CFG_UART1OUTPROT {
   /// Flag to indicate if UBX should be an output protocol on UART1
   static final Uint32 UBX = 0x10740001 as Uint32;
 
@@ -1736,7 +1736,7 @@ class UART1OUTPROT {
 }
 
 /// CFG-UART2: Configuration of the UART2 interface
-class UART2 {
+class CFG_UART2 {
   /// The baud rate that should be configured on the UART2
   static final Uint32 BAUDRATE = 0x40530001 as Uint32;
 
@@ -1757,7 +1757,7 @@ class UART2 {
 }
 
 /// CFG-UART2INPROT: Input protocol configuration of the UART2 interface
-class UART2INPROT {
+class CFG_UART2INPROT {
   /// Flag to indicate if UBX should be an input protocol on UART2
   static final Uint32 UBX = 0x10750001 as Uint32;
 
@@ -1772,7 +1772,7 @@ class UART2INPROT {
 }
 
 // CFG-UART2OUTPROT: Output protocol configuration of the UART2 interface
-class UART2OUTPROT {
+class CFG_UART2OUTPROT {
   /// Flag to indicate if UBX should be an output protocol on UART2
   static final Uint32 UBX = 0x10760001 as Uint32;
 
@@ -1784,7 +1784,7 @@ class UART2OUTPROT {
 }
 
 /// CFG-USB: Configuration of the USB interface
-class USB {
+class CFG_USB {
   /// Flag to indicate if the USB interface should be enabled
   static final Uint32 ENABLED = 0x10650001 as Uint32;
 
@@ -1838,7 +1838,7 @@ class USB {
 }
 
 /// CFG-USBINPROT: Input protocol configuration of the USB interface
-class USBINPROT {
+class CFG_USBINPROT {
   /// Flag to indicate if UBX should be an input protocol on USB
   static final Uint32 UBX = 0x10770001 as Uint32;
 
@@ -1854,7 +1854,7 @@ class USBINPROT {
 
 // CFG-USBOUTPROT: Output protocol configuration of the USB interface
 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-class USBOUTPROT {
+class CFG_USBOUTPROT {
   /// Flag to indicate if UBX should be an output protocol on USB
   static final Uint32 UBX = 0x10780001 as Uint32;
 
@@ -1867,7 +1867,7 @@ class USBOUTPROT {
 
 // CFG-GEOFENCE: Geofencing configuration
 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-class GEOFENCE {
+class CFG_GEOFENCE {
   /// Required confidence level for state evaluation
   static final Uint32 CONFLVL = 0x20240011 as Uint32;
 
@@ -1931,7 +1931,7 @@ class GEOFENCE {
 
 /// CFG-MSGOUT: Message output configuration.
 /// For each message and port a separate output rate (per second, per epoch) can be configured.
-class MSGOUT {
+class CFG_MSGOUT {
   /// Output rate of the NMEA-GX-DTM message on port I2C
   static final Uint32 NMEA_ID_DTM_I2C = 0x209100a6 as Uint32;
 
