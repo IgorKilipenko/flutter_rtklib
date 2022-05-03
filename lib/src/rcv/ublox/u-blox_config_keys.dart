@@ -58,11 +58,6 @@ class UbloxConfigKeys {
 
 }
 
-/*
-class ConfigurationSettings {
-
-}*/
-
 // CFG-BDS: BeiDou system configuration
 class CFG_BDS {
   /// Use BeiDou geostationary satellites (PRN 1-5)
