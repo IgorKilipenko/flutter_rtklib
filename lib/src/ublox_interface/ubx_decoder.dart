@@ -48,7 +48,7 @@ class UbxDecoder {
 
     final PvtMessage pvtMsg = PvtMessage.init(
       classId: ClassIds.NAV,
-      msgId: NavMessageIds.PVT,
+      msgId: UbxNavigationMessageIds.PVT,
       iTow: payload.getUint32(0, Endian.little),
       year: payload.getUint16(4, Endian.little),
       month: payload.getUint8(6),
@@ -112,7 +112,7 @@ class UbxDecoder {
         if (ubxPacket != null) {
           //////this.emit(UbxDecoder._emits.ubxPacket, ubxPacket);
           if (ubxPacket.classId == ClassIds.NAV) {
-            if (ubxPacket.msgId == NavMessageIds.PVT) {
+            if (ubxPacket.msgId == UbxNavigationMessageIds.PVT) {
               var pvtMsg = decodePvtMsg(ubxPacket);
               if (pvtMsg != null) {
                 /////this.emit(

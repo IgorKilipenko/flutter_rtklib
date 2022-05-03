@@ -38,44 +38,107 @@ class ClassIds {
   static const NAV2 = 0x29;
 }
 
-class NavMessageIds {
+/// UBX-NAV – Navigation solution messages
+class UbxNavigationMessageIds {
+  /// Class Id
   static const CLASS_ID = ClassIds.NAV;
-  static const CLOCK = MessageIds.UBX_NAV_CLOCK ;
-  static const DOP = MessageIds.UBX_NAV_DOP ;
-  static const EOE = MessageIds.UBX_NAV_EOE ;
-  static const GEOFENCE = MessageIds.UBX_NAV_GEOFENCE ;
-  static const HPPOSECEF = MessageIds.UBX_NAV_HPPOSECEF ;
-  static const HPPOSLLH = MessageIds.UBX_NAV_HPPOSLLH ;
-  static const ODO = MessageIds.UBX_NAV_ODO ;
-  static const ORB = MessageIds.UBX_NAV_ORB ;
-  static const POSECEF = MessageIds.UBX_NAV_POSECEF ;
-  static const POSLLH = MessageIds.UBX_NAV_POSLLH ;
-  static const PVT = MessageIds.UBX_NAV_PVT ;
-  static const RELPOSNED = MessageIds.UBX_NAV_RELPOSNED ;
-  static const RESETODO = MessageIds.UBX_NAV_RESETODO ;
-  static const SAT = MessageIds.UBX_NAV_SAT ;
-  static const SIG = MessageIds.UBX_NAV_SIG ;
-  static const STATUS = MessageIds.UBX_NAV_STATUS ;
-  static const SVIN = MessageIds.UBX_NAV_SVIN ;
-  static const TIMEBDS = MessageIds.UBX_NAV_TIMEBDS ;
-  static const TIMEGAL = MessageIds.UBX_NAV_TIMEGAL ;
-  static const TIMEGLO = MessageIds.UBX_NAV_TIMEGLO ;
-  static const TIMEGPS = MessageIds.UBX_NAV_TIMEGPS ;
-  static const TIMELS = MessageIds.UBX_NAV_TIMELS ;
-  static const TIMEUTC = MessageIds.UBX_NAV_TIMEUTC ;
-  static const VELECEF = MessageIds.UBX_NAV_VELECEF ;
-  static const VELNED = MessageIds.UBX_NAV_VELNED ;
+
+  /// Clock solution (Periodic/polled)
+  static const CLOCK = /*0x01*/ 0x22;
+
+  /// Covariance matrices (Periodic/polled)
+  static const COV = /*0x01*/ 0x36;
+
+  /// Dilution of precision (Periodic/polled)
+  static const DOP = /*0x01*/ 0x04;
+
+  /// End of epoch (Periodic)
+  static const EOE = /*0x01*/ 0x61;
+
+  /// Geofencing status (Periodic/polled)
+  static const GEOFENCE = /*0x01*/ 0x39;
+
+  /// High precision position solution in ECEF (Periodic/polled)
+  static const HPPOSECEF = /*0x01*/ 0x13;
+
+  /// High precision geodetic position solution (Periodic/polled)
+  static const HPPOSLLH = /*0x01*/ 0x14;
+
+  /// Odometer solution (Periodic/polled)
+  static const ODO = /*0x01*/ 0x09;
+
+  /// GNSS orbit database info (Periodic/polled)
+  static const ORB = /*0x01*/ 0x34;
+
+  /// Protection level information (Periodic)
+  static const PL = /*0x01*/ 0x62;
+
+  /// Position solution in ECEF (Periodic/polled)
+  static const POSECEF = /*0x01*/ 0x01;
+
+  /// Geodetic position solution (Periodic/polled)
+  static const POSLLH = /*0x01*/ 0x02;
+
+  /// Navigation position velocity time solution (Periodic/polled)
+  static const PVT = /*0x01*/ 0x07;
+
+  /// Relative positioning information in NED frame (Periodic/polled)
+  static const RELPOSNED = /*0x01*/ 0x3c;
+
+  /// Reset odometer (Command)
+  static const RESETODO = /*0x01*/ 0x10;
+
+  /// Satellite information (Periodic/polled)
+  static const SAT = /*0x01*/ 0x35;
+
+  /// SBAS status data (Periodic/polled)
+  static const SBAS = /*0x01*/ 0x32;
+
+  /// Signal information (Periodic/polled)
+  static const SIG = /*0x01*/ 0x43;
+
+  /// QZSS L1S SLAS status data (Periodic/polled)
+  static const SLAS = /*0x01*/ 0x42;
+
+  /// Receiver navigation status (Periodic/polled)
+  static const STATUS = /*0x01*/ 0x03;
+
+  /// Survey-in data (Periodic/polled)
+  static const SVIN = /*0x01*/ 0x3b;
+
+  /// BeiDou time solution (Periodic/polled)
+  static const TIMEBDS = /*0x01*/ 0x24;
+
+  /// Galileo time solution (Periodic/polled)
+  static const TIMEGAL = /*0x01*/ 0x25;
+
+  /// GLONASS time solution (Periodic/polled)
+  static const TIMEGLO = /*0x01*/ 0x23;
+
+  /// GPS time solution (Periodic/polled)
+  static const TIMEGPS = /*0x01*/ 0x20;
+
+  /// Leap second event information (Periodic/polled)
+  static const TIMELS = /*0x01*/ 0x26;
+
+  /// QZSS time solution (Periodic/polled)
+  static const TIMEQZSS = /*0x01*/ 0x27;
+
+  /// UTC time solution (Periodic/polled)
+  static const TIMEUTC = /*0x01*/ 0x21;
+
+  /// Velocity solution in ECEF (Periodic/polled)
+  static const VELECEF = /*0x01*/ 0x11;
+
+  /// Velocity solution in NED frame (Periodic/polled)
+  static const VELNED = /*0x01*/ 0x12;
 }
 
-class MessageIds {
-/* UBX-ACK – Acknowledgement and negative acknowledgement messages */
-  /// Message acknowledged (Output)
-  static const UBX_ACK_ACK = /*0x05*/ 0x01;
+/// UBX-CFG – Configuration and command messages
+class UbxConfigMessageIds {
+  /// Class Id
+  static const CLASS_ID = ClassIds.NAV;
 
-  /// Message not acknowledged (Output)
-  static const UBX_ACK_NAK = /*0x05*/ 0x00;
-
-/* UBX-CFG – Configuration and command messages */
   /// Antenna control settings (Get/set)
   static const UBX_CFG_ANT = /*0x06*/ 0x13;
 
@@ -164,8 +227,24 @@ class MessageIds {
   /// Set configuration item values (Set)
   /// Set configuration item values (with transaction) (Set)
   static const UBX_CFG_VALSET = /*0x06*/ 0x8a;
+}
 
-/* UBX-INF – Information messages */
+/// UBX-ACK – Acknowledgement and negative acknowledgement messages
+class UbxAcknowledgementMessageIds {
+  /// Class Id
+  static const CLASS_ID = ClassIds.ACK;
+
+  /// Message acknowledged (Output)
+  static const UBX_ACK_ACK = /*0x05*/ 0x01;
+
+  /// Message not acknowledged (Output)
+  static const UBX_ACK_NAK = /*0x05*/ 0x00;
+}
+
+/// UBX-INF – Information messages
+class UbxInformationMessageIds {
+  /// Class Id
+  static const CLASS_ID = ClassIds.INF;
 
   /// ASCII output with debug contents (Output)
   static const UBX_INF_DEBUG = /*0x04*/ 0x04;
@@ -181,8 +260,12 @@ class MessageIds {
 
   /// ASCII output with warning contents (Output)
   static const UBX_INF_WARNING = /*0x04*/ 0x01;
+}
 
-/* UBX-LOG – Logging messages */
+/// UBX-LOG – Logging messages
+class UbxLogMessageIds {
+  /// Class Id
+  static const CLASS_ID = ClassIds.LOG;
 
   /// Create log file (Command)
   static const UBX_LOG_CREATE = /*0x21*/ 0x07;
@@ -212,8 +295,12 @@ class MessageIds {
 
   /// Store arbitrary string in on-board flash (Command)
   static const UBX_LOG_STRING = /*0x21*/ 0x04;
+}
 
-/* UBX-MGA – GNSS assistance (A-GNSS) messages */
+/// UBX-MGA – GNSS assistance (A-GNSS) messages
+class UbxAGnssMessageIds {
+  /// Class Id
+  static const CLASS_ID = ClassIds.MGA;
 
   /// Multiple GNSS acknowledge message (Output)
   static const UBX_MGA_ACK = /*0x13*/ 0x60;
@@ -257,8 +344,12 @@ class MessageIds {
   /// QZSS almanac assistance (Input)
   /// QZSS health assistance (Input)
   static const UBX_MGA_QZSS = /*0x13*/ 0x05;
+}
 
-/* UBX-MON – Monitoring messages */
+/// UBX-MON – Monitoring messages
+class UbxMonitoringMessageIds {
+  /// Class Id
+  static const CLASS_ID = ClassIds.MON;
 
   /// Communication port information (Periodic/polled)
   static const UBX_MON_COMMS = /*0x0a*/ 0x36;
@@ -304,100 +395,12 @@ class MessageIds {
 
   /// Receiver and software version (Polled)
   static const UBX_MON_VER = /*0x0a*/ 0x04;
+}
 
-/* UBX-NAV – Navigation solution messages */
-
-  /// Clock solution (Periodic/polled)
-  static const UBX_NAV_CLOCK = /*0x01*/ 0x22;
-
-  /// Covariance matrices (Periodic/polled)
-  static const UBX_NAV_COV = /*0x01*/ 0x36;
-
-  /// Dilution of precision (Periodic/polled)
-  static const UBX_NAV_DOP = /*0x01*/ 0x04;
-
-  /// End of epoch (Periodic)
-  static const UBX_NAV_EOE = /*0x01*/ 0x61;
-
-  /// Geofencing status (Periodic/polled)
-  static const UBX_NAV_GEOFENCE = /*0x01*/ 0x39;
-
-  /// High precision position solution in ECEF (Periodic/polled)
-  static const UBX_NAV_HPPOSECEF = /*0x01*/ 0x13;
-
-  /// High precision geodetic position solution (Periodic/polled)
-  static const UBX_NAV_HPPOSLLH = /*0x01*/ 0x14;
-
-  /// Odometer solution (Periodic/polled)
-  static const UBX_NAV_ODO = /*0x01*/ 0x09;
-
-  /// GNSS orbit database info (Periodic/polled)
-  static const UBX_NAV_ORB = /*0x01*/ 0x34;
-
-  /// Protection level information (Periodic)
-  static const UBX_NAV_PL = /*0x01*/ 0x62;
-
-  /// Position solution in ECEF (Periodic/polled)
-  static const UBX_NAV_POSECEF = /*0x01*/ 0x01;
-
-  /// Geodetic position solution (Periodic/polled)
-  static const UBX_NAV_POSLLH = /*0x01*/ 0x02;
-
-  /// Navigation position velocity time solution (Periodic/polled)
-  static const UBX_NAV_PVT = /*0x01*/ 0x07;
-
-  /// Relative positioning information in NED frame (Periodic/polled)
-  static const UBX_NAV_RELPOSNED = /*0x01*/ 0x3c;
-
-  /// Reset odometer (Command)
-  static const UBX_NAV_RESETODO = /*0x01*/ 0x10;
-
-  /// Satellite information (Periodic/polled)
-  static const UBX_NAV_SAT = /*0x01*/ 0x35;
-
-  /// SBAS status data (Periodic/polled)
-  static const UBX_NAV_SBAS = /*0x01*/ 0x32;
-
-  /// Signal information (Periodic/polled)
-  static const UBX_NAV_SIG = /*0x01*/ 0x43;
-
-  /// QZSS L1S SLAS status data (Periodic/polled)
-  static const UBX_NAV_SLAS = /*0x01*/ 0x42;
-
-  /// Receiver navigation status (Periodic/polled)
-  static const UBX_NAV_STATUS = /*0x01*/ 0x03;
-
-  /// Survey-in data (Periodic/polled)
-  static const UBX_NAV_SVIN = /*0x01*/ 0x3b;
-
-  /// BeiDou time solution (Periodic/polled)
-  static const UBX_NAV_TIMEBDS = /*0x01*/ 0x24;
-
-  /// Galileo time solution (Periodic/polled)
-  static const UBX_NAV_TIMEGAL = /*0x01*/ 0x25;
-
-  /// GLONASS time solution (Periodic/polled)
-  static const UBX_NAV_TIMEGLO = /*0x01*/ 0x23;
-
-  /// GPS time solution (Periodic/polled)
-  static const UBX_NAV_TIMEGPS = /*0x01*/ 0x20;
-
-  /// Leap second event information (Periodic/polled)
-  static const UBX_NAV_TIMELS = /*0x01*/ 0x26;
-
-  /// QZSS time solution (Periodic/polled)
-  static const UBX_NAV_TIMEQZSS = /*0x01*/ 0x27;
-
-  /// UTC time solution (Periodic/polled)
-  static const UBX_NAV_TIMEUTC = /*0x01*/ 0x21;
-
-  /// Velocity solution in ECEF (Periodic/polled)
-  static const UBX_NAV_VELECEF = /*0x01*/ 0x11;
-
-  /// Velocity solution in NED frame (Periodic/polled)
-  static const UBX_NAV_VELNED = /*0x01*/ 0x12;
-
-/* UBX-NAV2 – Navigation solution messages (Secondary output) */
+/// UBX-NAV2 – Navigation solution messages (Secondary output)
+class UbxNavigationSecMessageIds {
+  /// Class Id
+  static const CLASS_ID = ClassIds.NAV2;
 
   /// Clock solution (Periodic/polled)
   static const UBX_NAV2_CLOCK = /*0x29*/ 0x22;
@@ -467,8 +470,12 @@ class MessageIds {
 
   /// Velocity solution in NED frame (Periodic/polled)
   static const UBX_NAV2_VELNED = /*0x29*/ 0x12;
+}
 
-/* UBX-RXM – Receiver manager messages */
+/// UBX-RXM – Receiver manager messages
+class UbxReceiverManagerMessageIds {
+  /// Class Id
+  static const CLASS_ID = ClassIds.RXM;
 
   /// Differential correction input status (Output)
   static const UBX_RXM_COR = /*0x02*/ 0x34;
@@ -504,12 +511,21 @@ class MessageIds {
   /// Poll installed keys (Poll request)
   /// Transfer dynamic SPARTN keys (Input/output)
   static const UBX_RXM_SPARTNKEY = /*0x02*/ 0x36;
+}
 
-/* UBX-SEC – Security messages */
+/// UBX-SEC – Security messages
+class UbxSecurityMessageIds {
+  /// Class Id
+  static const CLASS_ID = ClassIds.SEC;
+
   /// Unique chip ID (Output)
   static const UBX_SEC_UNIQID = /*0x27*/ 0x03;
+}
 
-/* UBX-TIM – Timing messages */
+/// UBX-TIM – Timing messages
+class UbxTimingMessageIds {
+  /// Class Id
+  static const CLASS_ID = ClassIds.TIM;
 
   /// Time mark data (Periodic/polled)
   static const UBX_TIM_TM2 = /*0x0d*/ 0x03;
@@ -519,8 +535,12 @@ class MessageIds {
 
   /// Sourced time verification (Periodic/polled)
   static const UBX_TIM_VRFY = /*0x0d*/ 0x06;
+}
 
-/* UBX-UPD – Firmware update messages */
+/// UBX-UPD – Firmware update messages
+class UbxFirmwareMessageIds {
+  /// Class Id
+  static const CLASS_ID = ClassIds.UPD;
 
   /// Poll backup restore status (Poll request)
   /// Create backup in flash (Command)
