@@ -1,0 +1,40 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_rtklib/flutter_rtklib.dart';
+import 'package:get/get.dart';
+
+class UbloxController extends GetxController {
+  late final StreamSubscription<ObservationControllerImpl>
+      _obsStreamSubscription;
+  late final UbloxImpl _ublox;
+  final observations = Rx<ObservationControllerImpl?>(null);
+
+  @override
+  void onInit() {
+    super.onInit();
+    _ublox = UbloxImpl();
+    _obsStreamSubscription = _ublox.observationStream.handleError((error) {
+      if (kDebugMode) {
+        Get.log(error.toString(), isError : true);
+      }
+    }).listen((obs) {
+      observations.value = obs;
+    });
+    //testUbx2();
+  }
+
+  @override
+  void onClose() {
+    _obsStreamSubscription.cancel();
+    super.onClose();
+  }
+
+  Future<void> testDecodeUbxData() async {
+    final bytes = await rootBundle.load('assets/data/ubx_20080526.ubx');
+    final buffer =
+        bytes.buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes);
+    _ublox.decodeUbx(buffer);
+  }
+}
