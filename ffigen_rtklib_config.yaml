@@ -39,6 +39,7 @@
     - '-m32'
     - '-DTRACE -DENAGLO -DENAQZS -DENAGAL -DENACMP -DENAIRN -DNFREQ=5 -DNEXOBS=3'
     - '-DFLUTTER_DEBUG'
+    - '-DEXTERNAL_TRACE'
     - '-D_USE_32BIT_TIME_T'
     #- '-IC:\msys64\mingw64\x86_64-w64-mingw32\include'
     #- '-IC:\msys64\usr\include'
