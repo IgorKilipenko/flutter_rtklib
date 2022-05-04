@@ -1,23 +1,64 @@
 {
+    "env": {
+        "flutterSdkPath": "C:/src/flutter",
+        "msys64Path": "C:/msys64",
+        "myDefaultIncludePath": [
+            "${workspaceFolder}", 
+            "${workspaceFolder}/third_party/RTKLIB/**", 
+            "${flutterSdkPath}/bin/cache/artifacts/engine/windows-x64/",
+            "${flutterSdkPath}/bin/cache/artifacts/engine/windows-x64/cpp_client_wrapper/include/"
+        ]
+        //"myCompilerPath": "/usr/local/bin/gcc-7"
+    },
     "configurations": [
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/third_party/RTKLIB/**"
+                "${myDefaultIncludePath}",
+                "${workspaceFolder}/third_party/rtklib_wraps/**",
+                "${msys64Path}/usr/include/**",
+                "${workspaceFolder}/windows/**"
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE",
+                "_USE_32BIT_TIME_T",
                 "WIN32",
-                "WIN_DLL"
+                "WIN_DLL",
+                "_RTLDLL", "NO_STRICT", "ENAGLO", "ENAQZS", "ENAGAL", "ENACMP", "ENAIRN", "NFREQ=5", "NEXOBS=3", "SVR_REUSEADDR",
+                "FLUTTER_DEBUG",
+                "EXTERNAL_TRACE"
             ],
             "windowsSdkVersion": "10.0.18362.0",
             "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64/cl.exe",
-            "cStandard": "c17",
+            "cStandard": "c11",
             "cppStandard": "c++17",
             "intelliSenseMode": "windows-msvc-x64",
             "configurationProvider": "ms-vscode.makefile-tools"
+        },
+        {
+            "name": "Linux32",
+            "includePath": [
+                "${myDefaultIncludePath}",
+                "C:/msys64/usr/include"
+            ],
+            "forcedInclude": ["${workspaceFolder}/third_party/RTKLIB/src/rtklib.h"],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "_USE_32BIT_TIME_T",
+                "_RTLDLL", "NO_STRICT", "ENAGLO", "ENAQZS", "ENAGAL", "ENACMP", "ENAIRN", "NFREQ=5", "NEXOBS=3", "SVR_REUSEADDR",
+                "FLUTTER_DEBUG",
+                "EXTERNAL_TRACE"
+            ],
+            "compilerPath": "C:/msys64/mingw64/bin/gcc",
+            "compilerArgs": ["-m32", "-Wall", "-pedantic", "-Wmissing-prototypes"],
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64", //"clang-x64",
+            "configurationProvider": "ms-vscode.cmake-tools"
         }
     ],
     "version": 4
