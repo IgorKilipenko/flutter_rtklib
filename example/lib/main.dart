@@ -1,28 +1,41 @@
-import 'dart:io';
 import 'dart:async';
-import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_rtklib/flutter_rtklib.dart';
+import 'package:flutter_rtklib_example/src/app.dart';
+import 'package:flutter_rtklib_example/src/controllers/settings_controller.dart';
+import 'package:flutter_rtklib_example/src/settings/settings_service.dart';
+
 
 void main() async {
-  runApp(MyApp());
+    // Set up the SettingsController, which will glue user settings to multiple
+  // Flutter Widgets.
+  final settingsController = SettingsController(SettingsService());
+
+  // Load the user's preferred theme while the splash screen is displayed.
+  // This prevents a sudden theme change when the app is first displayed.
+  await settingsController.loadSettings();
+
+  // Run the app and pass in the SettingsController. The app listens to the
+  // SettingsController for changes, then passes it further down to the
+  // SettingsView.
+  runApp(App(settingsController: settingsController));
 }
 
-class MyApp extends StatefulWidget {
-  MyApp({Key? key}) : super(key: key) {
+class MyAppUblox extends StatefulWidget {
+  MyAppUblox({Key? key}) : super(key: key) {
     ublox = UbloxImpl();
   }
   late final UbloxImpl ublox;
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<MyAppUblox> createState() => _MyAppUbloxState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppUbloxState extends State<MyAppUblox> {
   String _platformVersion = 'Unknown';
 
   late final StreamSubscription<ObservationControllerImpl>
