@@ -9,20 +9,9 @@ RtkLib get dylibRtklib {
   return _dylibRtklib ??= RtkLib(ffi.DynamicLibrary.open(
     resolveDylibPath(
       'rtklib',
-      dartDefine: 'LIBSERIALPORT_PATH',
-      environmentVariable: 'LIBSERIALPORT_PATH',
+      dartDefine: 'RTKLIB_PATH',
+      environmentVariable: 'RTKLIB_PATH',
     ),
   ));
 }
-
-/*Ublox? _dylibUblox;
-Ublox get dylibUblox {
-  return _dylibUblox ??= Ublox(ffi.DynamicLibrary.open(
-    resolveDylibPath(
-      'rtklib',
-      dartDefine: 'LIBSERIALPORT_PATH',
-      environmentVariable: 'LIBSERIALPORT_PATH',
-    ),
-  ));
-}*/
 
