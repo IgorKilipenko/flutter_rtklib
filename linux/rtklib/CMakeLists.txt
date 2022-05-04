@@ -6,7 +6,7 @@ set(SRC_DIR "../../third_party/RTKLIB/src")
 set(UTILS_DIR "../../third_party/rtklib_wraps")
 
 #set(CTARGET -DTRACE -DENAGLO -DENAQZS -DENAGAL -DENACMP -DENAIRN -DNFREQ=5 -DNEXOBS=3 -DFLUTTER_DEBUG -D_USE_32BIT_TIME_T -DWIN32 -DWIN_DLL)
-set(CTARGET -DTRACE -DENAGLO -DENAQZS -DENAGAL -DENACMP -DENAIRN -DNFREQ=5 -DNEXOBS=3 -DFLUTTER_DEBUG)
+set(CTARGET -DEXTERNAL_TRACE -DENAGLO -DENAQZS -DENAGAL -DENACMP -DENAIRN -DNFREQ=5 -DNEXOBS=3 -DFLUTTER_DEBUG)
 set(CFLAGS -std=c11 -Wall -pedantic)
 
 set(LDLIBS  m lrt pthread)
@@ -46,6 +46,7 @@ set(RTKLIB
     ${SRC_DIR}/rcv/septentrio.c 
     ${SRC_DIR}/rcv/swiftnav.c
     ${UTILS_DIR}/utils.c
+    ${UTILS_DIR}/trace.c
  )
 
 add_library(${PROJECT_NAME} SHARED ${RTKLIB})
