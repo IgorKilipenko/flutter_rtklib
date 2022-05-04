@@ -18,6 +18,7 @@ class UartController extends GetxController {
       p.dispose();
     }
     _ports.clear();
+    super.onClose();
   }
 
   void updateAvailablePorts() {
