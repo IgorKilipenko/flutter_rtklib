@@ -1,0 +1,27 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "flutter",
+			"command": "flutter",
+			"args": [
+				"pub",
+				"get"
+			],
+			"problemMatcher": [],
+			"label": "flutter: flutter pub get",
+		},
+		{
+			"type": "dart",
+			"command": "dart",
+			"args": [
+				"run",
+				"ffigen",
+				"--config",
+				"ffigen_rtklib_config.yaml"
+			],
+			"problemMatcher": [],
+			"label": "dart run ffigen --config config.yaml",
+		}
+	]
+}
