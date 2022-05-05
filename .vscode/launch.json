@@ -3,6 +3,14 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
+    "inputs": [
+        {
+            "type": "promptString",
+            "id": "libsPath",
+            "description": "Libs direcotory for fast tests",
+            "default": "${workspaceFolder}/test/.libs/"
+        }
+    ],
     "configurations": [
         {
             "name": "flutter_rtklib",
@@ -40,6 +48,48 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
-        }
+        },
+        {
+            "name": "rtklib__device_tests",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "cwd": "${workspaceFolder}",
+            "windows": {
+                
+            },
+            "runTestsOnDevice": true,
+            "program": "test/flutter_rtklib_test.dart"
+        },
+        {
+            "name": "example__fast_tests",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "cwd": "${workspaceFolder}/example",
+            "windows": {
+                
+            },
+            "env": {
+                "LIBSERIALPORT_PATH": "${input:libsPath}",
+                "RTKLIB_PATH": "${input:libsPath}"
+            },
+            "program": "test"
+        },
+        {
+            "name": "rtklib__fast_tests",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "cwd": "${workspaceFolder}",
+            "windows": {
+                
+            },
+            "env": {
+                "LIBSERIALPORT_PATH": "${input:libsPath}",
+                "RTKLIB_PATH": "${input:libsPath}"
+            },
+            "program": "test"
+        },
     ]
 }
