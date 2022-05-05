@@ -6739,8 +6739,83 @@ class RtkLib {
       _lookup<ffi.NativeFunction<ffi.Void Function(gtime_t)>>('settime');
   late final _settime = _settimePtr.asFunction<void Function(gtime_t)>();
 
-  /// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  /// ! ADD FOR TRACE TO FLUTTER CONSOLE
+  /// @brief Convert obs to string
+  /// @param[in] obs - [obsd_t *] observation
+  /// @param[out] strLen - [size_t *] output string length
+  /// @return [char*] result string
+  ffi.Pointer<ffi.Int8> obs2str(
+    ffi.Pointer<obsd_t> obs,
+    ffi.Pointer<size_t> strLen,
+  ) {
+    return _obs2str(
+      obs,
+      strLen,
+    );
+  }
+
+  late final _obs2strPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Int8> Function(
+              ffi.Pointer<obsd_t>, ffi.Pointer<size_t>)>>('obs2str');
+  late final _obs2str = _obs2strPtr.asFunction<
+      ffi.Pointer<ffi.Int8> Function(
+          ffi.Pointer<obsd_t>, ffi.Pointer<size_t>)>();
+
+  int obs2str2(
+    ffi.Pointer<obsd_t> obs,
+    ffi.Pointer<ffi.Pointer<ffi.Int8>> outStr,
+  ) {
+    return _obs2str2(
+      obs,
+      outStr,
+    );
+  }
+
+  late final _obs2str2Ptr = _lookup<
+      ffi.NativeFunction<
+          size_t Function(ffi.Pointer<obsd_t>,
+              ffi.Pointer<ffi.Pointer<ffi.Int8>>)>>('obs2str2');
+  late final _obs2str2 = _obs2str2Ptr.asFunction<
+      int Function(ffi.Pointer<obsd_t>, ffi.Pointer<ffi.Pointer<ffi.Int8>>)>();
+
+  /// @brief Create new raw controller
+  /// @param[in] format - [int] format raw data
+  /// @param[in, out] status - [uint32_t *] status code (0: memory allocation error, 1: success)
+  /// @return [raw_t *] pointer to raw_t instance
+  ffi.Pointer<raw_t> create_raw(
+    int format,
+    ffi.Pointer<ffi.Uint32> status,
+  ) {
+    return _create_raw(
+      format,
+      status,
+    );
+  }
+
+  late final _create_rawPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<raw_t> Function(
+              ffi.Int32, ffi.Pointer<ffi.Uint32>)>>('create_raw');
+  late final _create_raw = _create_rawPtr
+      .asFunction<ffi.Pointer<raw_t> Function(int, ffi.Pointer<ffi.Uint32>)>();
+
+  int init_raw_2(
+    ffi.Pointer<ffi.Pointer<raw_t>> raw,
+    int format,
+  ) {
+    return _init_raw_2(
+      raw,
+      format,
+    );
+  }
+
+  late final _init_raw_2Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int32 Function(
+              ffi.Pointer<ffi.Pointer<raw_t>>, ffi.Int32)>>('init_raw_2');
+  late final _init_raw_2 = _init_raw_2Ptr
+      .asFunction<int Function(ffi.Pointer<ffi.Pointer<raw_t>>, int)>();
+
   late final ffi.Pointer<
           ffi.Pointer<
               ffi.NativeFunction<
@@ -6867,83 +6942,6 @@ class RtkLib {
           'set_level_trace');
   late final _set_level_trace =
       _set_level_tracePtr.asFunction<void Function(int)>();
-
-  /// @brief Convert obs to string
-  /// @param[in] obs - [obsd_t *] observation
-  /// @param[out] strLen - [size_t *] output string length
-  /// @return [char*] result string
-  ffi.Pointer<ffi.Int8> obs2str(
-    ffi.Pointer<obsd_t> obs,
-    ffi.Pointer<size_t> strLen,
-  ) {
-    return _obs2str(
-      obs,
-      strLen,
-    );
-  }
-
-  late final _obs2strPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Int8> Function(
-              ffi.Pointer<obsd_t>, ffi.Pointer<size_t>)>>('obs2str');
-  late final _obs2str = _obs2strPtr.asFunction<
-      ffi.Pointer<ffi.Int8> Function(
-          ffi.Pointer<obsd_t>, ffi.Pointer<size_t>)>();
-
-  int obs2str2(
-    ffi.Pointer<obsd_t> obs,
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> outStr,
-  ) {
-    return _obs2str2(
-      obs,
-      outStr,
-    );
-  }
-
-  late final _obs2str2Ptr = _lookup<
-      ffi.NativeFunction<
-          size_t Function(ffi.Pointer<obsd_t>,
-              ffi.Pointer<ffi.Pointer<ffi.Int8>>)>>('obs2str2');
-  late final _obs2str2 = _obs2str2Ptr.asFunction<
-      int Function(ffi.Pointer<obsd_t>, ffi.Pointer<ffi.Pointer<ffi.Int8>>)>();
-
-  /// @brief Create new raw controller
-  /// @param[in] format - [int] format raw data
-  /// @param[in, out] status - [uint32_t *] status code (0: memory allocation error, 1: success)
-  /// @return [raw_t *] pointer to raw_t instance
-  ffi.Pointer<raw_t> create_raw(
-    int format,
-    ffi.Pointer<ffi.Uint32> status,
-  ) {
-    return _create_raw(
-      format,
-      status,
-    );
-  }
-
-  late final _create_rawPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<raw_t> Function(
-              ffi.Int32, ffi.Pointer<ffi.Uint32>)>>('create_raw');
-  late final _create_raw = _create_rawPtr
-      .asFunction<ffi.Pointer<raw_t> Function(int, ffi.Pointer<ffi.Uint32>)>();
-
-  int init_raw_2(
-    ffi.Pointer<ffi.Pointer<raw_t>> raw,
-    int format,
-  ) {
-    return _init_raw_2(
-      raw,
-      format,
-    );
-  }
-
-  late final _init_raw_2Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Pointer<raw_t>>, ffi.Int32)>>('init_raw_2');
-  late final _init_raw_2 = _init_raw_2Ptr
-      .asFunction<int Function(ffi.Pointer<ffi.Pointer<raw_t>>, int)>();
 }
 
 /// time struct
@@ -9419,8 +9417,175 @@ class __sFILE extends ffi.Opaque {}
 
 typedef fatalfunc_t
     = ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Int8>)>;
-typedef va_list = ffi.Pointer<ffi.Int8>;
 typedef size_t = ffi.Uint32;
+typedef va_list = ffi.Pointer<ffi.Int8>;
+
+class struct_sizes_t extends ffi.Struct {
+  @size_t()
+  external int gtime_t;
+
+  @size_t()
+  external int obsd_t;
+
+  @size_t()
+  external int obs_t;
+
+  @size_t()
+  external int erpd_t;
+
+  @size_t()
+  external int erp_t;
+
+  @size_t()
+  external int pcv_t;
+
+  @size_t()
+  external int pcvs_t;
+
+  @size_t()
+  external int alm_t;
+
+  @size_t()
+  external int eph_t;
+
+  @size_t()
+  external int geph_t;
+
+  @size_t()
+  external int peph_t;
+
+  @size_t()
+  external int pclk_t;
+
+  @size_t()
+  external int seph_t;
+
+  @size_t()
+  external int tled_t;
+
+  @size_t()
+  external int tle_t;
+
+  @size_t()
+  external int tec_t;
+
+  @size_t()
+  external int sbsmsg_t;
+
+  @size_t()
+  external int sbs_t;
+
+  @size_t()
+  external int sbsfcorr_t;
+
+  @size_t()
+  external int sbslcorr_t;
+
+  @size_t()
+  external int sbssatp_t;
+
+  @size_t()
+  external int sbssat_t;
+
+  @size_t()
+  external int sbsigp_t;
+
+  @size_t()
+  external int sbsigpband_t;
+
+  @size_t()
+  external int sbsion_t;
+
+  @size_t()
+  external int dgps_t;
+
+  @size_t()
+  external int ssr_t;
+
+  @size_t()
+  external int nav_t;
+
+  @size_t()
+  external int sta_t;
+
+  @size_t()
+  external int sol_t;
+
+  @size_t()
+  external int solbuf_t;
+
+  @size_t()
+  external int solstat_t;
+
+  @size_t()
+  external int solstatbuf_t;
+
+  @size_t()
+  external int rtcm_t;
+
+  @size_t()
+  external int rnxctr_t;
+
+  @size_t()
+  external int url_t;
+
+  @size_t()
+  external int opt_t;
+
+  @size_t()
+  external int snrmask_t;
+
+  @size_t()
+  external int prcopt_t;
+
+  @size_t()
+  external int solopt_t;
+
+  @size_t()
+  external int filopt_t;
+
+  @size_t()
+  external int rnxopt_t;
+
+  @size_t()
+  external int ssat_t;
+
+  @size_t()
+  external int ambc_t;
+
+  @size_t()
+  external int rtk_t;
+
+  @size_t()
+  external int raw_t;
+
+  @size_t()
+  external int stream_t;
+
+  @size_t()
+  external int strconv_t;
+
+  @size_t()
+  external int strsvr_t;
+
+  @size_t()
+  external int rtksvr_t;
+
+  @size_t()
+  external int gis_pnt_t;
+
+  @size_t()
+  external int gis_poly_t;
+
+  @size_t()
+  external int gis_polygon_t;
+
+  @size_t()
+  external int gisd_t;
+
+  @size_t()
+  external int gis_t;
+}
 
 const String VER_RTKLIB = 'demo5';
 
