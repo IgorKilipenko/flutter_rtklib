@@ -1,53 +1,45 @@
 cmake_minimum_required(VERSION 3.6)
 set(PROJECT_NAME "rtklib")
 project(${PROJECT_NAME} LANGUAGES C)
+set(CM_TARGET_PLATFORM "Linux")
+include("${CMAKE_CURRENT_SOURCE_DIR}/../../CMakeLists.txt")
 
-set(SRC_DIR "../../third_party/RTKLIB/src")
-set(UTILS_DIR "../../third_party/rtklib_wraps")
+if (NOT DEFINED INFO_TAG)
+  set(INFO_TAG "[INF]")
+endif()
+if (NOT DEFINED INFO_TAG)
+  set(WARN_TAG "[WARN]")
+endif()
+if (NOT DEFINED ERROR_TAG)
+  set(ERROR_TAG "[ERROR]")
+endif()
 
-#set(CTARGET -DTRACE -DENAGLO -DENAQZS -DENAGAL -DENACMP -DENAIRN -DNFREQ=5 -DNEXOBS=3 -DFLUTTER_DEBUG -D_USE_32BIT_TIME_T -DWIN32 -DWIN_DLL)
-set(CTARGET -DEXTERNAL_TRACE -DENAGLO -DENAQZS -DENAGAL -DENACMP -DENAIRN -DNFREQ=5 -DNEXOBS=3 -DFLUTTER_DEBUG)
-set(CFLAGS -std=c11 -Wall -pedantic)
+message("Start build ${PROJECT_NAME} for ${CM_TARGET_PLATFORM}...")
 
-set(LDLIBS  m lrt pthread)
-#set(LDLIBS  ws2_32 winmm)
+# init GLOBAL variables
+setOptions()
+setSrcDirs("../../third_party")
+setLibs()
 
-set(RTKLIB 
-    ${SRC_DIR}/rtkcmn.c 
-    ${SRC_DIR}/rtksvr.c 
-    ${SRC_DIR}/rtkpos.c 
-    ${SRC_DIR}/geoid.c 
-    ${SRC_DIR}/solution.c 
-    ${SRC_DIR}/lambda.c 
-    ${SRC_DIR}/sbas.c 
-    ${SRC_DIR}/stream.c 
-    ${SRC_DIR}/rcvraw.c 
-    ${SRC_DIR}/rtcm.c 
-    ${SRC_DIR}/preceph.c 
-    ${SRC_DIR}/options.c 
-    ${SRC_DIR}/pntpos.c 
-    ${SRC_DIR}/ppp.c 
-    ${SRC_DIR}/ppp_ar.c 
-    ${SRC_DIR}/rcv/novatel.c 
-    ${SRC_DIR}/rcv/ublox.c 
-    ${SRC_DIR}/rcv/crescent.c 
-    ${SRC_DIR}/rcv/skytraq.c 
-    ${SRC_DIR}/rcv/javad.c 
-    ${SRC_DIR}/rcv/nvs.c 
-    ${SRC_DIR}/rcv/binex.c 
-    ${SRC_DIR}/rcv/rt17.c 
-    ${SRC_DIR}/ephemeris.c 
-    ${SRC_DIR}/rinex.c 
-    ${SRC_DIR}/ionex.c 
-    ${SRC_DIR}/rtcm2.c 
-    ${SRC_DIR}/rtcm3.c 
-    ${SRC_DIR}/rtcm3e.c 
-    ${SRC_DIR}/tides.c 
-    ${SRC_DIR}/rcv/septentrio.c 
-    ${SRC_DIR}/rcv/swiftnav.c
-    ${UTILS_DIR}/utils.c
-    ${UTILS_DIR}/trace.c
- )
+if (NOT DEFINED CTARGET_BASE)
+  message("${ERROR_TAG}  CTARGET_BASE (compile definitions) not defined, used default values for CTARGET.")
+  set(CTARGET "")
+else()
+  set(CTARGET ${CTARGET_BASE})
+endif()
+message("${INFO_TAG} CTARGET values (compile definitions) = ${CTARGET}")
+
+# set(CFLAGS -std=c11 -Wall -pedantic -Wmissing-prototypes)
+if (NOT DEFINED CFLAGS_BASE)
+  message("${WARN_TAG} CFLAGS (compile options) not defined, used default values for CFLAGS.")
+  set(CFLAGS -std=c11 -Wall -pedantic -Wmissing-prototypes)
+else()
+  set(CFLAGS ${CFLAGS_BASE} -Wmissing-prototypes)
+endif()
+message("${INFO_TAG} CFLAGS values (compile options) = ${CFLAGS}")
+
+set(LDLIBS m lrt pthread)
+message("${INFO_TAG} LDLIBS (link libraries) values = ${LDLIBS}")
 
 add_library(${PROJECT_NAME} SHARED ${RTKLIB})
 target_compile_options(${PROJECT_NAME} PRIVATE ${CFLAGS})
@@ -58,3 +50,5 @@ target_include_directories(${PROJECT_NAME} PRIVATE
   "${CMAKE_CURRENT_SOURCE_DIR}/${UTILS_DIR}"
 )
 target_link_libraries(${PROJECT_NAME} ${LDLIBS})
+
+message("Build for ${CM_TARGET_PLATFORM} success!.")
