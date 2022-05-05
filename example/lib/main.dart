@@ -1,17 +1,18 @@
-import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter/services.dart';
-import 'package:flutter_rtklib/flutter_rtklib.dart';
 import 'package:flutter_rtklib_example/src/app.dart';
 import 'package:flutter_rtklib_example/src/controllers/settings_controller.dart';
 import 'package:flutter_rtklib_example/src/settings/settings_service.dart';
 
-
 void main() async {
-    // Set up the SettingsController, which will glue user settings to multiple
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.presentError(details);
+    if (kReleaseMode) exit(1);
+  };
+  // Set up the SettingsController, which will glue user settings to multiple
   // Flutter Widgets.
   final settingsController = SettingsController(SettingsService());
 
@@ -24,5 +25,3 @@ void main() async {
   // SettingsView.
   runApp(App(settingsController: settingsController));
 }
-
-
