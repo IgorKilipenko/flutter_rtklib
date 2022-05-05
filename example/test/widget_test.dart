@@ -6,14 +6,20 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_rtklib_example/src/app.dart';
+import 'package:flutter_rtklib_example/src/controllers/settings_controller.dart';
+import 'package:flutter_rtklib_example/src/settings/settings_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_rtklib_example/main.dart';
 
 void main() {
+
+  TestWidgetsFlutterBinding.ensureInitialized();
   testWidgets('Verify Platform version', (WidgetTester tester) async {
+  final settingsController = SettingsController(SettingsService());
+  await settingsController.loadSettings();
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyAppUblox());
+    await tester.pumpWidget(App(settingsController: settingsController));
 
     // Verify that platform version is retrieved.
     expect(
