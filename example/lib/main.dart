@@ -8,10 +8,25 @@ import 'package:flutter_rtklib_example/src/controllers/settings_controller.dart'
 import 'package:flutter_rtklib_example/src/settings/settings_service.dart';
 
 void main() async {
+  print("start");
   FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.presentError(details);
     if (kReleaseMode) exit(1);
   };
+
+  final environment = Platform.environment;
+
+  for (final env in environment.entries) {
+    print(env);
+  }
+
+  //final executable = Platform.executable;
+  final executableArguments = Platform.executableArguments;
+  final localHostname = Platform.localHostname;
+  final packageConfig = Platform.packageConfig;
+  final resolvedExecutable = Platform.resolvedExecutable;
+  final script = Platform.script.toString();
+
   // Set up the SettingsController, which will glue user settings to multiple
   // Flutter Widgets.
   final settingsController = SettingsController(SettingsService());
