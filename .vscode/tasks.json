@@ -21,7 +21,18 @@
 				"ffigen_rtklib_config.yaml"
 			],
 			"problemMatcher": [],
-			"label": "dart run ffigen --config config.yaml",
+			"label": "dart run ffigen rtklib",
+		},
+		{
+			"type": "flutter",
+			"command": "flutter",
+			"args": [
+				"build",
+				"windows",
+				"${workspaceFolder}/lib/flutter_rtklib.dart"
+			],
+			"problemMatcher": [],
+			"label": "build windows",
 		}
 	]
 }
