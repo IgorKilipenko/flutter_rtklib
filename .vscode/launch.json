@@ -8,7 +8,7 @@
             "type": "promptString",
             "id": "libsPath",
             "description": "Libs direcotory for fast tests",
-            "default": "${workspaceFolder}/test/.libs/"
+            "default": "${workspaceFolder}/example/build/windows/runner/Debug"
         }
     ],
     "configurations": [
@@ -48,6 +48,18 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
+        },
+        {
+            "name": "example__device_tests",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "cwd": "${workspaceFolder}/example",
+            "windows": {
+                
+            },
+            "runTestsOnDevice": true,
+            "program": "test/widget_test.dart"
         },
         {
             "name": "rtklib__device_tests",
@@ -91,5 +103,23 @@
             },
             "program": "test"
         },
+        {
+            "type": "dart",
+            "name": "vscode-jest-tests.v2",
+            "request": "launch",
+            "program": "test",
+            "args": [
+                "test",
+                "--dart-define=LIBSERIALPORT_PATH=${workspaceFolder}/example/build/windows/runner/Debug",
+                "--dart-define=RTKLIB_PATH=${workspaceFolder}/example/build/windows/runner/Debug",
+            ],
+            "cwd": "${workspaceFolder}",
+            //"console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "disableOptimisticBPs": true,
+            /*"windows": {
+              "program": "${workspaceFolder}/node_modules/jest/bin/jest"
+            }*/
+          }
     ]
 }
