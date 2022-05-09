@@ -6,10 +6,18 @@ import 'package:flutter_rtklib/flutter_rtklib.dart';
 import 'package:get/get.dart';
 
 class UbloxController extends GetxController {
+  final name = 'UbloxController';
   late final StreamSubscription<ObservationControllerImpl>
       _obsStreamSubscription;
   late final UbloxImpl _ublox;
   final observations = Rx<ObservationControllerImpl?>(null);
+  
+  bool _isInit = false;
+
+  @visibleForTesting
+  bool get isInit {
+    return _isInit;
+  }
 
   @override
   void onInit() {
@@ -23,6 +31,7 @@ class UbloxController extends GetxController {
       observations.value = obs;
     });
     //testUbx2();
+    _isInit = true;
   }
 
   @override
