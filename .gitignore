@@ -27,3 +27,6 @@
 .dart_tool/
 .packages
 build/
+
+third_party/**
+!rtklib_wraps
