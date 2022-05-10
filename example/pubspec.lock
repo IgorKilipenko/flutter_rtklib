@@ -226,7 +226,7 @@ packages:
   flutter_libserialport:
     dependency: "direct main"
     description:
-      path: "..\\..\\..\\_forks\\flutter_serial_port"
+      path: "../third_party/flutter_libserialport"
       relative: true
     source: path
     version: "0.3.0-dev.0+1"
@@ -576,6 +576,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  windows1251:
+    dependency: transitive
+    description:
+      name: windows1251
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3"
   yaml:
     dependency: transitive
     description:

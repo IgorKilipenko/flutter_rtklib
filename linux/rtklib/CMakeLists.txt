@@ -38,7 +38,7 @@ else()
 endif()
 message("${INFO_TAG} CFLAGS values (compile options) = ${CFLAGS}")
 
-set(LDLIBS m lrt pthread)
+set(LDLIBS m rt pthread)
 message("${INFO_TAG} LDLIBS (link libraries) values = ${LDLIBS}")
 
 add_library(${PROJECT_NAME} SHARED ${RTKLIB})
@@ -51,4 +51,4 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 )
 target_link_libraries(${PROJECT_NAME} ${LDLIBS})
 
-message("Build for ${CM_TARGET_PLATFORM} success!.")
+message("CMAKE for ${CM_TARGET_PLATFORM} success!.")

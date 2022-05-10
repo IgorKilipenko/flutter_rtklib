@@ -32,7 +32,7 @@ dependencies:
 
   #flutter_libserialport: ^0.2.3
   flutter_libserialport: 
-    path: ../../../_forks/flutter_serial_port
+    path: ../third_party/flutter_libserialport
 
   get: ^4.6.1
 
