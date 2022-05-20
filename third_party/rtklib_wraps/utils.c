@@ -88,3 +88,368 @@ extern int init_raw_2(raw_t **raw, int format) {
 }
 
 
+//! test_size.c
+extern struct_sizes_t* getStrctSizes() {
+    struct_sizes_t *res = (struct_sizes_t*)calloc(1, sizeof(struct_sizes_t));
+
+    res->gtime_t = sizeof(gtime_t);
+    res->obsd_t = sizeof(obsd_t);
+    res->obs_t = sizeof(obs_t);
+    res->erpd_t = sizeof(erpd_t);
+    res->erp_t = sizeof(erp_t);
+    res->pcv_t = sizeof(pcv_t);
+    res->pcvs_t = sizeof(pcvs_t);
+    res->alm_t = sizeof(alm_t);
+    res->eph_t = sizeof(eph_t);
+    res->geph_t = sizeof(geph_t);
+    res->peph_t = sizeof(peph_t);
+    res->pclk_t = sizeof(pclk_t);
+    res->seph_t = sizeof(seph_t);
+    res->tled_t = sizeof(tled_t);
+    res->tle_t = sizeof(tle_t);
+    res->tec_t = sizeof(tec_t);
+    res->sbsmsg_t = sizeof(sbsmsg_t);
+    res->sbs_t = sizeof(sbs_t);
+    res->sbsfcorr_t = sizeof(sbsfcorr_t);
+    res->sbslcorr_t = sizeof(sbslcorr_t);
+    res->sbssatp_t = sizeof(sbssatp_t);
+    res->sbssat_t = sizeof(sbssat_t);
+    res->sbsigp_t = sizeof(sbsigp_t);
+    res->sbsigpband_t = sizeof(sbsigpband_t);
+    res->sbsion_t = sizeof(sbsion_t);
+    res->dgps_t = sizeof(dgps_t);
+    res->ssr_t = sizeof(ssr_t);
+    res->nav_t = sizeof(nav_t);
+    res->sta_t = sizeof(sta_t);
+    res->sol_t = sizeof(sol_t);
+    res->solbuf_t = sizeof(solbuf_t);
+    res->solstat_t = sizeof(solstat_t);
+    res->solstatbuf_t = sizeof(solstatbuf_t);
+    res->rtcm_t = sizeof(rtcm_t);
+    res->rnxctr_t = sizeof(rnxctr_t);
+    res->url_t = sizeof(url_t);
+    res->opt_t = sizeof(opt_t);
+    res->snrmask_t = sizeof(snrmask_t);
+    res->prcopt_t = sizeof(prcopt_t);
+    res->solopt_t = sizeof(solopt_t);
+    res->filopt_t = sizeof(filopt_t);
+    res->rnxopt_t = sizeof(rnxopt_t);
+    res->ssat_t = sizeof(ssat_t);
+    res->ambc_t = sizeof(ambc_t);
+    res->rtk_t = sizeof(rtk_t);
+    res->raw_t = sizeof(raw_t);
+    res->stream_t = sizeof(stream_t);
+    res->strconv_t = sizeof(strconv_t);
+    res->strsvr_t = sizeof(strsvr_t);
+    res->rtksvr_t = sizeof(rtksvr_t);
+    res->gis_pnt_t = sizeof(gis_pnt_t);
+    res->gis_poly_t = sizeof(gis_poly_t);
+    res->gis_polygon_t = sizeof(gis_polygon_t);
+    res->gisd_t = sizeof(gisd_t);
+    res->gis_t = sizeof(gis_t);
+
+    return res;
+}
+
+
+
+//! TRACE
+
+// OVERRIDE TRACE FOR FLUTTER DEBUG
+#if !defined(TRACE) && defined(EXTERNAL_TRACE)
+
+/// file pointer of trace
+static FILE *fp_trace=NULL;     
+/// trace file
+static char file_trace[1024];   
+/// level of trace
+static int level_trace=0;       
+/// tick time at traceopen (ms)
+static uint32_t tick_trace=0;   
+/// time at traceopen
+static gtime_t time_trace={0};  
+/// lock for trace
+static lock_t lock_trace;       
+
+static void traceswap(void)
+{
+    gtime_t time=utc2gpst(timeget());
+    char path[1024];
+    
+    lock(&lock_trace);
+    
+    if ((int)(time2gpst(time      ,NULL)/INT_SWAP_TRAC)==
+        (int)(time2gpst(time_trace,NULL)/INT_SWAP_TRAC)) {
+        unlock(&lock_trace);
+        return;
+    }
+    time_trace=time;
+    
+    if (!reppath(file_trace,path,time,"","")) {
+        unlock(&lock_trace);
+        return;
+    }
+    if (fp_trace) fclose(fp_trace);
+    
+    if (!(fp_trace=fopen(path,"w"))) {
+        fp_trace=stderr;
+    }
+    unlock(&lock_trace);
+}
+
+extern void traceopen(const char *file)
+{
+    gtime_t time=utc2gpst(timeget());
+    char path[1024];
+    
+    reppath(file,path,time,"","");
+    if (!*path||!(fp_trace=fopen(path,"w"))) fp_trace=stderr;
+    strcpy(file_trace,file);
+    tick_trace=tickget();
+    time_trace=time;
+    initlock(&lock_trace);
+}
+
+extern void traceclose(void)
+{
+    if (fp_trace&&fp_trace!=stderr) fclose(fp_trace);
+    fp_trace=NULL;
+    file_trace[0]='\0';
+}
+
+extern void tracelevel(int level)
+{
+    level_trace=level;
+}
+
+extern int gettracelevel(void)
+{
+    return level_trace;
+}
+
+extern void trace(int level, const char *format, ...)
+{
+    va_list ap;
+
+    if (level<=gettracelevel()) {
+        va_start(ap,format); 
+        flutter_vtrace(level, format, ap);
+        va_end(ap);
+    }
+}
+
+extern void tracemat(int level, const double *A, int n, int m, int p, int q)
+{
+    if (!fp_trace||level>level_trace) return;
+    matfprint(A,n,m,p,q,fp_trace); fflush(fp_trace);
+}
+
+extern void tracet(int level, const char *format, ...)
+{
+    va_list ap;
+
+    if (level<=gettracelevel()) {
+        flutter_printf("%d %9.3f: ",level,(tickget()-tick_trace)/1000.0); 
+        va_start(ap,format); 
+        flutter_vprintf(format,ap); 
+        va_end (ap);
+    }
+}
+
+extern void traceobs(int level, const obsd_t *obs, int n)
+{
+    char str[64],id[16];
+    int i;
+    const char * flutter_format = "(%2d) %s %-3s rcv%d %13.3f %13.3f %13.3f %13.3f %d %d %d %d %x %x %3.1f %3.1f\n";
+
+    for (i=0;i<n;i++) {
+        time2str(obs[i].time,str,3);
+        satno2id(obs[i].sat,id);
+
+    flutter_trace(level, flutter_format, 
+        i+1,str,id,obs[i].rcv,obs[i].L[0],obs[i].L[1],obs[i].P[0],
+        obs[i].P[1],obs[i].LLI[0],obs[i].LLI[1],obs[i].code[0],
+        obs[i].code[1],obs[i].Lstd[0],obs[i].Pstd[0],obs[i].SNR[0]*SNR_UNIT,obs[i].SNR[1]*SNR_UNIT);
+        
+
+    }
+}
+
+extern void tracenav(int level, const nav_t *nav)
+{
+    char s1[64],s2[64],id[16];
+    int i;
+    
+    if (!fp_trace||level>level_trace) return;
+    for (i=0;i<nav->n;i++) {
+        time2str(nav->eph[i].toe,s1,0);
+        time2str(nav->eph[i].ttr,s2,0);
+        satno2id(nav->eph[i].sat,id);
+        fprintf(fp_trace,"(%3d) %-3s : %s %s %3d %3d %02x\n",i+1,
+                id,s1,s2,nav->eph[i].iode,nav->eph[i].iodc,nav->eph[i].svh);
+    }
+    fprintf(fp_trace,"(ion) %9.4e %9.4e %9.4e %9.4e\n",nav->ion_gps[0],
+            nav->ion_gps[1],nav->ion_gps[2],nav->ion_gps[3]);
+    fprintf(fp_trace,"(ion) %9.4e %9.4e %9.4e %9.4e\n",nav->ion_gps[4],
+            nav->ion_gps[5],nav->ion_gps[6],nav->ion_gps[7]);
+    fprintf(fp_trace,"(ion) %9.4e %9.4e %9.4e %9.4e\n",nav->ion_gal[0],
+            nav->ion_gal[1],nav->ion_gal[2],nav->ion_gal[3]);
+}
+
+extern void tracegnav(int level, const nav_t *nav)
+{
+    char s1[64],s2[64],id[16];
+    int i;
+    
+    if (!fp_trace||level>level_trace) return;
+    for (i=0;i<nav->ng;i++) {
+        time2str(nav->geph[i].toe,s1,0);
+        time2str(nav->geph[i].tof,s2,0);
+        satno2id(nav->geph[i].sat,id);
+        fprintf(fp_trace,"(%3d) %-3s : %s %s %2d %2d %8.3f\n",i+1,
+                id,s1,s2,nav->geph[i].frq,nav->geph[i].svh,nav->geph[i].taun*1E6);
+    }
+}
+
+extern void tracehnav(int level, const nav_t *nav)
+{
+    char s1[64],s2[64],id[16];
+    int i;
+    
+    if (!fp_trace||level>level_trace) return;
+    for (i=0;i<nav->ns;i++) {
+        time2str(nav->seph[i].t0,s1,0);
+        time2str(nav->seph[i].tof,s2,0);
+        satno2id(nav->seph[i].sat,id);
+        fprintf(fp_trace,"(%3d) %-3s : %s %s %2d %2d\n",i+1,
+                id,s1,s2,nav->seph[i].svh,nav->seph[i].sva);
+    }
+}
+
+extern void tracepeph(int level, const nav_t *nav)
+{
+    char s[64],id[16];
+    int i,j;
+    
+    if (!fp_trace||level>level_trace) return;
+    
+    for (i=0;i<nav->ne;i++) {
+        time2str(nav->peph[i].time,s,0);
+        for (j=0;j<MAXSAT;j++) {
+            satno2id(j+1,id);
+            fprintf(fp_trace,"%-3s %d %-3s %13.3f %13.3f %13.3f %13.3f %6.3f %6.3f %6.3f %6.3f\n",
+                    s,nav->peph[i].index,id,
+                    nav->peph[i].pos[j][0],nav->peph[i].pos[j][1],
+                    nav->peph[i].pos[j][2],nav->peph[i].pos[j][3]*1E9,
+                    nav->peph[i].std[j][0],nav->peph[i].std[j][1],
+                    nav->peph[i].std[j][2],nav->peph[i].std[j][3]*1E9);
+        }
+    }
+}
+
+extern void tracepclk(int level, const nav_t *nav)
+{
+    char s[64],id[16];
+    int i,j;
+    
+    if (!fp_trace||level>level_trace) return;
+    
+    for (i=0;i<nav->nc;i++) {
+        time2str(nav->pclk[i].time,s,0);
+        for (j=0;j<MAXSAT;j++) {
+            satno2id(j+1,id);
+            fprintf(fp_trace,"%-3s %d %-3s %13.3f %6.3f\n",
+                    s,nav->pclk[i].index,id,
+                    nav->pclk[i].clk[j][0]*1E9,nav->pclk[i].std[j][0]*1E9);
+        }
+    }
+}
+
+extern void traceb(int level, const uint8_t *p, int n)
+{
+    int i;
+    if (!fp_trace||level>level_trace) return;
+    for (i=0;i<n;i++) fprintf(fp_trace,"%02X%s",*p++,i%8==7?" ":"");
+    fprintf(fp_trace,"\n");
+}
+
+#endif // TRACE && EXTERNAL_TRACE
+
+#if (defined(TRACE) || defined(EXTERNAL_TRACE)) && defined(FLUTTER_DEBUG)
+extern void flutter_initialize(void (*printCallback)(char *, uint64_t))
+{
+    flutter_print = printCallback;
+    if (flutter_print != NULL) {
+        char str[] = "C library initialized";
+        flutter_print(str, strlen(str));
+    }
+}
+
+extern int flutter_printf(const char *format, ...)
+{
+    va_list args1;
+  
+    int done;
+    va_start (args1, format);
+    done = flutter_vprintf(format, args1);
+    va_end(args1);
+
+    return done;
+}
+
+extern int flutter_vprintf(const char *format, va_list args)
+{
+    char str[256*3];
+    int done;
+    int size = vsnprintf(NULL, 0, format, args);
+    done = vsnprintf(str, size + 1, format, args);
+
+    if (flutter_print != NULL) {
+        flutter_print(str, done);
+    }
+
+    return done;
+}
+
+extern int flutter_trace(int level, const char *format, ...) {
+    if (level<=gettracelevel()) {      
+        va_list args;
+        va_start(args,format); 
+        int res = flutter_vtrace(level, format, args);
+        va_end(args);
+
+        return res;
+    }
+    return 0;
+}
+
+extern int flutter_vtrace(int level, const char *format, va_list args) {
+    if (level<=gettracelevel()) {
+        char str1[80];
+        char str2[256*2];
+        const char * level_format = "(level: %d)";
+        int size1 = snprintf(NULL, 0, level_format, level);
+        snprintf(str1, size1 + 1, level_format, level);
+
+        int size2 = vsnprintf(NULL, 0, format, args);
+        vsnprintf(str2, size2 + 1, format, args);
+        return flutter_printf("%s %s", str1, str2);
+    }
+
+    return 0;
+}
+
+extern void set_level_trace(int level) {
+    tracelevel(level);
+}
+
+#else
+
+extern void flutter_initialize(void (*printCallback)(char *, uint64_t)) {}
+extern int flutter_printf(const char *format, ...) { return 0; }
+extern int flutter_vprintf(const char *format, va_list args) { return 0; }
+extern int flutter_vprintf(const char *format, va_list args) { return 0; }
+extern int flutter_trace(int level, const char *format, ...) { return 0; }
+extern int flutter_vtrace(int level, const char *format, va_list args) { return 0; }
+
+#endif // (TRACE || EXTERNAL_TRACE) && FLUTTER_DEBUG
