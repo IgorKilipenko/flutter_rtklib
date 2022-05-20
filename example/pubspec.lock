@@ -226,7 +226,7 @@ packages:
   flutter_libserialport:
     dependency: "direct main"
     description:
-      path: "../../../_forks/flutter_serial_port"
+      path: "../../flutter_libserialport"
       relative: true
     source: path
     version: "0.3.0-dev.0+1"
