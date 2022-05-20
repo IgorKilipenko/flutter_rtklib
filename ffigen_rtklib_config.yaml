@@ -40,11 +40,12 @@
     - '-DTRACE -DENAGLO -DENAQZS -DENAGAL -DENACMP -DENAIRN -DNFREQ=5 -DNEXOBS=3'
     - '-DFLUTTER_DEBUG'
     - '-DEXTERNAL_TRACE'
-    - '-D_USE_32BIT_TIME_T'
+    #- '-D_USE_32BIT_TIME_T'
     #- '-IC:\msys64\mingw64\x86_64-w64-mingw32\include'
     #- '-IC:\msys64\usr\include'
-    - '-IC:\Users\Igor\AppData\Local\Android\Sdk\ndk\21.1.6352462\sysroot\usr\include'
-    - '-Ithird_party\RTKLIB\src\'
+    - '-IC:/Users/Igor/AppData/Local/Android/Sdk/ndk/21.1.6352462/sysroot/usr/include'
+    - '-Ithird_party/RTKLIB/src/'
+    - '-Ithird_party/rtklib_wraps/'
     - '-g'
   preamble: |
     // Part of the LLVM Project, under the Apache License v2.0 with LLVM
@@ -53,4 +54,5 @@
     // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
     // ignore_for_file: camel_case_types, non_constant_identifier_names
   llvm-path:
-    - 'C:\Program Files\llvm'
+    - 'C:/Program Files/llvm'
+    - '/lib/llvm-14'
