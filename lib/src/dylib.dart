@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:flutter_rtklib/src/rtklib_bindings.dart';
 //import 'package:flutter_rtklib/src/rcv/ublox_bindings.dart';
 import 'package:dylib/dylib.dart';
-import 'package:path/path.dart' as p;
 
 RtkLib? _dylibRtklib;
 RtkLib get dylibRtklib {
@@ -12,15 +11,27 @@ RtkLib get dylibRtklib {
 
   String? path;
   if (Platform.environment.containsKey("FLUTTER_TEST")) {
-    final script = File(Platform.script.path
-        .replaceFirst(RegExp(r'^[/\\]+'), "")
-        .replaceAll(RegExp(r'\\+'), "/"));
-    path = p.join(script.parent.path, "example/build/windows/runner/Debug").replaceAll(RegExp(r'^\\+'), "/");
+    final script =
+        File(Platform.script.toFilePath(windows: Platform.isWindows));
+    String? platformSpecificPath;
+    if (Platform.isLinux) {
+      platformSpecificPath = "example/build/linux/x64/debug/bundle/lib";
+    } else if (Platform.isWindows) {
+      platformSpecificPath = "example/build/windows/runner/Debug";
+    }
+
+    if (platformSpecificPath != null) {
+      final dir = Directory(
+          '${script.parent.path.replaceFirst(RegExp(r'[/\\]example$'), "")}${Platform.pathSeparator}$platformSpecificPath');
+      if (dir.existsSync()) {
+        path = dir.path;
+      }
+    }
   }
+
   _dylibRtklib = RtkLib(ffi.DynamicLibrary.open(
     resolveDylibPath(
       'rtklib',
-      //path: resolvedExecutable.parent.path,
       path: path,
       dartDefine: 'RTKLIB_PATH',
       environmentVariable: 'RTKLIB_PATH',
