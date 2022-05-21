@@ -67,7 +67,7 @@ macro(setLibs)
         ${SRC_DIR}/rcv/septentrio.c 
         ${SRC_DIR}/rcv/swiftnav.c
         ${UTILS_DIR}/utils.c
-        #${UTILS_DIR}/trace.c
-        #${UTILS_DIR}/test_size.c
+        ${UTILS_DIR}/trace.c
+        ${UTILS_DIR}/test_size.c
     )
 endmacro()

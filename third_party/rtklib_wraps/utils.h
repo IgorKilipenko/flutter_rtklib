@@ -3,34 +3,15 @@
 
 #include "rtklib.h"
 
-/** 
- * @brief Convert obs to string
- * @param[in] obs - [obsd_t *] observation
- * @param[out] strLen - [size_t *] output string length
- * @return [char*] result string
- */
-EXPORT char* obs2str(const obsd_t *obs, size_t * strLen);
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-EXPORT size_t obs2str2(const obsd_t *obs, char ** outStr);
-
-
-/** 
- * @brief Create new raw controller
- * @param[in] format - [int] format raw data
- * @param[in, out] status - [uint32_t *] status code (0: memory allocation error, 1: success)
- * @return [raw_t *] pointer to raw_t instance
- */
-EXPORT raw_t * create_raw(int format, uint32_t* status);
-
-EXPORT int init_raw_2 (raw_t **raw, int format);
-
-EXPORT void (*flutter_print)(char *, uint64_t);
-EXPORT int flutter_printf(const char *format, ...);
-EXPORT int flutter_vprintf(const char *format, va_list args);
-EXPORT int flutter_trace(int level, const char *format, ...);
-EXPORT int flutter_vtrace(int level, const char *format, va_list args);
-EXPORT void flutter_initialize(void (*printCallback)(char *, uint64_t));
-EXPORT void set_level_trace(int level);
+#ifdef WIN_DLL
+#define EXPORT __declspec(dllexport) // for Windows DLL
+#else
+#define EXPORT
+#endif
 
 typedef struct {
     size_t gtime_t;
@@ -90,5 +71,39 @@ typedef struct {
     size_t gis_t;
 } struct_sizes_t;
 
-#endif // RTKLIBW_UTILS_H
 
+/** 
+ * @brief Convert obs to string
+ * @param[in] obs - [obsd_t *] observation
+ * @param[out] strLen - [size_t *] output string length
+ * @return [char*] result string
+ */
+EXPORT char* obs2str(const obsd_t *obs, size_t * strLen);
+
+EXPORT size_t obs2str2(const obsd_t *obs, char ** outStr);
+
+
+/** 
+ * @brief Create new raw controller
+ * @param[in] format - [int] format raw data
+ * @param[in, out] status - [uint32_t *] status code (0: memory allocation error, 1: success)
+ * @return [raw_t *] pointer to raw_t instance
+ */
+EXPORT raw_t * create_raw(int format, uint32_t* status);
+
+EXPORT int init_raw_2 (raw_t **raw, int format);
+
+static void (*flutter_print)(char *, uint64_t)=NULL;
+EXPORT int flutter_printf(const char *format, ...);
+EXPORT int flutter_vprintf(const char *format, va_list args);
+EXPORT int flutter_trace(int level, const char *format, ...);
+EXPORT int flutter_vtrace(int level, const char *format, va_list args);
+EXPORT void flutter_initialize(void (*printCallback)(char *, uint64_t));
+EXPORT void set_level_trace(int level);
+
+EXPORT struct_sizes_t* getStructSizes();
+
+#ifdef __cplusplus
+}
+#endif
+#endif // RTKLIBW_UTILS_H
