@@ -9,20 +9,6 @@ void main() {
 
   testing.TestWidgetsFlutterBinding.ensureInitialized();
 
-  testing.setUp(() {
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return '42';
-    });
-  });
-
-  testing.tearDown(() {
-    channel.setMockMethodCallHandler(null);
-  });
-
-  testing.test('getPlatformVersion', () async {
-    testing.expect(await FlutterRtklib.platformVersion, '42');
-  });
-
   testing.test('Test ublox', () async {
     final environment = Platform.environment;
     print(environment);
