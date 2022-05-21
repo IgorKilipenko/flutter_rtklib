@@ -28,5 +28,5 @@
 .packages
 build/
 
-third_party/**
-!rtklib_wraps
+third_party/*
+!third_party/rtklib_wraps/
