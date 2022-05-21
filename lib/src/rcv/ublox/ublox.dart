@@ -4,17 +4,16 @@ import 'dart:ffi' as ffi;
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:ffi/ffi.dart' as ffi;
-import 'package:ffi/ffi.dart';
+import 'package:ffi/ffi.dart' as pkg_ffi;
 import 'package:flutter/foundation.dart';
 import 'package:flutter_rtklib/src/dylib.dart';
 
 //import 'package:flutter_rtklib/src/rcv/ublox_bindings.dart' as ubx;
 import 'package:flutter_rtklib/src/rtklib_bindings.dart' as rtklib;
 
-typedef _wrappedPrint_C = ffi.Void Function(ffi.Pointer<ffi.Int8>, ffi.Uint64);
-void wrappedPrint(ffi.Pointer<ffi.Int8> arg, int length) {
-  print(arg.cast<Utf8>().toDartString(length: length));
+typedef _wrappedPrint_C = ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Uint64);
+void wrappedPrint(ffi.Pointer<ffi.Char> arg, int length) {
+  print(arg.cast<pkg_ffi.Utf8>().toDartString(length: length));
 }
 
 final wrappedPrintPointer =
@@ -63,12 +62,12 @@ class UbloxImpl {
   }
 
   void decodeUbx(Uint8List buffer) {
-    final raw = ffi.calloc<rtklib.raw_t>();
+    final raw = pkg_ffi.calloc<rtklib.raw_t>();
     final initStatus = _rtkInstance!.init_raw(raw, rtklib.STRFMT_UBX);
     if (initStatus == 0) {
       const String msg = 'Error';
       _rtkInstance!.free_raw(raw);
-      ffi.calloc.free(raw);
+      pkg_ffi.calloc.free(raw);
       throw Exception(msg);
     }
 
@@ -88,48 +87,48 @@ class UbloxImpl {
   }*/
 
   static String time2str(rtklib.gtime_t time, int n) {
-    final str = ffi.calloc.allocate<ffi.Int8>(64);
+    final str = pkg_ffi.calloc.allocate<ffi.Char>(64);
     _rtkInstance!.time2str(time, str, n);
-    return str.cast<ffi.Utf8>().toDartString(/*length: n*/);
+    return str.cast<pkg_ffi.Utf8>().toDartString(/*length: n*/);
   }
 
   static String satno2id(int sat) {
-    final id = ffi.calloc.allocate<ffi.Int8>(16);
+    final id = pkg_ffi.calloc.allocate<ffi.Char>(16);
     _rtkInstance!.satno2id(sat, id);
-    return id.cast<ffi.Utf8>().toDartString();
+    return id.cast<pkg_ffi.Utf8>().toDartString();
   }
 
   static String obsToString(rtklib.obsd_t obs) {
-    final obsPtr = ffi.calloc<rtklib.obsd_t>();
+    final obsPtr = pkg_ffi.calloc<rtklib.obsd_t>();
     obsPtr.ref = obs;
-    final strLen = ffi.calloc<ffi.Uint32>();
+    final strLen = pkg_ffi.calloc<ffi.Size>();
     final strPtr = _rtkInstance!.obs2str(obsPtr, strLen);
     if (strLen.value <= 0) {
       return "";
     }
-    final res = strPtr.cast<Utf8>().toDartString(length: strLen.value);
+    final res = strPtr.cast<pkg_ffi.Utf8>().toDartString(length: strLen.value);
 
-    ffi.calloc.free(obsPtr);
-    ffi.calloc.free(strLen);
-    ffi.calloc.free(strPtr);
+    pkg_ffi.calloc.free(obsPtr);
+    pkg_ffi.calloc.free(strLen);
+    pkg_ffi.calloc.free(strPtr);
 
     return res;
   }
 
   static String obsToString2(rtklib.obsd_t obs) {
-    final obsPtr = ffi.calloc<rtklib.obsd_t>();
+    final obsPtr = pkg_ffi.calloc<rtklib.obsd_t>();
     obsPtr.ref = obs;
-    final strPtr = ffi.calloc<ffi.Pointer<ffi.Int8>>();
+    final strPtr = pkg_ffi.calloc<ffi.Pointer<ffi.Char>>();
     final strLen = _rtkInstance!.obs2str2(obsPtr, strPtr);
     if (strLen <= 0) {
       return "";
     }
 
-    final res = strPtr.value.cast<Utf8>().toDartString(length: strLen);
+    final res = strPtr.value.cast<pkg_ffi.Utf8>().toDartString(length: strLen);
 
-    ffi.calloc.free(obsPtr);
-    ffi.calloc.free(strPtr.value);
-    ffi.calloc.free(strPtr);
+    pkg_ffi.calloc.free(obsPtr);
+    pkg_ffi.calloc.free(strPtr.value);
+    pkg_ffi.calloc.free(strPtr);
 
     return res;
   }

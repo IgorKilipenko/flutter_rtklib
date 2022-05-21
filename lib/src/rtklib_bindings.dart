@@ -2,7 +2,7 @@
 // Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
-// ignore_for_file: camel_case_types, non_constant_identifier_names, constant_identifier_names
+// ignore_for_file: camel_case_types, non_constant_identifier_names, unused_field, constant_identifier_names, library_private_types_in_public_api
 
 // AUTO GENERATED FILE, DO NOT EDIT.
 //
@@ -63,12 +63,12 @@ class RtkLib {
       _igpband2.value = value;
 
   /// SBAS IGP band 9-10
-  late final ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Int8>>> _formatstrs =
-      _lookup<ffi.Pointer<ffi.Pointer<ffi.Int8>>>('formatstrs');
+  late final ffi.Pointer<ffi.Pointer<ffi.Pointer<ffi.Char>>> _formatstrs =
+      _lookup<ffi.Pointer<ffi.Pointer<ffi.Char>>>('formatstrs');
 
-  ffi.Pointer<ffi.Pointer<ffi.Int8>> get formatstrs => _formatstrs.value;
+  ffi.Pointer<ffi.Pointer<ffi.Char>> get formatstrs => _formatstrs.value;
 
-  set formatstrs(ffi.Pointer<ffi.Pointer<ffi.Int8>> value) =>
+  set formatstrs(ffi.Pointer<ffi.Pointer<ffi.Char>> value) =>
       _formatstrs.value = value;
 
   /// stream format strings
@@ -91,13 +91,12 @@ class RtkLib {
   }
 
   late final _satnoPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Int32, ffi.Int32)>>(
-          'satno');
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int, ffi.Int)>>('satno');
   late final _satno = _satnoPtr.asFunction<int Function(int, int)>();
 
   int satsys(
     int sat,
-    ffi.Pointer<ffi.Int32> prn,
+    ffi.Pointer<ffi.Int> prn,
   ) {
     return _satsys(
       sat,
@@ -106,13 +105,13 @@ class RtkLib {
   }
 
   late final _satsysPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Int32, ffi.Pointer<ffi.Int32>)>>('satsys');
+          ffi.NativeFunction<ffi.Int Function(ffi.Int, ffi.Pointer<ffi.Int>)>>(
+      'satsys');
   late final _satsys =
-      _satsysPtr.asFunction<int Function(int, ffi.Pointer<ffi.Int32>)>();
+      _satsysPtr.asFunction<int Function(int, ffi.Pointer<ffi.Int>)>();
 
   int satid2no(
-    ffi.Pointer<ffi.Int8> id,
+    ffi.Pointer<ffi.Char> id,
   ) {
     return _satid2no(
       id,
@@ -120,14 +119,14 @@ class RtkLib {
   }
 
   late final _satid2noPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Int8>)>>(
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>)>>(
           'satid2no');
   late final _satid2no =
-      _satid2noPtr.asFunction<int Function(ffi.Pointer<ffi.Int8>)>();
+      _satid2noPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
   void satno2id(
     int sat,
-    ffi.Pointer<ffi.Int8> id,
+    ffi.Pointer<ffi.Char> id,
   ) {
     return _satno2id(
       sat,
@@ -137,12 +136,12 @@ class RtkLib {
 
   late final _satno2idPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Int32, ffi.Pointer<ffi.Int8>)>>('satno2id');
+          ffi.Void Function(ffi.Int, ffi.Pointer<ffi.Char>)>>('satno2id');
   late final _satno2id =
-      _satno2idPtr.asFunction<void Function(int, ffi.Pointer<ffi.Int8>)>();
+      _satno2idPtr.asFunction<void Function(int, ffi.Pointer<ffi.Char>)>();
 
   int obs2code(
-    ffi.Pointer<ffi.Int8> obs,
+    ffi.Pointer<ffi.Char> obs,
   ) {
     return _obs2code(
       obs,
@@ -150,12 +149,12 @@ class RtkLib {
   }
 
   late final _obs2codePtr =
-      _lookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Int8>)>>(
+      _lookup<ffi.NativeFunction<ffi.Uint8 Function(ffi.Pointer<ffi.Char>)>>(
           'obs2code');
   late final _obs2code =
-      _obs2codePtr.asFunction<int Function(ffi.Pointer<ffi.Int8>)>();
+      _obs2codePtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
-  ffi.Pointer<ffi.Int8> code2obs(
+  ffi.Pointer<ffi.Char> code2obs(
     int code,
   ) {
     return _code2obs(
@@ -164,10 +163,10 @@ class RtkLib {
   }
 
   late final _code2obsPtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Int8> Function(ffi.Uint8)>>(
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Char> Function(ffi.Uint8)>>(
           'code2obs');
   late final _code2obs =
-      _code2obsPtr.asFunction<ffi.Pointer<ffi.Int8> Function(int)>();
+      _code2obsPtr.asFunction<ffi.Pointer<ffi.Char> Function(int)>();
 
   double code2freq(
     int sys,
@@ -182,8 +181,8 @@ class RtkLib {
   }
 
   late final _code2freqPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Double Function(ffi.Int32, ffi.Uint8, ffi.Int32)>>('code2freq');
+          ffi.NativeFunction<ffi.Double Function(ffi.Int, ffi.Uint8, ffi.Int)>>(
+      'code2freq');
   late final _code2freq =
       _code2freqPtr.asFunction<double Function(int, int, int)>();
 
@@ -202,7 +201,7 @@ class RtkLib {
   late final _sat2freqPtr = _lookup<
       ffi.NativeFunction<
           ffi.Double Function(
-              ffi.Int32, ffi.Uint8, ffi.Pointer<nav_t>)>>('sat2freq');
+              ffi.Int, ffi.Uint8, ffi.Pointer<nav_t>)>>('sat2freq');
   late final _sat2freq =
       _sat2freqPtr.asFunction<double Function(int, int, ffi.Pointer<nav_t>)>();
 
@@ -217,7 +216,7 @@ class RtkLib {
   }
 
   late final _code2idxPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Int32, ffi.Uint8)>>(
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int, ffi.Uint8)>>(
           'code2idx');
   late final _code2idx = _code2idxPtr.asFunction<int Function(int, int)>();
 
@@ -237,7 +236,7 @@ class RtkLib {
 
   late final _satexcludePtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Int32, ffi.Double, ffi.Int32,
+          ffi.Int Function(ffi.Int, ffi.Double, ffi.Int,
               ffi.Pointer<prcopt_t>)>>('satexclude');
   late final _satexclude = _satexcludePtr
       .asFunction<int Function(int, double, int, ffi.Pointer<prcopt_t>)>();
@@ -260,7 +259,7 @@ class RtkLib {
 
   late final _testsnrPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Int32, ffi.Int32, ffi.Double, ffi.Double,
+          ffi.Int Function(ffi.Int, ffi.Int, ffi.Double, ffi.Double,
               ffi.Pointer<snrmask_t>)>>('testsnr');
   late final _testsnr = _testsnrPtr.asFunction<
       int Function(int, int, double, double, ffi.Pointer<snrmask_t>)>();
@@ -268,7 +267,7 @@ class RtkLib {
   void setcodepri(
     int sys,
     int idx,
-    ffi.Pointer<ffi.Int8> pri,
+    ffi.Pointer<ffi.Char> pri,
   ) {
     return _setcodepri(
       sys,
@@ -280,14 +279,14 @@ class RtkLib {
   late final _setcodepriPtr = _lookup<
       ffi.NativeFunction<
           ffi.Void Function(
-              ffi.Int32, ffi.Int32, ffi.Pointer<ffi.Int8>)>>('setcodepri');
+              ffi.Int, ffi.Int, ffi.Pointer<ffi.Char>)>>('setcodepri');
   late final _setcodepri = _setcodepriPtr
-      .asFunction<void Function(int, int, ffi.Pointer<ffi.Int8>)>();
+      .asFunction<void Function(int, int, ffi.Pointer<ffi.Char>)>();
 
   int getcodepri(
     int sys,
     int code,
-    ffi.Pointer<ffi.Int8> opt,
+    ffi.Pointer<ffi.Char> opt,
   ) {
     return _getcodepri(
       sys,
@@ -298,10 +297,10 @@ class RtkLib {
 
   late final _getcodepriPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Int32, ffi.Uint8, ffi.Pointer<ffi.Int8>)>>('getcodepri');
+          ffi.Int Function(
+              ffi.Int, ffi.Uint8, ffi.Pointer<ffi.Char>)>>('getcodepri');
   late final _getcodepri = _getcodepriPtr
-      .asFunction<int Function(int, int, ffi.Pointer<ffi.Int8>)>();
+      .asFunction<int Function(int, int, ffi.Pointer<ffi.Char>)>();
 
   /// matrix and vector functions
   ffi.Pointer<ffi.Double> mat(
@@ -316,11 +315,11 @@ class RtkLib {
 
   late final _matPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Pointer<ffi.Double> Function(ffi.Int32, ffi.Int32)>>('mat');
+          ffi.Pointer<ffi.Double> Function(ffi.Int, ffi.Int)>>('mat');
   late final _mat =
       _matPtr.asFunction<ffi.Pointer<ffi.Double> Function(int, int)>();
 
-  ffi.Pointer<ffi.Int32> imat(
+  ffi.Pointer<ffi.Int> imat(
     int n,
     int m,
   ) {
@@ -331,10 +330,10 @@ class RtkLib {
   }
 
   late final _imatPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Int32> Function(ffi.Int32, ffi.Int32)>>('imat');
+          ffi.NativeFunction<ffi.Pointer<ffi.Int> Function(ffi.Int, ffi.Int)>>(
+      'imat');
   late final _imat =
-      _imatPtr.asFunction<ffi.Pointer<ffi.Int32> Function(int, int)>();
+      _imatPtr.asFunction<ffi.Pointer<ffi.Int> Function(int, int)>();
 
   ffi.Pointer<ffi.Double> zeros(
     int n,
@@ -348,7 +347,7 @@ class RtkLib {
 
   late final _zerosPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Pointer<ffi.Double> Function(ffi.Int32, ffi.Int32)>>('zeros');
+          ffi.Pointer<ffi.Double> Function(ffi.Int, ffi.Int)>>('zeros');
   late final _zeros =
       _zerosPtr.asFunction<ffi.Pointer<ffi.Double> Function(int, int)>();
 
@@ -361,7 +360,7 @@ class RtkLib {
   }
 
   late final _eyePtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Double> Function(ffi.Int32)>>(
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Double> Function(ffi.Int)>>(
           'eye');
   late final _eye = _eyePtr.asFunction<ffi.Pointer<ffi.Double> Function(int)>();
 
@@ -380,7 +379,7 @@ class RtkLib {
   late final _dotPtr = _lookup<
       ffi.NativeFunction<
           ffi.Double Function(ffi.Pointer<ffi.Double>, ffi.Pointer<ffi.Double>,
-              ffi.Int32)>>('dot');
+              ffi.Int)>>('dot');
   late final _dot = _dotPtr.asFunction<
       double Function(ffi.Pointer<ffi.Double>, ffi.Pointer<ffi.Double>, int)>();
 
@@ -396,7 +395,7 @@ class RtkLib {
 
   late final _normPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Double Function(ffi.Pointer<ffi.Double>, ffi.Int32)>>('norm');
+          ffi.Double Function(ffi.Pointer<ffi.Double>, ffi.Int)>>('norm');
   late final _norm =
       _normPtr.asFunction<double Function(ffi.Pointer<ffi.Double>, int)>();
 
@@ -432,7 +431,7 @@ class RtkLib {
 
   late final _normv3Ptr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<ffi.Double>, ffi.Pointer<ffi.Double>)>>('normv3');
   late final _normv3 = _normv3Ptr.asFunction<
       int Function(ffi.Pointer<ffi.Double>, ffi.Pointer<ffi.Double>)>();
@@ -454,13 +453,13 @@ class RtkLib {
   late final _matcpyPtr = _lookup<
       ffi.NativeFunction<
           ffi.Void Function(ffi.Pointer<ffi.Double>, ffi.Pointer<ffi.Double>,
-              ffi.Int32, ffi.Int32)>>('matcpy');
+              ffi.Int, ffi.Int)>>('matcpy');
   late final _matcpy = _matcpyPtr.asFunction<
       void Function(
           ffi.Pointer<ffi.Double>, ffi.Pointer<ffi.Double>, int, int)>();
 
   void matmul(
-    ffi.Pointer<ffi.Int8> tr,
+    ffi.Pointer<ffi.Char> tr,
     int n,
     int k,
     int m,
@@ -486,10 +485,10 @@ class RtkLib {
   late final _matmulPtr = _lookup<
       ffi.NativeFunction<
           ffi.Void Function(
-              ffi.Pointer<ffi.Int8>,
-              ffi.Int32,
-              ffi.Int32,
-              ffi.Int32,
+              ffi.Pointer<ffi.Char>,
+              ffi.Int,
+              ffi.Int,
+              ffi.Int,
               ffi.Double,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
@@ -497,7 +496,7 @@ class RtkLib {
               ffi.Pointer<ffi.Double>)>>('matmul');
   late final _matmul = _matmulPtr.asFunction<
       void Function(
-          ffi.Pointer<ffi.Int8>,
+          ffi.Pointer<ffi.Char>,
           int,
           int,
           int,
@@ -519,12 +518,12 @@ class RtkLib {
 
   late final _matinvPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<ffi.Double>, ffi.Int32)>>('matinv');
+          ffi.Int Function(ffi.Pointer<ffi.Double>, ffi.Int)>>('matinv');
   late final _matinv =
       _matinvPtr.asFunction<int Function(ffi.Pointer<ffi.Double>, int)>();
 
   int solve(
-    ffi.Pointer<ffi.Int8> tr,
+    ffi.Pointer<ffi.Char> tr,
     ffi.Pointer<ffi.Double> A,
     ffi.Pointer<ffi.Double> Y,
     int n,
@@ -543,15 +542,15 @@ class RtkLib {
 
   late final _solvePtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>,
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
-              ffi.Int32,
-              ffi.Int32,
+              ffi.Int,
+              ffi.Int,
               ffi.Pointer<ffi.Double>)>>('solve');
   late final _solve = _solvePtr.asFunction<
-      int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Double>,
+      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Double>,
           ffi.Pointer<ffi.Double>, int, int, ffi.Pointer<ffi.Double>)>();
 
   int lsq(
@@ -574,11 +573,11 @@ class RtkLib {
 
   late final _lsqPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
-              ffi.Int32,
-              ffi.Int32,
+              ffi.Int,
+              ffi.Int,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>)>>('lsq');
   late final _lsq = _lsqPtr.asFunction<
@@ -607,14 +606,14 @@ class RtkLib {
 
   late final _filterPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
-              ffi.Int32,
-              ffi.Int32)>>('filter');
+              ffi.Int,
+              ffi.Int)>>('filter');
   late final _filter = _filterPtr.asFunction<
       int Function(
           ffi.Pointer<ffi.Double>,
@@ -647,12 +646,12 @@ class RtkLib {
 
   late final _smootherPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
-              ffi.Int32,
+              ffi.Int,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>)>>('smoother');
   late final _smoother = _smootherPtr.asFunction<
@@ -683,8 +682,8 @@ class RtkLib {
 
   late final _matprintPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Double>, ffi.Int32, ffi.Int32,
-              ffi.Int32, ffi.Int32)>>('matprint');
+          ffi.Void Function(ffi.Pointer<ffi.Double>, ffi.Int, ffi.Int, ffi.Int,
+              ffi.Int)>>('matprint');
   late final _matprint = _matprintPtr
       .asFunction<void Function(ffi.Pointer<ffi.Double>, int, int, int, int)>();
 
@@ -708,8 +707,8 @@ class RtkLib {
 
   late final _matfprintPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Double>, ffi.Int32, ffi.Int32,
-              ffi.Int32, ffi.Int32, ffi.Pointer<FILE>)>>('matfprint');
+          ffi.Void Function(ffi.Pointer<ffi.Double>, ffi.Int, ffi.Int, ffi.Int,
+              ffi.Int, ffi.Pointer<FILE>)>>('matfprint');
   late final _matfprint = _matfprintPtr.asFunction<
       void Function(
           ffi.Pointer<ffi.Double>, int, int, int, int, ffi.Pointer<FILE>)>();
@@ -730,7 +729,7 @@ class RtkLib {
 
   /// time and string functions
   double str2num(
-    ffi.Pointer<ffi.Int8> s,
+    ffi.Pointer<ffi.Char> s,
     int i,
     int n,
   ) {
@@ -744,12 +743,12 @@ class RtkLib {
   late final _str2numPtr = _lookup<
       ffi.NativeFunction<
           ffi.Double Function(
-              ffi.Pointer<ffi.Int8>, ffi.Int32, ffi.Int32)>>('str2num');
+              ffi.Pointer<ffi.Char>, ffi.Int, ffi.Int)>>('str2num');
   late final _str2num = _str2numPtr
-      .asFunction<double Function(ffi.Pointer<ffi.Int8>, int, int)>();
+      .asFunction<double Function(ffi.Pointer<ffi.Char>, int, int)>();
 
   int str2time(
-    ffi.Pointer<ffi.Int8> s,
+    ffi.Pointer<ffi.Char> s,
     int i,
     int n,
     ffi.Pointer<gtime_t> t,
@@ -764,14 +763,14 @@ class RtkLib {
 
   late final _str2timePtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<ffi.Int8>, ffi.Int32, ffi.Int32,
+          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Int, ffi.Int,
               ffi.Pointer<gtime_t>)>>('str2time');
   late final _str2time = _str2timePtr.asFunction<
-      int Function(ffi.Pointer<ffi.Int8>, int, int, ffi.Pointer<gtime_t>)>();
+      int Function(ffi.Pointer<ffi.Char>, int, int, ffi.Pointer<gtime_t>)>();
 
   void time2str(
     gtime_t t,
-    ffi.Pointer<ffi.Int8> str,
+    ffi.Pointer<ffi.Char> str,
     int n,
   ) {
     return _time2str(
@@ -784,9 +783,9 @@ class RtkLib {
   late final _time2strPtr = _lookup<
       ffi.NativeFunction<
           ffi.Void Function(
-              gtime_t, ffi.Pointer<ffi.Int8>, ffi.Int32)>>('time2str');
+              gtime_t, ffi.Pointer<ffi.Char>, ffi.Int)>>('time2str');
   late final _time2str = _time2strPtr
-      .asFunction<void Function(gtime_t, ffi.Pointer<ffi.Int8>, int)>();
+      .asFunction<void Function(gtime_t, ffi.Pointer<ffi.Char>, int)>();
 
   gtime_t epoch2time(
     ffi.Pointer<ffi.Double> ep,
@@ -833,7 +832,7 @@ class RtkLib {
   late final _time2epoch_nPtr = _lookup<
       ffi.NativeFunction<
           ffi.Void Function(
-              gtime_t, ffi.Pointer<ffi.Double>, ffi.Int32)>>('time2epoch_n');
+              gtime_t, ffi.Pointer<ffi.Double>, ffi.Int)>>('time2epoch_n');
   late final _time2epoch_n = _time2epoch_nPtr
       .asFunction<void Function(gtime_t, ffi.Pointer<ffi.Double>, int)>();
 
@@ -848,14 +847,14 @@ class RtkLib {
   }
 
   late final _gpst2timePtr =
-      _lookup<ffi.NativeFunction<gtime_t Function(ffi.Int32, ffi.Double)>>(
+      _lookup<ffi.NativeFunction<gtime_t Function(ffi.Int, ffi.Double)>>(
           'gpst2time');
   late final _gpst2time =
       _gpst2timePtr.asFunction<gtime_t Function(int, double)>();
 
   double time2gpst(
     gtime_t t,
-    ffi.Pointer<ffi.Int32> week,
+    ffi.Pointer<ffi.Int> week,
   ) {
     return _time2gpst(
       t,
@@ -865,9 +864,9 @@ class RtkLib {
 
   late final _time2gpstPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Double Function(gtime_t, ffi.Pointer<ffi.Int32>)>>('time2gpst');
+          ffi.Double Function(gtime_t, ffi.Pointer<ffi.Int>)>>('time2gpst');
   late final _time2gpst = _time2gpstPtr
-      .asFunction<double Function(gtime_t, ffi.Pointer<ffi.Int32>)>();
+      .asFunction<double Function(gtime_t, ffi.Pointer<ffi.Int>)>();
 
   gtime_t gst2time(
     int week,
@@ -880,14 +879,14 @@ class RtkLib {
   }
 
   late final _gst2timePtr =
-      _lookup<ffi.NativeFunction<gtime_t Function(ffi.Int32, ffi.Double)>>(
+      _lookup<ffi.NativeFunction<gtime_t Function(ffi.Int, ffi.Double)>>(
           'gst2time');
   late final _gst2time =
       _gst2timePtr.asFunction<gtime_t Function(int, double)>();
 
   double time2gst(
     gtime_t t,
-    ffi.Pointer<ffi.Int32> week,
+    ffi.Pointer<ffi.Int> week,
   ) {
     return _time2gst(
       t,
@@ -897,9 +896,9 @@ class RtkLib {
 
   late final _time2gstPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Double Function(gtime_t, ffi.Pointer<ffi.Int32>)>>('time2gst');
-  late final _time2gst = _time2gstPtr
-      .asFunction<double Function(gtime_t, ffi.Pointer<ffi.Int32>)>();
+          ffi.Double Function(gtime_t, ffi.Pointer<ffi.Int>)>>('time2gst');
+  late final _time2gst =
+      _time2gstPtr.asFunction<double Function(gtime_t, ffi.Pointer<ffi.Int>)>();
 
   gtime_t bdt2time(
     int week,
@@ -912,14 +911,14 @@ class RtkLib {
   }
 
   late final _bdt2timePtr =
-      _lookup<ffi.NativeFunction<gtime_t Function(ffi.Int32, ffi.Double)>>(
+      _lookup<ffi.NativeFunction<gtime_t Function(ffi.Int, ffi.Double)>>(
           'bdt2time');
   late final _bdt2time =
       _bdt2timePtr.asFunction<gtime_t Function(int, double)>();
 
   double time2bdt(
     gtime_t t,
-    ffi.Pointer<ffi.Int32> week,
+    ffi.Pointer<ffi.Int> week,
   ) {
     return _time2bdt(
       t,
@@ -929,11 +928,11 @@ class RtkLib {
 
   late final _time2bdtPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Double Function(gtime_t, ffi.Pointer<ffi.Int32>)>>('time2bdt');
-  late final _time2bdt = _time2bdtPtr
-      .asFunction<double Function(gtime_t, ffi.Pointer<ffi.Int32>)>();
+          ffi.Double Function(gtime_t, ffi.Pointer<ffi.Int>)>>('time2bdt');
+  late final _time2bdt =
+      _time2bdtPtr.asFunction<double Function(gtime_t, ffi.Pointer<ffi.Int>)>();
 
-  ffi.Pointer<ffi.Int8> time_str(
+  ffi.Pointer<ffi.Char> time_str(
     gtime_t t,
     int n,
   ) {
@@ -944,10 +943,10 @@ class RtkLib {
   }
 
   late final _time_strPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Int8> Function(gtime_t, ffi.Int32)>>('time_str');
+          ffi.NativeFunction<ffi.Pointer<ffi.Char> Function(gtime_t, ffi.Int)>>(
+      'time_str');
   late final _time_str =
-      _time_strPtr.asFunction<ffi.Pointer<ffi.Int8> Function(gtime_t, int)>();
+      _time_strPtr.asFunction<ffi.Pointer<ffi.Char> Function(gtime_t, int)>();
 
   gtime_t timeadd(
     gtime_t t,
@@ -1086,7 +1085,7 @@ class RtkLib {
       _utc2gmstPtr.asFunction<double Function(gtime_t, double)>();
 
   int read_leaps(
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
   ) {
     return _read_leaps(
       file,
@@ -1094,10 +1093,10 @@ class RtkLib {
   }
 
   late final _read_leapsPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Int8>)>>(
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>)>>(
           'read_leaps');
   late final _read_leaps =
-      _read_leapsPtr.asFunction<int Function(ffi.Pointer<ffi.Int8>)>();
+      _read_leapsPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
   int adjgpsweek(
     int week,
@@ -1108,7 +1107,7 @@ class RtkLib {
   }
 
   late final _adjgpsweekPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Int32)>>('adjgpsweek');
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int)>>('adjgpsweek');
   late final _adjgpsweek = _adjgpsweekPtr.asFunction<int Function(int)>();
 
   int tickget() {
@@ -1128,15 +1127,15 @@ class RtkLib {
   }
 
   late final _sleepmsPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int32)>>('sleepms');
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int)>>('sleepms');
   late final _sleepms = _sleepmsPtr.asFunction<void Function(int)>();
 
   int reppath(
-    ffi.Pointer<ffi.Int8> path,
-    ffi.Pointer<ffi.Int8> rpath,
+    ffi.Pointer<ffi.Char> path,
+    ffi.Pointer<ffi.Char> rpath,
     gtime_t time,
-    ffi.Pointer<ffi.Int8> rov,
-    ffi.Pointer<ffi.Int8> base,
+    ffi.Pointer<ffi.Char> rov,
+    ffi.Pointer<ffi.Char> base,
   ) {
     return _reppath(
       path,
@@ -1149,24 +1148,24 @@ class RtkLib {
 
   late final _reppathPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>,
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>,
               gtime_t,
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>)>>('reppath');
+              ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>)>>('reppath');
   late final _reppath = _reppathPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Int8>, gtime_t,
-          ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Int8>)>();
+      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, gtime_t,
+          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
 
   int reppaths(
-    ffi.Pointer<ffi.Int8> path,
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> rpaths,
+    ffi.Pointer<ffi.Char> path,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> rpaths,
     int nmax,
     gtime_t ts,
     gtime_t te,
-    ffi.Pointer<ffi.Int8> rov,
-    ffi.Pointer<ffi.Int8> base,
+    ffi.Pointer<ffi.Char> rov,
+    ffi.Pointer<ffi.Char> base,
   ) {
     return _reppaths(
       path,
@@ -1181,23 +1180,23 @@ class RtkLib {
 
   late final _reppathsPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Pointer<ffi.Int8>>,
-              ffi.Int32,
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>,
+              ffi.Int,
               gtime_t,
               gtime_t,
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>)>>('reppaths');
+              ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>)>>('reppaths');
   late final _reppaths = _reppathsPtr.asFunction<
       int Function(
-          ffi.Pointer<ffi.Int8>,
-          ffi.Pointer<ffi.Pointer<ffi.Int8>>,
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
           int,
           gtime_t,
           gtime_t,
-          ffi.Pointer<ffi.Int8>,
-          ffi.Pointer<ffi.Int8>)>();
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Char>)>();
 
   /// coordinates transformation
   void ecef2pos(
@@ -1368,7 +1367,7 @@ class RtkLib {
   late final _deg2dmsPtr = _lookup<
       ffi.NativeFunction<
           ffi.Void Function(
-              ffi.Double, ffi.Pointer<ffi.Double>, ffi.Int32)>>('deg2dms');
+              ffi.Double, ffi.Pointer<ffi.Double>, ffi.Int)>>('deg2dms');
   late final _deg2dms = _deg2dmsPtr
       .asFunction<void Function(double, ffi.Pointer<ffi.Double>, int)>();
 
@@ -1388,8 +1387,8 @@ class RtkLib {
 
   /// input and output functions
   void readpos(
-    ffi.Pointer<ffi.Int8> file,
-    ffi.Pointer<ffi.Int8> rcv,
+    ffi.Pointer<ffi.Char> file,
+    ffi.Pointer<ffi.Char> rcv,
     ffi.Pointer<ffi.Double> pos,
   ) {
     return _readpos(
@@ -1401,10 +1400,10 @@ class RtkLib {
 
   late final _readposPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Int8>,
+          ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
               ffi.Pointer<ffi.Double>)>>('readpos');
   late final _readpos = _readposPtr.asFunction<
-      void Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Int8>,
+      void Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
           ffi.Pointer<ffi.Double>)>();
 
   int sortobs(
@@ -1416,7 +1415,7 @@ class RtkLib {
   }
 
   late final _sortobsPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<obs_t>)>>(
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<obs_t>)>>(
           'sortobs');
   late final _sortobs =
       _sortobsPtr.asFunction<int Function(ffi.Pointer<obs_t>)>();
@@ -1451,13 +1450,12 @@ class RtkLib {
 
   late final _screentPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              gtime_t, gtime_t, gtime_t, ffi.Double)>>('screent');
+          ffi.Int Function(gtime_t, gtime_t, gtime_t, ffi.Double)>>('screent');
   late final _screent =
       _screentPtr.asFunction<int Function(gtime_t, gtime_t, gtime_t, double)>();
 
   int readnav(
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
     ffi.Pointer<nav_t> nav,
   ) {
     return _readnav(
@@ -1468,13 +1466,13 @@ class RtkLib {
 
   late final _readnavPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>, ffi.Pointer<nav_t>)>>('readnav');
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>, ffi.Pointer<nav_t>)>>('readnav');
   late final _readnav = _readnavPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<nav_t>)>();
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<nav_t>)>();
 
   int savenav(
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
     ffi.Pointer<nav_t> nav,
   ) {
     return _savenav(
@@ -1485,10 +1483,10 @@ class RtkLib {
 
   late final _savenavPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>, ffi.Pointer<nav_t>)>>('savenav');
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>, ffi.Pointer<nav_t>)>>('savenav');
   late final _savenav = _savenavPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<nav_t>)>();
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<nav_t>)>();
 
   void freeobs(
     ffi.Pointer<obs_t> obs,
@@ -1515,14 +1513,14 @@ class RtkLib {
   }
 
   late final _freenavPtr = _lookup<
-          ffi.NativeFunction<ffi.Void Function(ffi.Pointer<nav_t>, ffi.Int32)>>(
+          ffi.NativeFunction<ffi.Void Function(ffi.Pointer<nav_t>, ffi.Int)>>(
       'freenav');
   late final _freenav =
       _freenavPtr.asFunction<void Function(ffi.Pointer<nav_t>, int)>();
 
   int readblq(
-    ffi.Pointer<ffi.Int8> file,
-    ffi.Pointer<ffi.Int8> sta,
+    ffi.Pointer<ffi.Char> file,
+    ffi.Pointer<ffi.Char> sta,
     ffi.Pointer<ffi.Double> odisp,
   ) {
     return _readblq(
@@ -1534,14 +1532,14 @@ class RtkLib {
 
   late final _readblqPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Int8>,
+          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
               ffi.Pointer<ffi.Double>)>>('readblq');
   late final _readblq = _readblqPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Int8>,
+      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
           ffi.Pointer<ffi.Double>)>();
 
   int readerp(
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
     ffi.Pointer<erp_t> erp,
   ) {
     return _readerp(
@@ -1552,10 +1550,10 @@ class RtkLib {
 
   late final _readerpPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>, ffi.Pointer<erp_t>)>>('readerp');
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>, ffi.Pointer<erp_t>)>>('readerp');
   late final _readerp = _readerpPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<erp_t>)>();
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<erp_t>)>();
 
   int geterp(
     ffi.Pointer<erp_t> erp,
@@ -1571,14 +1569,14 @@ class RtkLib {
 
   late final _geterpPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<erp_t>, gtime_t, ffi.Pointer<ffi.Double>)>>('geterp');
   late final _geterp = _geterpPtr.asFunction<
       int Function(ffi.Pointer<erp_t>, gtime_t, ffi.Pointer<ffi.Double>)>();
 
   /// debug trace functions
   void traceopen(
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
   ) {
     return _traceopen(
       file,
@@ -1586,10 +1584,10 @@ class RtkLib {
   }
 
   late final _traceopenPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Int8>)>>(
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>)>>(
           'traceopen');
   late final _traceopen =
-      _traceopenPtr.asFunction<void Function(ffi.Pointer<ffi.Int8>)>();
+      _traceopenPtr.asFunction<void Function(ffi.Pointer<ffi.Char>)>();
 
   void traceclose() {
     return _traceclose();
@@ -1608,12 +1606,12 @@ class RtkLib {
   }
 
   late final _tracelevelPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int32)>>('tracelevel');
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int)>>('tracelevel');
   late final _tracelevel = _tracelevelPtr.asFunction<void Function(int)>();
 
   void trace(
     int level,
-    ffi.Pointer<ffi.Int8> format,
+    ffi.Pointer<ffi.Char> format,
   ) {
     return _trace(
       level,
@@ -1623,13 +1621,13 @@ class RtkLib {
 
   late final _tracePtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Int32, ffi.Pointer<ffi.Int8>)>>('trace');
+          ffi.Void Function(ffi.Int, ffi.Pointer<ffi.Char>)>>('trace');
   late final _trace =
-      _tracePtr.asFunction<void Function(int, ffi.Pointer<ffi.Int8>)>();
+      _tracePtr.asFunction<void Function(int, ffi.Pointer<ffi.Char>)>();
 
   void tracet(
     int level,
-    ffi.Pointer<ffi.Int8> format,
+    ffi.Pointer<ffi.Char> format,
   ) {
     return _tracet(
       level,
@@ -1639,9 +1637,9 @@ class RtkLib {
 
   late final _tracetPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Int32, ffi.Pointer<ffi.Int8>)>>('tracet');
+          ffi.Void Function(ffi.Int, ffi.Pointer<ffi.Char>)>>('tracet');
   late final _tracet =
-      _tracetPtr.asFunction<void Function(int, ffi.Pointer<ffi.Int8>)>();
+      _tracetPtr.asFunction<void Function(int, ffi.Pointer<ffi.Char>)>();
 
   void tracemat(
     int level,
@@ -1663,8 +1661,8 @@ class RtkLib {
 
   late final _tracematPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Int32, ffi.Pointer<ffi.Double>, ffi.Int32,
-              ffi.Int32, ffi.Int32, ffi.Int32)>>('tracemat');
+          ffi.Void Function(ffi.Int, ffi.Pointer<ffi.Double>, ffi.Int, ffi.Int,
+              ffi.Int, ffi.Int)>>('tracemat');
   late final _tracemat = _tracematPtr.asFunction<
       void Function(int, ffi.Pointer<ffi.Double>, int, int, int, int)>();
 
@@ -1683,7 +1681,7 @@ class RtkLib {
   late final _traceobsPtr = _lookup<
       ffi.NativeFunction<
           ffi.Void Function(
-              ffi.Int32, ffi.Pointer<obsd_t>, ffi.Int32)>>('traceobs');
+              ffi.Int, ffi.Pointer<obsd_t>, ffi.Int)>>('traceobs');
   late final _traceobs =
       _traceobsPtr.asFunction<void Function(int, ffi.Pointer<obsd_t>, int)>();
 
@@ -1698,7 +1696,7 @@ class RtkLib {
   }
 
   late final _tracenavPtr = _lookup<
-          ffi.NativeFunction<ffi.Void Function(ffi.Int32, ffi.Pointer<nav_t>)>>(
+          ffi.NativeFunction<ffi.Void Function(ffi.Int, ffi.Pointer<nav_t>)>>(
       'tracenav');
   late final _tracenav =
       _tracenavPtr.asFunction<void Function(int, ffi.Pointer<nav_t>)>();
@@ -1714,7 +1712,7 @@ class RtkLib {
   }
 
   late final _tracegnavPtr = _lookup<
-          ffi.NativeFunction<ffi.Void Function(ffi.Int32, ffi.Pointer<nav_t>)>>(
+          ffi.NativeFunction<ffi.Void Function(ffi.Int, ffi.Pointer<nav_t>)>>(
       'tracegnav');
   late final _tracegnav =
       _tracegnavPtr.asFunction<void Function(int, ffi.Pointer<nav_t>)>();
@@ -1730,7 +1728,7 @@ class RtkLib {
   }
 
   late final _tracehnavPtr = _lookup<
-          ffi.NativeFunction<ffi.Void Function(ffi.Int32, ffi.Pointer<nav_t>)>>(
+          ffi.NativeFunction<ffi.Void Function(ffi.Int, ffi.Pointer<nav_t>)>>(
       'tracehnav');
   late final _tracehnav =
       _tracehnavPtr.asFunction<void Function(int, ffi.Pointer<nav_t>)>();
@@ -1746,7 +1744,7 @@ class RtkLib {
   }
 
   late final _tracepephPtr = _lookup<
-          ffi.NativeFunction<ffi.Void Function(ffi.Int32, ffi.Pointer<nav_t>)>>(
+          ffi.NativeFunction<ffi.Void Function(ffi.Int, ffi.Pointer<nav_t>)>>(
       'tracepeph');
   late final _tracepeph =
       _tracepephPtr.asFunction<void Function(int, ffi.Pointer<nav_t>)>();
@@ -1762,7 +1760,7 @@ class RtkLib {
   }
 
   late final _tracepclkPtr = _lookup<
-          ffi.NativeFunction<ffi.Void Function(ffi.Int32, ffi.Pointer<nav_t>)>>(
+          ffi.NativeFunction<ffi.Void Function(ffi.Int, ffi.Pointer<nav_t>)>>(
       'tracepclk');
   late final _tracepclk =
       _tracepclkPtr.asFunction<void Function(int, ffi.Pointer<nav_t>)>();
@@ -1782,7 +1780,7 @@ class RtkLib {
   late final _tracebPtr = _lookup<
       ffi.NativeFunction<
           ffi.Void Function(
-              ffi.Int32, ffi.Pointer<ffi.Uint8>, ffi.Int32)>>('traceb');
+              ffi.Int, ffi.Pointer<ffi.Uint8>, ffi.Int)>>('traceb');
   late final _traceb =
       _tracebPtr.asFunction<void Function(int, ffi.Pointer<ffi.Uint8>, int)>();
 
@@ -1791,12 +1789,12 @@ class RtkLib {
   }
 
   late final _gettracelevelPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function()>>('gettracelevel');
+      _lookup<ffi.NativeFunction<ffi.Int Function()>>('gettracelevel');
   late final _gettracelevel = _gettracelevelPtr.asFunction<int Function()>();
 
   /// platform dependent functions
   int execcmd(
-    ffi.Pointer<ffi.Int8> cmd,
+    ffi.Pointer<ffi.Char> cmd,
   ) {
     return _execcmd(
       cmd,
@@ -1804,14 +1802,14 @@ class RtkLib {
   }
 
   late final _execcmdPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Int8>)>>(
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>)>>(
           'execcmd');
   late final _execcmd =
-      _execcmdPtr.asFunction<int Function(ffi.Pointer<ffi.Int8>)>();
+      _execcmdPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
   int expath(
-    ffi.Pointer<ffi.Int8> path,
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> paths,
+    ffi.Pointer<ffi.Char> path,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> paths,
     int nmax,
   ) {
     return _expath(
@@ -1823,14 +1821,14 @@ class RtkLib {
 
   late final _expathPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Pointer<ffi.Int8>>, ffi.Int32)>>('expath');
+          ffi.Int Function(ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>, ffi.Int)>>('expath');
   late final _expath = _expathPtr.asFunction<
       int Function(
-          ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Pointer<ffi.Int8>>, int)>();
+          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>, int)>();
 
   void createdir(
-    ffi.Pointer<ffi.Int8> path,
+    ffi.Pointer<ffi.Char> path,
   ) {
     return _createdir(
       path,
@@ -1838,10 +1836,10 @@ class RtkLib {
   }
 
   late final _createdirPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Int8>)>>(
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>)>>(
           'createdir');
   late final _createdir =
-      _createdirPtr.asFunction<void Function(ffi.Pointer<ffi.Int8>)>();
+      _createdirPtr.asFunction<void Function(ffi.Pointer<ffi.Char>)>();
 
   /// positioning models
   double satazel(
@@ -1900,7 +1898,7 @@ class RtkLib {
 
   late final _dopsPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Int32, ffi.Pointer<ffi.Double>, ffi.Double,
+          ffi.Void Function(ffi.Int, ffi.Pointer<ffi.Double>, ffi.Double,
               ffi.Pointer<ffi.Double>)>>('dops');
   late final _dops = _dopsPtr.asFunction<
       void Function(
@@ -2036,12 +2034,12 @@ class RtkLib {
 
   late final _iontecPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               gtime_t,
               ffi.Pointer<nav_t>,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
-              ffi.Int32,
+              ffi.Int,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>)>>('iontec');
   late final _iontec = _iontecPtr.asFunction<
@@ -2055,7 +2053,7 @@ class RtkLib {
           ffi.Pointer<ffi.Double>)>();
 
   void readtec(
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
     ffi.Pointer<nav_t> nav,
     int opt,
   ) {
@@ -2068,10 +2066,10 @@ class RtkLib {
 
   late final _readtecPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<nav_t>,
-              ffi.Int32)>>('readtec');
+          ffi.Void Function(
+              ffi.Pointer<ffi.Char>, ffi.Pointer<nav_t>, ffi.Int)>>('readtec');
   late final _readtec = _readtecPtr.asFunction<
-      void Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<nav_t>, int)>();
+      void Function(ffi.Pointer<ffi.Char>, ffi.Pointer<nav_t>, int)>();
 
   int ionocorr(
     gtime_t time,
@@ -2097,13 +2095,13 @@ class RtkLib {
 
   late final _ionocorrPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               gtime_t,
               ffi.Pointer<nav_t>,
-              ffi.Int32,
+              ffi.Int,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
-              ffi.Int32,
+              ffi.Int,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>)>>('ionocorr');
   late final _ionocorr = _ionocorrPtr.asFunction<
@@ -2139,12 +2137,12 @@ class RtkLib {
 
   late final _tropcorrPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               gtime_t,
               ffi.Pointer<nav_t>,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
-              ffi.Int32,
+              ffi.Int,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>)>>('tropcorr');
   late final _tropcorr = _tropcorrPtr.asFunction<
@@ -2168,13 +2166,13 @@ class RtkLib {
   }
 
   late final _seliflcPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Int32, ffi.Int32)>>(
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int, ffi.Int)>>(
           'seliflc');
   late final _seliflc = _seliflcPtr.asFunction<int Function(int, int)>();
 
   /// antenna models
   int readpcv(
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
     ffi.Pointer<pcvs_t> pcvs,
   ) {
     return _readpcv(
@@ -2185,14 +2183,14 @@ class RtkLib {
 
   late final _readpcvPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>, ffi.Pointer<pcvs_t>)>>('readpcv');
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>, ffi.Pointer<pcvs_t>)>>('readpcv');
   late final _readpcv = _readpcvPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<pcvs_t>)>();
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<pcvs_t>)>();
 
   ffi.Pointer<pcv_t> searchpcv(
     int sat,
-    ffi.Pointer<ffi.Int8> type,
+    ffi.Pointer<ffi.Char> type,
     gtime_t time,
     ffi.Pointer<pcvs_t> pcvs,
   ) {
@@ -2206,11 +2204,11 @@ class RtkLib {
 
   late final _searchpcvPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Pointer<pcv_t> Function(ffi.Int32, ffi.Pointer<ffi.Int8>, gtime_t,
+          ffi.Pointer<pcv_t> Function(ffi.Int, ffi.Pointer<ffi.Char>, gtime_t,
               ffi.Pointer<pcvs_t>)>>('searchpcv');
   late final _searchpcv = _searchpcvPtr.asFunction<
       ffi.Pointer<pcv_t> Function(
-          int, ffi.Pointer<ffi.Int8>, gtime_t, ffi.Pointer<pcvs_t>)>();
+          int, ffi.Pointer<ffi.Char>, gtime_t, ffi.Pointer<pcvs_t>)>();
 
   void antmodel(
     ffi.Pointer<pcv_t> pcv,
@@ -2234,7 +2232,7 @@ class RtkLib {
               ffi.Pointer<pcv_t>,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
-              ffi.Int32,
+              ffi.Int,
               ffi.Pointer<ffi.Double>)>>('antmodel');
   late final _antmodel = _antmodelPtr.asFunction<
       void Function(ffi.Pointer<pcv_t>, ffi.Pointer<ffi.Double>,
@@ -2311,7 +2309,7 @@ class RtkLib {
           ffi.Void Function(
               gtime_t,
               ffi.Pointer<ffi.Double>,
-              ffi.Int32,
+              ffi.Int,
               ffi.Pointer<erp_t>,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>)>>('tidedisp');
@@ -2322,7 +2320,7 @@ class RtkLib {
   /// geiod models
   int opengeoid(
     int model,
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
   ) {
     return _opengeoid(
       model,
@@ -2331,10 +2329,10 @@ class RtkLib {
   }
 
   late final _opengeoidPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Int32, ffi.Pointer<ffi.Int8>)>>('opengeoid');
+          ffi.NativeFunction<ffi.Int Function(ffi.Int, ffi.Pointer<ffi.Char>)>>(
+      'opengeoid');
   late final _opengeoid =
-      _opengeoidPtr.asFunction<int Function(int, ffi.Pointer<ffi.Int8>)>();
+      _opengeoidPtr.asFunction<int Function(int, ffi.Pointer<ffi.Char>)>();
 
   void closegeoid() {
     return _closegeoid();
@@ -2360,7 +2358,7 @@ class RtkLib {
 
   /// datum transformation
   int loaddatump(
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
   ) {
     return _loaddatump(
       file,
@@ -2368,10 +2366,10 @@ class RtkLib {
   }
 
   late final _loaddatumpPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Int8>)>>(
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>)>>(
           'loaddatump');
   late final _loaddatump =
-      _loaddatumpPtr.asFunction<int Function(ffi.Pointer<ffi.Int8>)>();
+      _loaddatumpPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
   int tokyo2jgd(
     ffi.Pointer<ffi.Double> pos,
@@ -2382,7 +2380,7 @@ class RtkLib {
   }
 
   late final _tokyo2jgdPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Double>)>>(
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Double>)>>(
           'tokyo2jgd');
   late final _tokyo2jgd =
       _tokyo2jgdPtr.asFunction<int Function(ffi.Pointer<ffi.Double>)>();
@@ -2396,16 +2394,16 @@ class RtkLib {
   }
 
   late final _jgd2tokyoPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Double>)>>(
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Double>)>>(
           'jgd2tokyo');
   late final _jgd2tokyo =
       _jgd2tokyoPtr.asFunction<int Function(ffi.Pointer<ffi.Double>)>();
 
   /// rinex functions
   int readrnx(
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
     int rcv,
-    ffi.Pointer<ffi.Int8> opt,
+    ffi.Pointer<ffi.Char> opt,
     ffi.Pointer<obs_t> obs,
     ffi.Pointer<nav_t> nav,
     ffi.Pointer<sta_t> sta,
@@ -2422,24 +2420,24 @@ class RtkLib {
 
   late final _readrnxPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>,
-              ffi.Int32,
-              ffi.Pointer<ffi.Int8>,
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>,
+              ffi.Int,
+              ffi.Pointer<ffi.Char>,
               ffi.Pointer<obs_t>,
               ffi.Pointer<nav_t>,
               ffi.Pointer<sta_t>)>>('readrnx');
   late final _readrnx = _readrnxPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Int8>, int, ffi.Pointer<ffi.Int8>,
+      int Function(ffi.Pointer<ffi.Char>, int, ffi.Pointer<ffi.Char>,
           ffi.Pointer<obs_t>, ffi.Pointer<nav_t>, ffi.Pointer<sta_t>)>();
 
   int readrnxt(
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
     int rcv,
     gtime_t ts,
     gtime_t te,
     double tint,
-    ffi.Pointer<ffi.Int8> opt,
+    ffi.Pointer<ffi.Char> opt,
     ffi.Pointer<obs_t> obs,
     ffi.Pointer<nav_t> nav,
     ffi.Pointer<sta_t> sta,
@@ -2459,30 +2457,30 @@ class RtkLib {
 
   late final _readrnxtPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>,
-              ffi.Int32,
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>,
+              ffi.Int,
               gtime_t,
               gtime_t,
               ffi.Double,
-              ffi.Pointer<ffi.Int8>,
+              ffi.Pointer<ffi.Char>,
               ffi.Pointer<obs_t>,
               ffi.Pointer<nav_t>,
               ffi.Pointer<sta_t>)>>('readrnxt');
   late final _readrnxt = _readrnxtPtr.asFunction<
       int Function(
-          ffi.Pointer<ffi.Int8>,
+          ffi.Pointer<ffi.Char>,
           int,
           gtime_t,
           gtime_t,
           double,
-          ffi.Pointer<ffi.Int8>,
+          ffi.Pointer<ffi.Char>,
           ffi.Pointer<obs_t>,
           ffi.Pointer<nav_t>,
           ffi.Pointer<sta_t>)>();
 
   int readrnxc(
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
     ffi.Pointer<nav_t> nav,
   ) {
     return _readrnxc(
@@ -2493,10 +2491,10 @@ class RtkLib {
 
   late final _readrnxcPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>, ffi.Pointer<nav_t>)>>('readrnxc');
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>, ffi.Pointer<nav_t>)>>('readrnxc');
   late final _readrnxc = _readrnxcPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<nav_t>)>();
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<nav_t>)>();
 
   int outrnxobsh(
     ffi.Pointer<FILE> fp,
@@ -2512,7 +2510,7 @@ class RtkLib {
 
   late final _outrnxobshPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
+          ffi.Int Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
               ffi.Pointer<nav_t>)>>('outrnxobsh');
   late final _outrnxobsh = _outrnxobshPtr.asFunction<
       int Function(
@@ -2536,8 +2534,8 @@ class RtkLib {
 
   late final _outrnxobsbPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
-              ffi.Pointer<obsd_t>, ffi.Int32, ffi.Int32)>>('outrnxobsb');
+          ffi.Int Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
+              ffi.Pointer<obsd_t>, ffi.Int, ffi.Int)>>('outrnxobsb');
   late final _outrnxobsb = _outrnxobsbPtr.asFunction<
       int Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
           ffi.Pointer<obsd_t>, int, int)>();
@@ -2556,7 +2554,7 @@ class RtkLib {
 
   late final _outrnxnavhPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
+          ffi.Int Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
               ffi.Pointer<nav_t>)>>('outrnxnavh');
   late final _outrnxnavh = _outrnxnavhPtr.asFunction<
       int Function(
@@ -2576,7 +2574,7 @@ class RtkLib {
 
   late final _outrnxgnavhPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
+          ffi.Int Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
               ffi.Pointer<nav_t>)>>('outrnxgnavh');
   late final _outrnxgnavh = _outrnxgnavhPtr.asFunction<
       int Function(
@@ -2596,7 +2594,7 @@ class RtkLib {
 
   late final _outrnxhnavhPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
+          ffi.Int Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
               ffi.Pointer<nav_t>)>>('outrnxhnavh');
   late final _outrnxhnavh = _outrnxhnavhPtr.asFunction<
       int Function(
@@ -2616,7 +2614,7 @@ class RtkLib {
 
   late final _outrnxlnavhPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
+          ffi.Int Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
               ffi.Pointer<nav_t>)>>('outrnxlnavh');
   late final _outrnxlnavh = _outrnxlnavhPtr.asFunction<
       int Function(
@@ -2636,7 +2634,7 @@ class RtkLib {
 
   late final _outrnxqnavhPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
+          ffi.Int Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
               ffi.Pointer<nav_t>)>>('outrnxqnavh');
   late final _outrnxqnavh = _outrnxqnavhPtr.asFunction<
       int Function(
@@ -2656,7 +2654,7 @@ class RtkLib {
 
   late final _outrnxcnavhPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
+          ffi.Int Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
               ffi.Pointer<nav_t>)>>('outrnxcnavh');
   late final _outrnxcnavh = _outrnxcnavhPtr.asFunction<
       int Function(
@@ -2676,7 +2674,7 @@ class RtkLib {
 
   late final _outrnxinavhPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
+          ffi.Int Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
               ffi.Pointer<nav_t>)>>('outrnxinavh');
   late final _outrnxinavh = _outrnxinavhPtr.asFunction<
       int Function(
@@ -2696,7 +2694,7 @@ class RtkLib {
 
   late final _outrnxnavbPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
+          ffi.Int Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
               ffi.Pointer<eph_t>)>>('outrnxnavb');
   late final _outrnxnavb = _outrnxnavbPtr.asFunction<
       int Function(
@@ -2716,7 +2714,7 @@ class RtkLib {
 
   late final _outrnxgnavbPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
+          ffi.Int Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
               ffi.Pointer<geph_t>)>>('outrnxgnavb');
   late final _outrnxgnavb = _outrnxgnavbPtr.asFunction<
       int Function(
@@ -2736,15 +2734,15 @@ class RtkLib {
 
   late final _outrnxhnavbPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
+          ffi.Int Function(ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>,
               ffi.Pointer<seph_t>)>>('outrnxhnavb');
   late final _outrnxhnavb = _outrnxhnavbPtr.asFunction<
       int Function(
           ffi.Pointer<FILE>, ffi.Pointer<rnxopt_t>, ffi.Pointer<seph_t>)>();
 
   int rtk_uncompress(
-    ffi.Pointer<ffi.Int8> file,
-    ffi.Pointer<ffi.Int8> uncfile,
+    ffi.Pointer<ffi.Char> file,
+    ffi.Pointer<ffi.Char> uncfile,
   ) {
     return _rtk_uncompress(
       file,
@@ -2754,16 +2752,16 @@ class RtkLib {
 
   late final _rtk_uncompressPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Int8>)>>('rtk_uncompress');
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('rtk_uncompress');
   late final _rtk_uncompress = _rtk_uncompressPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Int8>)>();
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
 
   int convrnx(
     int format,
     ffi.Pointer<rnxopt_t> opt,
-    ffi.Pointer<ffi.Int8> file,
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> ofile,
+    ffi.Pointer<ffi.Char> file,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> ofile,
   ) {
     return _convrnx(
       format,
@@ -2775,14 +2773,14 @@ class RtkLib {
 
   late final _convrnxPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Int32,
+          ffi.Int Function(
+              ffi.Int,
               ffi.Pointer<rnxopt_t>,
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Pointer<ffi.Int8>>)>>('convrnx');
+              ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>)>>('convrnx');
   late final _convrnx = _convrnxPtr.asFunction<
-      int Function(int, ffi.Pointer<rnxopt_t>, ffi.Pointer<ffi.Int8>,
-          ffi.Pointer<ffi.Pointer<ffi.Int8>>)>();
+      int Function(int, ffi.Pointer<rnxopt_t>, ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>)>();
 
   int init_rnxctr(
     ffi.Pointer<rnxctr_t> rnx,
@@ -2793,7 +2791,7 @@ class RtkLib {
   }
 
   late final _init_rnxctrPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<rnxctr_t>)>>(
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<rnxctr_t>)>>(
           'init_rnxctr');
   late final _init_rnxctr =
       _init_rnxctrPtr.asFunction<int Function(ffi.Pointer<rnxctr_t>)>();
@@ -2824,7 +2822,7 @@ class RtkLib {
 
   late final _open_rnxctrPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<rnxctr_t>, ffi.Pointer<FILE>)>>('open_rnxctr');
   late final _open_rnxctr = _open_rnxctrPtr
       .asFunction<int Function(ffi.Pointer<rnxctr_t>, ffi.Pointer<FILE>)>();
@@ -2841,7 +2839,7 @@ class RtkLib {
 
   late final _input_rnxctrPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<rnxctr_t>, ffi.Pointer<FILE>)>>('input_rnxctr');
   late final _input_rnxctr = _input_rnxctrPtr
       .asFunction<int Function(ffi.Pointer<rnxctr_t>, ffi.Pointer<FILE>)>();
@@ -3001,11 +2999,11 @@ class RtkLib {
 
   late final _peph2posPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               gtime_t,
-              ffi.Int32,
+              ffi.Int,
               ffi.Pointer<nav_t>,
-              ffi.Int32,
+              ffi.Int,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>)>>('peph2pos');
@@ -3037,7 +3035,7 @@ class RtkLib {
 
   late final _satantoffPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(gtime_t, ffi.Pointer<ffi.Double>, ffi.Int32,
+          ffi.Void Function(gtime_t, ffi.Pointer<ffi.Double>, ffi.Int,
               ffi.Pointer<nav_t>, ffi.Pointer<ffi.Double>)>>('satantoff');
   late final _satantoff = _satantoffPtr.asFunction<
       void Function(gtime_t, ffi.Pointer<ffi.Double>, int, ffi.Pointer<nav_t>,
@@ -3052,7 +3050,7 @@ class RtkLib {
     ffi.Pointer<ffi.Double> rs,
     ffi.Pointer<ffi.Double> dts,
     ffi.Pointer<ffi.Double> var1,
-    ffi.Pointer<ffi.Int32> svh,
+    ffi.Pointer<ffi.Int> svh,
   ) {
     return _satpos(
       time,
@@ -3069,16 +3067,16 @@ class RtkLib {
 
   late final _satposPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               gtime_t,
               gtime_t,
-              ffi.Int32,
-              ffi.Int32,
+              ffi.Int,
+              ffi.Int,
               ffi.Pointer<nav_t>,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
-              ffi.Pointer<ffi.Int32>)>>('satpos');
+              ffi.Pointer<ffi.Int>)>>('satpos');
   late final _satpos = _satposPtr.asFunction<
       int Function(
           gtime_t,
@@ -3089,7 +3087,7 @@ class RtkLib {
           ffi.Pointer<ffi.Double>,
           ffi.Pointer<ffi.Double>,
           ffi.Pointer<ffi.Double>,
-          ffi.Pointer<ffi.Int32>)>();
+          ffi.Pointer<ffi.Int>)>();
 
   void satposs(
     gtime_t time,
@@ -3100,7 +3098,7 @@ class RtkLib {
     ffi.Pointer<ffi.Double> rs,
     ffi.Pointer<ffi.Double> dts,
     ffi.Pointer<ffi.Double> var1,
-    ffi.Pointer<ffi.Int32> svh,
+    ffi.Pointer<ffi.Int> svh,
   ) {
     return _satposs(
       time,
@@ -3120,13 +3118,13 @@ class RtkLib {
           ffi.Void Function(
               gtime_t,
               ffi.Pointer<obsd_t>,
-              ffi.Int32,
+              ffi.Int,
               ffi.Pointer<nav_t>,
-              ffi.Int32,
+              ffi.Int,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
-              ffi.Pointer<ffi.Int32>)>>('satposs');
+              ffi.Pointer<ffi.Int>)>>('satposs');
   late final _satposs = _satpossPtr.asFunction<
       void Function(
           gtime_t,
@@ -3137,7 +3135,7 @@ class RtkLib {
           ffi.Pointer<ffi.Double>,
           ffi.Pointer<ffi.Double>,
           ffi.Pointer<ffi.Double>,
-          ffi.Pointer<ffi.Int32>)>();
+          ffi.Pointer<ffi.Int>)>();
 
   void setseleph(
     int sys,
@@ -3150,7 +3148,7 @@ class RtkLib {
   }
 
   late final _setselephPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int32, ffi.Int32)>>(
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int, ffi.Int)>>(
           'setseleph');
   late final _setseleph = _setselephPtr.asFunction<void Function(int, int)>();
 
@@ -3163,11 +3161,11 @@ class RtkLib {
   }
 
   late final _getselephPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Int32)>>('getseleph');
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int)>>('getseleph');
   late final _getseleph = _getselephPtr.asFunction<int Function(int)>();
 
   void readsp3(
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
     ffi.Pointer<nav_t> nav,
     int opt,
   ) {
@@ -3180,13 +3178,13 @@ class RtkLib {
 
   late final _readsp3Ptr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<nav_t>,
-              ffi.Int32)>>('readsp3');
+          ffi.Void Function(
+              ffi.Pointer<ffi.Char>, ffi.Pointer<nav_t>, ffi.Int)>>('readsp3');
   late final _readsp3 = _readsp3Ptr.asFunction<
-      void Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<nav_t>, int)>();
+      void Function(ffi.Pointer<ffi.Char>, ffi.Pointer<nav_t>, int)>();
 
   int readsap(
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
     gtime_t time,
     ffi.Pointer<nav_t> nav,
   ) {
@@ -3199,13 +3197,13 @@ class RtkLib {
 
   late final _readsapPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>, gtime_t, ffi.Pointer<nav_t>)>>('readsap');
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>, gtime_t, ffi.Pointer<nav_t>)>>('readsap');
   late final _readsap = _readsapPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Int8>, gtime_t, ffi.Pointer<nav_t>)>();
+      int Function(ffi.Pointer<ffi.Char>, gtime_t, ffi.Pointer<nav_t>)>();
 
   int readdcb(
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
     ffi.Pointer<nav_t> nav,
     ffi.Pointer<sta_t> sta,
   ) {
@@ -3218,14 +3216,14 @@ class RtkLib {
 
   late final _readdcbPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<nav_t>,
+          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<nav_t>,
               ffi.Pointer<sta_t>)>>('readdcb');
   late final _readdcb = _readdcbPtr.asFunction<
       int Function(
-          ffi.Pointer<ffi.Int8>, ffi.Pointer<nav_t>, ffi.Pointer<sta_t>)>();
+          ffi.Pointer<ffi.Char>, ffi.Pointer<nav_t>, ffi.Pointer<sta_t>)>();
 
   int readfcb(
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
     ffi.Pointer<nav_t> nav,
   ) {
     return _readfcb(
@@ -3236,10 +3234,10 @@ class RtkLib {
 
   late final _readfcbPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>, ffi.Pointer<nav_t>)>>('readfcb');
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>, ffi.Pointer<nav_t>)>>('readfcb');
   late final _readfcb = _readfcbPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<nav_t>)>();
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<nav_t>)>();
 
   void alm2pos(
     gtime_t time,
@@ -3264,7 +3262,7 @@ class RtkLib {
           ffi.Pointer<ffi.Double>)>();
 
   int tle_read(
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
     ffi.Pointer<tle_t> tle,
   ) {
     return _tle_read(
@@ -3275,13 +3273,13 @@ class RtkLib {
 
   late final _tle_readPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>, ffi.Pointer<tle_t>)>>('tle_read');
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>, ffi.Pointer<tle_t>)>>('tle_read');
   late final _tle_read = _tle_readPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<tle_t>)>();
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<tle_t>)>();
 
   int tle_name_read(
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
     ffi.Pointer<tle_t> tle,
   ) {
     return _tle_name_read(
@@ -3292,16 +3290,16 @@ class RtkLib {
 
   late final _tle_name_readPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>, ffi.Pointer<tle_t>)>>('tle_name_read');
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>, ffi.Pointer<tle_t>)>>('tle_name_read');
   late final _tle_name_read = _tle_name_readPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<tle_t>)>();
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<tle_t>)>();
 
   int tle_pos(
     gtime_t time,
-    ffi.Pointer<ffi.Int8> name,
-    ffi.Pointer<ffi.Int8> satno,
-    ffi.Pointer<ffi.Int8> desig,
+    ffi.Pointer<ffi.Char> name,
+    ffi.Pointer<ffi.Char> satno,
+    ffi.Pointer<ffi.Char> desig,
     ffi.Pointer<tle_t> tle,
     ffi.Pointer<erp_t> erp,
     ffi.Pointer<ffi.Double> rs,
@@ -3319,20 +3317,20 @@ class RtkLib {
 
   late final _tle_posPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               gtime_t,
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>,
+              ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>,
               ffi.Pointer<tle_t>,
               ffi.Pointer<erp_t>,
               ffi.Pointer<ffi.Double>)>>('tle_pos');
   late final _tle_pos = _tle_posPtr.asFunction<
       int Function(
           gtime_t,
-          ffi.Pointer<ffi.Int8>,
-          ffi.Pointer<ffi.Int8>,
-          ffi.Pointer<ffi.Int8>,
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Char>,
           ffi.Pointer<tle_t>,
           ffi.Pointer<erp_t>,
           ffi.Pointer<ffi.Double>)>();
@@ -3353,7 +3351,7 @@ class RtkLib {
   late final _getbituPtr = _lookup<
       ffi.NativeFunction<
           ffi.Uint32 Function(
-              ffi.Pointer<ffi.Uint8>, ffi.Int32, ffi.Int32)>>('getbitu');
+              ffi.Pointer<ffi.Uint8>, ffi.Int, ffi.Int)>>('getbitu');
   late final _getbitu =
       _getbituPtr.asFunction<int Function(ffi.Pointer<ffi.Uint8>, int, int)>();
 
@@ -3372,7 +3370,7 @@ class RtkLib {
   late final _getbitsPtr = _lookup<
       ffi.NativeFunction<
           ffi.Int32 Function(
-              ffi.Pointer<ffi.Uint8>, ffi.Int32, ffi.Int32)>>('getbits');
+              ffi.Pointer<ffi.Uint8>, ffi.Int, ffi.Int)>>('getbits');
   late final _getbits =
       _getbitsPtr.asFunction<int Function(ffi.Pointer<ffi.Uint8>, int, int)>();
 
@@ -3392,7 +3390,7 @@ class RtkLib {
 
   late final _setbituPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Uint8>, ffi.Int32, ffi.Int32,
+          ffi.Void Function(ffi.Pointer<ffi.Uint8>, ffi.Int, ffi.Int,
               ffi.Uint32)>>('setbitu');
   late final _setbitu = _setbituPtr
       .asFunction<void Function(ffi.Pointer<ffi.Uint8>, int, int, int)>();
@@ -3413,8 +3411,8 @@ class RtkLib {
 
   late final _setbitsPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Uint8>, ffi.Int32, ffi.Int32,
-              ffi.Int32)>>('setbits');
+          ffi.Void Function(
+              ffi.Pointer<ffi.Uint8>, ffi.Int, ffi.Int, ffi.Int32)>>('setbits');
   late final _setbits = _setbitsPtr
       .asFunction<void Function(ffi.Pointer<ffi.Uint8>, int, int, int)>();
 
@@ -3430,7 +3428,7 @@ class RtkLib {
 
   late final _rtk_crc32Ptr = _lookup<
       ffi.NativeFunction<
-          ffi.Uint32 Function(ffi.Pointer<ffi.Uint8>, ffi.Int32)>>('rtk_crc32');
+          ffi.Uint32 Function(ffi.Pointer<ffi.Uint8>, ffi.Int)>>('rtk_crc32');
   late final _rtk_crc32 =
       _rtk_crc32Ptr.asFunction<int Function(ffi.Pointer<ffi.Uint8>, int)>();
 
@@ -3446,8 +3444,7 @@ class RtkLib {
 
   late final _rtk_crc24qPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Uint32 Function(
-              ffi.Pointer<ffi.Uint8>, ffi.Int32)>>('rtk_crc24q');
+          ffi.Uint32 Function(ffi.Pointer<ffi.Uint8>, ffi.Int)>>('rtk_crc24q');
   late final _rtk_crc24q =
       _rtk_crc24qPtr.asFunction<int Function(ffi.Pointer<ffi.Uint8>, int)>();
 
@@ -3463,7 +3460,7 @@ class RtkLib {
 
   late final _rtk_crc16Ptr = _lookup<
       ffi.NativeFunction<
-          ffi.Uint16 Function(ffi.Pointer<ffi.Uint8>, ffi.Int32)>>('rtk_crc16');
+          ffi.Uint16 Function(ffi.Pointer<ffi.Uint8>, ffi.Int)>>('rtk_crc16');
   late final _rtk_crc16 =
       _rtk_crc16Ptr.asFunction<int Function(ffi.Pointer<ffi.Uint8>, int)>();
 
@@ -3479,8 +3476,7 @@ class RtkLib {
 
   late final _decode_wordPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Uint32, ffi.Pointer<ffi.Uint8>)>>('decode_word');
+          ffi.Int Function(ffi.Uint32, ffi.Pointer<ffi.Uint8>)>>('decode_word');
   late final _decode_word =
       _decode_wordPtr.asFunction<int Function(int, ffi.Pointer<ffi.Uint8>)>();
 
@@ -3502,7 +3498,7 @@ class RtkLib {
 
   late final _decode_framePtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<ffi.Uint8>,
               ffi.Pointer<eph_t>,
               ffi.Pointer<alm_t>,
@@ -3525,7 +3521,7 @@ class RtkLib {
   }
 
   late final _test_glostrPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Uint8>)>>(
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Uint8>)>>(
           'test_glostr');
   late final _test_glostr =
       _test_glostrPtr.asFunction<int Function(ffi.Pointer<ffi.Uint8>)>();
@@ -3544,7 +3540,7 @@ class RtkLib {
 
   late final _decode_glostrPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<ffi.Uint8>, ffi.Pointer<geph_t>,
+          ffi.Int Function(ffi.Pointer<ffi.Uint8>, ffi.Pointer<geph_t>,
               ffi.Pointer<ffi.Double>)>>('decode_glostr');
   late final _decode_glostr = _decode_glostrPtr.asFunction<
       int Function(ffi.Pointer<ffi.Uint8>, ffi.Pointer<geph_t>,
@@ -3566,7 +3562,7 @@ class RtkLib {
 
   late final _decode_bds_d1Ptr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<ffi.Uint8>,
               ffi.Pointer<eph_t>,
               ffi.Pointer<ffi.Double>,
@@ -3589,7 +3585,7 @@ class RtkLib {
 
   late final _decode_bds_d2Ptr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<ffi.Uint8>, ffi.Pointer<eph_t>,
+          ffi.Int Function(ffi.Pointer<ffi.Uint8>, ffi.Pointer<eph_t>,
               ffi.Pointer<ffi.Double>)>>('decode_bds_d2');
   late final _decode_bds_d2 = _decode_bds_d2Ptr.asFunction<
       int Function(ffi.Pointer<ffi.Uint8>, ffi.Pointer<eph_t>,
@@ -3611,7 +3607,7 @@ class RtkLib {
 
   late final _decode_gal_inavPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<ffi.Uint8>,
               ffi.Pointer<eph_t>,
               ffi.Pointer<ffi.Double>,
@@ -3636,7 +3632,7 @@ class RtkLib {
 
   late final _decode_gal_fnavPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<ffi.Uint8>,
               ffi.Pointer<eph_t>,
               ffi.Pointer<ffi.Double>,
@@ -3661,7 +3657,7 @@ class RtkLib {
 
   late final _decode_irn_navPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<ffi.Uint8>,
               ffi.Pointer<eph_t>,
               ffi.Pointer<ffi.Double>,
@@ -3688,8 +3684,8 @@ class RtkLib {
   }
 
   late final _init_rawPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<raw_t>, ffi.Int32)>>('init_raw');
+          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<raw_t>, ffi.Int)>>(
+      'init_raw');
   late final _init_raw =
       _init_rawPtr.asFunction<int Function(ffi.Pointer<raw_t>, int)>();
 
@@ -3728,8 +3724,8 @@ class RtkLib {
 
   late final _input_rawPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<raw_t>, ffi.Int32, ffi.Uint8)>>('input_raw');
+          ffi.Int Function(
+              ffi.Pointer<raw_t>, ffi.Int, ffi.Uint8)>>('input_raw');
   late final _input_raw =
       _input_rawPtr.asFunction<int Function(ffi.Pointer<raw_t>, int, int)>();
 
@@ -3752,8 +3748,8 @@ class RtkLib {
 
   late final _input_rawfPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<raw_t>, ffi.Int32, ffi.Pointer<FILE>)>>('input_rawf');
+          ffi.Int Function(
+              ffi.Pointer<raw_t>, ffi.Int, ffi.Pointer<FILE>)>>('input_rawf');
   late final _input_rawf = _input_rawfPtr
       .asFunction<int Function(ffi.Pointer<raw_t>, int, ffi.Pointer<FILE>)>();
 
@@ -3766,7 +3762,7 @@ class RtkLib {
   }
 
   late final _init_rt17Ptr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<raw_t>)>>(
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<raw_t>)>>(
           'init_rt17');
   late final _init_rt17 =
       _init_rt17Ptr.asFunction<int Function(ffi.Pointer<raw_t>)>();
@@ -3780,7 +3776,7 @@ class RtkLib {
   }
 
   late final _init_cmrPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<raw_t>)>>(
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<raw_t>)>>(
           'init_cmr');
   late final _init_cmr =
       _init_cmrPtr.asFunction<int Function(ffi.Pointer<raw_t>)>();
@@ -3827,7 +3823,7 @@ class RtkLib {
 
   late final _update_cmrPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<raw_t>, ffi.Pointer<rtksvr_t>,
+          ffi.Int Function(ffi.Pointer<raw_t>, ffi.Pointer<rtksvr_t>,
               ffi.Pointer<obs_t>)>>('update_cmr');
   late final _update_cmr = _update_cmrPtr.asFunction<
       int Function(
@@ -3844,8 +3840,8 @@ class RtkLib {
   }
 
   late final _input_oem4Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<raw_t>, ffi.Uint8)>>('input_oem4');
+          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<raw_t>, ffi.Uint8)>>(
+      'input_oem4');
   late final _input_oem4 =
       _input_oem4Ptr.asFunction<int Function(ffi.Pointer<raw_t>, int)>();
 
@@ -3860,8 +3856,8 @@ class RtkLib {
   }
 
   late final _input_cnavPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<raw_t>, ffi.Uint8)>>('input_cnav');
+          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<raw_t>, ffi.Uint8)>>(
+      'input_cnav');
   late final _input_cnav =
       _input_cnavPtr.asFunction<int Function(ffi.Pointer<raw_t>, int)>();
 
@@ -3908,8 +3904,8 @@ class RtkLib {
   }
 
   late final _input_ubxPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<raw_t>, ffi.Uint8)>>('input_ubx');
+          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<raw_t>, ffi.Uint8)>>(
+      'input_ubx');
   late final _input_ubx =
       _input_ubxPtr.asFunction<int Function(ffi.Pointer<raw_t>, int)>();
 
@@ -3924,8 +3920,8 @@ class RtkLib {
   }
 
   late final _input_sbpPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<raw_t>, ffi.Uint8)>>('input_sbp');
+          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<raw_t>, ffi.Uint8)>>(
+      'input_sbp');
   late final _input_sbp =
       _input_sbpPtr.asFunction<int Function(ffi.Pointer<raw_t>, int)>();
 
@@ -3940,8 +3936,8 @@ class RtkLib {
   }
 
   late final _input_cresPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<raw_t>, ffi.Uint8)>>('input_cres');
+          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<raw_t>, ffi.Uint8)>>(
+      'input_cres');
   late final _input_cres =
       _input_cresPtr.asFunction<int Function(ffi.Pointer<raw_t>, int)>();
 
@@ -3956,8 +3952,8 @@ class RtkLib {
   }
 
   late final _input_stqPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<raw_t>, ffi.Uint8)>>('input_stq');
+          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<raw_t>, ffi.Uint8)>>(
+      'input_stq');
   late final _input_stq =
       _input_stqPtr.asFunction<int Function(ffi.Pointer<raw_t>, int)>();
 
@@ -3972,8 +3968,8 @@ class RtkLib {
   }
 
   late final _input_javadPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<raw_t>, ffi.Uint8)>>('input_javad');
+          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<raw_t>, ffi.Uint8)>>(
+      'input_javad');
   late final _input_javad =
       _input_javadPtr.asFunction<int Function(ffi.Pointer<raw_t>, int)>();
 
@@ -3988,8 +3984,8 @@ class RtkLib {
   }
 
   late final _input_nvsPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<raw_t>, ffi.Uint8)>>('input_nvs');
+          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<raw_t>, ffi.Uint8)>>(
+      'input_nvs');
   late final _input_nvs =
       _input_nvsPtr.asFunction<int Function(ffi.Pointer<raw_t>, int)>();
 
@@ -4004,8 +4000,8 @@ class RtkLib {
   }
 
   late final _input_bnxPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<raw_t>, ffi.Uint8)>>('input_bnx');
+          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<raw_t>, ffi.Uint8)>>(
+      'input_bnx');
   late final _input_bnx =
       _input_bnxPtr.asFunction<int Function(ffi.Pointer<raw_t>, int)>();
 
@@ -4020,8 +4016,8 @@ class RtkLib {
   }
 
   late final _input_rt17Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<raw_t>, ffi.Uint8)>>('input_rt17');
+          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<raw_t>, ffi.Uint8)>>(
+      'input_rt17');
   late final _input_rt17 =
       _input_rt17Ptr.asFunction<int Function(ffi.Pointer<raw_t>, int)>();
 
@@ -4036,8 +4032,8 @@ class RtkLib {
   }
 
   late final _input_sbfPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<raw_t>, ffi.Uint8)>>('input_sbf');
+          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<raw_t>, ffi.Uint8)>>(
+      'input_sbf');
   late final _input_sbf =
       _input_sbfPtr.asFunction<int Function(ffi.Pointer<raw_t>, int)>();
 
@@ -4052,8 +4048,8 @@ class RtkLib {
   }
 
   late final _input_tersusPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<raw_t>, ffi.Uint8)>>('input_tersus');
+          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<raw_t>, ffi.Uint8)>>(
+      'input_tersus');
   late final _input_tersus =
       _input_tersusPtr.asFunction<int Function(ffi.Pointer<raw_t>, int)>();
 
@@ -4069,7 +4065,7 @@ class RtkLib {
 
   late final _input_oem4fPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>>('input_oem4f');
   late final _input_oem4f = _input_oem4fPtr
       .asFunction<int Function(ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>();
@@ -4086,7 +4082,7 @@ class RtkLib {
 
   late final _input_cnavfPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>>('input_cnavf');
   late final _input_cnavf = _input_cnavfPtr
       .asFunction<int Function(ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>();
@@ -4109,7 +4105,7 @@ class RtkLib {
 
   late final _input_ubxfPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>>('input_ubxf');
   late final _input_ubxf = _input_ubxfPtr
       .asFunction<int Function(ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>();
@@ -4126,7 +4122,7 @@ class RtkLib {
 
   late final _input_sbpfPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>>('input_sbpf');
   late final _input_sbpf = _input_sbpfPtr
       .asFunction<int Function(ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>();
@@ -4143,7 +4139,7 @@ class RtkLib {
 
   late final _input_cresfPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>>('input_cresf');
   late final _input_cresf = _input_cresfPtr
       .asFunction<int Function(ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>();
@@ -4160,7 +4156,7 @@ class RtkLib {
 
   late final _input_stqfPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>>('input_stqf');
   late final _input_stqf = _input_stqfPtr
       .asFunction<int Function(ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>();
@@ -4177,7 +4173,7 @@ class RtkLib {
 
   late final _input_javadfPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>>('input_javadf');
   late final _input_javadf = _input_javadfPtr
       .asFunction<int Function(ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>();
@@ -4194,7 +4190,7 @@ class RtkLib {
 
   late final _input_nvsfPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>>('input_nvsf');
   late final _input_nvsf = _input_nvsfPtr
       .asFunction<int Function(ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>();
@@ -4211,7 +4207,7 @@ class RtkLib {
 
   late final _input_bnxfPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>>('input_bnxf');
   late final _input_bnxf = _input_bnxfPtr
       .asFunction<int Function(ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>();
@@ -4228,7 +4224,7 @@ class RtkLib {
 
   late final _input_rt17fPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>>('input_rt17f');
   late final _input_rt17f = _input_rt17fPtr
       .asFunction<int Function(ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>();
@@ -4245,7 +4241,7 @@ class RtkLib {
 
   late final _input_sbffPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>>('input_sbff');
   late final _input_sbff = _input_sbffPtr
       .asFunction<int Function(ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>();
@@ -4262,13 +4258,13 @@ class RtkLib {
 
   late final _input_tersusfPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>>('input_tersusf');
   late final _input_tersusf = _input_tersusfPtr
       .asFunction<int Function(ffi.Pointer<raw_t>, ffi.Pointer<FILE>)>();
 
   int gen_ubx(
-    ffi.Pointer<ffi.Int8> msg,
+    ffi.Pointer<ffi.Char> msg,
     ffi.Pointer<ffi.Uint8> buff,
   ) {
     return _gen_ubx(
@@ -4279,13 +4275,13 @@ class RtkLib {
 
   late final _gen_ubxPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Uint8>)>>('gen_ubx');
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Uint8>)>>('gen_ubx');
   late final _gen_ubx = _gen_ubxPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Uint8>)>();
+      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Uint8>)>();
 
   int gen_stq(
-    ffi.Pointer<ffi.Int8> msg,
+    ffi.Pointer<ffi.Char> msg,
     ffi.Pointer<ffi.Uint8> buff,
   ) {
     return _gen_stq(
@@ -4296,13 +4292,13 @@ class RtkLib {
 
   late final _gen_stqPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Uint8>)>>('gen_stq');
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Uint8>)>>('gen_stq');
   late final _gen_stq = _gen_stqPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Uint8>)>();
+      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Uint8>)>();
 
   int gen_nvs(
-    ffi.Pointer<ffi.Int8> msg,
+    ffi.Pointer<ffi.Char> msg,
     ffi.Pointer<ffi.Uint8> buff,
   ) {
     return _gen_nvs(
@@ -4313,10 +4309,10 @@ class RtkLib {
 
   late final _gen_nvsPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Uint8>)>>('gen_nvs');
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Uint8>)>>('gen_nvs');
   late final _gen_nvs = _gen_nvsPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Uint8>)>();
+      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Uint8>)>();
 
   /// rtcm functions
   int init_rtcm(
@@ -4328,7 +4324,7 @@ class RtkLib {
   }
 
   late final _init_rtcmPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<rtcm_t>)>>(
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<rtcm_t>)>>(
           'init_rtcm');
   late final _init_rtcm =
       _init_rtcmPtr.asFunction<int Function(ffi.Pointer<rtcm_t>)>();
@@ -4358,8 +4354,8 @@ class RtkLib {
   }
 
   late final _input_rtcm2Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<rtcm_t>, ffi.Uint8)>>('input_rtcm2');
+          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<rtcm_t>, ffi.Uint8)>>(
+      'input_rtcm2');
   late final _input_rtcm2 =
       _input_rtcm2Ptr.asFunction<int Function(ffi.Pointer<rtcm_t>, int)>();
 
@@ -4374,8 +4370,8 @@ class RtkLib {
   }
 
   late final _input_rtcm3Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<rtcm_t>, ffi.Uint8)>>('input_rtcm3');
+          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<rtcm_t>, ffi.Uint8)>>(
+      'input_rtcm3');
   late final _input_rtcm3 =
       _input_rtcm3Ptr.asFunction<int Function(ffi.Pointer<rtcm_t>, int)>();
 
@@ -4391,7 +4387,7 @@ class RtkLib {
 
   late final _input_rtcm2fPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<rtcm_t>, ffi.Pointer<FILE>)>>('input_rtcm2f');
   late final _input_rtcm2f = _input_rtcm2fPtr
       .asFunction<int Function(ffi.Pointer<rtcm_t>, ffi.Pointer<FILE>)>();
@@ -4408,7 +4404,7 @@ class RtkLib {
 
   late final _input_rtcm3fPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<rtcm_t>, ffi.Pointer<FILE>)>>('input_rtcm3f');
   late final _input_rtcm3f = _input_rtcm3fPtr
       .asFunction<int Function(ffi.Pointer<rtcm_t>, ffi.Pointer<FILE>)>();
@@ -4427,8 +4423,8 @@ class RtkLib {
 
   late final _gen_rtcm2Ptr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<rtcm_t>, ffi.Int32, ffi.Int32)>>('gen_rtcm2');
+          ffi.Int Function(
+              ffi.Pointer<rtcm_t>, ffi.Int, ffi.Int)>>('gen_rtcm2');
   late final _gen_rtcm2 =
       _gen_rtcm2Ptr.asFunction<int Function(ffi.Pointer<rtcm_t>, int, int)>();
 
@@ -4448,8 +4444,8 @@ class RtkLib {
 
   late final _gen_rtcm3Ptr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<rtcm_t>, ffi.Int32, ffi.Int32,
-              ffi.Int32)>>('gen_rtcm3');
+          ffi.Int Function(
+              ffi.Pointer<rtcm_t>, ffi.Int, ffi.Int, ffi.Int)>>('gen_rtcm3');
   late final _gen_rtcm3 = _gen_rtcm3Ptr
       .asFunction<int Function(ffi.Pointer<rtcm_t>, int, int, int)>();
 
@@ -4469,7 +4465,7 @@ class RtkLib {
   late final _initsolbufPtr = _lookup<
       ffi.NativeFunction<
           ffi.Void Function(
-              ffi.Pointer<solbuf_t>, ffi.Int32, ffi.Int32)>>('initsolbuf');
+              ffi.Pointer<solbuf_t>, ffi.Int, ffi.Int)>>('initsolbuf');
   late final _initsolbuf = _initsolbufPtr
       .asFunction<void Function(ffi.Pointer<solbuf_t>, int, int)>();
 
@@ -4514,7 +4510,7 @@ class RtkLib {
   late final _getsolPtr = _lookup<
       ffi.NativeFunction<
           ffi.Pointer<sol_t> Function(
-              ffi.Pointer<solbuf_t>, ffi.Int32)>>('getsol');
+              ffi.Pointer<solbuf_t>, ffi.Int)>>('getsol');
   late final _getsol = _getsolPtr
       .asFunction<ffi.Pointer<sol_t> Function(ffi.Pointer<solbuf_t>, int)>();
 
@@ -4530,13 +4526,13 @@ class RtkLib {
 
   late final _addsolPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<solbuf_t>, ffi.Pointer<sol_t>)>>('addsol');
   late final _addsol = _addsolPtr
       .asFunction<int Function(ffi.Pointer<solbuf_t>, ffi.Pointer<sol_t>)>();
 
   int readsol(
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> files,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> files,
     int nfile,
     ffi.Pointer<solbuf_t> sol,
   ) {
@@ -4549,14 +4545,14 @@ class RtkLib {
 
   late final _readsolPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<ffi.Pointer<ffi.Int8>>, ffi.Int32,
+          ffi.Int Function(ffi.Pointer<ffi.Pointer<ffi.Char>>, ffi.Int,
               ffi.Pointer<solbuf_t>)>>('readsol');
   late final _readsol = _readsolPtr.asFunction<
       int Function(
-          ffi.Pointer<ffi.Pointer<ffi.Int8>>, int, ffi.Pointer<solbuf_t>)>();
+          ffi.Pointer<ffi.Pointer<ffi.Char>>, int, ffi.Pointer<solbuf_t>)>();
 
   int readsolt(
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> files,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> files,
     int nfile,
     gtime_t ts,
     gtime_t te,
@@ -4577,20 +4573,20 @@ class RtkLib {
 
   late final _readsoltPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Pointer<ffi.Int8>>,
-              ffi.Int32,
+          ffi.Int Function(
+              ffi.Pointer<ffi.Pointer<ffi.Char>>,
+              ffi.Int,
               gtime_t,
               gtime_t,
               ffi.Double,
-              ffi.Int32,
+              ffi.Int,
               ffi.Pointer<solbuf_t>)>>('readsolt');
   late final _readsolt = _readsoltPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Pointer<ffi.Int8>>, int, gtime_t, gtime_t,
+      int Function(ffi.Pointer<ffi.Pointer<ffi.Char>>, int, gtime_t, gtime_t,
           double, int, ffi.Pointer<solbuf_t>)>();
 
   int readsolstat(
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> files,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> files,
     int nfile,
     ffi.Pointer<solstatbuf_t> statbuf,
   ) {
@@ -4603,14 +4599,14 @@ class RtkLib {
 
   late final _readsolstatPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<ffi.Pointer<ffi.Int8>>, ffi.Int32,
+          ffi.Int Function(ffi.Pointer<ffi.Pointer<ffi.Char>>, ffi.Int,
               ffi.Pointer<solstatbuf_t>)>>('readsolstat');
   late final _readsolstat = _readsolstatPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Pointer<ffi.Int8>>, int,
+      int Function(ffi.Pointer<ffi.Pointer<ffi.Char>>, int,
           ffi.Pointer<solstatbuf_t>)>();
 
   int readsolstatt(
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> files,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> files,
     int nfile,
     gtime_t ts,
     gtime_t te,
@@ -4629,15 +4625,10 @@ class RtkLib {
 
   late final _readsolstattPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Pointer<ffi.Int8>>,
-              ffi.Int32,
-              gtime_t,
-              gtime_t,
-              ffi.Double,
-              ffi.Pointer<solstatbuf_t>)>>('readsolstatt');
+          ffi.Int Function(ffi.Pointer<ffi.Pointer<ffi.Char>>, ffi.Int, gtime_t,
+              gtime_t, ffi.Double, ffi.Pointer<solstatbuf_t>)>>('readsolstatt');
   late final _readsolstatt = _readsolstattPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Pointer<ffi.Int8>>, int, gtime_t, gtime_t,
+      int Function(ffi.Pointer<ffi.Pointer<ffi.Char>>, int, gtime_t, gtime_t,
           double, ffi.Pointer<solstatbuf_t>)>();
 
   int inputsol(
@@ -4662,7 +4653,7 @@ class RtkLib {
 
   late final _inputsolPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Uint8, gtime_t, gtime_t, ffi.Double, ffi.Int32,
+          ffi.Int Function(ffi.Uint8, gtime_t, gtime_t, ffi.Double, ffi.Int,
               ffi.Pointer<solopt_t>, ffi.Pointer<solbuf_t>)>>('inputsol');
   late final _inputsol = _inputsolPtr.asFunction<
       int Function(int, gtime_t, gtime_t, double, int, ffi.Pointer<solopt_t>,
@@ -4680,7 +4671,7 @@ class RtkLib {
 
   late final _outprcoptsPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<ffi.Uint8>, ffi.Pointer<prcopt_t>)>>('outprcopts');
   late final _outprcopts = _outprcoptsPtr.asFunction<
       int Function(ffi.Pointer<ffi.Uint8>, ffi.Pointer<prcopt_t>)>();
@@ -4697,7 +4688,7 @@ class RtkLib {
 
   late final _outsolheadsPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<ffi.Uint8>, ffi.Pointer<solopt_t>)>>('outsolheads');
   late final _outsolheads = _outsolheadsPtr.asFunction<
       int Function(ffi.Pointer<ffi.Uint8>, ffi.Pointer<solopt_t>)>();
@@ -4718,7 +4709,7 @@ class RtkLib {
 
   late final _outsolsPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<ffi.Uint8>, ffi.Pointer<sol_t>,
+          ffi.Int Function(ffi.Pointer<ffi.Uint8>, ffi.Pointer<sol_t>,
               ffi.Pointer<ffi.Double>, ffi.Pointer<solopt_t>)>>('outsols');
   late final _outsols = _outsolsPtr.asFunction<
       int Function(ffi.Pointer<ffi.Uint8>, ffi.Pointer<sol_t>,
@@ -4740,7 +4731,7 @@ class RtkLib {
 
   late final _outsolexsPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<ffi.Uint8>, ffi.Pointer<sol_t>,
+          ffi.Int Function(ffi.Pointer<ffi.Uint8>, ffi.Pointer<sol_t>,
               ffi.Pointer<ssat_t>, ffi.Pointer<solopt_t>)>>('outsolexs');
   late final _outsolexs = _outsolexsPtr.asFunction<
       int Function(ffi.Pointer<ffi.Uint8>, ffi.Pointer<sol_t>,
@@ -4836,7 +4827,7 @@ class RtkLib {
 
   late final _outnmea_rmcPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<ffi.Uint8>, ffi.Pointer<sol_t>)>>('outnmea_rmc');
   late final _outnmea_rmc = _outnmea_rmcPtr
       .asFunction<int Function(ffi.Pointer<ffi.Uint8>, ffi.Pointer<sol_t>)>();
@@ -4853,7 +4844,7 @@ class RtkLib {
 
   late final _outnmea_ggaPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<ffi.Uint8>, ffi.Pointer<sol_t>)>>('outnmea_gga');
   late final _outnmea_gga = _outnmea_ggaPtr
       .asFunction<int Function(ffi.Pointer<ffi.Uint8>, ffi.Pointer<sol_t>)>();
@@ -4872,7 +4863,7 @@ class RtkLib {
 
   late final _outnmea_gsaPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<ffi.Uint8>, ffi.Pointer<sol_t>,
+          ffi.Int Function(ffi.Pointer<ffi.Uint8>, ffi.Pointer<sol_t>,
               ffi.Pointer<ssat_t>)>>('outnmea_gsa');
   late final _outnmea_gsa = _outnmea_gsaPtr.asFunction<
       int Function(
@@ -4892,7 +4883,7 @@ class RtkLib {
 
   late final _outnmea_gsvPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<ffi.Uint8>, ffi.Pointer<sol_t>,
+          ffi.Int Function(ffi.Pointer<ffi.Uint8>, ffi.Pointer<sol_t>,
               ffi.Pointer<ssat_t>)>>('outnmea_gsv');
   late final _outnmea_gsv = _outnmea_gsvPtr.asFunction<
       int Function(
@@ -4900,8 +4891,8 @@ class RtkLib {
 
   /// google earth kml converter
   int convkml(
-    ffi.Pointer<ffi.Int8> infile,
-    ffi.Pointer<ffi.Int8> outfile,
+    ffi.Pointer<ffi.Char> infile,
+    ffi.Pointer<ffi.Char> outfile,
     gtime_t ts,
     gtime_t te,
     double tint,
@@ -4929,26 +4920,26 @@ class RtkLib {
 
   late final _convkmlPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>,
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>,
               gtime_t,
               gtime_t,
               ffi.Double,
-              ffi.Int32,
+              ffi.Int,
               ffi.Pointer<ffi.Double>,
-              ffi.Int32,
-              ffi.Int32,
-              ffi.Int32,
-              ffi.Int32)>>('convkml');
+              ffi.Int,
+              ffi.Int,
+              ffi.Int,
+              ffi.Int)>>('convkml');
   late final _convkml = _convkmlPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Int8>, gtime_t,
+      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, gtime_t,
           gtime_t, double, int, ffi.Pointer<ffi.Double>, int, int, int, int)>();
 
   /// gpx converter
   int convgpx(
-    ffi.Pointer<ffi.Int8> infile,
-    ffi.Pointer<ffi.Int8> outfile,
+    ffi.Pointer<ffi.Char> infile,
+    ffi.Pointer<ffi.Char> outfile,
     gtime_t ts,
     gtime_t te,
     double tint,
@@ -4976,25 +4967,25 @@ class RtkLib {
 
   late final _convgpxPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>,
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>,
               gtime_t,
               gtime_t,
               ffi.Double,
-              ffi.Int32,
+              ffi.Int,
               ffi.Pointer<ffi.Double>,
-              ffi.Int32,
-              ffi.Int32,
-              ffi.Int32,
-              ffi.Int32)>>('convgpx');
+              ffi.Int,
+              ffi.Int,
+              ffi.Int,
+              ffi.Int)>>('convgpx');
   late final _convgpx = _convgpxPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Int8>, gtime_t,
+      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, gtime_t,
           gtime_t, double, int, ffi.Pointer<ffi.Double>, int, int, int, int)>();
 
   /// sbas functions
   int sbsreadmsg(
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
     int sel,
     ffi.Pointer<sbs_t> sbs,
   ) {
@@ -5007,13 +4998,13 @@ class RtkLib {
 
   late final _sbsreadmsgPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<ffi.Int8>, ffi.Int32,
+          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Int,
               ffi.Pointer<sbs_t>)>>('sbsreadmsg');
   late final _sbsreadmsg = _sbsreadmsgPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Int8>, int, ffi.Pointer<sbs_t>)>();
+      int Function(ffi.Pointer<ffi.Char>, int, ffi.Pointer<sbs_t>)>();
 
   int sbsreadmsgt(
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
     int sel,
     gtime_t ts,
     gtime_t te,
@@ -5030,11 +5021,11 @@ class RtkLib {
 
   late final _sbsreadmsgtPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<ffi.Int8>, ffi.Int32, gtime_t, gtime_t,
+          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Int, gtime_t, gtime_t,
               ffi.Pointer<sbs_t>)>>('sbsreadmsgt');
   late final _sbsreadmsgt = _sbsreadmsgtPtr.asFunction<
       int Function(
-          ffi.Pointer<ffi.Int8>, int, gtime_t, gtime_t, ffi.Pointer<sbs_t>)>();
+          ffi.Pointer<ffi.Char>, int, gtime_t, gtime_t, ffi.Pointer<sbs_t>)>();
 
   void sbsoutmsg(
     ffi.Pointer<FILE> fp,
@@ -5069,7 +5060,7 @@ class RtkLib {
 
   late final _sbsdecodemsgPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(gtime_t, ffi.Int32, ffi.Pointer<ffi.Uint32>,
+          ffi.Int Function(gtime_t, ffi.Int, ffi.Pointer<ffi.Uint32>,
               ffi.Pointer<sbsmsg_t>)>>('sbsdecodemsg');
   late final _sbsdecodemsg = _sbsdecodemsgPtr.asFunction<
       int Function(
@@ -5087,7 +5078,7 @@ class RtkLib {
 
   late final _sbsupdatecorrPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<sbsmsg_t>, ffi.Pointer<nav_t>)>>('sbsupdatecorr');
   late final _sbsupdatecorr = _sbsupdatecorrPtr
       .asFunction<int Function(ffi.Pointer<sbsmsg_t>, ffi.Pointer<nav_t>)>();
@@ -5112,9 +5103,9 @@ class RtkLib {
 
   late final _sbssatcorrPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               gtime_t,
-              ffi.Int32,
+              ffi.Int,
               ffi.Pointer<nav_t>,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
@@ -5143,7 +5134,7 @@ class RtkLib {
 
   late final _sbsioncorrPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               gtime_t,
               ffi.Pointer<nav_t>,
               ffi.Pointer<ffi.Double>,
@@ -5186,7 +5177,7 @@ class RtkLib {
 
   /// options functions
   ffi.Pointer<opt_t> searchopt(
-    ffi.Pointer<ffi.Int8> name,
+    ffi.Pointer<ffi.Char> name,
     ffi.Pointer<opt_t> opts,
   ) {
     return _searchopt(
@@ -5198,13 +5189,13 @@ class RtkLib {
   late final _searchoptPtr = _lookup<
       ffi.NativeFunction<
           ffi.Pointer<opt_t> Function(
-              ffi.Pointer<ffi.Int8>, ffi.Pointer<opt_t>)>>('searchopt');
+              ffi.Pointer<ffi.Char>, ffi.Pointer<opt_t>)>>('searchopt');
   late final _searchopt = _searchoptPtr.asFunction<
-      ffi.Pointer<opt_t> Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<opt_t>)>();
+      ffi.Pointer<opt_t> Function(ffi.Pointer<ffi.Char>, ffi.Pointer<opt_t>)>();
 
   int str2opt(
     ffi.Pointer<opt_t> opt,
-    ffi.Pointer<ffi.Int8> str,
+    ffi.Pointer<ffi.Char> str,
   ) {
     return _str2opt(
       opt,
@@ -5214,14 +5205,14 @@ class RtkLib {
 
   late final _str2optPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<opt_t>, ffi.Pointer<ffi.Int8>)>>('str2opt');
+          ffi.Int Function(
+              ffi.Pointer<opt_t>, ffi.Pointer<ffi.Char>)>>('str2opt');
   late final _str2opt = _str2optPtr
-      .asFunction<int Function(ffi.Pointer<opt_t>, ffi.Pointer<ffi.Int8>)>();
+      .asFunction<int Function(ffi.Pointer<opt_t>, ffi.Pointer<ffi.Char>)>();
 
   int opt2str(
     ffi.Pointer<opt_t> opt,
-    ffi.Pointer<ffi.Int8> str,
+    ffi.Pointer<ffi.Char> str,
   ) {
     return _opt2str(
       opt,
@@ -5231,14 +5222,14 @@ class RtkLib {
 
   late final _opt2strPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<opt_t>, ffi.Pointer<ffi.Int8>)>>('opt2str');
+          ffi.Int Function(
+              ffi.Pointer<opt_t>, ffi.Pointer<ffi.Char>)>>('opt2str');
   late final _opt2str = _opt2strPtr
-      .asFunction<int Function(ffi.Pointer<opt_t>, ffi.Pointer<ffi.Int8>)>();
+      .asFunction<int Function(ffi.Pointer<opt_t>, ffi.Pointer<ffi.Char>)>();
 
   int opt2buf(
     ffi.Pointer<opt_t> opt,
-    ffi.Pointer<ffi.Int8> buff,
+    ffi.Pointer<ffi.Char> buff,
   ) {
     return _opt2buf(
       opt,
@@ -5248,13 +5239,13 @@ class RtkLib {
 
   late final _opt2bufPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<opt_t>, ffi.Pointer<ffi.Int8>)>>('opt2buf');
+          ffi.Int Function(
+              ffi.Pointer<opt_t>, ffi.Pointer<ffi.Char>)>>('opt2buf');
   late final _opt2buf = _opt2bufPtr
-      .asFunction<int Function(ffi.Pointer<opt_t>, ffi.Pointer<ffi.Int8>)>();
+      .asFunction<int Function(ffi.Pointer<opt_t>, ffi.Pointer<ffi.Char>)>();
 
   int loadopts(
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
     ffi.Pointer<opt_t> opts,
   ) {
     return _loadopts(
@@ -5265,15 +5256,15 @@ class RtkLib {
 
   late final _loadoptsPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>, ffi.Pointer<opt_t>)>>('loadopts');
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>, ffi.Pointer<opt_t>)>>('loadopts');
   late final _loadopts = _loadoptsPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<opt_t>)>();
+      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<opt_t>)>();
 
   int saveopts(
-    ffi.Pointer<ffi.Int8> file,
-    ffi.Pointer<ffi.Int8> mode,
-    ffi.Pointer<ffi.Int8> comment,
+    ffi.Pointer<ffi.Char> file,
+    ffi.Pointer<ffi.Char> mode,
+    ffi.Pointer<ffi.Char> comment,
     ffi.Pointer<opt_t> opts,
   ) {
     return _saveopts(
@@ -5286,11 +5277,11 @@ class RtkLib {
 
   late final _saveoptsPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>, ffi.Pointer<opt_t>)>>('saveopts');
+          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>, ffi.Pointer<opt_t>)>>('saveopts');
   late final _saveopts = _saveoptsPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Int8>,
-          ffi.Pointer<ffi.Int8>, ffi.Pointer<opt_t>)>();
+      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Char>, ffi.Pointer<opt_t>)>();
 
   void resetsysopts() {
     return _resetsysopts();
@@ -5395,7 +5386,7 @@ class RtkLib {
     ffi.Pointer<stream_t> stream,
     int type,
     int mode,
-    ffi.Pointer<ffi.Int8> path,
+    ffi.Pointer<ffi.Char> path,
   ) {
     return _stropen(
       stream,
@@ -5407,10 +5398,10 @@ class RtkLib {
 
   late final _stropenPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<stream_t>, ffi.Int32, ffi.Int32,
-              ffi.Pointer<ffi.Int8>)>>('stropen');
+          ffi.Int Function(ffi.Pointer<stream_t>, ffi.Int, ffi.Int,
+              ffi.Pointer<ffi.Char>)>>('stropen');
   late final _stropen = _stropenPtr.asFunction<
-      int Function(ffi.Pointer<stream_t>, int, int, ffi.Pointer<ffi.Int8>)>();
+      int Function(ffi.Pointer<stream_t>, int, int, ffi.Pointer<ffi.Char>)>();
 
   void strclose(
     ffi.Pointer<stream_t> stream,
@@ -5440,8 +5431,8 @@ class RtkLib {
 
   late final _strreadPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<stream_t>, ffi.Pointer<ffi.Uint8>,
-              ffi.Int32)>>('strread');
+          ffi.Int Function(ffi.Pointer<stream_t>, ffi.Pointer<ffi.Uint8>,
+              ffi.Int)>>('strread');
   late final _strread = _strreadPtr.asFunction<
       int Function(ffi.Pointer<stream_t>, ffi.Pointer<ffi.Uint8>, int)>();
 
@@ -5459,8 +5450,8 @@ class RtkLib {
 
   late final _strwritePtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<stream_t>, ffi.Pointer<ffi.Uint8>,
-              ffi.Int32)>>('strwrite');
+          ffi.Int Function(ffi.Pointer<stream_t>, ffi.Pointer<ffi.Uint8>,
+              ffi.Int)>>('strwrite');
   late final _strwrite = _strwritePtr.asFunction<
       int Function(ffi.Pointer<stream_t>, ffi.Pointer<ffi.Uint8>, int)>();
 
@@ -5483,7 +5474,7 @@ class RtkLib {
 
   int strstat(
     ffi.Pointer<stream_t> stream,
-    ffi.Pointer<ffi.Int8> msg,
+    ffi.Pointer<ffi.Char> msg,
   ) {
     return _strstat(
       stream,
@@ -5493,14 +5484,14 @@ class RtkLib {
 
   late final _strstatPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<stream_t>, ffi.Pointer<ffi.Int8>)>>('strstat');
+          ffi.Int Function(
+              ffi.Pointer<stream_t>, ffi.Pointer<ffi.Char>)>>('strstat');
   late final _strstat = _strstatPtr
-      .asFunction<int Function(ffi.Pointer<stream_t>, ffi.Pointer<ffi.Int8>)>();
+      .asFunction<int Function(ffi.Pointer<stream_t>, ffi.Pointer<ffi.Char>)>();
 
   int strstatx(
     ffi.Pointer<stream_t> stream,
-    ffi.Pointer<ffi.Int8> msg,
+    ffi.Pointer<ffi.Char> msg,
   ) {
     return _strstatx(
       stream,
@@ -5510,17 +5501,17 @@ class RtkLib {
 
   late final _strstatxPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<stream_t>, ffi.Pointer<ffi.Int8>)>>('strstatx');
+          ffi.Int Function(
+              ffi.Pointer<stream_t>, ffi.Pointer<ffi.Char>)>>('strstatx');
   late final _strstatx = _strstatxPtr
-      .asFunction<int Function(ffi.Pointer<stream_t>, ffi.Pointer<ffi.Int8>)>();
+      .asFunction<int Function(ffi.Pointer<stream_t>, ffi.Pointer<ffi.Char>)>();
 
   void strsum(
     ffi.Pointer<stream_t> stream,
-    ffi.Pointer<ffi.Int32> inb,
-    ffi.Pointer<ffi.Int32> inr,
-    ffi.Pointer<ffi.Int32> outb,
-    ffi.Pointer<ffi.Int32> outr,
+    ffi.Pointer<ffi.Int> inb,
+    ffi.Pointer<ffi.Int> inr,
+    ffi.Pointer<ffi.Int> outb,
+    ffi.Pointer<ffi.Int> outr,
   ) {
     return _strsum(
       stream,
@@ -5535,20 +5526,16 @@ class RtkLib {
       ffi.NativeFunction<
           ffi.Void Function(
               ffi.Pointer<stream_t>,
-              ffi.Pointer<ffi.Int32>,
-              ffi.Pointer<ffi.Int32>,
-              ffi.Pointer<ffi.Int32>,
-              ffi.Pointer<ffi.Int32>)>>('strsum');
+              ffi.Pointer<ffi.Int>,
+              ffi.Pointer<ffi.Int>,
+              ffi.Pointer<ffi.Int>,
+              ffi.Pointer<ffi.Int>)>>('strsum');
   late final _strsum = _strsumPtr.asFunction<
-      void Function(
-          ffi.Pointer<stream_t>,
-          ffi.Pointer<ffi.Int32>,
-          ffi.Pointer<ffi.Int32>,
-          ffi.Pointer<ffi.Int32>,
-          ffi.Pointer<ffi.Int32>)>();
+      void Function(ffi.Pointer<stream_t>, ffi.Pointer<ffi.Int>,
+          ffi.Pointer<ffi.Int>, ffi.Pointer<ffi.Int>, ffi.Pointer<ffi.Int>)>();
 
   void strsetopt(
-    ffi.Pointer<ffi.Int32> opt,
+    ffi.Pointer<ffi.Int> opt,
   ) {
     return _strsetopt(
       opt,
@@ -5556,10 +5543,10 @@ class RtkLib {
   }
 
   late final _strsetoptPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Int32>)>>(
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Int>)>>(
           'strsetopt');
   late final _strsetopt =
-      _strsetoptPtr.asFunction<void Function(ffi.Pointer<ffi.Int32>)>();
+      _strsetoptPtr.asFunction<void Function(ffi.Pointer<ffi.Int>)>();
 
   gtime_t strgettime(
     ffi.Pointer<stream_t> stream,
@@ -5594,7 +5581,7 @@ class RtkLib {
 
   void strsendcmd(
     ffi.Pointer<stream_t> stream,
-    ffi.Pointer<ffi.Int8> cmd,
+    ffi.Pointer<ffi.Char> cmd,
   ) {
     return _strsendcmd(
       stream,
@@ -5605,9 +5592,9 @@ class RtkLib {
   late final _strsendcmdPtr = _lookup<
       ffi.NativeFunction<
           ffi.Void Function(
-              ffi.Pointer<stream_t>, ffi.Pointer<ffi.Int8>)>>('strsendcmd');
+              ffi.Pointer<stream_t>, ffi.Pointer<ffi.Char>)>>('strsendcmd');
   late final _strsendcmd = _strsendcmdPtr.asFunction<
-      void Function(ffi.Pointer<stream_t>, ffi.Pointer<ffi.Int8>)>();
+      void Function(ffi.Pointer<stream_t>, ffi.Pointer<ffi.Char>)>();
 
   void strsettimeout(
     ffi.Pointer<stream_t> stream,
@@ -5624,12 +5611,12 @@ class RtkLib {
   late final _strsettimeoutPtr = _lookup<
       ffi.NativeFunction<
           ffi.Void Function(
-              ffi.Pointer<stream_t>, ffi.Int32, ffi.Int32)>>('strsettimeout');
+              ffi.Pointer<stream_t>, ffi.Int, ffi.Int)>>('strsettimeout');
   late final _strsettimeout = _strsettimeoutPtr
       .asFunction<void Function(ffi.Pointer<stream_t>, int, int)>();
 
   void strsetdir(
-    ffi.Pointer<ffi.Int8> dir,
+    ffi.Pointer<ffi.Char> dir,
   ) {
     return _strsetdir(
       dir,
@@ -5637,13 +5624,13 @@ class RtkLib {
   }
 
   late final _strsetdirPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Int8>)>>(
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>)>>(
           'strsetdir');
   late final _strsetdir =
-      _strsetdirPtr.asFunction<void Function(ffi.Pointer<ffi.Int8>)>();
+      _strsetdirPtr.asFunction<void Function(ffi.Pointer<ffi.Char>)>();
 
   void strsetproxy(
-    ffi.Pointer<ffi.Int8> addr,
+    ffi.Pointer<ffi.Char> addr,
   ) {
     return _strsetproxy(
       addr,
@@ -5651,10 +5638,10 @@ class RtkLib {
   }
 
   late final _strsetproxyPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Int8>)>>(
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>)>>(
           'strsetproxy');
   late final _strsetproxy =
-      _strsetproxyPtr.asFunction<void Function(ffi.Pointer<ffi.Int8>)>();
+      _strsetproxyPtr.asFunction<void Function(ffi.Pointer<ffi.Char>)>();
 
   /// integer ambiguity resolution
   int lambda(
@@ -5677,9 +5664,9 @@ class RtkLib {
 
   late final _lambdaPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Int32,
-              ffi.Int32,
+          ffi.Int Function(
+              ffi.Int,
+              ffi.Int,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
@@ -5702,7 +5689,7 @@ class RtkLib {
 
   late final _lambda_reductionPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Int32, ffi.Pointer<ffi.Double>,
+          ffi.Int Function(ffi.Int, ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>)>>('lambda_reduction');
   late final _lambda_reduction = _lambda_reductionPtr.asFunction<
       int Function(int, ffi.Pointer<ffi.Double>, ffi.Pointer<ffi.Double>)>();
@@ -5727,9 +5714,9 @@ class RtkLib {
 
   late final _lambda_searchPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Int32,
-              ffi.Int32,
+          ffi.Int Function(
+              ffi.Int,
+              ffi.Int,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
@@ -5747,7 +5734,7 @@ class RtkLib {
     ffi.Pointer<sol_t> sol,
     ffi.Pointer<ffi.Double> azel,
     ffi.Pointer<ssat_t> ssat,
-    ffi.Pointer<ffi.Int8> msg,
+    ffi.Pointer<ffi.Char> msg,
   ) {
     return _pntpos(
       obs,
@@ -5763,15 +5750,15 @@ class RtkLib {
 
   late final _pntposPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<obsd_t>,
-              ffi.Int32,
+              ffi.Int,
               ffi.Pointer<nav_t>,
               ffi.Pointer<prcopt_t>,
               ffi.Pointer<sol_t>,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ssat_t>,
-              ffi.Pointer<ffi.Int8>)>>('pntpos');
+              ffi.Pointer<ffi.Char>)>>('pntpos');
   late final _pntpos = _pntposPtr.asFunction<
       int Function(
           ffi.Pointer<obsd_t>,
@@ -5781,7 +5768,7 @@ class RtkLib {
           ffi.Pointer<sol_t>,
           ffi.Pointer<ffi.Double>,
           ffi.Pointer<ssat_t>,
-          ffi.Pointer<ffi.Int8>)>();
+          ffi.Pointer<ffi.Char>)>();
 
   /// precise positioning
   void rtkinit(
@@ -5831,14 +5818,14 @@ class RtkLib {
 
   late final _rtkposPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<rtk_t>, ffi.Pointer<obsd_t>, ffi.Int32,
+          ffi.Int Function(ffi.Pointer<rtk_t>, ffi.Pointer<obsd_t>, ffi.Int,
               ffi.Pointer<nav_t>)>>('rtkpos');
   late final _rtkpos = _rtkposPtr.asFunction<
       int Function(
           ffi.Pointer<rtk_t>, ffi.Pointer<obsd_t>, int, ffi.Pointer<nav_t>)>();
 
   int rtkopenstat(
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
     int level,
   ) {
     return _rtkopenstat(
@@ -5848,10 +5835,10 @@ class RtkLib {
   }
 
   late final _rtkopenstatPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<ffi.Int8>, ffi.Int32)>>('rtkopenstat');
+          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Int)>>(
+      'rtkopenstat');
   late final _rtkopenstat =
-      _rtkopenstatPtr.asFunction<int Function(ffi.Pointer<ffi.Int8>, int)>();
+      _rtkopenstatPtr.asFunction<int Function(ffi.Pointer<ffi.Char>, int)>();
 
   void rtkclosestat() {
     return _rtkclosestat();
@@ -5863,7 +5850,7 @@ class RtkLib {
 
   int rtkoutstat(
     ffi.Pointer<rtk_t> rtk,
-    ffi.Pointer<ffi.Int8> buff,
+    ffi.Pointer<ffi.Char> buff,
   ) {
     return _rtkoutstat(
       rtk,
@@ -5873,10 +5860,10 @@ class RtkLib {
 
   late final _rtkoutstatPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<rtk_t>, ffi.Pointer<ffi.Int8>)>>('rtkoutstat');
+          ffi.Int Function(
+              ffi.Pointer<rtk_t>, ffi.Pointer<ffi.Char>)>>('rtkoutstat');
   late final _rtkoutstat = _rtkoutstatPtr
-      .asFunction<int Function(ffi.Pointer<rtk_t>, ffi.Pointer<ffi.Int8>)>();
+      .asFunction<int Function(ffi.Pointer<rtk_t>, ffi.Pointer<ffi.Char>)>();
 
   /// precise point positioning (PPP)
   void pppos(
@@ -5895,7 +5882,7 @@ class RtkLib {
 
   late final _ppposPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<rtk_t>, ffi.Pointer<obsd_t>, ffi.Int32,
+          ffi.Void Function(ffi.Pointer<rtk_t>, ffi.Pointer<obsd_t>, ffi.Int,
               ffi.Pointer<nav_t>)>>('pppos');
   late final _pppos = _ppposPtr.asFunction<
       void Function(
@@ -5910,14 +5897,14 @@ class RtkLib {
   }
 
   late final _pppnxPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<prcopt_t>)>>(
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<prcopt_t>)>>(
           'pppnx');
   late final _pppnx =
       _pppnxPtr.asFunction<int Function(ffi.Pointer<prcopt_t>)>();
 
   int pppoutstat(
     ffi.Pointer<rtk_t> rtk,
-    ffi.Pointer<ffi.Int8> buff,
+    ffi.Pointer<ffi.Char> buff,
   ) {
     return _pppoutstat(
       rtk,
@@ -5927,16 +5914,16 @@ class RtkLib {
 
   late final _pppoutstatPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<rtk_t>, ffi.Pointer<ffi.Int8>)>>('pppoutstat');
+          ffi.Int Function(
+              ffi.Pointer<rtk_t>, ffi.Pointer<ffi.Char>)>>('pppoutstat');
   late final _pppoutstat = _pppoutstatPtr
-      .asFunction<int Function(ffi.Pointer<rtk_t>, ffi.Pointer<ffi.Int8>)>();
+      .asFunction<int Function(ffi.Pointer<rtk_t>, ffi.Pointer<ffi.Char>)>();
 
   int ppp_ar(
     ffi.Pointer<rtk_t> rtk,
     ffi.Pointer<obsd_t> obs,
     int n,
-    ffi.Pointer<ffi.Int32> exc,
+    ffi.Pointer<ffi.Int> exc,
     ffi.Pointer<nav_t> nav,
     ffi.Pointer<ffi.Double> azel,
     ffi.Pointer<ffi.Double> x,
@@ -5956,11 +5943,11 @@ class RtkLib {
 
   late final _ppp_arPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<rtk_t>,
               ffi.Pointer<obsd_t>,
-              ffi.Int32,
-              ffi.Pointer<ffi.Int32>,
+              ffi.Int,
+              ffi.Pointer<ffi.Int>,
               ffi.Pointer<nav_t>,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
@@ -5970,7 +5957,7 @@ class RtkLib {
           ffi.Pointer<rtk_t>,
           ffi.Pointer<obsd_t>,
           int,
-          ffi.Pointer<ffi.Int32>,
+          ffi.Pointer<ffi.Int>,
           ffi.Pointer<nav_t>,
           ffi.Pointer<ffi.Double>,
           ffi.Pointer<ffi.Double>,
@@ -5985,11 +5972,11 @@ class RtkLib {
     ffi.Pointer<prcopt_t> popt,
     ffi.Pointer<solopt_t> sopt,
     ffi.Pointer<filopt_t> fopt,
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> infile,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> infile,
     int n,
-    ffi.Pointer<ffi.Int8> outfile,
-    ffi.Pointer<ffi.Int8> rov,
-    ffi.Pointer<ffi.Int8> base,
+    ffi.Pointer<ffi.Char> outfile,
+    ffi.Pointer<ffi.Char> rov,
+    ffi.Pointer<ffi.Char> base,
   ) {
     return _postpos(
       ts,
@@ -6009,7 +5996,7 @@ class RtkLib {
 
   late final _postposPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               gtime_t,
               gtime_t,
               ffi.Double,
@@ -6017,11 +6004,11 @@ class RtkLib {
               ffi.Pointer<prcopt_t>,
               ffi.Pointer<solopt_t>,
               ffi.Pointer<filopt_t>,
-              ffi.Pointer<ffi.Pointer<ffi.Int8>>,
-              ffi.Int32,
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>)>>('postpos');
+              ffi.Pointer<ffi.Pointer<ffi.Char>>,
+              ffi.Int,
+              ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>)>>('postpos');
   late final _postpos = _postposPtr.asFunction<
       int Function(
           gtime_t,
@@ -6031,11 +6018,11 @@ class RtkLib {
           ffi.Pointer<prcopt_t>,
           ffi.Pointer<solopt_t>,
           ffi.Pointer<filopt_t>,
-          ffi.Pointer<ffi.Pointer<ffi.Int8>>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
           int,
-          ffi.Pointer<ffi.Int8>,
-          ffi.Pointer<ffi.Int8>,
-          ffi.Pointer<ffi.Int8>)>();
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Char>)>();
 
   /// stream server functions
   void strsvrinit(
@@ -6050,19 +6037,19 @@ class RtkLib {
 
   late final _strsvrinitPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<strsvr_t>, ffi.Int32)>>('strsvrinit');
+          ffi.Void Function(ffi.Pointer<strsvr_t>, ffi.Int)>>('strsvrinit');
   late final _strsvrinit =
       _strsvrinitPtr.asFunction<void Function(ffi.Pointer<strsvr_t>, int)>();
 
   int strsvrstart(
     ffi.Pointer<strsvr_t> svr,
-    ffi.Pointer<ffi.Int32> opts,
-    ffi.Pointer<ffi.Int32> strs,
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> paths,
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> logs,
+    ffi.Pointer<ffi.Int> opts,
+    ffi.Pointer<ffi.Int> strs,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> paths,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> logs,
     ffi.Pointer<ffi.Pointer<strconv_t>> conv,
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> cmds,
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> cmds_priodic,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> cmds,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> cmds_priodic,
     ffi.Pointer<ffi.Double> nmeapos,
   ) {
     return _strsvrstart(
@@ -6080,31 +6067,31 @@ class RtkLib {
 
   late final _strsvrstartPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<strsvr_t>,
-              ffi.Pointer<ffi.Int32>,
-              ffi.Pointer<ffi.Int32>,
-              ffi.Pointer<ffi.Pointer<ffi.Int8>>,
-              ffi.Pointer<ffi.Pointer<ffi.Int8>>,
+              ffi.Pointer<ffi.Int>,
+              ffi.Pointer<ffi.Int>,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>,
               ffi.Pointer<ffi.Pointer<strconv_t>>,
-              ffi.Pointer<ffi.Pointer<ffi.Int8>>,
-              ffi.Pointer<ffi.Pointer<ffi.Int8>>,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>,
               ffi.Pointer<ffi.Double>)>>('strsvrstart');
   late final _strsvrstart = _strsvrstartPtr.asFunction<
       int Function(
           ffi.Pointer<strsvr_t>,
-          ffi.Pointer<ffi.Int32>,
-          ffi.Pointer<ffi.Int32>,
-          ffi.Pointer<ffi.Pointer<ffi.Int8>>,
-          ffi.Pointer<ffi.Pointer<ffi.Int8>>,
+          ffi.Pointer<ffi.Int>,
+          ffi.Pointer<ffi.Int>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
           ffi.Pointer<ffi.Pointer<strconv_t>>,
-          ffi.Pointer<ffi.Pointer<ffi.Int8>>,
-          ffi.Pointer<ffi.Pointer<ffi.Int8>>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
           ffi.Pointer<ffi.Double>)>();
 
   void strsvrstop(
     ffi.Pointer<strsvr_t> svr,
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> cmds,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> cmds,
   ) {
     return _strsvrstop(
       svr,
@@ -6115,18 +6102,18 @@ class RtkLib {
   late final _strsvrstopPtr = _lookup<
       ffi.NativeFunction<
           ffi.Void Function(ffi.Pointer<strsvr_t>,
-              ffi.Pointer<ffi.Pointer<ffi.Int8>>)>>('strsvrstop');
+              ffi.Pointer<ffi.Pointer<ffi.Char>>)>>('strsvrstop');
   late final _strsvrstop = _strsvrstopPtr.asFunction<
       void Function(
-          ffi.Pointer<strsvr_t>, ffi.Pointer<ffi.Pointer<ffi.Int8>>)>();
+          ffi.Pointer<strsvr_t>, ffi.Pointer<ffi.Pointer<ffi.Char>>)>();
 
   void strsvrstat(
     ffi.Pointer<strsvr_t> svr,
-    ffi.Pointer<ffi.Int32> stat,
-    ffi.Pointer<ffi.Int32> log_stat,
-    ffi.Pointer<ffi.Int32> byte,
-    ffi.Pointer<ffi.Int32> bps,
-    ffi.Pointer<ffi.Int8> msg,
+    ffi.Pointer<ffi.Int> stat,
+    ffi.Pointer<ffi.Int> log_stat,
+    ffi.Pointer<ffi.Int> byte,
+    ffi.Pointer<ffi.Int> bps,
+    ffi.Pointer<ffi.Char> msg,
   ) {
     return _strsvrstat(
       svr,
@@ -6142,27 +6129,27 @@ class RtkLib {
       ffi.NativeFunction<
           ffi.Void Function(
               ffi.Pointer<strsvr_t>,
-              ffi.Pointer<ffi.Int32>,
-              ffi.Pointer<ffi.Int32>,
-              ffi.Pointer<ffi.Int32>,
-              ffi.Pointer<ffi.Int32>,
-              ffi.Pointer<ffi.Int8>)>>('strsvrstat');
+              ffi.Pointer<ffi.Int>,
+              ffi.Pointer<ffi.Int>,
+              ffi.Pointer<ffi.Int>,
+              ffi.Pointer<ffi.Int>,
+              ffi.Pointer<ffi.Char>)>>('strsvrstat');
   late final _strsvrstat = _strsvrstatPtr.asFunction<
       void Function(
           ffi.Pointer<strsvr_t>,
-          ffi.Pointer<ffi.Int32>,
-          ffi.Pointer<ffi.Int32>,
-          ffi.Pointer<ffi.Int32>,
-          ffi.Pointer<ffi.Int32>,
-          ffi.Pointer<ffi.Int8>)>();
+          ffi.Pointer<ffi.Int>,
+          ffi.Pointer<ffi.Int>,
+          ffi.Pointer<ffi.Int>,
+          ffi.Pointer<ffi.Int>,
+          ffi.Pointer<ffi.Char>)>();
 
   ffi.Pointer<strconv_t> strconvnew(
     int itype,
     int otype,
-    ffi.Pointer<ffi.Int8> msgs,
+    ffi.Pointer<ffi.Char> msgs,
     int staid,
     int stasel,
-    ffi.Pointer<ffi.Int8> opt,
+    ffi.Pointer<ffi.Char> opt,
   ) {
     return _strconvnew(
       itype,
@@ -6177,15 +6164,15 @@ class RtkLib {
   late final _strconvnewPtr = _lookup<
       ffi.NativeFunction<
           ffi.Pointer<strconv_t> Function(
-              ffi.Int32,
-              ffi.Int32,
-              ffi.Pointer<ffi.Int8>,
-              ffi.Int32,
-              ffi.Int32,
-              ffi.Pointer<ffi.Int8>)>>('strconvnew');
+              ffi.Int,
+              ffi.Int,
+              ffi.Pointer<ffi.Char>,
+              ffi.Int,
+              ffi.Int,
+              ffi.Pointer<ffi.Char>)>>('strconvnew');
   late final _strconvnew = _strconvnewPtr.asFunction<
       ffi.Pointer<strconv_t> Function(
-          int, int, ffi.Pointer<ffi.Int8>, int, int, ffi.Pointer<ffi.Int8>)>();
+          int, int, ffi.Pointer<ffi.Char>, int, int, ffi.Pointer<ffi.Char>)>();
 
   void strconvfree(
     ffi.Pointer<strconv_t> conv,
@@ -6211,7 +6198,7 @@ class RtkLib {
   }
 
   late final _rtksvrinitPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<rtksvr_t>)>>(
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<rtksvr_t>)>>(
           'rtksvrinit');
   late final _rtksvrinit =
       _rtksvrinitPtr.asFunction<int Function(ffi.Pointer<rtksvr_t>)>();
@@ -6234,20 +6221,20 @@ class RtkLib {
     ffi.Pointer<rtksvr_t> svr,
     int cycle,
     int buffsize,
-    ffi.Pointer<ffi.Int32> strs,
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> paths,
-    ffi.Pointer<ffi.Int32> formats,
+    ffi.Pointer<ffi.Int> strs,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> paths,
+    ffi.Pointer<ffi.Int> formats,
     int navsel,
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> cmds,
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> cmds_periodic,
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> rcvopts,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> cmds,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> cmds_periodic,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> rcvopts,
     int nmeacycle,
     int nmeareq,
     ffi.Pointer<ffi.Double> nmeapos,
     ffi.Pointer<prcopt_t> prcopt,
     ffi.Pointer<solopt_t> solopt,
     ffi.Pointer<stream_t> moni,
-    ffi.Pointer<ffi.Int8> errmsg,
+    ffi.Pointer<ffi.Char> errmsg,
   ) {
     return _rtksvrstart(
       svr,
@@ -6272,47 +6259,47 @@ class RtkLib {
 
   late final _rtksvrstartPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<rtksvr_t>,
-              ffi.Int32,
-              ffi.Int32,
-              ffi.Pointer<ffi.Int32>,
-              ffi.Pointer<ffi.Pointer<ffi.Int8>>,
-              ffi.Pointer<ffi.Int32>,
-              ffi.Int32,
-              ffi.Pointer<ffi.Pointer<ffi.Int8>>,
-              ffi.Pointer<ffi.Pointer<ffi.Int8>>,
-              ffi.Pointer<ffi.Pointer<ffi.Int8>>,
-              ffi.Int32,
-              ffi.Int32,
+              ffi.Int,
+              ffi.Int,
+              ffi.Pointer<ffi.Int>,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>,
+              ffi.Pointer<ffi.Int>,
+              ffi.Int,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>,
+              ffi.Int,
+              ffi.Int,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<prcopt_t>,
               ffi.Pointer<solopt_t>,
               ffi.Pointer<stream_t>,
-              ffi.Pointer<ffi.Int8>)>>('rtksvrstart');
+              ffi.Pointer<ffi.Char>)>>('rtksvrstart');
   late final _rtksvrstart = _rtksvrstartPtr.asFunction<
       int Function(
           ffi.Pointer<rtksvr_t>,
           int,
           int,
-          ffi.Pointer<ffi.Int32>,
-          ffi.Pointer<ffi.Pointer<ffi.Int8>>,
-          ffi.Pointer<ffi.Int32>,
+          ffi.Pointer<ffi.Int>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          ffi.Pointer<ffi.Int>,
           int,
-          ffi.Pointer<ffi.Pointer<ffi.Int8>>,
-          ffi.Pointer<ffi.Pointer<ffi.Int8>>,
-          ffi.Pointer<ffi.Pointer<ffi.Int8>>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
           int,
           int,
           ffi.Pointer<ffi.Double>,
           ffi.Pointer<prcopt_t>,
           ffi.Pointer<solopt_t>,
           ffi.Pointer<stream_t>,
-          ffi.Pointer<ffi.Int8>)>();
+          ffi.Pointer<ffi.Char>)>();
 
   void rtksvrstop(
     ffi.Pointer<rtksvr_t> svr,
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> cmds,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> cmds,
   ) {
     return _rtksvrstop(
       svr,
@@ -6323,16 +6310,16 @@ class RtkLib {
   late final _rtksvrstopPtr = _lookup<
       ffi.NativeFunction<
           ffi.Void Function(ffi.Pointer<rtksvr_t>,
-              ffi.Pointer<ffi.Pointer<ffi.Int8>>)>>('rtksvrstop');
+              ffi.Pointer<ffi.Pointer<ffi.Char>>)>>('rtksvrstop');
   late final _rtksvrstop = _rtksvrstopPtr.asFunction<
       void Function(
-          ffi.Pointer<rtksvr_t>, ffi.Pointer<ffi.Pointer<ffi.Int8>>)>();
+          ffi.Pointer<rtksvr_t>, ffi.Pointer<ffi.Pointer<ffi.Char>>)>();
 
   int rtksvropenstr(
     ffi.Pointer<rtksvr_t> svr,
     int index,
     int str,
-    ffi.Pointer<ffi.Int8> path,
+    ffi.Pointer<ffi.Char> path,
     ffi.Pointer<solopt_t> solopt,
   ) {
     return _rtksvropenstr(
@@ -6346,10 +6333,10 @@ class RtkLib {
 
   late final _rtksvropenstrPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<rtksvr_t>, ffi.Int32, ffi.Int32,
-              ffi.Pointer<ffi.Int8>, ffi.Pointer<solopt_t>)>>('rtksvropenstr');
+          ffi.Int Function(ffi.Pointer<rtksvr_t>, ffi.Int, ffi.Int,
+              ffi.Pointer<ffi.Char>, ffi.Pointer<solopt_t>)>>('rtksvropenstr');
   late final _rtksvropenstr = _rtksvropenstrPtr.asFunction<
-      int Function(ffi.Pointer<rtksvr_t>, int, int, ffi.Pointer<ffi.Int8>,
+      int Function(ffi.Pointer<rtksvr_t>, int, int, ffi.Pointer<ffi.Char>,
           ffi.Pointer<solopt_t>)>();
 
   void rtksvrclosestr(
@@ -6364,8 +6351,7 @@ class RtkLib {
 
   late final _rtksvrclosestrPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Pointer<rtksvr_t>, ffi.Int32)>>('rtksvrclosestr');
+          ffi.Void Function(ffi.Pointer<rtksvr_t>, ffi.Int)>>('rtksvrclosestr');
   late final _rtksvrclosestr = _rtksvrclosestrPtr
       .asFunction<void Function(ffi.Pointer<rtksvr_t>, int)>();
 
@@ -6401,11 +6387,11 @@ class RtkLib {
     ffi.Pointer<rtksvr_t> svr,
     int type,
     ffi.Pointer<gtime_t> time,
-    ffi.Pointer<ffi.Int32> sat,
+    ffi.Pointer<ffi.Int> sat,
     ffi.Pointer<ffi.Double> az,
     ffi.Pointer<ffi.Double> el,
-    ffi.Pointer<ffi.Pointer<ffi.Int32>> snr,
-    ffi.Pointer<ffi.Int32> vsat,
+    ffi.Pointer<ffi.Pointer<ffi.Int>> snr,
+    ffi.Pointer<ffi.Int> vsat,
   ) {
     return _rtksvrostat(
       svr,
@@ -6421,30 +6407,30 @@ class RtkLib {
 
   late final _rtksvrostatPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               ffi.Pointer<rtksvr_t>,
-              ffi.Int32,
+              ffi.Int,
               ffi.Pointer<gtime_t>,
-              ffi.Pointer<ffi.Int32>,
+              ffi.Pointer<ffi.Int>,
               ffi.Pointer<ffi.Double>,
               ffi.Pointer<ffi.Double>,
-              ffi.Pointer<ffi.Pointer<ffi.Int32>>,
-              ffi.Pointer<ffi.Int32>)>>('rtksvrostat');
+              ffi.Pointer<ffi.Pointer<ffi.Int>>,
+              ffi.Pointer<ffi.Int>)>>('rtksvrostat');
   late final _rtksvrostat = _rtksvrostatPtr.asFunction<
       int Function(
           ffi.Pointer<rtksvr_t>,
           int,
           ffi.Pointer<gtime_t>,
-          ffi.Pointer<ffi.Int32>,
+          ffi.Pointer<ffi.Int>,
           ffi.Pointer<ffi.Double>,
           ffi.Pointer<ffi.Double>,
-          ffi.Pointer<ffi.Pointer<ffi.Int32>>,
-          ffi.Pointer<ffi.Int32>)>();
+          ffi.Pointer<ffi.Pointer<ffi.Int>>,
+          ffi.Pointer<ffi.Int>)>();
 
   void rtksvrsstat(
     ffi.Pointer<rtksvr_t> svr,
-    ffi.Pointer<ffi.Int32> sstat,
-    ffi.Pointer<ffi.Int8> msg,
+    ffi.Pointer<ffi.Int> sstat,
+    ffi.Pointer<ffi.Char> msg,
   ) {
     return _rtksvrsstat(
       svr,
@@ -6455,16 +6441,16 @@ class RtkLib {
 
   late final _rtksvrsstatPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<rtksvr_t>, ffi.Pointer<ffi.Int32>,
-              ffi.Pointer<ffi.Int8>)>>('rtksvrsstat');
+          ffi.Void Function(ffi.Pointer<rtksvr_t>, ffi.Pointer<ffi.Int>,
+              ffi.Pointer<ffi.Char>)>>('rtksvrsstat');
   late final _rtksvrsstat = _rtksvrsstatPtr.asFunction<
-      void Function(ffi.Pointer<rtksvr_t>, ffi.Pointer<ffi.Int32>,
-          ffi.Pointer<ffi.Int8>)>();
+      void Function(ffi.Pointer<rtksvr_t>, ffi.Pointer<ffi.Int>,
+          ffi.Pointer<ffi.Char>)>();
 
   int rtksvrmark(
     ffi.Pointer<rtksvr_t> svr,
-    ffi.Pointer<ffi.Int8> name,
-    ffi.Pointer<ffi.Int8> comment,
+    ffi.Pointer<ffi.Char> name,
+    ffi.Pointer<ffi.Char> comment,
   ) {
     return _rtksvrmark(
       svr,
@@ -6475,16 +6461,16 @@ class RtkLib {
 
   late final _rtksvrmarkPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<rtksvr_t>, ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>)>>('rtksvrmark');
+          ffi.Int Function(ffi.Pointer<rtksvr_t>, ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>)>>('rtksvrmark');
   late final _rtksvrmark = _rtksvrmarkPtr.asFunction<
-      int Function(ffi.Pointer<rtksvr_t>, ffi.Pointer<ffi.Int8>,
-          ffi.Pointer<ffi.Int8>)>();
+      int Function(ffi.Pointer<rtksvr_t>, ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Char>)>();
 
   /// downloader functions
   int dl_readurls(
-    ffi.Pointer<ffi.Int8> file,
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> types,
+    ffi.Pointer<ffi.Char> file,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> types,
     int ntype,
     ffi.Pointer<url_t> urls,
     int nmax,
@@ -6500,19 +6486,19 @@ class RtkLib {
 
   late final _dl_readurlsPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Pointer<ffi.Int8>>,
-              ffi.Int32,
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>,
+              ffi.Int,
               ffi.Pointer<url_t>,
-              ffi.Int32)>>('dl_readurls');
+              ffi.Int)>>('dl_readurls');
   late final _dl_readurls = _dl_readurlsPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Pointer<ffi.Int8>>,
+      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>,
           int, ffi.Pointer<url_t>, int)>();
 
   int dl_readstas(
-    ffi.Pointer<ffi.Int8> file,
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> stas,
+    ffi.Pointer<ffi.Char> file,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> stas,
     int nmax,
   ) {
     return _dl_readstas(
@@ -6524,11 +6510,11 @@ class RtkLib {
 
   late final _dl_readstasPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Pointer<ffi.Int8>>, ffi.Int32)>>('dl_readstas');
+          ffi.Int Function(ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>, ffi.Int)>>('dl_readstas');
   late final _dl_readstas = _dl_readstasPtr.asFunction<
       int Function(
-          ffi.Pointer<ffi.Int8>, ffi.Pointer<ffi.Pointer<ffi.Int8>>, int)>();
+          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Pointer<ffi.Char>>, int)>();
 
   int dl_exec(
     gtime_t ts,
@@ -6538,14 +6524,14 @@ class RtkLib {
     int seqnoe,
     ffi.Pointer<url_t> urls,
     int nurl,
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> stas,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> stas,
     int nsta,
-    ffi.Pointer<ffi.Int8> dir,
-    ffi.Pointer<ffi.Int8> usr,
-    ffi.Pointer<ffi.Int8> pwd,
-    ffi.Pointer<ffi.Int8> proxy,
+    ffi.Pointer<ffi.Char> dir,
+    ffi.Pointer<ffi.Char> usr,
+    ffi.Pointer<ffi.Char> pwd,
+    ffi.Pointer<ffi.Char> proxy,
     int opts,
-    ffi.Pointer<ffi.Int8> msg,
+    ffi.Pointer<ffi.Char> msg,
     ffi.Pointer<FILE> fp,
   ) {
     return _dl_exec(
@@ -6570,22 +6556,22 @@ class RtkLib {
 
   late final _dl_execPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
+          ffi.Int Function(
               gtime_t,
               gtime_t,
               ffi.Double,
-              ffi.Int32,
-              ffi.Int32,
+              ffi.Int,
+              ffi.Int,
               ffi.Pointer<url_t>,
-              ffi.Int32,
-              ffi.Pointer<ffi.Pointer<ffi.Int8>>,
-              ffi.Int32,
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>,
-              ffi.Pointer<ffi.Int8>,
-              ffi.Int32,
-              ffi.Pointer<ffi.Int8>,
+              ffi.Int,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>,
+              ffi.Int,
+              ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>,
+              ffi.Int,
+              ffi.Pointer<ffi.Char>,
               ffi.Pointer<FILE>)>>('dl_exec');
   late final _dl_exec = _dl_execPtr.asFunction<
       int Function(
@@ -6596,14 +6582,14 @@ class RtkLib {
           int,
           ffi.Pointer<url_t>,
           int,
-          ffi.Pointer<ffi.Pointer<ffi.Int8>>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
           int,
-          ffi.Pointer<ffi.Int8>,
-          ffi.Pointer<ffi.Int8>,
-          ffi.Pointer<ffi.Int8>,
-          ffi.Pointer<ffi.Int8>,
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Char>,
+          ffi.Pointer<ffi.Char>,
           int,
-          ffi.Pointer<ffi.Int8>,
+          ffi.Pointer<ffi.Char>,
           ffi.Pointer<FILE>)>();
 
   void dl_test(
@@ -6612,9 +6598,9 @@ class RtkLib {
     double ti,
     ffi.Pointer<url_t> urls,
     int nurl,
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> stas,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> stas,
     int nsta,
-    ffi.Pointer<ffi.Int8> dir,
+    ffi.Pointer<ffi.Char> dir,
     int ncol,
     int datefmt,
     ffi.Pointer<FILE> fp,
@@ -6641,12 +6627,12 @@ class RtkLib {
               gtime_t,
               ffi.Double,
               ffi.Pointer<url_t>,
-              ffi.Int32,
-              ffi.Pointer<ffi.Pointer<ffi.Int8>>,
-              ffi.Int32,
-              ffi.Pointer<ffi.Int8>,
-              ffi.Int32,
-              ffi.Int32,
+              ffi.Int,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>,
+              ffi.Int,
+              ffi.Pointer<ffi.Char>,
+              ffi.Int,
+              ffi.Int,
               ffi.Pointer<FILE>)>>('dl_test');
   late final _dl_test = _dl_testPtr.asFunction<
       void Function(
@@ -6655,16 +6641,16 @@ class RtkLib {
           double,
           ffi.Pointer<url_t>,
           int,
-          ffi.Pointer<ffi.Pointer<ffi.Int8>>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
           int,
-          ffi.Pointer<ffi.Int8>,
+          ffi.Pointer<ffi.Char>,
           int,
           int,
           ffi.Pointer<FILE>)>();
 
   /// GIS data functions
   int gis_read(
-    ffi.Pointer<ffi.Int8> file,
+    ffi.Pointer<ffi.Char> file,
     ffi.Pointer<gis_t> gis,
     int layer,
   ) {
@@ -6677,10 +6663,10 @@ class RtkLib {
 
   late final _gis_readPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<gis_t>,
-              ffi.Int32)>>('gis_read');
+          ffi.Int Function(
+              ffi.Pointer<ffi.Char>, ffi.Pointer<gis_t>, ffi.Int)>>('gis_read');
   late final _gis_read = _gis_readPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Int8>, ffi.Pointer<gis_t>, int)>();
+      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<gis_t>, int)>();
 
   void gis_free(
     ffi.Pointer<gis_t> gis,
@@ -6698,7 +6684,7 @@ class RtkLib {
 
   /// application defined functions
   int showmsg(
-    ffi.Pointer<ffi.Int8> format,
+    ffi.Pointer<ffi.Char> format,
   ) {
     return _showmsg(
       format,
@@ -6706,10 +6692,10 @@ class RtkLib {
   }
 
   late final _showmsgPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Int8>)>>(
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>)>>(
           'showmsg');
   late final _showmsg =
-      _showmsgPtr.asFunction<int Function(ffi.Pointer<ffi.Int8>)>();
+      _showmsgPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
   void settspan(
     gtime_t ts,
@@ -6743,9 +6729,9 @@ class RtkLib {
   /// @param[in] obs - [obsd_t *] observation
   /// @param[out] strLen - [size_t *] output string length
   /// @return [char*] result string
-  ffi.Pointer<ffi.Int8> obs2str(
+  ffi.Pointer<ffi.Char> obs2str(
     ffi.Pointer<obsd_t> obs,
-    ffi.Pointer<size_t> strLen,
+    ffi.Pointer<ffi.Size> strLen,
   ) {
     return _obs2str(
       obs,
@@ -6755,15 +6741,15 @@ class RtkLib {
 
   late final _obs2strPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Pointer<ffi.Int8> Function(
-              ffi.Pointer<obsd_t>, ffi.Pointer<size_t>)>>('obs2str');
+          ffi.Pointer<ffi.Char> Function(
+              ffi.Pointer<obsd_t>, ffi.Pointer<ffi.Size>)>>('obs2str');
   late final _obs2str = _obs2strPtr.asFunction<
-      ffi.Pointer<ffi.Int8> Function(
-          ffi.Pointer<obsd_t>, ffi.Pointer<size_t>)>();
+      ffi.Pointer<ffi.Char> Function(
+          ffi.Pointer<obsd_t>, ffi.Pointer<ffi.Size>)>();
 
   int obs2str2(
     ffi.Pointer<obsd_t> obs,
-    ffi.Pointer<ffi.Pointer<ffi.Int8>> outStr,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> outStr,
   ) {
     return _obs2str2(
       obs,
@@ -6773,10 +6759,10 @@ class RtkLib {
 
   late final _obs2str2Ptr = _lookup<
       ffi.NativeFunction<
-          size_t Function(ffi.Pointer<obsd_t>,
-              ffi.Pointer<ffi.Pointer<ffi.Int8>>)>>('obs2str2');
+          ffi.Size Function(ffi.Pointer<obsd_t>,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>)>>('obs2str2');
   late final _obs2str2 = _obs2str2Ptr.asFunction<
-      int Function(ffi.Pointer<obsd_t>, ffi.Pointer<ffi.Pointer<ffi.Int8>>)>();
+      int Function(ffi.Pointer<obsd_t>, ffi.Pointer<ffi.Pointer<ffi.Char>>)>();
 
   /// @brief Create new raw controller
   /// @param[in] format - [int] format raw data
@@ -6795,7 +6781,7 @@ class RtkLib {
   late final _create_rawPtr = _lookup<
       ffi.NativeFunction<
           ffi.Pointer<raw_t> Function(
-              ffi.Int32, ffi.Pointer<ffi.Uint32>)>>('create_raw');
+              ffi.Int, ffi.Pointer<ffi.Uint32>)>>('create_raw');
   late final _create_raw = _create_rawPtr
       .asFunction<ffi.Pointer<raw_t> Function(int, ffi.Pointer<ffi.Uint32>)>();
 
@@ -6811,35 +6797,35 @@ class RtkLib {
 
   late final _init_raw_2Ptr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Pointer<raw_t>>, ffi.Int32)>>('init_raw_2');
+          ffi.Int Function(
+              ffi.Pointer<ffi.Pointer<raw_t>>, ffi.Int)>>('init_raw_2');
   late final _init_raw_2 = _init_raw_2Ptr
       .asFunction<int Function(ffi.Pointer<ffi.Pointer<raw_t>>, int)>();
 
   late final ffi.Pointer<
           ffi.Pointer<
               ffi.NativeFunction<
-                  ffi.Void Function(ffi.Pointer<ffi.Int8>, ffi.Uint64)>>>
+                  ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Uint64)>>>
       _flutter_print = _lookup<
           ffi.Pointer<
               ffi.NativeFunction<
                   ffi.Void Function(
-                      ffi.Pointer<ffi.Int8>, ffi.Uint64)>>>('flutter_print');
+                      ffi.Pointer<ffi.Char>, ffi.Uint64)>>>('flutter_print');
 
   ffi.Pointer<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Pointer<ffi.Int8>, ffi.Uint64)>>
+              ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Uint64)>>
       get flutter_print => _flutter_print.value;
 
   set flutter_print(
           ffi.Pointer<
                   ffi.NativeFunction<
-                      ffi.Void Function(ffi.Pointer<ffi.Int8>, ffi.Uint64)>>
+                      ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Uint64)>>
               value) =>
       _flutter_print.value = value;
 
   int flutter_printf(
-    ffi.Pointer<ffi.Int8> format,
+    ffi.Pointer<ffi.Char> format,
   ) {
     return _flutter_printf(
       format,
@@ -6847,14 +6833,14 @@ class RtkLib {
   }
 
   late final _flutter_printfPtr =
-      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<ffi.Int8>)>>(
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>)>>(
           'flutter_printf');
   late final _flutter_printf =
-      _flutter_printfPtr.asFunction<int Function(ffi.Pointer<ffi.Int8>)>();
+      _flutter_printfPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
   int flutter_vprintf(
-    ffi.Pointer<ffi.Int8> format,
-    va_list args,
+    ffi.Pointer<ffi.Char> format,
+    ffi.Pointer<__va_list_tag> args,
   ) {
     return _flutter_vprintf(
       format,
@@ -6864,14 +6850,14 @@ class RtkLib {
 
   late final _flutter_vprintfPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Pointer<ffi.Int8>, va_list)>>('flutter_vprintf');
-  late final _flutter_vprintf = _flutter_vprintfPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Int8>, va_list)>();
+          ffi.Int Function(ffi.Pointer<ffi.Char>,
+              ffi.Pointer<__va_list_tag>)>>('flutter_vprintf');
+  late final _flutter_vprintf = _flutter_vprintfPtr.asFunction<
+      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<__va_list_tag>)>();
 
   int flutter_trace(
     int level,
-    ffi.Pointer<ffi.Int8> format,
+    ffi.Pointer<ffi.Char> format,
   ) {
     return _flutter_trace(
       level,
@@ -6880,16 +6866,15 @@ class RtkLib {
   }
 
   late final _flutter_tracePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Int32, ffi.Pointer<ffi.Int8>)>>('flutter_trace');
+          ffi.NativeFunction<ffi.Int Function(ffi.Int, ffi.Pointer<ffi.Char>)>>(
+      'flutter_trace');
   late final _flutter_trace =
-      _flutter_tracePtr.asFunction<int Function(int, ffi.Pointer<ffi.Int8>)>();
+      _flutter_tracePtr.asFunction<int Function(int, ffi.Pointer<ffi.Char>)>();
 
   int flutter_vtrace(
     int level,
-    ffi.Pointer<ffi.Int8> format,
-    va_list args,
+    ffi.Pointer<ffi.Char> format,
+    ffi.Pointer<__va_list_tag> args,
   ) {
     return _flutter_vtrace(
       level,
@@ -6900,15 +6885,15 @@ class RtkLib {
 
   late final _flutter_vtracePtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int32 Function(
-              ffi.Int32, ffi.Pointer<ffi.Int8>, va_list)>>('flutter_vtrace');
-  late final _flutter_vtrace = _flutter_vtracePtr
-      .asFunction<int Function(int, ffi.Pointer<ffi.Int8>, va_list)>();
+          ffi.Int Function(ffi.Int, ffi.Pointer<ffi.Char>,
+              ffi.Pointer<__va_list_tag>)>>('flutter_vtrace');
+  late final _flutter_vtrace = _flutter_vtracePtr.asFunction<
+      int Function(int, ffi.Pointer<ffi.Char>, ffi.Pointer<__va_list_tag>)>();
 
   void flutter_initialize(
     ffi.Pointer<
             ffi.NativeFunction<
-                ffi.Void Function(ffi.Pointer<ffi.Int8>, ffi.Uint64)>>
+                ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Uint64)>>
         printCallback,
   ) {
     return _flutter_initialize(
@@ -6921,13 +6906,13 @@ class RtkLib {
           ffi.Void Function(
               ffi.Pointer<
                   ffi.NativeFunction<
-                      ffi.Void Function(ffi.Pointer<ffi.Int8>,
+                      ffi.Void Function(ffi.Pointer<ffi.Char>,
                           ffi.Uint64)>>)>>('flutter_initialize');
   late final _flutter_initialize = _flutter_initializePtr.asFunction<
       void Function(
           ffi.Pointer<
               ffi.NativeFunction<
-                  ffi.Void Function(ffi.Pointer<ffi.Int8>, ffi.Uint64)>>)>();
+                  ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Uint64)>>)>();
 
   void set_level_trace(
     int level,
@@ -6938,22 +6923,34 @@ class RtkLib {
   }
 
   late final _set_level_tracePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int32)>>(
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int)>>(
           'set_level_trace');
   late final _set_level_trace =
       _set_level_tracePtr.asFunction<void Function(int)>();
+
+  ffi.Pointer<struct_sizes_t> getStructSizes() {
+    return _getStructSizes();
+  }
+
+  late final _getStructSizesPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<struct_sizes_t> Function()>>(
+          'getStructSizes');
+  late final _getStructSizes =
+      _getStructSizesPtr.asFunction<ffi.Pointer<struct_sizes_t> Function()>();
 }
 
 /// time struct
 class gtime_t extends ffi.Struct {
   /// time (s) expressed by standard time_t
-  @ffi.Int32()
+  @time_t()
   external int time;
 
   /// fraction of second under 1 s
   @ffi.Double()
   external double sec;
 }
+
+typedef time_t = ffi.Long;
 
 /// observation data record
 class obsd_t extends ffi.Struct {
@@ -6986,7 +6983,7 @@ class obsd_t extends ffi.Struct {
   external ffi.Array<ffi.Float> D;
 
   /// time is valid (Valid GNSS fix) for time mark
-  @ffi.Int32()
+  @ffi.Int()
   external int timevalid;
 
   /// time of event (GPST)
@@ -7006,22 +7003,22 @@ class obsd_t extends ffi.Struct {
 /// observation data
 class obs_t extends ffi.Struct {
   /// number of obervation data/allocated
-  @ffi.Int32()
+  @ffi.Int()
   external int n;
 
-  @ffi.Int32()
+  @ffi.Int()
   external int nmax;
 
   /// epoch flag (0:ok,1:power failure,>1:event flag)
-  @ffi.Int32()
+  @ffi.Int()
   external int flag;
 
   /// count of rcv event
-  @ffi.Int32()
+  @ffi.Int()
   external int rcvcount;
 
   /// time mark count
-  @ffi.Int32()
+  @ffi.Int()
   external int tmcount;
 
   /// observation data records
@@ -7060,10 +7057,10 @@ class erpd_t extends ffi.Struct {
 /// earth rotation parameter type
 class erp_t extends ffi.Struct {
   /// number and max number of data
-  @ffi.Int32()
+  @ffi.Int()
   external int n;
 
-  @ffi.Int32()
+  @ffi.Int()
   external int nmax;
 
   /// earth rotation parameter data
@@ -7073,14 +7070,14 @@ class erp_t extends ffi.Struct {
 /// antenna parameter type
 class pcv_t extends ffi.Struct {
   /// satellite number (0:receiver)
-  @ffi.Int32()
+  @ffi.Int()
   external int sat;
 
   @ffi.Array.multi([64])
-  external ffi.Array<ffi.Int8> type;
+  external ffi.Array<ffi.Char> type;
 
   @ffi.Array.multi([64])
-  external ffi.Array<ffi.Int8> code;
+  external ffi.Array<ffi.Char> code;
 
   /// valid time start and end
   external gtime_t ts;
@@ -7097,10 +7094,10 @@ class pcv_t extends ffi.Struct {
 /// antenna parameters type
 class pcvs_t extends ffi.Struct {
   /// number of data/allocated
-  @ffi.Int32()
+  @ffi.Int()
   external int n;
 
-  @ffi.Int32()
+  @ffi.Int()
   external int nmax;
 
   /// antenna parameters data
@@ -7110,19 +7107,19 @@ class pcvs_t extends ffi.Struct {
 /// almanac type
 class alm_t extends ffi.Struct {
   /// satellite number
-  @ffi.Int32()
+  @ffi.Int()
   external int sat;
 
   /// sv health (0:ok)
-  @ffi.Int32()
+  @ffi.Int()
   external int svh;
 
   /// as and sv config
-  @ffi.Int32()
+  @ffi.Int()
   external int svconf;
 
   /// GPS/QZS: gps week, GAL: galileo week
-  @ffi.Int32()
+  @ffi.Int()
   external int week;
 
   /// Toa
@@ -7165,34 +7162,34 @@ class alm_t extends ffi.Struct {
 /// GPS/QZS/GAL broadcast ephemeris type
 class eph_t extends ffi.Struct {
   /// satellite number
-  @ffi.Int32()
+  @ffi.Int()
   external int sat;
 
   /// IODE,IODC
-  @ffi.Int32()
+  @ffi.Int()
   external int iode;
 
-  @ffi.Int32()
+  @ffi.Int()
   external int iodc;
 
   /// SV accuracy (URA index)
-  @ffi.Int32()
+  @ffi.Int()
   external int sva;
 
   /// SV health (0:ok)
-  @ffi.Int32()
+  @ffi.Int()
   external int svh;
 
   /// GPS/QZS: gps week, GAL: galileo week
-  @ffi.Int32()
+  @ffi.Int()
   external int week;
 
   /// GPS/QZS: code on L2
-  @ffi.Int32()
+  @ffi.Int()
   external int code;
 
   /// GPS/QZS: L2 P data flag
-  @ffi.Int32()
+  @ffi.Int()
   external int flag;
 
   /// Toe,Toc,T_trans
@@ -7280,25 +7277,25 @@ class eph_t extends ffi.Struct {
 /// GLONASS broadcast ephemeris type
 class geph_t extends ffi.Struct {
   /// satellite number
-  @ffi.Int32()
+  @ffi.Int()
   external int sat;
 
   /// IODE (0-6 bit of tb field)
-  @ffi.Int32()
+  @ffi.Int()
   external int iode;
 
   /// satellite frequency number
-  @ffi.Int32()
+  @ffi.Int()
   external int frq;
 
   /// satellite health, accuracy, age of operation
-  @ffi.Int32()
+  @ffi.Int()
   external int svh;
 
-  @ffi.Int32()
+  @ffi.Int()
   external int sva;
 
-  @ffi.Int32()
+  @ffi.Int()
   external int age;
 
   /// epoch of epherides (gpst)
@@ -7334,7 +7331,7 @@ class peph_t extends ffi.Struct {
   external gtime_t time;
 
   /// ephemeris index for multiple files
-  @ffi.Int32()
+  @ffi.Int()
   external int index;
 
   @ffi.Array.multi([204, 4])
@@ -7362,7 +7359,7 @@ class pclk_t extends ffi.Struct {
   external gtime_t time;
 
   /// clock index for multiple files
-  @ffi.Int32()
+  @ffi.Int()
   external int index;
 
   @ffi.Array.multi([204, 1])
@@ -7375,7 +7372,7 @@ class pclk_t extends ffi.Struct {
 /// SBAS ephemeris type
 class seph_t extends ffi.Struct {
   /// satellite number
-  @ffi.Int32()
+  @ffi.Int()
   external int sat;
 
   /// reference epoch time (GPST)
@@ -7385,11 +7382,11 @@ class seph_t extends ffi.Struct {
   external gtime_t tof;
 
   /// SV accuracy (URA index)
-  @ffi.Int32()
+  @ffi.Int()
   external int sva;
 
   /// SV health (0:ok)
-  @ffi.Int32()
+  @ffi.Int()
   external int svh;
 
   @ffi.Array.multi([3])
@@ -7412,20 +7409,20 @@ class seph_t extends ffi.Struct {
 /// NORAL TLE data type
 class tled_t extends ffi.Struct {
   @ffi.Array.multi([32])
-  external ffi.Array<ffi.Int8> name;
+  external ffi.Array<ffi.Char> name;
 
   @ffi.Array.multi([32])
-  external ffi.Array<ffi.Int8> alias;
+  external ffi.Array<ffi.Char> alias;
 
   @ffi.Array.multi([16])
-  external ffi.Array<ffi.Int8> satno;
+  external ffi.Array<ffi.Char> satno;
 
   /// classification
-  @ffi.Int8()
+  @ffi.Char()
   external int satclass;
 
   @ffi.Array.multi([16])
-  external ffi.Array<ffi.Int8> desig;
+  external ffi.Array<ffi.Char> desig;
 
   /// element set epoch (UTC)
   external gtime_t epoch;
@@ -7443,11 +7440,11 @@ class tled_t extends ffi.Struct {
   external double bstar;
 
   /// element set type
-  @ffi.Int32()
+  @ffi.Int()
   external int etype;
 
   /// element number
-  @ffi.Int32()
+  @ffi.Int()
   external int eleno;
 
   /// orbit inclination (deg)
@@ -7475,17 +7472,17 @@ class tled_t extends ffi.Struct {
   external double n;
 
   /// revolution number at epoch
-  @ffi.Int32()
+  @ffi.Int()
   external int rev;
 }
 
 /// NORAD TLE (two line element) type
 class tle_t extends ffi.Struct {
   /// number/max number of two line element data
-  @ffi.Int32()
+  @ffi.Int()
   external int n;
 
-  @ffi.Int32()
+  @ffi.Int()
   external int nmax;
 
   /// NORAD TLE data
@@ -7498,7 +7495,7 @@ class tec_t extends ffi.Struct {
   external gtime_t time;
 
   @ffi.Array.multi([3])
-  external ffi.Array<ffi.Int32> ndata;
+  external ffi.Array<ffi.Int> ndata;
 
   /// earth radius (km)
   @ffi.Double()
@@ -7523,10 +7520,10 @@ class tec_t extends ffi.Struct {
 /// SBAS message type
 class sbsmsg_t extends ffi.Struct {
   /// receiption time
-  @ffi.Int32()
+  @ffi.Int()
   external int week;
 
-  @ffi.Int32()
+  @ffi.Int()
   external int tow;
 
   /// SBAS satellite PRN,receiver number
@@ -7543,10 +7540,10 @@ class sbsmsg_t extends ffi.Struct {
 /// SBAS messages type
 class sbs_t extends ffi.Struct {
   /// number of SBAS messages/allocated
-  @ffi.Int32()
+  @ffi.Int()
   external int n;
 
-  @ffi.Int32()
+  @ffi.Int()
   external int nmax;
 
   /// SBAS messages
@@ -7571,7 +7568,7 @@ class sbsfcorr_t extends ffi.Struct {
   external double dt;
 
   /// IODF (issue of date fast corr)
-  @ffi.Int32()
+  @ffi.Int()
   external int iodf;
 
   /// UDRE+1
@@ -7589,7 +7586,7 @@ class sbslcorr_t extends ffi.Struct {
   external gtime_t t0;
 
   /// IODE (issue of date ephemeris)
-  @ffi.Int32()
+  @ffi.Int()
   external int iode;
 
   @ffi.Array.multi([3])
@@ -7609,7 +7606,7 @@ class sbslcorr_t extends ffi.Struct {
 /// SBAS satellite correction type
 class sbssatp_t extends ffi.Struct {
   /// satellite number
-  @ffi.Int32()
+  @ffi.Int()
   external int sat;
 
   /// fast correction
@@ -7622,15 +7619,15 @@ class sbssatp_t extends ffi.Struct {
 /// SBAS satellite corrections type
 class sbssat_t extends ffi.Struct {
   /// IODP (issue of date mask)
-  @ffi.Int32()
+  @ffi.Int()
   external int iodp;
 
   /// number of satellites
-  @ffi.Int32()
+  @ffi.Int()
   external int nsat;
 
   /// system latency (s)
-  @ffi.Int32()
+  @ffi.Int()
   external int tlat;
 
   @ffi.Array.multi([204])
@@ -7679,11 +7676,11 @@ class sbsigpband_t extends ffi.Struct {
 /// SBAS ionospheric corrections type
 class sbsion_t extends ffi.Struct {
   /// IODI (issue of date ionos corr)
-  @ffi.Int32()
+  @ffi.Int()
   external int iodi;
 
   /// number of igps
-  @ffi.Int32()
+  @ffi.Int()
   external int nigp;
 
   @ffi.Array.multi([201])
@@ -7704,7 +7701,7 @@ class dgps_t extends ffi.Struct {
   external double rrc;
 
   /// issue of data (IOD)
-  @ffi.Int32()
+  @ffi.Int()
   external int iod;
 
   /// UDRE
@@ -7721,22 +7718,22 @@ class ssr_t extends ffi.Struct {
   external ffi.Array<ffi.Double> udi;
 
   @ffi.Array.multi([6])
-  external ffi.Array<ffi.Int32> iod;
+  external ffi.Array<ffi.Int> iod;
 
   /// issue of data
-  @ffi.Int32()
+  @ffi.Int()
   external int iode;
 
   /// issue of data crc for beidou/sbas
-  @ffi.Int32()
+  @ffi.Int()
   external int iodcrc;
 
   /// URA indicator
-  @ffi.Int32()
+  @ffi.Int()
   external int ura;
 
   /// sat ref datum (0:ITRF,1:regional)
-  @ffi.Int32()
+  @ffi.Int()
   external int refd;
 
   @ffi.Array.multi([3])
@@ -7776,52 +7773,52 @@ class ssr_t extends ffi.Struct {
 /// navigation data type
 class nav_t extends ffi.Struct {
   /// number of broadcast ephemeris
-  @ffi.Int32()
+  @ffi.Int()
   external int n;
 
-  @ffi.Int32()
+  @ffi.Int()
   external int nmax;
 
   /// number of glonass ephemeris
-  @ffi.Int32()
+  @ffi.Int()
   external int ng;
 
-  @ffi.Int32()
+  @ffi.Int()
   external int ngmax;
 
   /// number of sbas ephemeris
-  @ffi.Int32()
+  @ffi.Int()
   external int ns;
 
-  @ffi.Int32()
+  @ffi.Int()
   external int nsmax;
 
   /// number of precise ephemeris
-  @ffi.Int32()
+  @ffi.Int()
   external int ne;
 
-  @ffi.Int32()
+  @ffi.Int()
   external int nemax;
 
   /// number of precise clock
-  @ffi.Int32()
+  @ffi.Int()
   external int nc;
 
-  @ffi.Int32()
+  @ffi.Int()
   external int ncmax;
 
   /// number of almanac data
-  @ffi.Int32()
+  @ffi.Int()
   external int na;
 
-  @ffi.Int32()
+  @ffi.Int()
   external int namax;
 
   /// number of tec grid data
-  @ffi.Int32()
+  @ffi.Int()
   external int nt;
 
-  @ffi.Int32()
+  @ffi.Int()
   external int ntmax;
 
   /// GPS/QZS/GAL/BDS/IRN ephemeris
@@ -7885,7 +7882,7 @@ class nav_t extends ffi.Struct {
   external ffi.Array<ffi.Double> ion_irn;
 
   @ffi.Array.multi([32])
-  external ffi.Array<ffi.Int32> glo_fcn;
+  external ffi.Array<ffi.Int> glo_fcn;
 
   @ffi.Array.multi([204, 3])
   external ffi.Array<ffi.Array<ffi.Double>> cbias;
@@ -7912,36 +7909,36 @@ class nav_t extends ffi.Struct {
 /// station parameter type
 class sta_t extends ffi.Struct {
   @ffi.Array.multi([64])
-  external ffi.Array<ffi.Int8> name;
+  external ffi.Array<ffi.Char> name;
 
   @ffi.Array.multi([64])
-  external ffi.Array<ffi.Int8> marker;
+  external ffi.Array<ffi.Char> marker;
 
   @ffi.Array.multi([64])
-  external ffi.Array<ffi.Int8> antdes;
+  external ffi.Array<ffi.Char> antdes;
 
   @ffi.Array.multi([64])
-  external ffi.Array<ffi.Int8> antsno;
+  external ffi.Array<ffi.Char> antsno;
 
   @ffi.Array.multi([64])
-  external ffi.Array<ffi.Int8> rectype;
+  external ffi.Array<ffi.Char> rectype;
 
   @ffi.Array.multi([64])
-  external ffi.Array<ffi.Int8> recver;
+  external ffi.Array<ffi.Char> recver;
 
   @ffi.Array.multi([64])
-  external ffi.Array<ffi.Int8> recsno;
+  external ffi.Array<ffi.Char> recsno;
 
   /// antenna setup id
-  @ffi.Int32()
+  @ffi.Int()
   external int antsetup;
 
   /// ITRF realization year
-  @ffi.Int32()
+  @ffi.Int()
   external int itrf;
 
   /// antenna delta type (0:enu,1:xyz)
-  @ffi.Int32()
+  @ffi.Int()
   external int deltype;
 
   @ffi.Array.multi([3])
@@ -7955,7 +7952,7 @@ class sta_t extends ffi.Struct {
   external double hgt;
 
   /// GLONASS code-phase alignment (0:no,1:yes)
-  @ffi.Int32()
+  @ffi.Int()
   external int glo_cp_align;
 
   @ffi.Array.multi([4])
@@ -8018,21 +8015,21 @@ class sol_t extends ffi.Struct {
 /// solution buffer type
 class solbuf_t extends ffi.Struct {
   /// number of solution/max number of buffer
-  @ffi.Int32()
+  @ffi.Int()
   external int n;
 
-  @ffi.Int32()
+  @ffi.Int()
   external int nmax;
 
   /// cyclic buffer flag
-  @ffi.Int32()
+  @ffi.Int()
   external int cyclic;
 
   /// start/end index
-  @ffi.Int32()
+  @ffi.Int()
   external int start;
 
-  @ffi.Int32()
+  @ffi.Int()
   external int end;
 
   /// current solution time
@@ -8048,7 +8045,7 @@ class solbuf_t extends ffi.Struct {
   external ffi.Array<ffi.Uint8> buff;
 
   /// number of byte in message buffer
-  @ffi.Int32()
+  @ffi.Int()
   external int nb;
 }
 
@@ -8108,10 +8105,10 @@ class solstat_t extends ffi.Struct {
 /// solution status buffer type
 class solstatbuf_t extends ffi.Struct {
   /// number of solution/max number of buffer
-  @ffi.Int32()
+  @ffi.Int()
   external int n;
 
-  @ffi.Int32()
+  @ffi.Int()
   external int nmax;
 
   /// solution status data
@@ -8121,19 +8118,19 @@ class solstatbuf_t extends ffi.Struct {
 /// RTCM control struct type
 class rtcm_t extends ffi.Struct {
   /// station id
-  @ffi.Int32()
+  @ffi.Int()
   external int staid;
 
   /// station health
-  @ffi.Int32()
+  @ffi.Int()
   external int stah;
 
   /// sequence number for rtcm 2 or iods msm
-  @ffi.Int32()
+  @ffi.Int()
   external int seqno;
 
   /// output message type
-  @ffi.Int32()
+  @ffi.Int()
   external int outtype;
 
   /// message time
@@ -8158,24 +8155,24 @@ class rtcm_t extends ffi.Struct {
   external ffi.Array<ssr_t> ssr;
 
   @ffi.Array.multi([128])
-  external ffi.Array<ffi.Int8> msg;
+  external ffi.Array<ffi.Char> msg;
 
   @ffi.Array.multi([256])
-  external ffi.Array<ffi.Int8> msgtype;
+  external ffi.Array<ffi.Char> msgtype;
 
   @ffi.Array.multi([7, 128])
-  external ffi.Array<ffi.Array<ffi.Int8>> msmtype;
+  external ffi.Array<ffi.Array<ffi.Char>> msmtype;
 
   /// obs data complete flag (1:ok,0:not complete)
-  @ffi.Int32()
+  @ffi.Int()
   external int obsflag;
 
   /// input ephemeris satellite number
-  @ffi.Int32()
+  @ffi.Int()
   external int ephsat;
 
   /// input ephemeris set (0-1)
-  @ffi.Int32()
+  @ffi.Int()
   external int ephset;
 
   @ffi.Array.multi([204, 8])
@@ -8191,15 +8188,15 @@ class rtcm_t extends ffi.Struct {
   external ffi.Array<ffi.Array<gtime_t>> lltime;
 
   /// number of bytes in message buffer
-  @ffi.Int32()
+  @ffi.Int()
   external int nbyte;
 
   /// number of bits in word buffer
-  @ffi.Int32()
+  @ffi.Int()
   external int nbit;
 
   /// message length (bytes)
-  @ffi.Int32()
+  @ffi.Int()
   external int len;
 
   @ffi.Array.multi([1200])
@@ -8216,7 +8213,7 @@ class rtcm_t extends ffi.Struct {
   external ffi.Array<ffi.Uint32> nmsg3;
 
   @ffi.Array.multi([256])
-  external ffi.Array<ffi.Int8> opt;
+  external ffi.Array<ffi.Char> opt;
 }
 
 /// RINEX control struct type
@@ -8229,19 +8226,19 @@ class rnxctr_t extends ffi.Struct {
   external double ver;
 
   /// RINEX file type ('O','N',...)
-  @ffi.Int8()
+  @ffi.Char()
   external int type;
 
   /// navigation system
-  @ffi.Int32()
+  @ffi.Int()
   external int sys;
 
   /// time system
-  @ffi.Int32()
+  @ffi.Int()
   external int tsys;
 
   @ffi.Array.multi([8, 64, 4])
-  external ffi.Array<ffi.Array<ffi.Array<ffi.Int8>>> tobs;
+  external ffi.Array<ffi.Array<ffi.Array<ffi.Char>>> tobs;
 
   /// observation data
   external obs_t obs;
@@ -8253,27 +8250,27 @@ class rnxctr_t extends ffi.Struct {
   external sta_t sta;
 
   /// input ephemeris satellite number
-  @ffi.Int32()
+  @ffi.Int()
   external int ephsat;
 
   /// input ephemeris set (0-1)
-  @ffi.Int32()
+  @ffi.Int()
   external int ephset;
 
   @ffi.Array.multi([256])
-  external ffi.Array<ffi.Int8> opt;
+  external ffi.Array<ffi.Char> opt;
 }
 
 /// download URL type
 class url_t extends ffi.Struct {
   @ffi.Array.multi([32])
-  external ffi.Array<ffi.Int8> type;
+  external ffi.Array<ffi.Char> type;
 
   @ffi.Array.multi([1024])
-  external ffi.Array<ffi.Int8> path;
+  external ffi.Array<ffi.Char> path;
 
   @ffi.Array.multi([1024])
-  external ffi.Array<ffi.Int8> dir;
+  external ffi.Array<ffi.Char> dir;
 
   /// time interval (s)
   @ffi.Double()
@@ -8283,23 +8280,23 @@ class url_t extends ffi.Struct {
 /// option type
 class opt_t extends ffi.Struct {
   /// option name
-  external ffi.Pointer<ffi.Int8> name;
+  external ffi.Pointer<ffi.Char> name;
 
   /// option format (0:int,1:double,2:string,3:enum)
-  @ffi.Int32()
+  @ffi.Int()
   external int format;
 
   /// pointer to option variable
   external ffi.Pointer<ffi.Void> var1;
 
   /// option comment/enum labels/unit
-  external ffi.Pointer<ffi.Int8> comment;
+  external ffi.Pointer<ffi.Char> comment;
 }
 
 /// SNR mask type
 class snrmask_t extends ffi.Struct {
   @ffi.Array.multi([2])
-  external ffi.Array<ffi.Int32> ena;
+  external ffi.Array<ffi.Int> ena;
 
   @ffi.Array.multi([5, 9])
   external ffi.Array<ffi.Array<ffi.Double>> mask;
@@ -8308,19 +8305,19 @@ class snrmask_t extends ffi.Struct {
 /// processing options type
 class prcopt_t extends ffi.Struct {
   /// positioning mode (PMODE_???)
-  @ffi.Int32()
+  @ffi.Int()
   external int mode;
 
   /// solution type (0:forward,1:backward,2:combined)
-  @ffi.Int32()
+  @ffi.Int()
   external int soltype;
 
   /// number of frequencies (1:L1,2:L1+L2,3:L1+L2+L5)
-  @ffi.Int32()
+  @ffi.Int()
   external int nf;
 
   /// navigation system
-  @ffi.Int32()
+  @ffi.Int()
   external int navsys;
 
   /// elevation mask angle (rad)
@@ -8331,99 +8328,99 @@ class prcopt_t extends ffi.Struct {
   external snrmask_t snrmask;
 
   /// satellite ephemeris/clock (EPHOPT_???)
-  @ffi.Int32()
+  @ffi.Int()
   external int sateph;
 
   /// AR mode (0:off,1:continuous,2:instantaneous,3:fix and hold,4:ppp-ar)
-  @ffi.Int32()
+  @ffi.Int()
   external int modear;
 
   /// GLONASS AR mode (0:off,1:on,2:auto cal,3:ext cal)
-  @ffi.Int32()
+  @ffi.Int()
   external int glomodear;
 
   /// GPS AR mode, debug/learning only (0:off,1:on)
-  @ffi.Int32()
+  @ffi.Int()
   external int gpsmodear;
 
   /// BeiDou AR mode (0:off,1:on)
-  @ffi.Int32()
+  @ffi.Int()
   external int bdsmodear;
 
   /// AR filtering to reject bad sats (0:off,1:on)
-  @ffi.Int32()
+  @ffi.Int()
   external int arfilter;
 
   /// obs outage count to reset bias
-  @ffi.Int32()
+  @ffi.Int()
   external int maxout;
 
   /// min lock count to fix ambiguity
-  @ffi.Int32()
+  @ffi.Int()
   external int minlock;
 
   /// min sats to fix integer ambiguities
-  @ffi.Int32()
+  @ffi.Int()
   external int minfixsats;
 
   /// min sats to hold integer ambiguities
-  @ffi.Int32()
+  @ffi.Int()
   external int minholdsats;
 
   /// min sats to drop sats in AR
-  @ffi.Int32()
+  @ffi.Int()
   external int mindropsats;
 
   /// min fix count to hold ambiguity
-  @ffi.Int32()
+  @ffi.Int()
   external int minfix;
 
   /// max iteration to resolve ambiguity
-  @ffi.Int32()
+  @ffi.Int()
   external int armaxiter;
 
   /// ionosphere option (IONOOPT_???)
-  @ffi.Int32()
+  @ffi.Int()
   external int ionoopt;
 
   /// troposphere option (TROPOPT_???)
-  @ffi.Int32()
+  @ffi.Int()
   external int tropopt;
 
   /// dynamics model (0:none,1:velociy,2:accel)
-  @ffi.Int32()
+  @ffi.Int()
   external int dynamics;
 
   /// earth tide correction (0:off,1:solid,2:solid+otl+pole)
-  @ffi.Int32()
+  @ffi.Int()
   external int tidecorr;
 
   /// number of filter iteration
-  @ffi.Int32()
+  @ffi.Int()
   external int niter;
 
   /// code smoothing window size (0:none)
-  @ffi.Int32()
+  @ffi.Int()
   external int codesmooth;
 
   /// interpolate reference obs (for post mission)
-  @ffi.Int32()
+  @ffi.Int()
   external int intpref;
 
   /// SBAS correction options
-  @ffi.Int32()
+  @ffi.Int()
   external int sbascorr;
 
   /// SBAS satellite selection (0:all)
-  @ffi.Int32()
+  @ffi.Int()
   external int sbassatsel;
 
   /// rover position for fixed mode
-  @ffi.Int32()
+  @ffi.Int()
   external int rovpos;
 
   /// base position for relative mode (0:pos in prcopt,  1:average of single pos, 2:read from file, 3:rinex header, 4:rtcm pos)
-  @ffi.Int32()
+  @ffi.Int()
   external int refpos;
 
   @ffi.Array.multi([5])
@@ -8491,7 +8488,7 @@ class prcopt_t extends ffi.Struct {
   external ffi.Array<ffi.Double> rb;
 
   @ffi.Array.multi([2, 64])
-  external ffi.Array<ffi.Array<ffi.Int8>> anttype;
+  external ffi.Array<ffi.Array<ffi.Char>> anttype;
 
   @ffi.Array.multi([2, 3])
   external ffi.Array<ffi.Array<ffi.Double>> antdel;
@@ -8503,104 +8500,104 @@ class prcopt_t extends ffi.Struct {
   external ffi.Array<ffi.Uint8> exsats;
 
   /// max averaging epoches
-  @ffi.Int32()
+  @ffi.Int()
   external int maxaveep;
 
   /// initialize by restart
-  @ffi.Int32()
+  @ffi.Int()
   external int initrst;
 
   /// output single by dgps/float/fix/ppp outage
-  @ffi.Int32()
+  @ffi.Int()
   external int outsingle;
 
   @ffi.Array.multi([2, 256])
-  external ffi.Array<ffi.Array<ffi.Int8>> rnxopt;
+  external ffi.Array<ffi.Array<ffi.Char>> rnxopt;
 
   @ffi.Array.multi([6])
-  external ffi.Array<ffi.Int32> posopt;
+  external ffi.Array<ffi.Int> posopt;
 
   /// solution sync mode (0:off,1:on)
-  @ffi.Int32()
+  @ffi.Int()
   external int syncsol;
 
   @ffi.Array.multi([2, 66])
   external ffi.Array<ffi.Array<ffi.Double>> odisp;
 
   /// disable L2-AR
-  @ffi.Int32()
+  @ffi.Int()
   external int freqopt;
 
   @ffi.Array.multi([256])
-  external ffi.Array<ffi.Int8> pppopt;
+  external ffi.Array<ffi.Char> pppopt;
 }
 
 /// solution options type
 class solopt_t extends ffi.Struct {
   /// solution format (SOLF_???)
-  @ffi.Int32()
+  @ffi.Int()
   external int posf;
 
   /// time system (TIMES_???)
-  @ffi.Int32()
+  @ffi.Int()
   external int times;
 
   /// time format (0:sssss.s,1:yyyy/mm/dd hh:mm:ss.s)
-  @ffi.Int32()
+  @ffi.Int()
   external int timef;
 
   /// time digits under decimal point
-  @ffi.Int32()
+  @ffi.Int()
   external int timeu;
 
   /// latitude/longitude format (0:ddd.ddd,1:ddd mm ss)
-  @ffi.Int32()
+  @ffi.Int()
   external int degf;
 
   /// output header (0:no,1:yes)
-  @ffi.Int32()
+  @ffi.Int()
   external int outhead;
 
   /// output processing options (0:no,1:yes)
-  @ffi.Int32()
+  @ffi.Int()
   external int outopt;
 
   /// output velocity options (0:no,1:yes)
-  @ffi.Int32()
+  @ffi.Int()
   external int outvel;
 
   /// datum (0:WGS84,1:Tokyo)
-  @ffi.Int32()
+  @ffi.Int()
   external int datum;
 
   /// height (0:ellipsoidal,1:geodetic)
-  @ffi.Int32()
+  @ffi.Int()
   external int height;
 
   /// geoid model (0:EGM96,1:JGD2000)
-  @ffi.Int32()
+  @ffi.Int()
   external int geoid;
 
   /// solution of static mode (0:all,1:single)
-  @ffi.Int32()
+  @ffi.Int()
   external int solstatic;
 
   /// solution statistics level (0:off,1:states,2:residuals)
-  @ffi.Int32()
+  @ffi.Int()
   external int sstat;
 
   /// debug trace level (0:off,1-5:debug)
-  @ffi.Int32()
+  @ffi.Int()
   external int trace;
 
   @ffi.Array.multi([2])
   external ffi.Array<ffi.Double> nmeaintv;
 
   @ffi.Array.multi([64])
-  external ffi.Array<ffi.Int8> sep;
+  external ffi.Array<ffi.Char> sep;
 
   @ffi.Array.multi([64])
-  external ffi.Array<ffi.Int8> prog;
+  external ffi.Array<ffi.Char> prog;
 
   /// max std-dev for solution output (m) (0:all)
   @ffi.Double()
@@ -8610,40 +8607,40 @@ class solopt_t extends ffi.Struct {
 /// file options type
 class filopt_t extends ffi.Struct {
   @ffi.Array.multi([1024])
-  external ffi.Array<ffi.Int8> satantp;
+  external ffi.Array<ffi.Char> satantp;
 
   @ffi.Array.multi([1024])
-  external ffi.Array<ffi.Int8> rcvantp;
+  external ffi.Array<ffi.Char> rcvantp;
 
   @ffi.Array.multi([1024])
-  external ffi.Array<ffi.Int8> stapos;
+  external ffi.Array<ffi.Char> stapos;
 
   @ffi.Array.multi([1024])
-  external ffi.Array<ffi.Int8> geoid;
+  external ffi.Array<ffi.Char> geoid;
 
   @ffi.Array.multi([1024])
-  external ffi.Array<ffi.Int8> iono;
+  external ffi.Array<ffi.Char> iono;
 
   @ffi.Array.multi([1024])
-  external ffi.Array<ffi.Int8> dcb;
+  external ffi.Array<ffi.Char> dcb;
 
   @ffi.Array.multi([1024])
-  external ffi.Array<ffi.Int8> eop;
+  external ffi.Array<ffi.Char> eop;
 
   @ffi.Array.multi([1024])
-  external ffi.Array<ffi.Int8> blq;
+  external ffi.Array<ffi.Char> blq;
 
   @ffi.Array.multi([1024])
-  external ffi.Array<ffi.Int8> tempdir;
+  external ffi.Array<ffi.Char> tempdir;
 
   @ffi.Array.multi([1024])
-  external ffi.Array<ffi.Int8> geexe;
+  external ffi.Array<ffi.Char> geexe;
 
   @ffi.Array.multi([1024])
-  external ffi.Array<ffi.Int8> solstat;
+  external ffi.Array<ffi.Char> solstat;
 
   @ffi.Array.multi([1024])
-  external ffi.Array<ffi.Int8> trace;
+  external ffi.Array<ffi.Char> trace;
 }
 
 /// RINEX options type
@@ -8666,50 +8663,50 @@ class rnxopt_t extends ffi.Struct {
   external double tunit;
 
   /// RINEX version (x100)
-  @ffi.Int32()
+  @ffi.Int()
   external int rnxver;
 
   /// navigation system
-  @ffi.Int32()
+  @ffi.Int()
   external int navsys;
 
   /// observation type
-  @ffi.Int32()
+  @ffi.Int()
   external int obstype;
 
   /// frequency type
-  @ffi.Int32()
+  @ffi.Int()
   external int freqtype;
 
   @ffi.Array.multi([7, 64])
-  external ffi.Array<ffi.Array<ffi.Int8>> mask;
+  external ffi.Array<ffi.Array<ffi.Char>> mask;
 
   @ffi.Array.multi([32])
-  external ffi.Array<ffi.Int8> staid;
+  external ffi.Array<ffi.Char> staid;
 
   @ffi.Array.multi([32])
-  external ffi.Array<ffi.Int8> prog;
+  external ffi.Array<ffi.Char> prog;
 
   @ffi.Array.multi([32])
-  external ffi.Array<ffi.Int8> runby;
+  external ffi.Array<ffi.Char> runby;
 
   @ffi.Array.multi([64])
-  external ffi.Array<ffi.Int8> marker;
+  external ffi.Array<ffi.Char> marker;
 
   @ffi.Array.multi([32])
-  external ffi.Array<ffi.Int8> markerno;
+  external ffi.Array<ffi.Char> markerno;
 
   @ffi.Array.multi([32])
-  external ffi.Array<ffi.Int8> markertype;
+  external ffi.Array<ffi.Char> markertype;
 
   @ffi.Array.multi([2, 32])
-  external ffi.Array<ffi.Array<ffi.Int8>> name;
+  external ffi.Array<ffi.Array<ffi.Char>> name;
 
   @ffi.Array.multi([3, 32])
-  external ffi.Array<ffi.Array<ffi.Int8>> rec;
+  external ffi.Array<ffi.Array<ffi.Char>> rec;
 
   @ffi.Array.multi([3, 32])
-  external ffi.Array<ffi.Array<ffi.Int8>> ant;
+  external ffi.Array<ffi.Array<ffi.Char>> ant;
 
   @ffi.Array.multi([3])
   external ffi.Array<ffi.Double> apppos;
@@ -8721,43 +8718,43 @@ class rnxopt_t extends ffi.Struct {
   external ffi.Array<ffi.Double> glo_cp_bias;
 
   @ffi.Array.multi([100, 64])
-  external ffi.Array<ffi.Array<ffi.Int8>> comment;
+  external ffi.Array<ffi.Array<ffi.Char>> comment;
 
   @ffi.Array.multi([256])
-  external ffi.Array<ffi.Int8> rcvopt;
+  external ffi.Array<ffi.Char> rcvopt;
 
   @ffi.Array.multi([204])
   external ffi.Array<ffi.Uint8> exsats;
 
   @ffi.Array.multi([32])
-  external ffi.Array<ffi.Int32> glofcn;
+  external ffi.Array<ffi.Int> glofcn;
 
   /// output iono correction
-  @ffi.Int32()
+  @ffi.Int()
   external int outiono;
 
   /// output time system correction
-  @ffi.Int32()
+  @ffi.Int()
   external int outtime;
 
   /// output leap seconds
-  @ffi.Int32()
+  @ffi.Int()
   external int outleaps;
 
   /// auto approx position
-  @ffi.Int32()
+  @ffi.Int()
   external int autopos;
 
   /// phase shift correction
-  @ffi.Int32()
+  @ffi.Int()
   external int phshift;
 
   /// half cycle correction
-  @ffi.Int32()
+  @ffi.Int()
   external int halfcyc;
 
   /// separated nav files
-  @ffi.Int32()
+  @ffi.Int()
   external int sep_nav;
 
   /// first obs time
@@ -8770,13 +8767,13 @@ class rnxopt_t extends ffi.Struct {
   external gtime_t trtcm;
 
   @ffi.Array.multi([7, 64, 4])
-  external ffi.Array<ffi.Array<ffi.Array<ffi.Int8>>> tobs;
+  external ffi.Array<ffi.Array<ffi.Array<ffi.Char>>> tobs;
 
   @ffi.Array.multi([7, 64])
   external ffi.Array<ffi.Array<ffi.Double>> shift;
 
   @ffi.Array.multi([7])
-  external ffi.Array<ffi.Int32> nobs;
+  external ffi.Array<ffi.Int> nobs;
 }
 
 /// satellite status type
@@ -8820,7 +8817,7 @@ class ssat_t extends ffi.Struct {
   external ffi.Array<ffi.Uint8> half;
 
   @ffi.Array.multi([5])
-  external ffi.Array<ffi.Int32> lock;
+  external ffi.Array<ffi.Int> lock;
 
   @ffi.Array.multi([5])
   external ffi.Array<ffi.Uint32> outc;
@@ -8854,7 +8851,7 @@ class ambc_t extends ffi.Struct {
   external ffi.Array<gtime_t> epoch;
 
   @ffi.Array.multi([4])
-  external ffi.Array<ffi.Int32> n;
+  external ffi.Array<ffi.Int> n;
 
   @ffi.Array.multi([4])
   external ffi.Array<ffi.Double> LC;
@@ -8863,11 +8860,11 @@ class ambc_t extends ffi.Struct {
   external ffi.Array<ffi.Double> LCv;
 
   /// fix count
-  @ffi.Int32()
+  @ffi.Int()
   external int fixcnt;
 
   @ffi.Array.multi([204])
-  external ffi.Array<ffi.Int8> flags;
+  external ffi.Array<ffi.Char> flags;
 }
 
 /// RTK control/result type
@@ -8879,10 +8876,10 @@ class rtk_t extends ffi.Struct {
   external ffi.Array<ffi.Double> rb;
 
   /// number of float states/fixed states
-  @ffi.Int32()
+  @ffi.Int()
   external int nx;
 
-  @ffi.Int32()
+  @ffi.Int()
   external int na;
 
   /// time difference between current and previous (s)
@@ -8900,19 +8897,19 @@ class rtk_t extends ffi.Struct {
   external ffi.Pointer<ffi.Double> Pa;
 
   /// number of continuous fixes of ambiguity
-  @ffi.Int32()
+  @ffi.Int()
   external int nfix;
 
   /// index of next satellite to be excluded for partial ambiguity resolution
-  @ffi.Int32()
+  @ffi.Int()
   external int excsat;
 
   /// number of ambiguities used for AR last epoch
-  @ffi.Int32()
+  @ffi.Int()
   external int nb_ar;
 
   /// set if fix-and-hold has occurred at least once
-  @ffi.Int8()
+  @ffi.Char()
   external int holdamb;
 
   @ffi.Array.multi([204])
@@ -8922,17 +8919,17 @@ class rtk_t extends ffi.Struct {
   external ffi.Array<ssat_t> ssat;
 
   /// bytes in error message buffer
-  @ffi.Int32()
+  @ffi.Int()
   external int neb;
 
   @ffi.Array.multi([4096])
-  external ffi.Array<ffi.Int8> errbuf;
+  external ffi.Array<ffi.Char> errbuf;
 
   /// processing options
   external prcopt_t opt;
 
   /// initial positioning mode
-  @ffi.Int32()
+  @ffi.Int()
   external int initial_mode;
 }
 
@@ -8957,18 +8954,18 @@ class raw_t extends ffi.Struct {
   external sta_t sta;
 
   /// update satelle of ephemeris (0:no satellite)
-  @ffi.Int32()
+  @ffi.Int()
   external int ephsat;
 
   /// update set of ephemeris (0-1)
-  @ffi.Int32()
+  @ffi.Int()
   external int ephset;
 
   /// SBAS message
   external sbsmsg_t sbsmsg;
 
   @ffi.Array.multi([256])
-  external ffi.Array<ffi.Int8> msgtype;
+  external ffi.Array<ffi.Char> msgtype;
 
   @ffi.Array.multi([204, 380])
   external ffi.Array<ffi.Array<ffi.Uint8>> subfrm;
@@ -8977,7 +8974,7 @@ class raw_t extends ffi.Struct {
   external ffi.Array<ffi.Array<ffi.Double>> lockt;
 
   @ffi.Array.multi([204, 8])
-  external ffi.Array<ffi.Array<ffi.Uint8>> lockflag;
+  external ffi.Array<ffi.Array<ffi.UnsignedChar>> lockflag;
 
   @ffi.Array.multi([204])
   external ffi.Array<ffi.Double> icpp;
@@ -8998,7 +8995,7 @@ class raw_t extends ffi.Struct {
   external ffi.Array<ffi.Array<ffi.Uint8>> halfc;
 
   @ffi.Array.multi([96])
-  external ffi.Array<ffi.Int8> freqn;
+  external ffi.Array<ffi.Char> freqn;
 
   /// number of bytes in message buffer
   @ffi.Int32()
@@ -9032,7 +9029,7 @@ class raw_t extends ffi.Struct {
   external ffi.Array<ffi.Uint8> buff;
 
   @ffi.Array.multi([256])
-  external ffi.Array<ffi.Int8> opt;
+  external ffi.Array<ffi.Char> opt;
 
   /// receiver stream format
   @ffi.Int32()
@@ -9049,15 +9046,15 @@ class raw_t extends ffi.Struct {
 /// stream type
 class stream_t extends ffi.Struct {
   /// type (STR_???)
-  @ffi.Int32()
+  @ffi.Int()
   external int type;
 
   /// mode (STR_MODE_?)
-  @ffi.Int32()
+  @ffi.Int()
   external int mode;
 
   /// state (-1:error,0:close,1:open)
-  @ffi.Int32()
+  @ffi.Int()
   external int state;
 
   /// input bytes/rate
@@ -9100,32 +9097,68 @@ class stream_t extends ffi.Struct {
   external ffi.Pointer<ffi.Void> port;
 
   @ffi.Array.multi([1024])
-  external ffi.Array<ffi.Int8> path;
+  external ffi.Array<ffi.Char> path;
 
   @ffi.Array.multi([1024])
-  external ffi.Array<ffi.Int8> msg;
+  external ffi.Array<ffi.Char> msg;
 }
 
-class pthread_mutex_t extends ffi.Struct {
-  @ffi.Array.multi([1])
-  external ffi.Array<ffi.Int32> __private;
+class pthread_mutex_t extends ffi.Union {
+  external __pthread_mutex_s __data;
+
+  @ffi.Array.multi([40])
+  external ffi.Array<ffi.Char> __size;
+
+  @ffi.Long()
+  external int __align;
+}
+
+class __pthread_mutex_s extends ffi.Struct {
+  @ffi.Int()
+  external int __lock;
+
+  @ffi.UnsignedInt()
+  external int __count;
+
+  @ffi.Int()
+  external int __owner;
+
+  @ffi.UnsignedInt()
+  external int __nusers;
+
+  @ffi.Int()
+  external int __kind;
+
+  @ffi.Short()
+  external int __spins;
+
+  @ffi.Short()
+  external int __elision;
+
+  external __pthread_internal_list __list;
+}
+
+class __pthread_internal_list extends ffi.Struct {
+  external ffi.Pointer<__pthread_internal_list> __prev;
+
+  external ffi.Pointer<__pthread_internal_list> __next;
 }
 
 /// stream converter type
 class strconv_t extends ffi.Struct {
   /// input and output stream type
-  @ffi.Int32()
+  @ffi.Int()
   external int itype;
 
-  @ffi.Int32()
+  @ffi.Int()
   external int otype;
 
   /// number of output messages
-  @ffi.Int32()
+  @ffi.Int()
   external int nmsg;
 
   @ffi.Array.multi([32])
-  external ffi.Array<ffi.Int32> msgs;
+  external ffi.Array<ffi.Int> msgs;
 
   @ffi.Array.multi([32])
   external ffi.Array<ffi.Double> tint;
@@ -9134,10 +9167,10 @@ class strconv_t extends ffi.Struct {
   external ffi.Array<ffi.Uint32> tick;
 
   @ffi.Array.multi([32])
-  external ffi.Array<ffi.Int32> ephsat;
+  external ffi.Array<ffi.Int> ephsat;
 
   /// station info selection (0:remote,1:local)
-  @ffi.Int32()
+  @ffi.Int()
   external int stasel;
 
   /// rtcm input data buffer
@@ -9153,35 +9186,35 @@ class strconv_t extends ffi.Struct {
 /// stream server type
 class strsvr_t extends ffi.Struct {
   /// server state (0:stop,1:running)
-  @ffi.Int32()
+  @ffi.Int()
   external int state;
 
   /// server cycle (ms)
-  @ffi.Int32()
+  @ffi.Int()
   external int cycle;
 
   /// input/monitor buffer size (bytes)
-  @ffi.Int32()
+  @ffi.Int()
   external int buffsize;
 
   /// NMEA request cycle (ms) (0:no)
-  @ffi.Int32()
+  @ffi.Int()
   external int nmeacycle;
 
   /// relay back of output streams (0:no)
-  @ffi.Int32()
+  @ffi.Int()
   external int relayback;
 
   /// number of streams (1 input + (nstr-1) outputs
-  @ffi.Int32()
+  @ffi.Int()
   external int nstr;
 
   /// data length in peek buffer (bytes)
-  @ffi.Int32()
+  @ffi.Int()
   external int npb;
 
   @ffi.Array.multi([16, 4096])
-  external ffi.Array<ffi.Array<ffi.Int8>> cmds_periodic;
+  external ffi.Array<ffi.Array<ffi.Char>> cmds_periodic;
 
   @ffi.Array.multi([3])
   external ffi.Array<ffi.Double> nmeapos;
@@ -9213,62 +9246,62 @@ class strsvr_t extends ffi.Struct {
   external pthread_mutex_t lock;
 }
 
-typedef pthread_t = ffi.Int64;
+typedef pthread_t = ffi.UnsignedLong;
 
 /// RTK server type
 class rtksvr_t extends ffi.Struct {
   /// server state (0:stop,1:running)
-  @ffi.Int32()
+  @ffi.Int()
   external int state;
 
   /// processing cycle (ms)
-  @ffi.Int32()
+  @ffi.Int()
   external int cycle;
 
   /// NMEA request cycle (ms) (0:no req)
-  @ffi.Int32()
+  @ffi.Int()
   external int nmeacycle;
 
   /// NMEA request (0:no,1:nmeapos,2:single sol)
-  @ffi.Int32()
+  @ffi.Int()
   external int nmeareq;
 
   @ffi.Array.multi([3])
   external ffi.Array<ffi.Double> nmeapos;
 
   /// input buffer size (bytes)
-  @ffi.Int32()
+  @ffi.Int()
   external int buffsize;
 
   @ffi.Array.multi([3])
-  external ffi.Array<ffi.Int32> format;
+  external ffi.Array<ffi.Int> format;
 
   @ffi.Array.multi([2])
   external ffi.Array<solopt_t> solopt;
 
   /// ephemeris select (0:all,1:rover,2:base,3:corr)
-  @ffi.Int32()
+  @ffi.Int()
   external int navsel;
 
   /// number of sbas message
-  @ffi.Int32()
+  @ffi.Int()
   external int nsbs;
 
   /// number of solution buffer
-  @ffi.Int32()
+  @ffi.Int()
   external int nsol;
 
   /// RTK control/result struct
   external rtk_t rtk;
 
   @ffi.Array.multi([3])
-  external ffi.Array<ffi.Int32> nb;
+  external ffi.Array<ffi.Int> nb;
 
   @ffi.Array.multi([2])
-  external ffi.Array<ffi.Int32> nsb;
+  external ffi.Array<ffi.Int> nsb;
 
   @ffi.Array.multi([3])
-  external ffi.Array<ffi.Int32> npb;
+  external ffi.Array<ffi.Int> npb;
 
   @ffi.Array.multi([3])
   external ffi.Array<ffi.Pointer<ffi.Uint8>> buff;
@@ -9295,7 +9328,7 @@ class rtksvr_t extends ffi.Struct {
   external ffi.Array<gtime_t> ftime;
 
   @ffi.Array.multi([3, 1024])
-  external ffi.Array<ffi.Array<ffi.Int8>> files;
+  external ffi.Array<ffi.Array<ffi.Char>> files;
 
   @ffi.Array.multi([3, 128])
   external ffi.Array<ffi.Array<obs_t>> obs;
@@ -9321,25 +9354,25 @@ class rtksvr_t extends ffi.Struct {
   external int thread;
 
   /// CPU time (ms) for a processing cycle
-  @ffi.Int32()
+  @ffi.Int()
   external int cputime;
 
   /// missing observation data count
-  @ffi.Int32()
+  @ffi.Int()
   external int prcout;
 
   /// number of averaging base pos
-  @ffi.Int32()
+  @ffi.Int()
   external int nave;
 
   @ffi.Array.multi([3])
   external ffi.Array<ffi.Double> rb_ave;
 
   @ffi.Array.multi([3, 4096])
-  external ffi.Array<ffi.Array<ffi.Int8>> cmds_periodic;
+  external ffi.Array<ffi.Array<ffi.Char>> cmds_periodic;
 
   @ffi.Array.multi([4096])
-  external ffi.Array<ffi.Int8> cmd_reset;
+  external ffi.Array<ffi.Char> cmd_reset;
 
   /// baseline length to reset (km)
   @ffi.Double()
@@ -9358,7 +9391,7 @@ class gis_pnt_t extends ffi.Struct {
 /// GIS data polyline type
 class gis_poly_t extends ffi.Struct {
   /// number of points
-  @ffi.Int32()
+  @ffi.Int()
   external int npnt;
 
   @ffi.Array.multi([4])
@@ -9371,7 +9404,7 @@ class gis_poly_t extends ffi.Struct {
 /// GIS data polygon type
 class gis_polygon_t extends ffi.Struct {
   /// number of points
-  @ffi.Int32()
+  @ffi.Int()
   external int npnt;
 
   @ffi.Array.multi([4])
@@ -9384,7 +9417,7 @@ class gis_polygon_t extends ffi.Struct {
 /// GIS data list type
 class gisd_tag extends ffi.Struct {
   /// data type (1:point,2:polyline,3:polygon)
-  @ffi.Int32()
+  @ffi.Int()
   external int type;
 
   /// data body
@@ -9397,10 +9430,10 @@ class gisd_tag extends ffi.Struct {
 /// GIS type
 class gis_t extends ffi.Struct {
   @ffi.Array.multi([32, 256])
-  external ffi.Array<ffi.Array<ffi.Int8>> name;
+  external ffi.Array<ffi.Array<ffi.Char>> name;
 
   @ffi.Array.multi([32])
-  external ffi.Array<ffi.Int32> flag;
+  external ffi.Array<ffi.Int> flag;
 
   @ffi.Array.multi([32])
   external ffi.Array<ffi.Pointer<gisd_t>> data;
@@ -9411,180 +9444,265 @@ class gis_t extends ffi.Struct {
 
 /// GIS data list type
 typedef gisd_t = gisd_tag;
-typedef FILE = __sFILE;
+typedef FILE = _IO_FILE;
 
-class __sFILE extends ffi.Opaque {}
+class _IO_FILE extends ffi.Struct {
+  @ffi.Int()
+  external int _flags;
+
+  external ffi.Pointer<ffi.Char> _IO_read_ptr;
+
+  external ffi.Pointer<ffi.Char> _IO_read_end;
+
+  external ffi.Pointer<ffi.Char> _IO_read_base;
+
+  external ffi.Pointer<ffi.Char> _IO_write_base;
+
+  external ffi.Pointer<ffi.Char> _IO_write_ptr;
+
+  external ffi.Pointer<ffi.Char> _IO_write_end;
+
+  external ffi.Pointer<ffi.Char> _IO_buf_base;
+
+  external ffi.Pointer<ffi.Char> _IO_buf_end;
+
+  external ffi.Pointer<ffi.Char> _IO_save_base;
+
+  external ffi.Pointer<ffi.Char> _IO_backup_base;
+
+  external ffi.Pointer<ffi.Char> _IO_save_end;
+
+  external ffi.Pointer<_IO_marker> _markers;
+
+  external ffi.Pointer<_IO_FILE> _chain;
+
+  @ffi.Int()
+  external int _fileno;
+
+  @ffi.Int()
+  external int _flags2;
+
+  @ffi.Long()
+  external int _old_offset;
+
+  @ffi.UnsignedShort()
+  external int _cur_column;
+
+  @ffi.SignedChar()
+  external int _vtable_offset;
+
+  @ffi.Array.multi([1])
+  external ffi.Array<ffi.Char> _shortbuf;
+
+  external ffi.Pointer<ffi.Void> _lock;
+
+  @ffi.Long()
+  external int _offset;
+
+  external ffi.Pointer<_IO_codecvt> _codecvt;
+
+  external ffi.Pointer<_IO_wide_data> _wide_data;
+
+  external ffi.Pointer<_IO_FILE> _freeres_list;
+
+  external ffi.Pointer<ffi.Void> _freeres_buf;
+
+  @ffi.Size()
+  external int __pad5;
+
+  @ffi.Int()
+  external int _mode;
+
+  @ffi.Array.multi([20])
+  external ffi.Array<ffi.Char> _unused2;
+}
+
+class _IO_marker extends ffi.Opaque {}
+
+class _IO_codecvt extends ffi.Opaque {}
+
+class _IO_wide_data extends ffi.Opaque {}
 
 typedef fatalfunc_t
-    = ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Int8>)>;
-typedef size_t = ffi.Uint32;
-typedef va_list = ffi.Pointer<ffi.Int8>;
+    = ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>)>;
 
 class struct_sizes_t extends ffi.Struct {
-  @size_t()
+  @ffi.Size()
   external int gtime_t;
 
-  @size_t()
+  @ffi.Size()
   external int obsd_t;
 
-  @size_t()
+  @ffi.Size()
   external int obs_t;
 
-  @size_t()
+  @ffi.Size()
   external int erpd_t;
 
-  @size_t()
+  @ffi.Size()
   external int erp_t;
 
-  @size_t()
+  @ffi.Size()
   external int pcv_t;
 
-  @size_t()
+  @ffi.Size()
   external int pcvs_t;
 
-  @size_t()
+  @ffi.Size()
   external int alm_t;
 
-  @size_t()
+  @ffi.Size()
   external int eph_t;
 
-  @size_t()
+  @ffi.Size()
   external int geph_t;
 
-  @size_t()
+  @ffi.Size()
   external int peph_t;
 
-  @size_t()
+  @ffi.Size()
   external int pclk_t;
 
-  @size_t()
+  @ffi.Size()
   external int seph_t;
 
-  @size_t()
+  @ffi.Size()
   external int tled_t;
 
-  @size_t()
+  @ffi.Size()
   external int tle_t;
 
-  @size_t()
+  @ffi.Size()
   external int tec_t;
 
-  @size_t()
+  @ffi.Size()
   external int sbsmsg_t;
 
-  @size_t()
+  @ffi.Size()
   external int sbs_t;
 
-  @size_t()
+  @ffi.Size()
   external int sbsfcorr_t;
 
-  @size_t()
+  @ffi.Size()
   external int sbslcorr_t;
 
-  @size_t()
+  @ffi.Size()
   external int sbssatp_t;
 
-  @size_t()
+  @ffi.Size()
   external int sbssat_t;
 
-  @size_t()
+  @ffi.Size()
   external int sbsigp_t;
 
-  @size_t()
+  @ffi.Size()
   external int sbsigpband_t;
 
-  @size_t()
+  @ffi.Size()
   external int sbsion_t;
 
-  @size_t()
+  @ffi.Size()
   external int dgps_t;
 
-  @size_t()
+  @ffi.Size()
   external int ssr_t;
 
-  @size_t()
+  @ffi.Size()
   external int nav_t;
 
-  @size_t()
+  @ffi.Size()
   external int sta_t;
 
-  @size_t()
+  @ffi.Size()
   external int sol_t;
 
-  @size_t()
+  @ffi.Size()
   external int solbuf_t;
 
-  @size_t()
+  @ffi.Size()
   external int solstat_t;
 
-  @size_t()
+  @ffi.Size()
   external int solstatbuf_t;
 
-  @size_t()
+  @ffi.Size()
   external int rtcm_t;
 
-  @size_t()
+  @ffi.Size()
   external int rnxctr_t;
 
-  @size_t()
+  @ffi.Size()
   external int url_t;
 
-  @size_t()
+  @ffi.Size()
   external int opt_t;
 
-  @size_t()
+  @ffi.Size()
   external int snrmask_t;
 
-  @size_t()
+  @ffi.Size()
   external int prcopt_t;
 
-  @size_t()
+  @ffi.Size()
   external int solopt_t;
 
-  @size_t()
+  @ffi.Size()
   external int filopt_t;
 
-  @size_t()
+  @ffi.Size()
   external int rnxopt_t;
 
-  @size_t()
+  @ffi.Size()
   external int ssat_t;
 
-  @size_t()
+  @ffi.Size()
   external int ambc_t;
 
-  @size_t()
+  @ffi.Size()
   external int rtk_t;
 
-  @size_t()
+  @ffi.Size()
   external int raw_t;
 
-  @size_t()
+  @ffi.Size()
   external int stream_t;
 
-  @size_t()
+  @ffi.Size()
   external int strconv_t;
 
-  @size_t()
+  @ffi.Size()
   external int strsvr_t;
 
-  @size_t()
+  @ffi.Size()
   external int rtksvr_t;
 
-  @size_t()
+  @ffi.Size()
   external int gis_pnt_t;
 
-  @size_t()
+  @ffi.Size()
   external int gis_poly_t;
 
-  @size_t()
+  @ffi.Size()
   external int gis_polygon_t;
 
-  @size_t()
+  @ffi.Size()
   external int gisd_t;
 
-  @size_t()
+  @ffi.Size()
   external int gis_t;
+}
+
+class __va_list_tag extends ffi.Struct {
+  @ffi.UnsignedInt()
+  external int gp_offset;
+
+  @ffi.UnsignedInt()
+  external int fp_offset;
+
+  external ffi.Pointer<ffi.Void> overflow_arg_area;
+
+  external ffi.Pointer<ffi.Void> reg_save_area;
 }
 
 const String VER_RTKLIB = 'demo5';

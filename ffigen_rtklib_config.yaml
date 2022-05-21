@@ -3,7 +3,7 @@
   description: 'Bindings to Rtklib'
   headers:
     entry-points:
-      - 'third_party/RTKLIB/src/rtklib.h'
+      #- 'third_party/RTKLIB/src/rtklib.h'
       - 'third_party/rtklib_wraps/utils.h'
     include-directives:
       - '**rtklib.h'
@@ -35,8 +35,8 @@
   typedef-map:
     'time_t': 'Int32'
   compiler-opts:
-    - '-std=c11 -ansi -Wall -pedantic -Wmissing-prototypes'
-    - '-m32'
+    - '-std=c17 -ansi -Wall -pedantic -Wmissing-prototypes'
+    #- '-m32'
     - '-DTRACE -DENAGLO -DENAQZS -DENAGAL -DENACMP -DENAIRN -DNFREQ=5 -DNEXOBS=3'
     - '-DFLUTTER_DEBUG'
     - '-DEXTERNAL_TRACE'
