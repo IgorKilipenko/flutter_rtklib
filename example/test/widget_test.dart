@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rtklib_example/src/app.dart';
 import 'package:flutter_rtklib_example/src/controllers/settings_controller.dart';
+import 'package:flutter_rtklib_example/src/pages/uart_connection_page.dart';
 import 'package:flutter_rtklib_example/src/settings/settings_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -20,13 +21,24 @@ void main() {
     'RTKLIB_PATH': 'test/.libs/'
   });*/
   //LiveTestWidgetsFlutterBinding.ensureInitialized();
+
+  //TestWidgetsFlutterBinding.ensureInitialized();
+  LiveTestWidgetsFlutterBinding.ensureInitialized();
   
   testWidgets('Verify Platform version', (WidgetTester tester) async {
-    debugDefaultTargetPlatformOverride = TargetPlatform.windows;
+    //debugDefaultTargetPlatformOverride = TargetPlatform.windows;
     final settingsController = SettingsController(SettingsService());
     await settingsController.loadSettings();
     // Build our app and trigger a frame.
     await tester.pumpWidget(App(settingsController: settingsController));
+
+    expect(
+      find.byWidgetPredicate(
+        (Widget widget) =>
+            widget is UartConnectionPage,
+      ),
+      findsOneWidget,
+    );
 
     // Verify that platform version is retrieved.
     /*
