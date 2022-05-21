@@ -14,8 +14,8 @@ class UartController extends GetxController {
   @override
   void onClose() {
     for (int i = 0; i < _ports.length; i++) {
-      final p = _ports[i]!;
-      p.dispose();
+      final p = _ports[i];
+      p?.dispose();
     }
     _ports.clear();
     super.onClose();
