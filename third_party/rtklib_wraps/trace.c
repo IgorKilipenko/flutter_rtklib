@@ -1,4 +1,4 @@
-#include "utils.h"
+#include "rtklib_api.h"
 
 // OVERRIDE TRACE FOR FLUTTER DEBUG
 #if !defined(TRACE) && defined(EXTERNAL_TRACE)
@@ -221,6 +221,11 @@ extern void traceb(int level, const uint8_t *p, int n)
 #endif // TRACE && EXTERNAL_TRACE
 
 #if (defined(TRACE) || defined(EXTERNAL_TRACE)) && defined(FLUTTER_DEBUG)
+
+static void flutter_default_debug_handler(char *format, uint64_t length) {}
+
+EXPORT void (*flutter_print)(char *, uint64_t) = flutter_default_debug_handler;
+
 extern void flutter_initialize(void (*printCallback)(char *, uint64_t))
 {
     flutter_print = printCallback;
@@ -232,6 +237,8 @@ extern void flutter_initialize(void (*printCallback)(char *, uint64_t))
 
 extern int flutter_printf(const char *format, ...)
 {
+    if (flutter_print != NULL) return 0;
+
     va_list args1;
   
     int done;
@@ -244,14 +251,14 @@ extern int flutter_printf(const char *format, ...)
 
 extern int flutter_vprintf(const char *format, va_list args)
 {
+    if (flutter_print != NULL) return 0;
+
     char str[256*3];
     int done;
     int size = vsnprintf(NULL, 0, format, args);
     done = vsnprintf(str, size + 1, format, args);
 
-    if (flutter_print != NULL) {
-        flutter_print(str, done);
-    }
+    flutter_print(str, done);
 
     return done;
 }
@@ -268,7 +275,7 @@ extern int flutter_trace(int level, const char *format, ...) {
     return 0;
 }
 
-extern int flutter_vtrace(int level, const char *format, va_list args) {
+extern int flutter_vtrace(int level, const char *format, va_list args) {  
     if (level<=gettracelevel()) {
         char str1[80];
         char str2[256*2];

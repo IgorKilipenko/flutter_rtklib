@@ -1,4 +1,4 @@
-#include "utils.h"
+#include "rtklib_api.h"
 
 extern char* obs2str(const obsd_t *obs, size_t * strLen) {
     char str[64],id[16];
@@ -57,13 +57,8 @@ extern raw_t * create_raw(int format, uint32_t* status) {
 		*status = 0;
         return NULL;
     }
-
-	*status = 1;
-    
-	
-    
+  
     *status = init_raw(raw, format);
-    raw->nbyte = 155;
     return raw;
 }
 

@@ -1,4 +1,4 @@
-#include "utils.h"
+#include "rtklib_api.h"
 
 extern struct_sizes_t* getStructSizes() {
     struct_sizes_t *res = (struct_sizes_t*)calloc(1, sizeof(struct_sizes_t));

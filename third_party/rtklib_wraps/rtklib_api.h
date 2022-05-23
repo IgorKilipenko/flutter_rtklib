@@ -1,16 +1,10 @@
-#ifndef RTKLIBW_UTILS_H
-#define RTKLIBW_UTILS_H
+#ifndef RTKLIB_API_H
+#define RTKLIB_API_H
 
 #include "rtklib.h"
 
 #ifdef __cplusplus
 extern "C" {
-#endif
-
-#ifdef WIN_DLL
-#define EXPORT __declspec(dllexport) // for Windows DLL
-#else
-#define EXPORT
 #endif
 
 typedef struct {
@@ -93,7 +87,8 @@ EXPORT raw_t * create_raw(int format, uint32_t* status);
 
 EXPORT int init_raw_2 (raw_t **raw, int format);
 
-static void (*flutter_print)(char *, uint64_t)=NULL;
+extern void (*flutter_print)(char *, uint64_t);
+
 EXPORT int flutter_printf(const char *format, ...);
 EXPORT int flutter_vprintf(const char *format, va_list args);
 EXPORT int flutter_trace(int level, const char *format, ...);
@@ -103,7 +98,12 @@ EXPORT void set_level_trace(int level);
 
 EXPORT struct_sizes_t* getStructSizes();
 
+EXPORT FILE* openReadFile(const char *filename);
+EXPORT FILE* openWriteFile(const char *filename);
+EXPORT FILE* openFile(const char *filename, const char * mode);
+
 #ifdef __cplusplus
 }
 #endif
-#endif // RTKLIBW_UTILS_H
+
+#endif /* RTKLIB_API_H */

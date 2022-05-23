@@ -2,7 +2,7 @@
 // Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
-// ignore_for_file: camel_case_types, non_constant_identifier_names, unused_field, constant_identifier_names, library_private_types_in_public_api
+// ignore_for_file: camel_case_types, non_constant_identifier_names
 
 // AUTO GENERATED FILE, DO NOT EDIT.
 //
@@ -6937,6 +6937,94 @@ class RtkLib {
           'getStructSizes');
   late final _getStructSizes =
       _getStructSizesPtr.asFunction<ffi.Pointer<struct_sizes_t> Function()>();
+
+  ffi.Pointer<FILE> openReadFile(
+    ffi.Pointer<ffi.Char> filename,
+  ) {
+    return _openReadFile(
+      filename,
+    );
+  }
+
+  late final _openReadFilePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<FILE> Function(ffi.Pointer<ffi.Char>)>>('openReadFile');
+  late final _openReadFile = _openReadFilePtr
+      .asFunction<ffi.Pointer<FILE> Function(ffi.Pointer<ffi.Char>)>();
+
+  ffi.Pointer<FILE> openWriteFile(
+    ffi.Pointer<ffi.Char> filename,
+  ) {
+    return _openWriteFile(
+      filename,
+    );
+  }
+
+  late final _openWriteFilePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<FILE> Function(ffi.Pointer<ffi.Char>)>>('openWriteFile');
+  late final _openWriteFile = _openWriteFilePtr
+      .asFunction<ffi.Pointer<FILE> Function(ffi.Pointer<ffi.Char>)>();
+
+  ffi.Pointer<FILE> openFile(
+    ffi.Pointer<ffi.Char> filename,
+    ffi.Pointer<ffi.Char> mode,
+  ) {
+    return _openFile(
+      filename,
+      mode,
+    );
+  }
+
+  late final _openFilePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<FILE> Function(
+              ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>>('openFile');
+  late final _openFile = _openFilePtr.asFunction<
+      ffi.Pointer<FILE> Function(
+          ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
+
+  ffi.Pointer<rnxopt_t> convbin_parse_options_cmd(
+    int arg_count,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> arg_vars,
+  ) {
+    return _convbin_parse_options_cmd(
+      arg_count,
+      arg_vars,
+    );
+  }
+
+  late final _convbin_parse_options_cmdPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Pointer<rnxopt_t> Function(
+                  ffi.Int, ffi.Pointer<ffi.Pointer<ffi.Char>>)>>(
+      'convbin_parse_options_cmd');
+  late final _convbin_parse_options_cmd =
+      _convbin_parse_options_cmdPtr.asFunction<
+          ffi.Pointer<rnxopt_t> Function(
+              int, ffi.Pointer<ffi.Pointer<ffi.Char>>)>();
+
+  int convbin_convert_cmd(
+    int arg_count,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> arg_vars,
+    ffi.Pointer<rnxopt_t> options,
+    int trace,
+  ) {
+    return _convbin_convert_cmd(
+      arg_count,
+      arg_vars,
+      options,
+      trace,
+    );
+  }
+
+  late final _convbin_convert_cmdPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(ffi.Int, ffi.Pointer<ffi.Pointer<ffi.Char>>,
+              ffi.Pointer<rnxopt_t>, ffi.Int)>>('convbin_convert_cmd');
+  late final _convbin_convert_cmd = _convbin_convert_cmdPtr.asFunction<
+      int Function(int, ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          ffi.Pointer<rnxopt_t>, int)>();
 }
 
 /// time struct

@@ -4,10 +4,16 @@
   headers:
     entry-points:
       #- 'third_party/RTKLIB/src/rtklib.h'
-      - 'third_party/rtklib_wraps/utils.h'
+      #- 'third_party/rtklib_wraps/rtklib_api.h'
+      - 'lib/c_api/apps/ffi_rtklib.h'
     include-directives:
       - '**rtklib.h'
-      - '**utils.h'
+      - '**rtklib_api.h'
+      - '**ffi_convbin.h'
+      - '**ffi_rtklib.h'
+      #- 'third_party/RTKLIB/src/**'
+      #- 'third_party/rtklib_wraps/**'
+      #- 'lib/c_api/apps/ffi_convbin.h'
   functions:
     exclude:
       - '^_.*'
@@ -46,7 +52,8 @@
     - '-IC:/Users/Igor/AppData/Local/Android/Sdk/ndk/21.1.6352462/sysroot/usr/include'
     - '-Ithird_party/RTKLIB/src/'
     - '-Ithird_party/rtklib_wraps/'
-    - '-g'
+    - '-Ilib/c_api/apps/'
+    #- '-g'
   preamble: |
     // Part of the LLVM Project, under the Apache License v2.0 with LLVM
     // Exceptions.

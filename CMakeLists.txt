@@ -10,10 +10,16 @@ if (NOT DEFINED ERROR_TAG)
   set(ERROR_TAG "[ERROR]")
 endif()
 
+if (NOT DEFINED ROOT_DIR)
+  message(AUTHOR_WARNING "[${WARN_TAG}] ROOT_DIR is not defined/ Set by default.")
+  get_filename_component(ROOT_DIR "${CMAKE_SOURCE_DIR}/../../" ABSOLUTE)
+endif()
+
 macro(setSrcDirs thirdPartyDir)
-    message("${INFO_TAG} set src directories")
+    message(STATUS "${INFO_TAG} set src directories")
     set(SRC_DIR "${ARGV0}/RTKLIB/src")
     set(UTILS_DIR "${ARGV0}/rtklib_wraps")
+    set(FFI_DIR "${ROOT_DIR}/lib/c_api/apps")
 endmacro()
 
 macro(setOptions)
@@ -24,15 +30,19 @@ endmacro()
 
 macro(setLibs)
     if (NOT DEFINED SRC_DIR)
-        message("${WARN_TAG} SRC_DIR is not defined")
+        message(FATAL_ERROR "${ERROR_TAG} SRC_DIR is not defined")
         return()
     endif()
     if (NOT DEFINED UTILS_DIR)
-        message("${WARN_TAG} SRC_DIR is not defined")
+        message(FATAL_ERROR "${ERROR_TAG} SRC_DIR is not defined")
+        return()
+    endif()
+    if (NOT DEFINED FFI_DIR)
+        message(FATAL_ERROR "${ERROR_TAG} FFI_DIR is not defined")
         return()
     endif()
 
-    message("${INFO_TAG} set RTKLIB files")
+    message(STATUS "${INFO_TAG} set RTKLIB files")
     set(RTKLIB 
         ${SRC_DIR}/rtkcmn.c 
         ${SRC_DIR}/rtksvr.c 
@@ -66,8 +76,22 @@ macro(setLibs)
         ${SRC_DIR}/tides.c 
         ${SRC_DIR}/rcv/septentrio.c 
         ${SRC_DIR}/rcv/swiftnav.c
-        ${UTILS_DIR}/utils.c
+        ${UTILS_DIR}/rtklib_api.c
         ${UTILS_DIR}/trace.c
         ${UTILS_DIR}/test_size.c
+        ${UTILS_DIR}/io.c
+        ${FFI_DIR}/ffi_convbin.c
+    )
+
+    set(INCLUDE_DIRS 
+      #"${CMAKE_CURRENT_SOURCE_DIR}"
+      #"${CMAKE_CURRENT_SOURCE_DIR}/${SRC_DIR}"
+      #"${CMAKE_CURRENT_SOURCE_DIR}/${UTILS_DIR}"
+      #"${CMAKE_CURRENT_SOURCE_DIR}/${FFI_DIR}"
+      "${CMAKE_SOURCE_DIR}"
+      "${SRC_DIR}"
+      "${UTILS_DIR}"
+      "${FFI_DIR}"
     )
 endmacro()
+
