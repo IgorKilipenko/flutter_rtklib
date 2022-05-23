@@ -1,12 +1,13 @@
 {
     "env": {
-        "flutterSdkPath": "C:/src/flutter",
+        "win_flutterSdkPath": "C:/src/flutter",
+        "linux_flutterSdkPath": "~/development/flutter",
         "msys64Path": "C:/msys64",
         "myDefaultIncludePath": [
             "${workspaceFolder}",
             "${workspaceFolder}/third_party/RTKLIB/**",
-            "${flutterSdkPath}/bin/cache/artifacts/engine/windows-x64/",
-            "${flutterSdkPath}/bin/cache/artifacts/engine/windows-x64/cpp_client_wrapper/include/"
+            "${workspaceFolder}/third_party/rtklib_wraps/**",
+            "${workspaceFolder}/lib/c_api/**"
         ]
     },
     "configurations": [
@@ -14,9 +15,10 @@
             "name": "Windows",
             "includePath": [
                 "${myDefaultIncludePath}",
-                "${workspaceFolder}/third_party/rtklib_wraps/**",
                 "${msys64Path}/usr/include/**",
-                "${workspaceFolder}/windows/**"
+                "${workspaceFolder}/windows/**",
+                "${win_flutterSdkPath}/bin/cache/artifacts/engine/windows-x64/",
+                "${win_flutterSdkPath}/bin/cache/artifacts/engine/windows-x64/cpp_client_wrapper/include/"
             ],
             "defines": [
                 "_DEBUG",
@@ -48,7 +50,10 @@
         {
             "name": "Linux",
             "includePath": [
-                "${myDefaultIncludePath}"
+                "${myDefaultIncludePath}",
+                "${workspaceFolder}/linux/**",
+                "${linux_flutterSdkPath}/bin/cache/artifacts/engine/windows-x64/",
+                "${linux_flutterSdkPath}/bin/cache/artifacts/engine/windows-x64/cpp_client_wrapper/include/"
             ],
             "forcedInclude": [
                 "${workspaceFolder}/third_party/RTKLIB/src/rtklib.h"
