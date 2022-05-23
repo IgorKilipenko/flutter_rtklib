@@ -49,7 +49,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include <sys/stat.h>
-#include "rtklib_api.h"
+#include "ffi_convbin.h"
 
 #define PRGNAME   "CONVBIN"
 #define TRACEFILE "convbin.trace"
@@ -583,7 +583,7 @@ static int cmdopts(int argc, char **argv, rnxopt_t *opt, char **ifile,
     return format;
 }
 /* main ----------------------------------------------------------------------*/
-int __main(int argc, char **argv)
+static int __main(int argc, char **argv)
 {
     rnxopt_t opt={{0}};
     int format,trace=0,stat;
@@ -603,7 +603,7 @@ int __main(int argc, char **argv)
     sprintf(opt.prog,"%s %s %s",PRGNAME,VER_RTKLIB,PATCH_LEVEL);
     sprintf(opt.comment[0],"log: %-55.55s",ifile);
     sprintf(opt.comment[1],"format: %s",formatstrs[format]);
-    if (opt.rcvopt) {
+    if (*opt.rcvopt) {
         strcat(opt.comment[1],", option: ");
         strcat(opt.comment[1],opt.rcvopt);
     }
@@ -624,12 +624,12 @@ extern rnxopt_t* convbin_parse_options_cmd(int argc, char **argv) {
     char *ifile="",*ofile[NOUTFILE]={0},*dir="";
 
     if (!(opt = (rnxopt_t *)malloc(sizeof(rnxopt_t)))) {
-        free_raw(opt);
+        //free(opt);
         flutter_trace(_error_level, "[ERROR] Allocation [opt variable] failed. [in convbin_convert]");
 		return NULL;
     }
 
-    cmdopts(argc,argv,&opt,&ifile,ofile,&dir,&trace);
+    cmdopts(argc,argv,opt,&ifile,ofile,&dir,&trace);
     return opt;
 }
 
@@ -643,7 +643,7 @@ extern int convbin_convert_cmd(int argc, char **argv, rnxopt_t *opt, int trace) 
     }
 
     /* parse command line options */
-    format=cmdopts(argc,argv,&opt,&ifile,ofile,&dir,&trace);
+    format=cmdopts(argc,argv,opt,&ifile,ofile,&dir,&trace);
     
     if (!*ifile) {
         flutter_trace(_error_level,"no input file\n");
@@ -658,7 +658,7 @@ extern int convbin_convert_cmd(int argc, char **argv, rnxopt_t *opt, int trace) 
     sprintf(opt->comment[1],"format: %s",formatstrs[format]);
     if (*(opt->rcvopt)) {
         strcat(opt->comment[1],", option: ");
-        strcat(opt->comment[1],*(opt->rcvopt));
+        strcat(opt->comment[1],opt->rcvopt);
     }
     /*if (trace>0) {
         traceopen(TRACEFILE);
