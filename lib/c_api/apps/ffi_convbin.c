@@ -179,14 +179,7 @@ static void printhelp(void)
     for (i=0;i<(int)(sizeof(help)/sizeof(*help));i++) flutter_trace(_debug_level,"%s\n",help[i]);
     exit(0);
 }
-/* show message --------------------------------------------------------------*/
-extern int showmsg(const char *format, ...)
-{
-    va_list arg;
-    va_start(arg,format); flutter_vtrace(_debug_level,format,arg); va_end(arg);
-    flutter_trace(_debug_level,*format?"\r":"\n");
-    return 0;
-}
+
 /* convert main --------------------------------------------------------------*/
 static int convbin(int format, rnxopt_t *opt, const char *ifile, char **file,
                    char *dir)
