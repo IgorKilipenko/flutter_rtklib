@@ -2,10 +2,12 @@
     //"makefile.extensionOutputFolder": "./.vscode",
     //"dart.sdkPath": "c:/src/flutter/bin/cache/dart-sdk",
     "cmake.configureOnOpen": false,
+    "cmake.configureArgs": ["--log-level=DEBUG"],
+    "cmake.buildToolArgs": ["--log-level=DEBUG"],
     "files.associations": {
         "rtklib.h": "c",
         "functional": "c"
-    },
+    }
     //"jest.jestCommandLine": "--dart-define=LIBSERIALPORT_PATH=${workspaceFolder}/test/.libs/ --dart-define=RTKLIB_PATH=${workspaceFolder}/test/.libs/",
     /*"jest.nodeEnv": {
         "LIBSERIALPORT_PATH":"${workspaceFolder}/test/.libs/",
