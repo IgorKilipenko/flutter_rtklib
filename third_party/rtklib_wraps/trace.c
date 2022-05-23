@@ -221,10 +221,10 @@ extern void traceb(int level, const uint8_t *p, int n)
 /// show message
 extern int showmsg(const char *format, ...)
 {
-    if (flutter_printf == NULL) return 0;
+    if (flutter_print == NULL) return 0;
     va_list arg;
     va_start(arg,format); flutter_printf(format,arg); va_end(arg);
-    flutter_printf(3,*format?"\r":"\n");
+    flutter_printf(*format?"\r":"\n");
     return 0;
 }
 
@@ -247,7 +247,7 @@ extern void flutter_initialize(void (*printCallback)(char *, uint64_t))
 
 extern int flutter_printf(const char *format, ...)
 {
-    if (flutter_print != NULL) return 0;
+    if (flutter_print == NULL) return 0;
 
     va_list args1;
   
@@ -261,15 +261,22 @@ extern int flutter_printf(const char *format, ...)
 
 extern int flutter_vprintf(const char *format, va_list args)
 {
-    if (flutter_print != NULL) return 0;
+    if (flutter_print == NULL) return 0;
 
-    char str[256*3];
-    int done;
+    va_list args_copy;
+    va_copy(args_copy, args);
+
     int size = vsnprintf(NULL, 0, format, args);
-    done = vsnprintf(str, size + 1, format, args);
+
+    char *str = NULL;
+    if (!(str = (char*)calloc(size+1, sizeof(char)))) {
+        free(str);
+        return 0;
+    }
+    int done = vsnprintf(str, size, format, args_copy);
 
     flutter_print(str, done);
-
+    free(str);
     return done;
 }
 
