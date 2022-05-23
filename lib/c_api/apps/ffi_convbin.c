@@ -624,7 +624,8 @@ extern rnxopt_t* convbin_parse_options_cmd(int argc, char **argv) {
     char *ifile="",*ofile[NOUTFILE]={0},*dir="";
 
     if (!(opt = (rnxopt_t *)malloc(sizeof(rnxopt_t)))) {
-        //free(opt);
+        if (opt) free(opt);
+        opt = NULL;
         flutter_trace(_error_level, "[ERROR] Allocation [opt variable] failed. [in convbin_convert]");
 		return NULL;
     }

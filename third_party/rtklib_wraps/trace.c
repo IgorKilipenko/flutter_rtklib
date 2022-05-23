@@ -249,12 +249,12 @@ extern int flutter_printf(const char *format, ...)
 {
     if (flutter_print == NULL) return 0;
 
-    va_list args1;
+    va_list args;
   
     int done;
-    va_start (args1, format);
-    done = flutter_vprintf(format, args1);
-    va_end(args1);
+    va_start (args, format);
+    done = flutter_vprintf(format, args);
+    va_end(args);
 
     return done;
 }
@@ -270,7 +270,8 @@ extern int flutter_vprintf(const char *format, va_list args)
 
     char *str = NULL;
     if (!(str = (char*)calloc(size+1, sizeof(char)))) {
-        free(str);
+        if (str) free(str);
+        str = NULL;
         return 0;
     }
     int done = vsnprintf(str, size, format, args_copy);
@@ -278,6 +279,19 @@ extern int flutter_vprintf(const char *format, va_list args)
     flutter_print(str, done);
     free(str);
     return done;
+
+    /*
+    if (flutter_print == NULL) return 0;
+
+    const int size = 256;
+
+    char str[size] = {0};
+    int done = vsnprintf(str, size, format, args);
+
+    flutter_print(str, done);
+
+    return done;
+    */
 }
 
 extern int flutter_trace(int level, const char *format, ...) {
@@ -294,6 +308,8 @@ extern int flutter_trace(int level, const char *format, ...) {
 
 extern int flutter_vtrace(int level, const char *format, va_list args) {  
     if (level<=gettracelevel()) {
+        va_list(args_copy);
+        va_copy(args_copy, args);
         char str1[80];
         char str2[256*2];
         const char * level_format = "(level: %d)";
@@ -301,7 +317,7 @@ extern int flutter_vtrace(int level, const char *format, va_list args) {
         snprintf(str1, size1 + 1, level_format, level);
 
         int size2 = vsnprintf(NULL, 0, format, args);
-        vsnprintf(str2, size2 + 1, format, args);
+        vsnprintf(str2, size2 + 1, format, args_copy);
         return flutter_printf("%s %s", str1, str2);
     }
 

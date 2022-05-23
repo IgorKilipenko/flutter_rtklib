@@ -53,7 +53,8 @@ extern raw_t * create_raw(int format, uint32_t* status) {
     trace(3, "size raw_t: %d", sizeof(raw_t));
     
     if (!(raw = (raw_t *)calloc(1, sizeof(raw_t)))) {
-        free_raw(raw);
+        if (raw) free(raw);
+        raw = NULL;
 		*status = 0;
         return NULL;
     }
