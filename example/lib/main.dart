@@ -21,11 +21,11 @@ void main() async {
   }
 
   //final executable = Platform.executable;
-  final executableArguments = Platform.executableArguments;
+  /*final executableArguments = Platform.executableArguments;
   final localHostname = Platform.localHostname;
   final packageConfig = Platform.packageConfig;
   final resolvedExecutable = Platform.resolvedExecutable;
-  final script = Platform.script.toString();
+  final script = Platform.script.toString();*/
 
   // Set up the SettingsController, which will glue user settings to multiple
   // Flutter Widgets.
