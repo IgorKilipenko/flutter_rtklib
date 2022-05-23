@@ -218,13 +218,23 @@ extern void traceb(int level, const uint8_t *p, int n)
     fprintf(fp_trace,"\n");
 }
 
+/// show message
+extern int showmsg(const char *format, ...)
+{
+    if (flutter_printf == NULL) return 0;
+    va_list arg;
+    va_start(arg,format); flutter_printf(format,arg); va_end(arg);
+    flutter_printf(3,*format?"\r":"\n");
+    return 0;
+}
+
 #endif // TRACE && EXTERNAL_TRACE
 
 #if (defined(TRACE) || defined(EXTERNAL_TRACE)) && defined(FLUTTER_DEBUG)
 
 static void flutter_default_debug_handler(char *format, uint64_t length) {}
 
-EXPORT void (*flutter_print)(char *, uint64_t) = flutter_default_debug_handler;
+void (*flutter_print)(char *format, uint64_t length) = flutter_default_debug_handler;
 
 extern void flutter_initialize(void (*printCallback)(char *, uint64_t))
 {
@@ -294,6 +304,7 @@ extern int flutter_vtrace(int level, const char *format, va_list args) {
 extern void set_level_trace(int level) {
     tracelevel(level);
 }
+
 
 #else
 
