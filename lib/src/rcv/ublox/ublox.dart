@@ -11,19 +11,12 @@ import 'package:flutter_rtklib/src/dylib.dart';
 //import 'package:flutter_rtklib/src/rcv/ublox_bindings.dart' as ubx;
 import 'package:flutter_rtklib/src/rtklib_bindings.dart' as rtklib;
 
-typedef _wrappedPrint_C = ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Uint64);
-void wrappedPrint(ffi.Pointer<ffi.Char> arg, int length) {
-  print(arg.cast<pkg_ffi.Utf8>().toDartString(length: length));
-}
-
-final wrappedPrintPointer =
-    ffi.Pointer.fromFunction<_wrappedPrint_C>(wrappedPrint);
 
 class UbloxImpl {
   // ignore: constant_identifier_names
   static const TAG = "UbloxImpl";
   //late final ubx.Ublox ublox;
-  static final rtklib.RtkLib? _rtkInstance = dylibRtklib;
+  static final rtklib.RtkLib _rtkInstance = getDylibRtklib();
 
   final _obsSreamController = StreamController<ObservationControllerImpl>();
 
@@ -31,13 +24,8 @@ class UbloxImpl {
     return _obsSreamController.stream;
   }
 
-  UbloxImpl() {
-    _rtkInstance!.flutter_initialize(wrappedPrintPointer);
-    _rtkInstance!.set_level_trace(2);
-  }
-
   int _inputUbx(ffi.Pointer<rtklib.raw_t> raw, int data) {
-    final status = _rtkInstance!.input_ubx(raw, data);
+    final status = _rtkInstance.input_ubx(raw, data);
     if (status == -1) {
       return -1;
     }
@@ -49,7 +37,7 @@ class UbloxImpl {
         final obs = ObservationControllerImpl._(raw.ref.obs);
         //final obsPtr = ffi.calloc<rtklib.obs_t>()..ref = raw.ref.obs.data;
         _obsSreamController.add(obs);
-        //_rtkInstance!.traceobs(2, raw.ref.obs.data, raw.ref.obs.n);
+        //_rtkInstance.traceobs(2, raw.ref.obs.data, raw.ref.obs.n);
         for (var str in obs.toString().split('\n')) {
           print(str);
         }
@@ -63,10 +51,10 @@ class UbloxImpl {
 
   void decodeUbx(Uint8List buffer) {
     final raw = pkg_ffi.calloc<rtklib.raw_t>();
-    final initStatus = _rtkInstance!.init_raw(raw, rtklib.STRFMT_UBX);
+    final initStatus = _rtkInstance.init_raw(raw, rtklib.STRFMT_UBX);
     if (initStatus == 0) {
       const String msg = 'Error';
-      _rtkInstance!.free_raw(raw);
+      _rtkInstance.free_raw(raw);
       pkg_ffi.calloc.free(raw);
       throw Exception(msg);
     }
@@ -88,13 +76,13 @@ class UbloxImpl {
 
   static String time2str(rtklib.gtime_t time, int n) {
     final str = pkg_ffi.calloc.allocate<ffi.Char>(64);
-    _rtkInstance!.time2str(time, str, n);
+    _rtkInstance.time2str(time, str, n);
     return str.cast<pkg_ffi.Utf8>().toDartString(/*length: n*/);
   }
 
   static String satno2id(int sat) {
     final id = pkg_ffi.calloc.allocate<ffi.Char>(16);
-    _rtkInstance!.satno2id(sat, id);
+    _rtkInstance.satno2id(sat, id);
     return id.cast<pkg_ffi.Utf8>().toDartString();
   }
 
@@ -102,7 +90,7 @@ class UbloxImpl {
     final obsPtr = pkg_ffi.calloc<rtklib.obsd_t>();
     obsPtr.ref = obs;
     final strLen = pkg_ffi.calloc<ffi.Size>();
-    final strPtr = _rtkInstance!.obs2str(obsPtr, strLen);
+    final strPtr = _rtkInstance.obs2str(obsPtr, strLen);
     if (strLen.value <= 0) {
       return "";
     }
@@ -119,7 +107,7 @@ class UbloxImpl {
     final obsPtr = pkg_ffi.calloc<rtklib.obsd_t>();
     obsPtr.ref = obs;
     final strPtr = pkg_ffi.calloc<ffi.Pointer<ffi.Char>>();
-    final strLen = _rtkInstance!.obs2str2(obsPtr, strPtr);
+    final strLen = _rtkInstance.obs2str2(obsPtr, strPtr);
     if (strLen <= 0) {
       return "";
     }
