@@ -24,7 +24,6 @@
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE",
-                //"_USE_32BIT_TIME_T",
                 "WIN32",
                 "WIN_DLL",
                 "_RTLDLL",
