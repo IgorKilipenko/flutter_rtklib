@@ -38,8 +38,8 @@
   comments:
     style: any
     length: full
-  typedef-map:
-    'time_t': 'Int32'
+  #typedef-map:
+  #  'time_t': 'Int32'
   compiler-opts:
     - '-std=c17 -ansi -Wall -pedantic -Wmissing-prototypes'
     #- '-m32'
