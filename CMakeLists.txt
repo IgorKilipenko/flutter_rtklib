@@ -1,4 +1,6 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.10)
+set(CMAKE_MESSAGE_LOG_LEVEL "STATUS")
+set(CMAKE_VERBOSE_MAKEFILE ON)
 
 if (NOT DEFINED INFO_TAG)
   set(INFO_TAG "[INF]")
@@ -23,7 +25,7 @@ macro(setSrcDirs thirdPartyDir)
 endmacro()
 
 macro(setOptions)
-    message("${INFO_TAG} set options")
+    message(STATUS "${INFO_TAG} set options")
     set(CTARGET_BASE -DEXTERNAL_TRACE -DENAGLO -DENAQZS -DENAGAL -DENACMP -DENAIRN -DNFREQ=5 -DNEXOBS=3 -DFLUTTER_DEBUG)
     set(CFLAGS_BASE -std=c17 -Wall -pedantic)
 endmacro()
@@ -53,6 +55,7 @@ macro(setLibs)
         ${SRC_DIR}/sbas.c 
         ${SRC_DIR}/stream.c 
         ${SRC_DIR}/rcvraw.c 
+        ${SRC_DIR}/convrnx.c
         ${SRC_DIR}/rtcm.c 
         ${SRC_DIR}/preceph.c 
         ${SRC_DIR}/options.c 
