@@ -3,17 +3,12 @@
   description: 'Bindings to Rtklib'
   headers:
     entry-points:
-      #- 'third_party/RTKLIB/src/rtklib.h'
-      #- 'third_party/rtklib_wraps/rtklib_api.h'
       - 'lib/c_api/apps/ffi_rtklib.h'
     include-directives:
       - '**rtklib.h'
       - '**rtklib_api.h'
       - '**ffi_convbin.h'
       - '**ffi_rtklib.h'
-      #- 'third_party/RTKLIB/src/**'
-      #- 'third_party/rtklib_wraps/**'
-      #- 'lib/c_api/apps/ffi_convbin.h'
   functions:
     exclude:
       - '^_.*'
@@ -38,28 +33,64 @@
   comments:
     style: any
     length: full
-  #typedef-map:
-  #  'time_t': 'Int32'
   compiler-opts:
     - '-std=c17 -ansi -Wall -pedantic -Wmissing-prototypes'
-    #- '-m32'
     - '-DTRACE -DENAGLO -DENAQZS -DENAGAL -DENACMP -DENAIRN -DNFREQ=5 -DNEXOBS=3'
     - '-DFLUTTER_DEBUG'
     - '-DEXTERNAL_TRACE'
-    #- '-D_USE_32BIT_TIME_T'
-    #- '-IC:\msys64\mingw64\x86_64-w64-mingw32\include'
-    #- '-IC:\msys64\usr\include'
     - '-IC:/Users/Igor/AppData/Local/Android/Sdk/ndk/21.1.6352462/sysroot/usr/include'
     - '-Ithird_party/RTKLIB/src/'
     - '-Ithird_party/rtklib_wraps/'
     - '-Ilib/c_api/apps/'
-    #- '-g'
   preamble: |
     // Part of the LLVM Project, under the Apache License v2.0 with LLVM
     // Exceptions.
     // See https://llvm.org/LICENSE.txt for license information.
     // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
-    // ignore_for_file: camel_case_types, non_constant_identifier_names
+    //
+    // --------------------------------------------------------------------------------
+    // 
+    // The RTKLIB software package is distributed under the following BSD 2-clause
+    // license. Users are permitted to develop, produce or sell their own non-
+    // commercial or commercial products utilizing, linking or including RTKLIB as long
+    // as they comply with the license.
+    // 
+    // --------------------------------------------------------------------------------
+    // 
+    //          Copyright (c) 2007-2020, T. Takasu, All rights reserved.
+    // 
+    // Redistribution and use in source and binary forms, with or without modification,
+    // are permitted provided that the following conditions are met:
+    // 
+    // Redistributions of source code must retain the above copyright notice, this list
+    // of conditions and the following disclaimer. Redistributions in binary form must
+    // reproduce the above copyright notice, this list of conditions and the following
+    // disclaimer in the documentation and/or other materials provided with the
+    // distribution.
+    // 
+    // The software package includes some companion executive binaries or shared
+    // libraries necessary to execute APs on Windows. These licenses succeed to the
+    // original ones of these software.
+    // 
+    // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+    // ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+    // WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+    // DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+    // FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+    // DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+    // SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+    // CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+    // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+    // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    // 
+    // --------------------------------------------------------------------------------
+    // 
+    // Notes:
+    // Previous versions of RTKLIB until ver. 2.4.1 had been distributed under GPLv3
+    // license.
+    // --------------------------------------------------------------------------------
+    //
+    // ignore_for_file: camel_case_types, non_constant_identifier_names, unused_field, constant_identifier_names
   llvm-path:
     - 'C:/Program Files/llvm'
     - '/lib/llvm-14'
