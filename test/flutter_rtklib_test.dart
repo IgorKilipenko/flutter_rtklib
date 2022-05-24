@@ -174,44 +174,215 @@ void main() {
       int size = ffi.sizeOf<sbslcorr_t>();
       testing.expect(nativeSize, testing.equals(size));
     });
+    testing.test("Check sum for sbssatp_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.sbssatp_t;
+      int size = ffi.sizeOf<sbssatp_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for sbssat_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.sbssat_t;
+      int size = ffi.sizeOf<sbssat_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for sbsigp_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.sbsigp_t;
+      int size = ffi.sizeOf<sbsigp_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for sbsigpband_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.sbsigpband_t;
+      int size = ffi.sizeOf<sbsigpband_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for sbsion_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.sbsion_t;
+      int size = ffi.sizeOf<sbsion_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for dgps_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.dgps_t;
+      int size = ffi.sizeOf<dgps_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for ssr_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.ssr_t;
+      int size = ffi.sizeOf<ssr_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for nav_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.nav_t;
+      int size = ffi.sizeOf<nav_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for sta_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.sta_t;
+      int size = ffi.sizeOf<sta_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for sol_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.sol_t;
+      int size = ffi.sizeOf<sol_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for solbuf_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.solbuf_t;
+      int size = ffi.sizeOf<solbuf_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for solstat_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.solstat_t;
+      int size = ffi.sizeOf<solstat_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for solstatbuf_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.solstatbuf_t;
+      int size = ffi.sizeOf<solstatbuf_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for rtcm_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.rtcm_t;
+      int size = ffi.sizeOf<rtcm_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for rnxctr_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.rnxctr_t;
+      int size = ffi.sizeOf<rnxctr_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for url_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.url_t;
+      int size = ffi.sizeOf<url_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for opt_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.opt_t;
+      int size = ffi.sizeOf<opt_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for snrmask_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.snrmask_t;
+      int size = ffi.sizeOf<snrmask_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for prcopt_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.prcopt_t;
+      int size = ffi.sizeOf<prcopt_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for solopt_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.solopt_t;
+      int size = ffi.sizeOf<solopt_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for filopt_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.filopt_t;
+      int size = ffi.sizeOf<filopt_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for rnxopt_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.rnxopt_t;
+      int size = ffi.sizeOf<rnxopt_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for ssat_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.ssat_t;
+      int size = ffi.sizeOf<ssat_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for ambc_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.ambc_t;
+      int size = ffi.sizeOf<ambc_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for rtk_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.rtk_t;
+      int size = ffi.sizeOf<rtk_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for raw_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.raw_t;
+      int size = ffi.sizeOf<raw_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for stream_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.stream_t;
+      int size = ffi.sizeOf<stream_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for strconv_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.strconv_t;
+      int size = ffi.sizeOf<strconv_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for strsvr_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.strsvr_t;
+      int size = ffi.sizeOf<strsvr_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for rtksvr_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.rtksvr_t;
+      int size = ffi.sizeOf<rtksvr_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for gis_pnt_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.gis_pnt_t;
+      int size = ffi.sizeOf<gis_pnt_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for gis_poly_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.gis_poly_t;
+      int size = ffi.sizeOf<gis_poly_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for gis_polygon_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.gis_polygon_t;
+      int size = ffi.sizeOf<gis_polygon_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for gisd_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.gisd_t;
+      int size = ffi.sizeOf<gisd_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
+    testing.test("Check sum for gis_t", () {
+      final sizeInfo = sizesPtr.ref;
+      int nativeSize = sizeInfo.gis_t;
+      int size = ffi.sizeOf<gis_t>();
+      testing.expect(nativeSize, testing.equals(size));
+    });
   });
 }
-
-/*
-size_t ;
-size_t sbssatp_t;
-size_t sbssat_t;
-size_t sbsigp_t;
-size_t sbsigpband_t;
-size_t sbsion_t;
-size_t dgps_t;
-size_t ssr_t;
-size_t nav_t;
-size_t sta_t;
-size_t sol_t;
-size_t solbuf_t;
-size_t solstat_t;
-size_t solstatbuf_t;
-size_t rtcm_t;
-size_t rnxctr_t;
-size_t url_t;
-size_t opt_t;
-size_t snrmask_t;
-size_t prcopt_t;
-size_t solopt_t;
-size_t filopt_t;
-size_t rnxopt_t;
-size_t ssat_t;
-size_t ambc_t;
-size_t rtk_t;
-size_t raw_t;
-size_t stream_t;
-size_t strconv_t;
-size_t strsvr_t;
-size_t rtksvr_t;
-size_t gis_pnt_t;
-size_t gis_poly_t;
-size_t gis_polygon_t;
-size_t gisd_t;
-size_t gis_t;
-*/
