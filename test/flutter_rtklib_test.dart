@@ -1,7 +1,9 @@
 import 'dart:ffi' as ffi;
+import 'dart:io';
 
 import 'package:ffi/ffi.dart' as pkg_ffi;
 import 'package:flutter/foundation.dart';
+import 'package:flutter_rtklib/src/bindings/windows_overrides.dart';
 import 'package:flutter_rtklib/src/dylib.dart';
 import 'package:flutter_rtklib/src/rtklib_bindings.dart';
 import 'package:flutter_test/flutter_test.dart' as testing;
@@ -16,14 +18,20 @@ void main() {
 
   testing.group("Bindings tests", () {
     late final ffi.Pointer<struct_sizes_t> sizesPtr;
+    late final RtkLib dylib;
 
     testing.setUpAll(() {
-      sizesPtr = getDylibRtklib().getStructSizes();
+      dylib = getDylibRtklib(/*traceLevel: 3*/);
+      sizesPtr = dylib.getStructSizes();
     });
 
     testing.tearDownAll(() {
       if (sizesPtr.address != 0) {
-        pkg_ffi.calloc.free(sizesPtr);
+        if (Platform.isWindows) {
+          dylib.native_free(sizesPtr.cast());
+        } else {
+          pkg_ffi.calloc.free(sizesPtr);
+        }
       }
     });
 
@@ -333,7 +341,12 @@ void main() {
     testing.test("Check sum for stream_t", () {
       final sizeInfo = sizesPtr.ref;
       int nativeSize = sizeInfo.stream_t;
-      int size = ffi.sizeOf<stream_t>();
+      late final int size;
+      if (Platform.isWindows) {
+        size = ffi.sizeOf<stream_t_w>();
+      } else {
+        size = ffi.sizeOf<stream_t>();
+      }
       testing.expect(nativeSize, testing.equals(size));
     });
     testing.test("Check sum for strconv_t", () {
@@ -345,13 +358,23 @@ void main() {
     testing.test("Check sum for strsvr_t", () {
       final sizeInfo = sizesPtr.ref;
       int nativeSize = sizeInfo.strsvr_t;
-      int size = ffi.sizeOf<strsvr_t>();
+      late final int size;
+      if (Platform.isWindows) {
+        size = ffi.sizeOf<strsvr_t_w>();
+      } else {
+        size = ffi.sizeOf<strsvr_t>();
+      }
       testing.expect(nativeSize, testing.equals(size));
     });
     testing.test("Check sum for rtksvr_t", () {
       final sizeInfo = sizesPtr.ref;
       int nativeSize = sizeInfo.rtksvr_t;
-      int size = ffi.sizeOf<rtksvr_t>();
+      late final int size;
+      if (Platform.isWindows) {
+        size = ffi.sizeOf<rtksvr_t_w>();
+      } else {
+        size = ffi.sizeOf<rtksvr_t>();
+      }
       testing.expect(nativeSize, testing.equals(size));
     });
     testing.test("Check sum for gis_pnt_t", () {
