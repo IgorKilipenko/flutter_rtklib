@@ -11,11 +11,12 @@ String getRootDirectory() {
   return File(Platform.script.toFilePath(windows: false)).parent.absolute.path;
 }
 
-CStringArray _strListToPointer(List<String> strings) {
-  final resPtr = pkg_ffi.calloc<CString>(strings.length);
+CStringArray _strListToPointer(List<String> strings,
+    {ffi.Allocator allocator = pkg_ffi.malloc}) {
+  final resPtr = allocator<CString>(strings.length);
 
   strings.asMap().forEach((index, utf) {
-    resPtr[index] = utf.toNativeUtf8().cast<ffi.Char>();
+    resPtr[index] = utf.toNativeUtf8(allocator: allocator).cast<ffi.Char>();
   });
 
   return resPtr;
@@ -32,7 +33,7 @@ extension PointerUtils on ffi.Pointer<ffi.NativeType> {
 }
 
 extension ListStringUtils on List<String> {
-  CStringArray toNativeArray() {
-    return _strListToPointer(this);
+  CStringArray toNativeArray({ffi.Allocator allocator = pkg_ffi.malloc}) {
+    return _strListToPointer(this, allocator: allocator);
   }
 }

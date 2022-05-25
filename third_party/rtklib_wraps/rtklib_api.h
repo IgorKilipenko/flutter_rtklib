@@ -102,6 +102,8 @@ EXPORT FILE* openReadFile(const char *filename);
 EXPORT FILE* openWriteFile(const char *filename);
 EXPORT FILE* openFile(const char *filename, const char * mode);
 
+EXPORT void utils_free_str(char* str);
+
 #ifdef __cplusplus
 }
 #endif

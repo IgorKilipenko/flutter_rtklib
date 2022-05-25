@@ -25,6 +25,7 @@ class _UbloxPageState extends State<UbloxPage> {
   void initState() {
     super.initState();
     ubloxController.testDecodeUbxData();
+    print("Decode complete");
   }
 
   @override

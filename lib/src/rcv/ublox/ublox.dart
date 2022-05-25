@@ -2,6 +2,7 @@
 
 import 'dart:ffi' as ffi;
 import 'dart:async';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:ffi/ffi.dart' as pkg_ffi;
@@ -11,12 +12,11 @@ import 'package:flutter_rtklib/src/dylib.dart';
 //import 'package:flutter_rtklib/src/rcv/ublox_bindings.dart' as ubx;
 import 'package:flutter_rtklib/src/rtklib_bindings.dart' as rtklib;
 
-
 class UbloxImpl {
   // ignore: constant_identifier_names
   static const TAG = "UbloxImpl";
   //late final ubx.Ublox ublox;
-  static final rtklib.RtkLib _rtkInstance = getDylibRtklib();
+  static final rtklib.RtkLib _rtkInstance = getDylibRtklib(traceLevel: 4);
 
   final _obsSreamController = StreamController<ObservationControllerImpl>();
 
@@ -41,7 +41,7 @@ class UbloxImpl {
         for (var str in obs.toString().split('\n')) {
           print(str);
         }
-        
+
         return 1;
       case 2: // 2: input ephemeris
         return raw.ref.ephsat;
@@ -54,8 +54,10 @@ class UbloxImpl {
     final initStatus = _rtkInstance.init_raw(raw, rtklib.STRFMT_UBX);
     if (initStatus == 0) {
       const String msg = 'Error';
-      _rtkInstance.free_raw(raw);
-      pkg_ffi.calloc.free(raw);
+      if (raw.address != 0) {
+        _rtkInstance.free_raw(raw);
+      }
+      //pkg_ffi.calloc.free(raw);
       throw Exception(msg);
     }
 
@@ -65,6 +67,9 @@ class UbloxImpl {
         continue;
       }
     }
+    /*if (raw.address != 0) {
+      _rtkInstance.free_raw(raw);
+    }*/
   }
 
   /*static String _traceobs(rtklib.obsd_t obs) {
@@ -87,19 +92,25 @@ class UbloxImpl {
   }
 
   static String obsToString(rtklib.obsd_t obs) {
-    final obsPtr = pkg_ffi.calloc<rtklib.obsd_t>();
-    obsPtr.ref = obs;
-    final strLen = pkg_ffi.calloc<ffi.Size>();
-    final strPtr = _rtkInstance.obs2str(obsPtr, strLen);
-    if (strLen.value <= 0) {
-      return "";
-    }
-    final res = strPtr.cast<pkg_ffi.Utf8>().toDartString(length: strLen.value);
-
-    pkg_ffi.calloc.free(obsPtr);
-    pkg_ffi.calloc.free(strLen);
-    pkg_ffi.calloc.free(strPtr);
-
+    final res = pkg_ffi.using((pkg_ffi.Arena arena) {
+      final obsPtr = arena<rtklib.obsd_t>();
+      obsPtr.ref = obs;
+      final strLen = arena<ffi.Size>();
+      final strPtr = _rtkInstance.obs2str(obsPtr, strLen);
+      if (strLen.value <= 0) {
+        return "";
+      }
+      final strResult =
+          strPtr.cast<pkg_ffi.Utf8>().toDartString(length: strLen.value);
+      if (strPtr.address != 0) {
+        if (Platform.isWindows) {
+          _rtkInstance.utils_free_str(strPtr);
+        } else {
+          arena.free(strPtr);
+        }
+      }
+      return strResult;
+    });
     return res;
   }
 

@@ -12,9 +12,9 @@ extern char* obs2str(const obsd_t *obs, size_t * strLen) {
         obs->P[1],obs->LLI[0],obs->LLI[1],obs->code[0],
         obs->code[1],obs->Lstd[0],obs->Pstd[0],obs->SNR[0]*SNR_UNIT,obs->SNR[1]*SNR_UNIT);
 
-    char * outStr = (char *)calloc(len, sizeof(char *));
+    char * outStr = (char *)calloc(len+1, sizeof(char *));
 
-    *strLen = snprintf(outStr, len, format, 
+    *strLen = snprintf(outStr, len+1, format, 
         str,id,obs->rcv,obs->L[0],obs->L[1],obs->P[0],
         obs->P[1],obs->LLI[0],obs->LLI[1],obs->code[0],
         obs->code[1],obs->Lstd[0],obs->Pstd[0],obs->SNR[0]*SNR_UNIT,obs->SNR[1]*SNR_UNIT);
@@ -81,4 +81,8 @@ extern int init_raw_2(raw_t **raw, int format) {
     return 98;
     
     //return init_raw(*raw, format);
+}
+
+extern void utils_free_str(char* str) {
+    if (str != NULL) free(str);
 }

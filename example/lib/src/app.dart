@@ -45,7 +45,7 @@ class App extends StatelessWidget {
           darkTheme: ThemeData.dark().copyWith(), //ThemeData.from(colorScheme: const ColorScheme.dark()),
           themeMode: settingsController.themeMode,
 
-          initialRoute: !GetPlatform.isAndroid ? PageRoutes.uartConnectorRoute : PageRoutes.ubloxRoute,
+          initialRoute: PageRoutes.ubloxRoute,
           getPages: PageRoutes.getPages(settingsController),
         );
       },
