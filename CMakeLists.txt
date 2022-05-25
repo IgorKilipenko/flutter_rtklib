@@ -20,7 +20,7 @@ endif()
 macro(setSrcDirs thirdPartyDir)
     message(STATUS "${INFO_TAG} set src directories")
     set(SRC_DIR "${ARGV0}/RTKLIB/src")
-    set(UTILS_DIR "${ARGV0}/rtklib_wraps")
+    set(UTILS_DIR "${ROOT_DIR}/lib/c_api")
     set(FFI_DIR "${ROOT_DIR}/lib/c_api/apps")
 endmacro()
 
