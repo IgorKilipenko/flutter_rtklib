@@ -81,6 +81,6 @@ extern int init_raw_2(raw_t **raw, int format) {
     //return init_raw(*raw, format);
 }
 
-extern void utils_free_str(char* str) {
-    if (str != NULL) free(str);
+extern void native_free(void *ptr) {
+    if (ptr != NULL) free(ptr);
 }

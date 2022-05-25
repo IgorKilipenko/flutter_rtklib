@@ -104,7 +104,7 @@ class UbloxImpl {
           strPtr.cast<pkg_ffi.Utf8>().toDartString(length: strLen.value);
       if (strPtr.address != 0) {
         if (Platform.isWindows) {
-          _rtkInstance.utils_free_str(strPtr);
+          _rtkInstance.native_free(strPtr.cast());
         } else {
           arena.free(strPtr);
         }
