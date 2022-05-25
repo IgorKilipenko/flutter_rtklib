@@ -7027,19 +7027,19 @@ class RtkLib {
       ffi.Pointer<FILE> Function(
           ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
 
-  void utils_free_str(
-    ffi.Pointer<ffi.Char> str,
+  void native_free(
+    ffi.Pointer<ffi.Void> ptr,
   ) {
-    return _utils_free_str(
-      str,
+    return _native_free(
+      ptr,
     );
   }
 
-  late final _utils_free_strPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>)>>(
-          'utils_free_str');
-  late final _utils_free_str =
-      _utils_free_strPtr.asFunction<void Function(ffi.Pointer<ffi.Char>)>();
+  late final _native_freePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'native_free');
+  late final _native_free =
+      _native_freePtr.asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
   ffi.Pointer<rnxopt_t> convbin_parse_options_cmd(
     int arg_count,
