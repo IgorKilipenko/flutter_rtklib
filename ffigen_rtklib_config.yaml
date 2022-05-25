@@ -3,7 +3,7 @@
   description: 'Bindings to Rtklib'
   headers:
     entry-points:
-      - 'lib/c_api/apps/ffi_rtklib.h'
+      - 'lib/c_api/ffi_rtklib.h'
     include-directives:
       - '**rtklib.h'
       - '**rtklib_api.h'
