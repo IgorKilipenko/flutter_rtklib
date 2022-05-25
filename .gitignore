@@ -30,3 +30,5 @@ build/
 
 third_party/*
 !third_party/rtklib_wraps/
+
+test/.out/
