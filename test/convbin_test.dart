@@ -12,15 +12,17 @@ import 'package:flutter_rtklib/flutter_rtklib.dart';
 void main() {
   testing.TestWidgetsFlutterBinding.ensureInitialized();
 
-
   testing.group("Convert to Rinex (convbin) tests", () {
     late final RtkLib convbin;
+    final sep = Platform.pathSeparator;
     final rootDir = getRootDirectory();
-    var dataDir = "$rootDir/test/data/rcvraw";
-    final outDir = "$rootDir/test/.out";
+    final dataDir = "$rootDir${sep}test${sep}data${sep}rcvraw";
+    final outDir = "$rootDir${sep}test${sep}.out";
 
     testing.setUpAll(() {
       convbin = getDylibRtklib();
+      //outDir = outDir.replaceAll(RegExp(r'[/]'), "\\");
+      print("outDir = $outDir");
     });
 
     testing.tearDownAll(() {
@@ -32,18 +34,18 @@ void main() {
     });
 
     testing.test("Test convert from nov", () {
-
       final cmd =
-          "convbin -r nov $dataDir/oemv_200911218.gps -ti 10 -d $outDir -os"
+          "convbin -r nov $dataDir${sep}oemv_200911218.gps -ti 10 -d $outDir -os"
               .split(' ')
               .toList(growable: false);
-
-      final argVars = cmd.toNativeArray();
-      final options = pkg_ffi.calloc<rnxopt_t>();
-      int res = convbin.convbin_convert_cmd(cmd.length, argVars, options, 3);
-      testing.expect(res, testing.isNonNegative);
-
-      pkg_ffi.calloc.free(options);
+      final convbinResult = pkg_ffi.using((pkg_ffi.Arena arena) {
+        final argVars = cmd.toNativeArray(allocator: arena);
+        final options = arena<rnxopt_t>();
+        final res =
+            convbin.convbin_convert_cmd(cmd.length, argVars, options, 3);
+        return res;
+      });
+      testing.expect(convbinResult, testing.isNonNegative);
     });
   });
 }
