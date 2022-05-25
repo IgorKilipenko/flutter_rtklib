@@ -8,7 +8,10 @@ typedef CString = ffi.Pointer<ffi.Char>;
 typedef CStringArray = ffi.Pointer<CString>;
 
 String getRootDirectory() {
-  return File(Platform.script.toFilePath(windows: false)).parent.absolute.path;
+  final scriptPath = Platform.script.toFilePath(windows: Platform.isWindows);
+  final rootDir =
+      File(scriptPath).parent.absolute.path;
+  return rootDir;
 }
 
 CStringArray _strListToPointer(List<String> strings,
