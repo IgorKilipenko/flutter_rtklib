@@ -50,7 +50,7 @@ RtkLib getDylibRtklib({int? traceLevel}) {
   ));
 
   _dylibRtklib!.flutter_initialize(_printCallback);
-  _dylibRtklib!.set_level_trace(traceLevel ?? (kDebugMode ? 3 : 1));
+  _dylibRtklib!.set_level_trace(traceLevel ?? (kDebugMode ? 3 : 2));
 
   return _dylibRtklib!;
 }
