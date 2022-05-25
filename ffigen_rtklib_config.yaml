@@ -36,8 +36,11 @@
   compiler-opts:
     - '-std=c17 -ansi -Wall -pedantic -Wmissing-prototypes'
     - '-DTRACE -DENAGLO -DENAQZS -DENAGAL -DENACMP -DENAIRN -DNFREQ=5 -DNEXOBS=3'
+    #- '-DWIN32'
+    #- '-WIN_DLL'
     - '-DFLUTTER_DEBUG'
     - '-DEXTERNAL_TRACE'
+    #- '-D_USE_32BIT_TIME_T'
     #- '-IC:/Users/Igor/AppData/Local/Android/Sdk/ndk/21.1.6352462/sysroot/usr/include'
     - '-IC:/Users/Igor/AppData/Local/Android/Sdk/ndk/24.0.8215888/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include'
     - '-Ithird_party/RTKLIB/src/'
