@@ -2,7 +2,6 @@
 
 extern char* obs2str(const obsd_t *obs, size_t * strLen) {
     char str[64],id[16];
-    int i;
     const char * format = "%s %-3s rcv%d %13.3f %13.3f %13.3f %13.3f %d %d %d %d %x %x %3.1f %3.1f";
 
     time2str(obs->time,str,3);
@@ -24,7 +23,6 @@ extern char* obs2str(const obsd_t *obs, size_t * strLen) {
 
 extern size_t obs2str2(const obsd_t *obs, char ** outStr) {
     char str[64],id[16];
-    int i;
     const char * format = "%s %-3s rcv%d %13.3f %13.3f %13.3f %13.3f %d %d %d %d %x %x %3.1f %3.1f";
 
     time2str(obs->time,str,3);

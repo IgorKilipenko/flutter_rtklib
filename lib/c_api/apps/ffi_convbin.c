@@ -620,7 +620,7 @@ static int __main(int argc, char **argv)
 
 extern rnxopt_t* convbin_parse_options_cmd(int argc, char **argv) {
     rnxopt_t* opt = NULL;
-    int format,trace=gettracelevel(),stat;
+    int trace=gettracelevel();
     char *ifile="",*ofile[NOUTFILE]={0},*dir="";
 
     if (!(opt = (rnxopt_t *)malloc(sizeof(rnxopt_t)))) {
