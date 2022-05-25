@@ -5,8 +5,8 @@
     "cmake.configureArgs": ["--log-level=DEBUG"],
     "cmake.buildToolArgs": ["--log-level=DEBUG"],
     "files.associations": {
-        "rtklib.h": "c",
-        "functional": "c"
+        "**.h": "c",
+        "**.c": "c",
     }
     //"jest.jestCommandLine": "--dart-define=LIBSERIALPORT_PATH=${workspaceFolder}/test/.libs/ --dart-define=RTKLIB_PATH=${workspaceFolder}/test/.libs/",
     /*"jest.nodeEnv": {
