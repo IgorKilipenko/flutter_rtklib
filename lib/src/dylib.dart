@@ -1,24 +1,16 @@
-import 'dart:ffi' as ffi;
-import 'dart:io';
-
-import 'package:ffi/ffi.dart' as pkg_ffi;
-import 'package:flutter/foundation.dart';
-import 'package:flutter_rtklib/src/rtklib_bindings.dart';
-//import 'package:flutter_rtklib/src/rcv/ublox_bindings.dart';
-import 'package:dylib/dylib.dart';
-
-typedef WrappedPrintC = ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Uint64);
-void _printDebug(ffi.Pointer<ffi.Char> str, int len) {
-  final msg = str.cast<pkg_ffi.Utf8>().toDartString(length: len);
-  // ignore: avoid_print
-  print(msg);
-}
-
-final _printCallback = ffi.Pointer.fromFunction<WrappedPrintC>(_printDebug);
+part of 'package:flutter_rtklib/src/bindings/rtklib.dart';
 
 RtkLib? _dylibRtklib;
-RtkLib getDylibRtklib({int? traceLevel}) {
-  if (_dylibRtklib != null) return _dylibRtklib!;
+RtkLib _getDylibRtklib({int? traceLevel}) {
+  if (_dylibRtklib != null) {
+    final lib = _dylibRtklib!;
+    if (traceLevel != null &&
+        traceLevel >= 0 &&
+        lib.gettracelevel() != traceLevel) {
+      lib.tracelevel(traceLevel);
+    }
+    return lib;
+  }
 
   String? path;
   if (Platform.environment.containsKey("FLUTTER_TEST")) {
@@ -40,7 +32,7 @@ RtkLib getDylibRtklib({int? traceLevel}) {
     }
   }
 
-  _dylibRtklib = RtkLib(ffi.DynamicLibrary.open(
+  _dylibRtklib = RtkLib._(ffi.DynamicLibrary.open(
     resolveDylibPath(
       'rtklib',
       path: path,
@@ -48,9 +40,6 @@ RtkLib getDylibRtklib({int? traceLevel}) {
       environmentVariable: 'RTKLIB_PATH',
     ),
   ));
-
-  _dylibRtklib!.flutter_initialize(_printCallback);
-  _dylibRtklib!.set_level_trace(traceLevel ?? (kDebugMode ? 3 : 2));
 
   return _dylibRtklib!;
 }

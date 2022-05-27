@@ -2,8 +2,7 @@ import 'dart:ffi' as ffi;
 import 'dart:io';
 
 import 'package:ffi/ffi.dart' as pkg_ffi;
-import 'package:flutter_rtklib/ffi_extensions.dart';
-import 'package:flutter_rtklib/src/dylib.dart';
+import 'package:flutter_rtklib/flutter_rtklib.dart';
 import 'package:flutter_rtklib/src/rtklib_bindings.dart';
 import 'package:flutter_test/flutter_test.dart' as testing;
 
@@ -11,7 +10,7 @@ void main() {
   testing.TestWidgetsFlutterBinding.ensureInitialized();
 
   testing.group("Convert to Rinex (convbin) tests", () {
-    late final RtkLib convbin;
+    late final RtkDylib convbin;
     final sep = Platform.pathSeparator;
     final rootDir = getRootDirectory();
     final dataDir = "$rootDir${sep}test${sep}data${sep}rcvraw";
@@ -37,7 +36,7 @@ void main() {
     }
 
     testing.setUpAll(() {
-      convbin = getDylibRtklib();
+      convbin = FlutterRtklib.getRtkLibInstance();
       //outDir = outDir.replaceAll(RegExp(r'[/]'), "\\");
       print("outDir = $outDir");
     });

@@ -1,5 +1,5 @@
   output: 'lib/src/rtklib_bindings.dart'
-  name: 'RtkLib'
+  name: 'RtkDylib'
   description: 'Bindings to Rtklib'
   headers:
     entry-points:

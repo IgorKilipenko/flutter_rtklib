@@ -1,12 +1,15 @@
-// You have generated a new plugin project without
-// specifying the `--platforms` flag. A plugin project supports no platforms is generated.
-// To add platforms, run `flutter create -t plugin --platforms <platforms> .` under the same
-// directory. You can also find a detailed instruction on how to add platforms in the `pubspec.yaml` at https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin-platforms.
+// flutter_rtklib
+library flutter_rtklib;
 
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:flutter_rtklib/src/bindings/rtklib.dart';
 export 'src/rcv/ublox/ublox.dart';
+//export 'src/bindings/rtklib.dart';
+export 'src/rtklib_bindings.dart' hide RtkDylib;
+export 'src/bindings/windows_overrides.dart';
+export 'ffi_extensions.dart';
 
 class FlutterRtklib {
   static const MethodChannel _channel = MethodChannel('flutter_rtklib');
@@ -15,5 +18,8 @@ class FlutterRtklib {
     final String? version = await _channel.invokeMethod('getPlatformVersion');
     return version;
   }
-}
 
+  static RtkLib getRtkLibInstance({int? traceLevel}) {
+    return RtkLib.getInstance(traceLevel: traceLevel);
+  }
+}

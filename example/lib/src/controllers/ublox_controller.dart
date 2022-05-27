@@ -22,7 +22,7 @@ class UbloxController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _ublox = UbloxImpl();
+    _ublox = FlutterRtklib.getRtkLibInstance().getUblox();
     _obsStreamSubscription = _ublox.observationStream.handleError((error) {
       if (kDebugMode) {
         Get.log(error.toString(), isError : true);

@@ -2,26 +2,36 @@ import 'dart:ffi' as ffi;
 import 'dart:io';
 
 import 'package:ffi/ffi.dart' as pkg_ffi;
-import 'package:flutter/foundation.dart';
-import 'package:flutter_rtklib/src/bindings/windows_overrides.dart';
-import 'package:flutter_rtklib/src/dylib.dart';
 import 'package:flutter_rtklib/src/rtklib_bindings.dart';
 import 'package:flutter_test/flutter_test.dart' as testing;
 import 'package:flutter_rtklib/flutter_rtklib.dart';
 
 void main() {
   testing.TestWidgetsFlutterBinding.ensureInitialized();
-  testing.test('Test ublox', () async {
-    UbloxImpl ublox = UbloxImpl();
-    testing.expect(ublox, testing.isA<UbloxImpl>());
+
+  late final RtkDylib dylib;
+
+  testing.setUpAll(() {
+    dylib = FlutterRtklib.getRtkLibInstance();
   });
 
-  testing.group("Bindings tests", () {
+  testing.tearDownAll(() {
+    print("Bindings test done.");
+  });
+
+  testing.group("Bindings test", () {
+    testing.test("Is RtkLib", () {
+      testing.expect(dylib, testing.isA<RtkDylib>());
+    });
+    testing.test('Test ublox', () async {
+      UbloxImpl ublox = FlutterRtklib.getRtkLibInstance().getUblox();
+      testing.expect(ublox, testing.isA<UbloxImpl>());
+    });
+  });
+  testing.group("Struct check sum", () {
     late final ffi.Pointer<struct_sizes_t> sizesPtr;
-    late final RtkLib dylib;
 
     testing.setUpAll(() {
-      dylib = getDylibRtklib(/*traceLevel: 3*/);
       sizesPtr = dylib.getStructSizes();
     });
 
@@ -33,10 +43,6 @@ void main() {
           pkg_ffi.calloc.free(sizesPtr);
         }
       }
-    });
-
-    testing.test("Is RtkLib", () {
-      testing.expect(getDylibRtklib(), testing.isA<RtkLib>());
     });
     testing.test("sizesPtr is not null", () {
       testing.expect(sizesPtr.address, testing.isNot(0),
