@@ -6,7 +6,6 @@
         "myDefaultIncludePath": [
             "${workspaceFolder}",
             "${workspaceFolder}/third_party/RTKLIB/**",
-            "${workspaceFolder}/third_party/rtklib_wraps/**",
             "${workspaceFolder}/lib/c_api/**"
         ]
     },
