@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:ffi/ffi.dart' as pkg_ffi;
 import 'package:flutter_rtklib/flutter_rtklib.dart';
+import 'package:flutter_rtklib/src/apps/common.dart';
 import 'package:flutter_rtklib/src/rtklib_bindings.dart';
 import 'package:flutter_test/flutter_test.dart' as testing;
 
@@ -17,19 +18,12 @@ void main() {
     final outDir = "$rootDir${sep}test${sep}.out";
 
     int _execConvbinCmd(String strCmd) {
-      final str = strCmd.replaceAllMapped(
-          RegExp(r'[\u0027\u0022]([^\s]+)\s+([^\s]+)[\u0027\u0022]',
-              unicode: true),
-          (math) => '"${math.group(1)}{space}${math.group(2)}"');
-      final cmd = str
-          .split(RegExp(r'\s+'))
-          .map((e) => e.replaceAll(RegExp(r'\{space\}'), " "))
-          .toList(growable: false);
       final convbinResult = pkg_ffi.using((pkg_ffi.Arena arena) {
-        final argVars = cmd.toNativeArray(allocator: arena);
+        final args = splitConsoleCmdAgs(strCmd);
+        final argVars = args.toNativeArray(allocator: arena);
         final options = arena<rnxopt_t>();
         final res =
-            convbin.convbin_convert_cmd(cmd.length, argVars, options, 3);
+            convbin.convbin_convert_cmd(args.length, argVars, options, 3);
         return res;
       });
       return convbinResult;
