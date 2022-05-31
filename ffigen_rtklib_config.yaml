@@ -8,6 +8,7 @@
       - '**rtklib.h'
       - '**rtklib_api.h'
       - '**ffi_convbin.h'
+      - '**ffi_rtkrcv.h'
       - '**ffi_rtklib.h'
   functions:
     exclude:

@@ -7082,6 +7082,23 @@ class RtkDylib {
   late final _convbin_convert_cmd = _convbin_convert_cmdPtr.asFunction<
       int Function(int, ffi.Pointer<ffi.Pointer<ffi.Char>>,
           ffi.Pointer<rnxopt_t>, int)>();
+
+  int run_rtkrcv_cmd(
+    int argc,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> argv,
+  ) {
+    return _run_rtkrcv_cmd(
+      argc,
+      argv,
+    );
+  }
+
+  late final _run_rtkrcv_cmdPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Int, ffi.Pointer<ffi.Pointer<ffi.Char>>)>>('run_rtkrcv_cmd');
+  late final _run_rtkrcv_cmd = _run_rtkrcv_cmdPtr
+      .asFunction<int Function(int, ffi.Pointer<ffi.Pointer<ffi.Char>>)>();
 }
 
 /// time struct

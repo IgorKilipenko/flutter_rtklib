@@ -4,6 +4,7 @@
 #include "rtklib.h"
 #include "rtklib_api.h"
 #include "ffi_convbin.h"
+#include "ffi_rtkrcv.h"
 
 #ifdef __cplusplus
 extern "C" {

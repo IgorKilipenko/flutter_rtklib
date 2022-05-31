@@ -84,6 +84,7 @@ macro(setLibs)
         ${UTILS_DIR}/test_size.c
         ${UTILS_DIR}/io.c
         ${FFI_DIR}/ffi_convbin.c
+        ${FFI_DIR}/ffi_rtkrcv.c
     )
 
     set(INCLUDE_DIRS 
