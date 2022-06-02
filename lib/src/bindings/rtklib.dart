@@ -13,9 +13,9 @@ export 'package:flutter_rtklib/src/rtklib_bindings.dart';
 
 part 'package:flutter_rtklib/src/dylib.dart';
 
-typedef _WrappedPrintC = ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Uint64);
+typedef _WrappedPrintC = ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int);
 typedef PrintCallback = ffi.Pointer<
-    ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Uint64)>>;
+    ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int)>>;
 
 class RtkLib extends RtkDylib {
   static UbloxImpl? _ubloxInstance;
@@ -24,7 +24,7 @@ class RtkLib extends RtkDylib {
   static final PrintCallback _printCallback =
       ffi.Pointer.fromFunction<_WrappedPrintC>(_printDebug);
 
-  static void _printDebug(ffi.Pointer<ffi.Char> str, int len) {
+  static void _printDebug(ffi.Pointer<ffi.Char> str, int len, int level) {
     final msg =
         TraceMessage(str.cast<pkg_ffi.Utf8>().toDartString(length: len));
     RtkLib.virtualConsole.add(msg);
