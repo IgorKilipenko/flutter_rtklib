@@ -13,9 +13,11 @@ export 'package:flutter_rtklib/src/rtklib_bindings.dart';
 
 part 'package:flutter_rtklib/src/dylib.dart';
 
-typedef _WrappedPrintC = ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int);
+typedef _WrappedPrintC = ffi.Void Function(
+    ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int);
 typedef PrintCallback = ffi.Pointer<
-    ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int)>>;
+    ffi.NativeFunction<
+        ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int)>>;
 
 class RtkLib extends RtkDylib {
   static UbloxImpl? _ubloxInstance;
@@ -23,6 +25,10 @@ class RtkLib extends RtkDylib {
   static final virtualConsole = TraceController.getController();
   static final PrintCallback _printCallback =
       ffi.Pointer.fromFunction<_WrappedPrintC>(_printDebug);
+
+  /// Holds the symbol lookup function.
+  late final ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
+      lookup;
 
   static void _printDebug(ffi.Pointer<ffi.Char> str, int len, int level) {
     final msg =
@@ -41,6 +47,7 @@ class RtkLib extends RtkDylib {
 
   /// The symbols are looked up in [dynamicLibrary].
   RtkLib._(ffi.DynamicLibrary dynamicLibrary) : super(dynamicLibrary) {
+    lookup = dynamicLibrary.lookup;
     _init();
   }
 
@@ -100,13 +107,15 @@ enum TraceLevels {
 }
 
 class TraceMessage {
-  static final _levelRegex =
-      RegExp(r'^\(level: (?<level>[0-5])\)\s+(?<msg>.*[\n\r\s])$', multiLine: true);
+  static final _levelRegex = RegExp(
+      r'^\(level: (?<level>[0-5])\)\s+(?<msg>.*[\n\r\s])$',
+      multiLine: true);
   late final String message;
   late final int traceLevel;
   TraceMessage(String message, {int? traceLevel, bool formatMessage = true}) {
     const defaultTraceLevel = 0;
-    MapEntry<int, String>? parsedLevel = _parseTraceLevel(message, formatMessage: formatMessage);
+    MapEntry<int, String>? parsedLevel =
+        _parseTraceLevel(message, formatMessage: formatMessage);
     traceLevel ??= parsedLevel?.key;
     this.traceLevel = traceLevel ?? defaultTraceLevel;
     this.message = parsedLevel?.value ?? message;

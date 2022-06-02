@@ -7,6 +7,21 @@ import 'package:flutter_rtklib/flutter_rtklib.dart';
 import 'package:flutter_rtklib/src/bindings/rtklib.dart';
 import 'package:flutter_test/flutter_test.dart' as testing;
 
+extension RtklibTraceUtils on RtkLib {
+  void tracet_2arg(int level, String format, double val1, double val2,
+      {ffi.Allocator allocator = pkg_ffi.calloc}) {
+    late final _tracetPtr_2arg = lookup<
+        ffi.NativeFunction<
+            ffi.Void Function(ffi.Int, ffi.Pointer<ffi.Char>, ffi.Double,
+                ffi.Double)>>('tracet');
+    late final _tracet_2arg = _tracetPtr_2arg.asFunction<
+        void Function(int, ffi.Pointer<ffi.Char>, double, double)>();
+    final formatPtr =
+        format.toNativeUtf8(allocator: allocator).cast<ffi.Char>();
+    return _tracet_2arg(level, formatPtr, val1, val2);
+  }
+}
+
 void main() {
   testing.TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -55,7 +70,7 @@ void main() {
     });
 
     testing.test("* Test flutter_printf", () async {
-      const format = "Test tarce format";
+      const format = "Test tarce format\n";
       int count = pkg_ffi.using((arena) {
         final strPtr = format.toNativeUtf8(allocator: arena).cast<ffi.Char>();
         return rtklib.flutter_printf(strPtr);
@@ -68,7 +83,8 @@ void main() {
       testing.expect(ouputMsg!.replaceAll(RegExp(r'[\n\r]+'), ""),
           testing.equalsIgnoringCase(format));
     });
-    testing.test("* Test matsprint", () async {
+
+    testing.test("* Test matsprint", () {
       const columns = 3;
       const rows = 3;
       final matrix = <double>[
@@ -91,7 +107,7 @@ void main() {
         testing.expect(len, testing.isPositive);
         testing.expect(buffer, testing.isNot(ffi.nullptr));
         testing.expect(buffer.value, testing.isNot(ffi.nullptr));
-        
+
         final stringMatrix =
             buffer.value.cast<pkg_ffi.Utf8>().toDartString(length: len);
         const snapshot = ""
@@ -100,8 +116,19 @@ void main() {
             "511.618281 589.885015 126.973781\n"
             "";
 
-        testing.expect(stringMatrix, testing.equalsIgnoringWhitespace(snapshot));
+        testing.expect(
+            stringMatrix, testing.equalsIgnoringWhitespace(snapshot));
       });
+    });
+
+    testing.test("* Test tracet", () async {
+      const format = "Format string. Test value1 = %.2f, value2 = %3.3f.\n";
+      pkg_ffi.using((arena) {
+        rtklib.tracet_2arg(3, format, 3.066, 5.566, allocator: arena);
+      });
+
+      String? ouputMsg = (await rtklib.console.getLastMessage())?.message;
+      print(ouputMsg);
     });
   });
 }
