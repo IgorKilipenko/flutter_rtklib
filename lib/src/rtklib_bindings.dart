@@ -6883,7 +6883,7 @@ class RtkDylib {
 
   int flutter_vprintf(
     ffi.Pointer<ffi.Char> format,
-    ffi.Pointer<__va_list_tag> args,
+    ffi.Pointer<va_list_tag> args,
   ) {
     return _flutter_vprintf(
       format,
@@ -6894,9 +6894,9 @@ class RtkDylib {
   late final _flutter_vprintfPtr = _lookup<
       ffi.NativeFunction<
           ffi.Int Function(ffi.Pointer<ffi.Char>,
-              ffi.Pointer<__va_list_tag>)>>('flutter_vprintf');
+              ffi.Pointer<va_list_tag>)>>('flutter_vprintf');
   late final _flutter_vprintf = _flutter_vprintfPtr.asFunction<
-      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<__va_list_tag>)>();
+      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<va_list_tag>)>();
 
   int flutter_trace(
     int level,
@@ -6917,7 +6917,7 @@ class RtkDylib {
   int flutter_vtrace(
     int level,
     ffi.Pointer<ffi.Char> format,
-    ffi.Pointer<__va_list_tag> args,
+    ffi.Pointer<va_list_tag> args,
   ) {
     return _flutter_vtrace(
       level,
@@ -6929,9 +6929,9 @@ class RtkDylib {
   late final _flutter_vtracePtr = _lookup<
       ffi.NativeFunction<
           ffi.Int Function(ffi.Int, ffi.Pointer<ffi.Char>,
-              ffi.Pointer<__va_list_tag>)>>('flutter_vtrace');
+              ffi.Pointer<va_list_tag>)>>('flutter_vtrace');
   late final _flutter_vtrace = _flutter_vtracePtr.asFunction<
-      int Function(int, ffi.Pointer<ffi.Char>, ffi.Pointer<__va_list_tag>)>();
+      int Function(int, ffi.Pointer<ffi.Char>, ffi.Pointer<va_list_tag>)>();
 
   void flutter_initialize(
     ffi.Pointer<
@@ -9855,7 +9855,7 @@ class struct_sizes_t extends ffi.Struct {
   external int gis_t;
 }
 
-class __va_list_tag extends ffi.Struct {
+class va_list_tag extends ffi.Struct {
   @ffi.UnsignedInt()
   external int gp_offset;
 
