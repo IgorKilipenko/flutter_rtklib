@@ -14,6 +14,9 @@
     exclude:
       - '^_.*'
   structs:
+    rename:
+      #'_(.*)': '$1'
+      '_+(va_list_.*)': '$1'
     exclude:
       - '^_.*'
   enums:
