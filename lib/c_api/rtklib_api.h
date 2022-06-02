@@ -94,6 +94,7 @@ EXPORT int flutter_vprintf(const char *format, va_list args);
 EXPORT int flutter_trace(int level, const char *format, ...);
 EXPORT int flutter_vtrace(int level, const char *format, va_list args);
 EXPORT void flutter_initialize(void (*printCallback)(char *, size_t, int));
+EXPORT void vtracet(int level, const char *format, va_list args);
 EXPORT void set_level_trace(int level);
 
 /** 

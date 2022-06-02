@@ -6959,6 +6959,25 @@ class RtkDylib {
                   ffi.Void Function(
                       ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int)>>)>();
 
+  void vtracet(
+    int level,
+    ffi.Pointer<ffi.Char> format,
+    ffi.Pointer<va_list_tag> args,
+  ) {
+    return _vtracet(
+      level,
+      format,
+      args,
+    );
+  }
+
+  late final _vtracetPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int, ffi.Pointer<ffi.Char>,
+              ffi.Pointer<va_list_tag>)>>('vtracet');
+  late final _vtracet = _vtracetPtr.asFunction<
+      void Function(int, ffi.Pointer<ffi.Char>, ffi.Pointer<va_list_tag>)>();
+
   void set_level_trace(
     int level,
   ) {

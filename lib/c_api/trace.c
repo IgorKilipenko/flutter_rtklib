@@ -114,8 +114,6 @@ extern int matsprint(const double A[], int n, int m, int p, int q, char **buffer
         return 0;
     }
 
-    trace(3,"*** allocate completer, size=%d\n", maxSize+1);
-
     int i,j;
     size_t len = 0;
     for (i=0;i<n;i++) {
@@ -135,17 +133,16 @@ extern int matsprint(const double A[], int n, int m, int p, int q, char **buffer
     return len;
 }
 
-extern void tracet(int level, const char *format, ...)
+extern void tracet(int level, const char *format, ...) 
 {
     va_list args;
-    /*
-    if (level<=gettracelevel()) {
-        flutter_printf("(level: %d) %9.3f: ",level,(tickget()-tick_trace)/1000.0); 
-        va_start(ap,format); 
-        flutter_vprintf(format,ap); 
-        va_end (ap);
-    }
-    */
+    va_start(args,format); vtracet(level, format, args); va_end(args);
+}
+
+extern void vtracet(int level, const char *format, va_list args) 
+{
+    va_list args2;
+    va_copy(args2, args);
 
     if (level<=gettracelevel()) { 
         const char * level_format = "(level: %d) (time: %dms)";
@@ -154,14 +151,10 @@ extern void tracet(int level, const char *format, ...)
         char *str1 = (char*)calloc(size1+1, sizeof(char));
         snprintf(str1, size1+1, level_format, level, timer);
         
-        va_start(args,format);
         int size2 = vsnprintf(NULL, 0, format, args);
-        va_end(args);
         
         char *str2 = (char*)calloc(size2+1, sizeof(char));
-        va_start(args,format);
-        vsnprintf(str2, size2+1, format, args);
-        va_end(args);
+        vsnprintf(str2, size2+1, format, args2);
 
         flutter_printf("%s %s", str1, str2);
     }
