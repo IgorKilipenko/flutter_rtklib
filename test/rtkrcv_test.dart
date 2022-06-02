@@ -14,8 +14,7 @@ void main() {
     late final RtkDylib rtkrcv;
     final sep = Platform.pathSeparator;
     final rootDir = getRootDirectory();
-    final dataDir = "$rootDir${sep}test${sep}data${sep}rcvraw";
-    final outDir = "$rootDir${sep}test${sep}.out";
+    final configDir = "$rootDir${sep}lib${sep}c_api${sep}apps${sep}conf";
 
     int _execRtkrcvCmd(String strCmd) {
       final convbinResult = pkg_ffi.using((pkg_ffi.Arena arena) {
@@ -29,7 +28,7 @@ void main() {
 
     testing.setUpAll(() {
       rtkrcv = FlutterRtklib.getRtkLibInstance();
-      print("outDir = $outDir");
+      print("Config dir = $configDir");
     });
 
     testing.tearDownAll(() {
@@ -41,7 +40,7 @@ void main() {
     });
 
     testing.test("Test convert to Rinex from NovAtel format", () {
-      const cmd = "./rtkrcv -t 4 -m 52001 -t 4";
+      final cmd = "./rtkrcv -t 4 -o $configDir/rtk.conf";
       final convbinResult = _execRtkrcvCmd(cmd);
       testing.expect(convbinResult, testing.isNonNegative);
     });
