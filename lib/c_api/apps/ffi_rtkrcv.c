@@ -49,7 +49,7 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <errno.h>
-#include "rtklib.h"
+#include "ffi_rtkrcv.h"
 
 #define PRGNAME     "rtkrcv"            /* program name */
 #define CMDPROMPT   "rtkrcv> "          /* command prompt */
