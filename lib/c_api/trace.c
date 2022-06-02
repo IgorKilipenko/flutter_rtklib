@@ -4,9 +4,9 @@
 #if !defined(TRACE) && defined(EXTERNAL_TRACE)
 
 /// file pointer of trace
-static FILE *fp_trace=NULL;     
+//! static FILE *fp_trace=NULL;     
 /// trace file
-static char file_trace[1024];   
+//! static char file_trace[1024];   
 /// level of trace
 static int level_trace=0;       
 /// tick time at traceopen (ms)
@@ -14,8 +14,10 @@ static uint32_t tick_trace=0;
 /// time at traceopen
 static gtime_t time_trace={0};  
 /// lock for trace
-static lock_t lock_trace;       
+//! static lock_t lock_trace;       
 
+//! RMOVE TRACE FILE
+/*
 static void traceswap(void)
 {
     gtime_t time=utc2gpst(timeget());
@@ -41,9 +43,12 @@ static void traceswap(void)
     }
     unlock(&lock_trace);
 }
+*/
 
 extern void traceopen(const char *file)
 {
+    //! RMOVE TRACE FILE
+    /*
     gtime_t time=utc2gpst(timeget());
     char path[1024];
     
@@ -53,13 +58,21 @@ extern void traceopen(const char *file)
     tick_trace=tickget();
     time_trace=time;
     initlock(&lock_trace);
+    */
+
+    gtime_t time=utc2gpst(timeget());
+    tick_trace=tickget();
+    time_trace=time;
 }
 
 extern void traceclose(void)
 {
+    //! RMOVE TRACE FILE
+    /*
     if (fp_trace&&fp_trace!=stderr) fclose(fp_trace);
     fp_trace=NULL;
     file_trace[0]='\0';
+    */
 }
 
 extern void tracelevel(int level)
@@ -85,19 +98,67 @@ extern void trace(int level, const char *format, ...)
 
 extern void tracemat(int level, const double *A, int n, int m, int p, int q)
 {
-    if (!fp_trace||level>level_trace) return;
-    matfprint(A,n,m,p,q,fp_trace); fflush(fp_trace);
+    if (level>level_trace) return;
+    char **buffer;
+    matsprint(A,n,m,p,q,buffer);
+    if (buffer) free(buffer);
+}
+
+/* print matrix ----------------------------------------------------------------
+* print matrix to stdout
+* args   : double *A        I   matrix A (n x m)
+*          int    n,m       I   number of rows and columns of A
+*          int    p,q       I   total columns, columns under decimal point
+*         (char **buffer    O   output string)
+* return : none
+* notes  : matirix stored by column-major order (fortran convention)
+*-----------------------------------------------------------------------------*/
+extern int matsprint(const double A[], int n, int m, int p, int q, char **buffer)
+{
+    buffer = NULL;
+    int maxSize = (256)*m+1;
+    buffer = (char **)calloc(maxSize+1, sizeof(char*));
+    int i,j;
+    size_t len = 0;
+    for (i=0;i<n;i++) {
+        for (j=0;j<m;j++) {
+            int count = snprintf(buffer+len,maxSize-1," %*.*f",p,q,A[i+j*n]);
+            if (count <= 0) {
+                free(buffer);
+                buffer = NULL;
+                return 0;
+            }
+            len += count;
+        }
+        len += snprintf(buffer+len,maxSize,"\n");
+    }
 }
 
 extern void tracet(int level, const char *format, ...)
 {
-    va_list ap;
+    va_list args;
 
+    /*
     if (level<=gettracelevel()) {
-        flutter_printf("%d %9.3f: ",level,(tickget()-tick_trace)/1000.0); 
+        flutter_printf("(level: %d) %9.3f: ",level,(tickget()-tick_trace)/1000.0); 
         va_start(ap,format); 
         flutter_vprintf(format,ap); 
         va_end (ap);
+    }
+    */
+    if (level<=gettracelevel()) {
+        va_list(args_copy);
+        va_copy(args_copy, args);
+
+        const char * level_format = "(level: %d) %9.3f:";
+        int size1 = snprintf(NULL, 0, level_format, level, (tickget()-tick_trace)/1000.0);
+        char *str1 = (char*)calloc(size1+1, sizeof(char));
+        snprintf(str1, size1+1, level_format, level);
+
+        int size2 = vsnprintf(NULL, 0, format, args);
+        char *str2 = (char*)calloc(size2+1, sizeof(char));
+        vsnprintf(str2, size2+1, format, args_copy);
+        flutter_printf("%s %s", str1, str2);
     }
 }
 
@@ -125,19 +186,19 @@ extern void tracenav(int level, const nav_t *nav)
     char s1[64],s2[64],id[16];
     int i;
     
-    if (!fp_trace||level>level_trace) return;
+    if (level>level_trace) return;
     for (i=0;i<nav->n;i++) {
         time2str(nav->eph[i].toe,s1,0);
         time2str(nav->eph[i].ttr,s2,0);
         satno2id(nav->eph[i].sat,id);
-        fprintf(fp_trace,"(%3d) %-3s : %s %s %3d %3d %02x\n",i+1,
+        trace(level,"(%3d) %-3s : %s %s %3d %3d %02x\n",i+1,
                 id,s1,s2,nav->eph[i].iode,nav->eph[i].iodc,nav->eph[i].svh);
     }
-    fprintf(fp_trace,"(ion) %9.4e %9.4e %9.4e %9.4e\n",nav->ion_gps[0],
+    trace(level,"(ion) %9.4e %9.4e %9.4e %9.4e\n",nav->ion_gps[0],
             nav->ion_gps[1],nav->ion_gps[2],nav->ion_gps[3]);
-    fprintf(fp_trace,"(ion) %9.4e %9.4e %9.4e %9.4e\n",nav->ion_gps[4],
+    trace(level,"(ion) %9.4e %9.4e %9.4e %9.4e\n",nav->ion_gps[4],
             nav->ion_gps[5],nav->ion_gps[6],nav->ion_gps[7]);
-    fprintf(fp_trace,"(ion) %9.4e %9.4e %9.4e %9.4e\n",nav->ion_gal[0],
+    trace(level,"(ion) %9.4e %9.4e %9.4e %9.4e\n",nav->ion_gal[0],
             nav->ion_gal[1],nav->ion_gal[2],nav->ion_gal[3]);
 }
 
@@ -146,12 +207,12 @@ extern void tracegnav(int level, const nav_t *nav)
     char s1[64],s2[64],id[16];
     int i;
     
-    if (!fp_trace||level>level_trace) return;
+    if (level>level_trace) return;
     for (i=0;i<nav->ng;i++) {
         time2str(nav->geph[i].toe,s1,0);
         time2str(nav->geph[i].tof,s2,0);
         satno2id(nav->geph[i].sat,id);
-        fprintf(fp_trace,"(%3d) %-3s : %s %s %2d %2d %8.3f\n",i+1,
+        trace(level,"(%3d) %-3s : %s %s %2d %2d %8.3f\n",i+1,
                 id,s1,s2,nav->geph[i].frq,nav->geph[i].svh,nav->geph[i].taun*1E6);
     }
 }
@@ -161,12 +222,12 @@ extern void tracehnav(int level, const nav_t *nav)
     char s1[64],s2[64],id[16];
     int i;
     
-    if (!fp_trace||level>level_trace) return;
+    if (level>level_trace) return;
     for (i=0;i<nav->ns;i++) {
         time2str(nav->seph[i].t0,s1,0);
         time2str(nav->seph[i].tof,s2,0);
         satno2id(nav->seph[i].sat,id);
-        fprintf(fp_trace,"(%3d) %-3s : %s %s %2d %2d\n",i+1,
+        trace(level,"(%3d) %-3s : %s %s %2d %2d\n",i+1,
                 id,s1,s2,nav->seph[i].svh,nav->seph[i].sva);
     }
 }
@@ -176,13 +237,13 @@ extern void tracepeph(int level, const nav_t *nav)
     char s[64],id[16];
     int i,j;
     
-    if (!fp_trace||level>level_trace) return;
+    if (level>level_trace) return;
     
     for (i=0;i<nav->ne;i++) {
         time2str(nav->peph[i].time,s,0);
         for (j=0;j<MAXSAT;j++) {
             satno2id(j+1,id);
-            fprintf(fp_trace,"%-3s %d %-3s %13.3f %13.3f %13.3f %13.3f %6.3f %6.3f %6.3f %6.3f\n",
+            trace(level,"%-3s %d %-3s %13.3f %13.3f %13.3f %13.3f %6.3f %6.3f %6.3f %6.3f\n",
                     s,nav->peph[i].index,id,
                     nav->peph[i].pos[j][0],nav->peph[i].pos[j][1],
                     nav->peph[i].pos[j][2],nav->peph[i].pos[j][3]*1E9,
@@ -197,13 +258,13 @@ extern void tracepclk(int level, const nav_t *nav)
     char s[64],id[16];
     int i,j;
     
-    if (!fp_trace||level>level_trace) return;
+    if (level>level_trace) return;
     
     for (i=0;i<nav->nc;i++) {
         time2str(nav->pclk[i].time,s,0);
         for (j=0;j<MAXSAT;j++) {
             satno2id(j+1,id);
-            fprintf(fp_trace,"%-3s %d %-3s %13.3f %6.3f\n",
+            trace(level,"%-3s %d %-3s %13.3f %6.3f\n",
                     s,nav->pclk[i].index,id,
                     nav->pclk[i].clk[j][0]*1E9,nav->pclk[i].std[j][0]*1E9);
         }
@@ -212,10 +273,18 @@ extern void tracepclk(int level, const nav_t *nav)
 
 extern void traceb(int level, const uint8_t *p, int n)
 {
+    /*
     int i;
     if (!fp_trace||level>level_trace) return;
     for (i=0;i<n;i++) fprintf(fp_trace,"%02X%s",*p++,i%8==7?" ":"");
     fprintf(fp_trace,"\n");
+    */
+    int i;
+    if (level>level_trace) return;
+    size_t maxSize = 256*i;
+    char * buffer = (char*)calloc(maxSize+1,sizeof(char));
+    for (i=0;i<n;i++) snprintf(buffer,maxSize-1,"%02X%s",*p++,i%8==7?" ":"");
+    snprintf(buffer,maxSize,"\n");
 }
 
 /// show message
@@ -310,17 +379,6 @@ extern int flutter_vtrace(int level, const char *format, va_list args) {
     if (level<=gettracelevel()) {
         va_list(args_copy);
         va_copy(args_copy, args);
-        /*
-        char str1[80];
-        char str2[256*2];
-        const char * level_format = "(level: %d)";
-        int size1 = snprintf(NULL, 0, level_format, level);
-        snprintf(str1, size1 + 1, level_format, level);
-
-        int size2 = vsnprintf(NULL, 0, format, args);
-        vsnprintf(str2, size2 + 1, format, args_copy);
-        return flutter_printf("%s %s", str1, str2);
-        */
 
         const char * level_format = "(level: %d)";
         int size1 = snprintf(NULL, 0, level_format, level);
