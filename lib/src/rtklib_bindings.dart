@@ -6848,22 +6848,23 @@ class RtkDylib {
   late final ffi.Pointer<
           ffi.Pointer<
               ffi.NativeFunction<
-                  ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Uint64)>>>
+                  ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int)>>>
       _flutter_print = _lookup<
           ffi.Pointer<
               ffi.NativeFunction<
-                  ffi.Void Function(
-                      ffi.Pointer<ffi.Char>, ffi.Uint64)>>>('flutter_print');
+                  ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Size,
+                      ffi.Int)>>>('flutter_print');
 
   ffi.Pointer<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Uint64)>>
+              ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int)>>
       get flutter_print => _flutter_print.value;
 
   set flutter_print(
           ffi.Pointer<
                   ffi.NativeFunction<
-                      ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Uint64)>>
+                      ffi.Void Function(
+                          ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int)>>
               value) =>
       _flutter_print.value = value;
 
@@ -6936,7 +6937,7 @@ class RtkDylib {
   void flutter_initialize(
     ffi.Pointer<
             ffi.NativeFunction<
-                ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Uint64)>>
+                ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int)>>
         printCallback,
   ) {
     return _flutter_initialize(
@@ -6949,13 +6950,14 @@ class RtkDylib {
           ffi.Void Function(
               ffi.Pointer<
                   ffi.NativeFunction<
-                      ffi.Void Function(ffi.Pointer<ffi.Char>,
-                          ffi.Uint64)>>)>>('flutter_initialize');
+                      ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Size,
+                          ffi.Int)>>)>>('flutter_initialize');
   late final _flutter_initialize = _flutter_initializePtr.asFunction<
       void Function(
           ffi.Pointer<
               ffi.NativeFunction<
-                  ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Uint64)>>)>();
+                  ffi.Void Function(
+                      ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int)>>)>();
 
   void set_level_trace(
     int level,
@@ -6970,6 +6972,40 @@ class RtkDylib {
           'set_level_trace');
   late final _set_level_trace =
       _set_level_tracePtr.asFunction<void Function(int)>();
+
+  /// @brief print matrix
+  /// print matrix to stdout
+  /// args   : double *A        I   matrix A (n x m)
+  /// int    n,m       I   number of rows and columns of A
+  /// int    p,q       I   total columns, columns under decimal point
+  /// (char **buffer    O   output string)
+  /// @return [int] string length
+  /// notes  : matirix stored by column-major order (fortran convention)
+  int matsprint(
+    ffi.Pointer<ffi.Double> A,
+    int n,
+    int m,
+    int p,
+    int q,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> buffer,
+  ) {
+    return _matsprint(
+      A,
+      n,
+      m,
+      p,
+      q,
+      buffer,
+    );
+  }
+
+  late final _matsprintPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<ffi.Double>, ffi.Int, ffi.Int, ffi.Int,
+              ffi.Int, ffi.Pointer<ffi.Pointer<ffi.Char>>)>>('matsprint');
+  late final _matsprint = _matsprintPtr.asFunction<
+      int Function(ffi.Pointer<ffi.Double>, int, int, int, int,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>)>();
 
   ffi.Pointer<struct_sizes_t> getStructSizes() {
     return _getStructSizes();

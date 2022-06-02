@@ -99,39 +99,39 @@ extern void trace(int level, const char *format, ...)
 extern void tracemat(int level, const double *A, int n, int m, int p, int q)
 {
     if (level>level_trace) return;
-    char **buffer;
+    char **buffer = NULL;
     matsprint(A,n,m,p,q,buffer);
     if (buffer) free(buffer);
 }
 
-/* print matrix ----------------------------------------------------------------
-* print matrix to stdout
-* args   : double *A        I   matrix A (n x m)
-*          int    n,m       I   number of rows and columns of A
-*          int    p,q       I   total columns, columns under decimal point
-*         (char **buffer    O   output string)
-* return : none
-* notes  : matirix stored by column-major order (fortran convention)
-*-----------------------------------------------------------------------------*/
 extern int matsprint(const double A[], int n, int m, int p, int q, char **buffer)
 {
-    buffer = NULL;
+    *buffer = NULL;
+    char *result;
     int maxSize = (256)*m+1;
-    buffer = (char **)calloc(maxSize+1, sizeof(char*));
+    if (!(result = (char *)calloc(maxSize+1, sizeof(char)))) {
+        free(result);
+        return 0;
+    }
+
+    trace(3,"*** allocate completer, size=%d\n", maxSize+1);
+
     int i,j;
     size_t len = 0;
     for (i=0;i<n;i++) {
         for (j=0;j<m;j++) {
-            int count = snprintf(buffer+len,maxSize-1," %*.*f",p,q,A[i+j*n]);
+            int count = snprintf(result+len,maxSize-1," %*.*f",p,q,A[i+j*n]);
             if (count <= 0) {
-                free(buffer);
-                buffer = NULL;
+                free(result);
+                result = NULL;
                 return 0;
             }
             len += count;
         }
-        len += snprintf(buffer+len,maxSize,"\n");
+        len += snprintf(result+len,maxSize,"\n");
     }
+    *buffer = result;
+    return len;
 }
 
 extern void tracet(int level, const char *format, ...)
@@ -281,7 +281,7 @@ extern void traceb(int level, const uint8_t *p, int n)
     */
     int i;
     if (level>level_trace) return;
-    size_t maxSize = 256*i;
+    size_t maxSize = 256*n;
     char * buffer = (char*)calloc(maxSize+1,sizeof(char));
     for (i=0;i<n;i++) snprintf(buffer,maxSize-1,"%02X%s",*p++,i%8==7?" ":"");
     snprintf(buffer,maxSize,"\n");
@@ -301,16 +301,16 @@ extern int showmsg(const char *format, ...)
 
 #if (defined(TRACE) || defined(EXTERNAL_TRACE)) && defined(FLUTTER_DEBUG)
 
-static void flutter_default_debug_handler(char *format, uint64_t length) {}
+static void flutter_default_debug_handler(char *format, size_t length, int level) {}
 
-void (*flutter_print)(char *format, uint64_t length) = flutter_default_debug_handler;
+void (*flutter_print)(char *format, size_t length, int level) = flutter_default_debug_handler;
 
-extern void flutter_initialize(void (*printCallback)(char *, uint64_t))
+extern void flutter_initialize(void (*printCallback)(char *, size_t, int))
 {
     flutter_print = printCallback;
     if (flutter_print != NULL) {
-        char str[] = "C library initialized";
-        flutter_print(str, strlen(str));
+        char str[] = "C library initialized\n";
+        flutter_print(str, strlen(str), 3);
     }
 }
 
@@ -345,7 +345,7 @@ extern int flutter_vprintf(const char *format, va_list args)
     }
     int done = vsnprintf(str, size+1, format, args_copy);
 
-    flutter_print(str, done);
+    flutter_print(str, done, -1);
     free(str);
     return done;
 

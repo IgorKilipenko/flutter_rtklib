@@ -87,16 +87,28 @@ EXPORT raw_t * create_raw(int format, uint32_t* status);
 
 EXPORT int init_raw_2 (raw_t **raw, int format);
 
-extern void (*flutter_print)(char *, uint64_t);
+extern void (*flutter_print)(char *, size_t, int);
 
 EXPORT int flutter_printf(const char *format, ...);
 EXPORT int flutter_vprintf(const char *format, va_list args);
 EXPORT int flutter_trace(int level, const char *format, ...);
 EXPORT int flutter_vtrace(int level, const char *format, va_list args);
-EXPORT void flutter_initialize(void (*printCallback)(char *, uint64_t));
+EXPORT void flutter_initialize(void (*printCallback)(char *, size_t, int));
 EXPORT void set_level_trace(int level);
 
-EXPORT struct_sizes_t* getStructSizes();
+/** 
+ * @brief print matrix 
+ * print matrix to stdout 
+ * args   : double *A        I   matrix A (n x m) 
+ *          int    n,m       I   number of rows and columns of A 
+ *          int    p,q       I   total columns, columns under decimal point 
+ *         (char **buffer    O   output string) 
+ * @return [int] string length 
+ * notes  : matirix stored by column-major order (fortran convention) 
+ */
+EXPORT int matsprint(const double A[], int n, int m, int p, int q, char **buffer);
+
+EXPORT struct_sizes_t* getStructSizes(void);
 
 EXPORT FILE* openReadFile(const char *filename);
 EXPORT FILE* openWriteFile(const char *filename);
