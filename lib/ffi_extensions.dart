@@ -9,8 +9,7 @@ typedef CStringArray = ffi.Pointer<CString>;
 
 String getRootDirectory() {
   final scriptPath = Platform.script.toFilePath(windows: Platform.isWindows);
-  final rootDir =
-      File(scriptPath).parent.absolute.path;
+  final rootDir = File(scriptPath).parent.absolute.path;
   return rootDir;
 }
 
@@ -38,5 +37,15 @@ extension PointerUtils on ffi.Pointer<ffi.NativeType> {
 extension ListStringUtils on List<String> {
   CStringArray toNativeArray({ffi.Allocator allocator = pkg_ffi.malloc}) {
     return _strListToPointer(this, allocator: allocator);
+  }
+}
+
+extension ListDoubleUtils on List<double> {
+  ffi.Pointer<ffi.Double> toNativeArray({ffi.Allocator allocator = pkg_ffi.malloc}) {
+    final units = this;
+    final result = allocator<ffi.Double>(units.length);
+    final nativeArray = result.asTypedList(units.length);
+    nativeArray.setAll(0, units);
+    return result;
   }
 }
