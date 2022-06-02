@@ -120,6 +120,7 @@ extern int matsprint(const double A[], int n, int m, int p, int q, char **buffer
     size_t len = 0;
     for (i=0;i<n;i++) {
         for (j=0;j<m;j++) {
+            //! Need fix next line for size
             int count = snprintf(result+len,maxSize-1," %*.*f",p,q,A[i+j*n]);
             if (count <= 0) {
                 free(result);
@@ -137,7 +138,6 @@ extern int matsprint(const double A[], int n, int m, int p, int q, char **buffer
 extern void tracet(int level, const char *format, ...)
 {
     va_list args;
-
     /*
     if (level<=gettracelevel()) {
         flutter_printf("(level: %d) %9.3f: ",level,(tickget()-tick_trace)/1000.0); 
@@ -146,18 +146,23 @@ extern void tracet(int level, const char *format, ...)
         va_end (ap);
     }
     */
-    if (level<=gettracelevel()) {
-        va_list(args_copy);
-        va_copy(args_copy, args);
 
-        const char * level_format = "(level: %d) %9.3f:";
-        int size1 = snprintf(NULL, 0, level_format, level, (tickget()-tick_trace)/1000.0);
+    if (level<=gettracelevel()) { 
+        const char * level_format = "(level: %d) (time: %dms)";
+        uint32_t timer = tickget()-tick_trace;
+        int size1 = snprintf(NULL, 0, level_format, level, timer);
         char *str1 = (char*)calloc(size1+1, sizeof(char));
-        snprintf(str1, size1+1, level_format, level);
-
+        snprintf(str1, size1+1, level_format, level, timer);
+        
+        va_start(args,format);
         int size2 = vsnprintf(NULL, 0, format, args);
+        va_end(args);
+        
         char *str2 = (char*)calloc(size2+1, sizeof(char));
-        vsnprintf(str2, size2+1, format, args_copy);
+        va_start(args,format);
+        vsnprintf(str2, size2+1, format, args);
+        va_end(args);
+
         flutter_printf("%s %s", str1, str2);
     }
 }
