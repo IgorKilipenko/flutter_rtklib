@@ -73,12 +73,9 @@ extern int init_raw_2(raw_t **raw, int format) {
     }
 
 	memset(result, 0, sizeof(raw_t));
-    result->icpc = 1515.255;
 	*raw = result;
     
-    return 98;
-    
-    //return init_raw(*raw, format);
+    return init_raw(*raw, format);
 }
 
 extern void native_free(void *ptr) {
