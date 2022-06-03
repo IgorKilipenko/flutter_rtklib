@@ -146,7 +146,6 @@ extern int matsprint(const double A[], int n /*rows*/, int m, int p, int q, char
     size_t len = 0;
     for (i=0;i<n;i++) {
         for (j=0;j<m;j++) {
-            //! Need fix next line for size
             int count = snprintf(result+len,maxSize-len-1," %*.*f",p,q,A[i+j*n]);
             if (count <= 0) {
                 free(result);
