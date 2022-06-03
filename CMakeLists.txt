@@ -27,7 +27,7 @@ endmacro()
 macro(setOptions)
     message(STATUS "${INFO_TAG} set options")
     set(CTARGET_BASE -DEXTERNAL_TRACE -DENAGLO -DENAQZS -DENAGAL -DENACMP -DENAIRN -DNFREQ=5 -DNEXOBS=3 -DFLUTTER_DEBUG)
-    set(CFLAGS_BASE -std=c17 -Wall -pedantic)
+    set(CFLAGS_BASE -Wall -pedantic)
 endmacro()
 
 macro(setLibs)
@@ -80,7 +80,7 @@ macro(setLibs)
         ${SRC_DIR}/rcv/septentrio.c 
         ${SRC_DIR}/rcv/swiftnav.c
         ${UTILS_DIR}/rtklib_api.c
-        ${UTILS_DIR}/trace.c
+        ${UTILS_DIR}/trace.cpp
         ${UTILS_DIR}/test_size.c
         ${UTILS_DIR}/io.c
         ${FFI_DIR}/ffi_convbin.c

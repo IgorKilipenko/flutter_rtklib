@@ -1,4 +1,5 @@
 #include "rtklib_api.h"
+#include <string>
 
 // OVERRIDE TRACE FOR FLUTTER DEBUG
 #if !defined(TRACE) && defined(EXTERNAL_TRACE)
@@ -114,6 +115,7 @@ extern int matsprint(const double A[], int n, int m, int p, int q, char **buffer
         return 0;
     }
 
+    /*
     int i,j;
     size_t len = 0;
     for (i=0;i<n;i++) {
@@ -130,7 +132,9 @@ extern int matsprint(const double A[], int n, int m, int p, int q, char **buffer
         len += snprintf(result+len,maxSize,"\n");
     }
     *buffer = result;
-    return len;
+    return len;*/
+    std::string str = "MATRIX";
+    return str.copy(result, str.length(), 0);
 }
 
 extern void tracet(int level, const char *format, ...) 

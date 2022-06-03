@@ -73,16 +73,15 @@
                 "FLUTTER_DEBUG",
                 "EXTERNAL_TRACE"
             ],
-            "compilerPath": "/usr/bin/clang",
+            "compilerPath": "/usr/bin/clang++",
             "compilerArgs": [
-                //"-m32",
                 "-Wall",
                 "-pedantic",
                 "-Wmissing-prototypes"
             ],
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "intelliSenseMode": "gcc-x64",
+            "intelliSenseMode": "linux-gcc-x64",
             "configurationProvider": "ms-vscode.cmake-tools"
         }
     ],
