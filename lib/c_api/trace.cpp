@@ -7,63 +7,14 @@
 // OVERRIDE TRACE FOR FLUTTER DEBUG
 #if !defined(TRACE) && defined(EXTERNAL_TRACE)
 
-/// file pointer of trace
-//! static FILE *fp_trace=NULL;     
-/// trace file
-//! static char file_trace[1024];   
-/// level of trace
 static int level_trace=0;       
 /// tick time at traceopen (ms)
 static uint32_t tick_trace=0;   
 /// time at traceopen
 static gtime_t time_trace={0};  
-/// lock for trace
-//! static lock_t lock_trace;       
-
-//! RMOVE TRACE FILE
-/*
-static void traceswap(void)
-{
-    gtime_t time=utc2gpst(timeget());
-    char path[1024];
-    
-    lock(&lock_trace);
-    
-    if ((int)(time2gpst(time      ,NULL)/INT_SWAP_TRAC)==
-        (int)(time2gpst(time_trace,NULL)/INT_SWAP_TRAC)) {
-        unlock(&lock_trace);
-        return;
-    }
-    time_trace=time;
-    
-    if (!reppath(file_trace,path,time,"","")) {
-        unlock(&lock_trace);
-        return;
-    }
-    if (fp_trace) fclose(fp_trace);
-    
-    if (!(fp_trace=fopen(path,"w"))) {
-        fp_trace=stderr;
-    }
-    unlock(&lock_trace);
-}
-*/
 
 extern void traceopen(const char *file)
 {
-    //! RMOVE TRACE FILE
-    /*
-    gtime_t time=utc2gpst(timeget());
-    char path[1024];
-    
-    reppath(file,path,time,"","");
-    if (!*path||!(fp_trace=fopen(path,"w"))) fp_trace=stderr;
-    strcpy(file_trace,file);
-    tick_trace=tickget();
-    time_trace=time;
-    initlock(&lock_trace);
-    */
-
     gtime_t time=utc2gpst(timeget());
     tick_trace=tickget();
     time_trace=time;
@@ -71,12 +22,6 @@ extern void traceopen(const char *file)
 
 extern void traceclose(void)
 {
-    //! RMOVE TRACE FILE
-    /*
-    if (fp_trace&&fp_trace!=stderr) fclose(fp_trace);
-    fp_trace=NULL;
-    file_trace[0]='\0';
-    */
 }
 
 extern void tracelevel(int level)
@@ -158,28 +103,6 @@ extern int matsprint(const double A[], int n /*rows*/, int m, int p, int q, char
     }
     *buffer = result;
     return len;
-    /*std::vector<char> v(std::max(p+q+2,4)*m*n+1+n);
-    int i,j;
-    size_t len = 0;
-    for (i=0;i<n;i++) {
-        for (j=0;j<m;j++) {
-            //! Need fix next line for size
-            //str += std::format(" %*.*f",p,q,A[i+j*n]);
-            v.push_back()
-            int count = std::snprintf(v.data()+len,v.size()-len-1," %*.*f",p,q,A[i+j*n]);
-            if (count <= 0) {
-                free(result);
-                result = NULL;
-                return 0;
-            }
-            len += count;
-        }
-        len += snprintf(result+len,maxSize,"\n");
-    }
-
-    
-    *buffer = result;
-    return str.copy(result, str.length(), 0);*/
 }
 
 extern void tracet(int level, const char *format, ...) 
@@ -320,12 +243,6 @@ extern void tracepclk(int level, const nav_t *nav)
 
 extern void traceb(int level, const uint8_t *p, int n)
 {
-    /*
-    int i;
-    if (!fp_trace||level>level_trace) return;
-    for (i=0;i<n;i++) fprintf(fp_trace,"%02X%s",*p++,i%8==7?" ":"");
-    fprintf(fp_trace,"\n");
-    */
     int i;
     if (level>level_trace) return;
     size_t maxSize = 256*n;
@@ -395,19 +312,6 @@ extern int flutter_vprintf(const char *format, va_list args)
     flutter_print(str, done, -1);
     free(str);
     return done;
-
-    /*
-    if (flutter_print == NULL) return 0;
-
-    const int size = 256;
-
-    char str[size] = {0};
-    int done = vsnprintf(str, size, format, args);
-
-    flutter_print(str, done);
-
-    return done;
-    */
 }
 
 extern int flutter_trace(int level, const char *format, ...) {
