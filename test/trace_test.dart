@@ -80,8 +80,7 @@ void main() {
 
       testing.expect(count, testing.isPositive);
       testing.expect(ouputMsg, testing.isNotNull);
-      testing.expect(ouputMsg!.replaceAll(RegExp(r'[\n\r]+'), ""),
-          testing.equalsIgnoringCase(format));
+      testing.expect(ouputMsg!, testing.equalsIgnoringCase(format));
     });
 
     testing.test("* Test matsprint", () {
@@ -110,6 +109,8 @@ void main() {
 
         final stringMatrix =
             buffer.value.cast<pkg_ffi.Utf8>().toDartString(length: len);
+        arena.free(buffer.value);
+
         const snapshot = ""
             "803.383194 579.933871 186.306597\n"
             "713.453294 843.178396 548.126743\n"
