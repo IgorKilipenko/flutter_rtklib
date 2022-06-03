@@ -1,5 +1,8 @@
 #include "rtklib_api.h"
 #include <string>
+#include <memory>
+#include <vector>
+#include <algorithm>
 
 // OVERRIDE TRACE FOR FLUTTER DEBUG
 #if !defined(TRACE) && defined(EXTERNAL_TRACE)
@@ -105,23 +108,46 @@ extern void tracemat(int level, const double *A, int n, int m, int p, int q)
     if (buffer) free(buffer);
 }
 
-extern int matsprint(const double A[], int n, int m, int p, int q, char **buffer)
+static std::string string_format(const char* format, ...)
+{
+    va_list args;
+    va_start(args, format);
+
+    int buf_len = vsnprintf(nullptr, 0, format, args);
+    auto strBuf = std::make_unique<char[]>(buf_len + 1);
+    vsnprintf(strBuf.get(), buf_len + 1, format, args);
+
+    return std::string(strBuf.get());
+}
+
+template<typename ... Args>
+static std::string format(const std::string &fmt, Args ... args)
+{
+    // C++11 specify that string store elements continously
+    std::string ret;
+
+    auto sz = std::snprintf(nullptr, 0, fmt.c_str(), args...);
+    ret.reserve(sz + 1); ret.resize(sz);    // to be sure there have room for \0
+    std::snprintf(&ret.front(), ret.capacity() + 1, fmt.c_str(), args...);
+    return ret;
+}
+
+extern int matsprint(const double A[], int n /*rows*/, int m, int p, int q, char **buffer)
 {
     *buffer = NULL;
     char *result;
-    int maxSize = (256)*m+1;
+    int maxSize = std::max(p+q+2,4)*m*n+1+n;
     if (!(result = (char *)calloc(maxSize+1, sizeof(char)))) {
         free(result);
         return 0;
     }
-
-    /*
+    
     int i,j;
     size_t len = 0;
     for (i=0;i<n;i++) {
         for (j=0;j<m;j++) {
             //! Need fix next line for size
-            int count = snprintf(result+len,maxSize-1," %*.*f",p,q,A[i+j*n]);
+            int count = snprintf(result+len,maxSize-len-1," %*.*f",p,q,A[i+j*n]);
             if (count <= 0) {
                 free(result);
                 result = NULL;
@@ -132,9 +158,29 @@ extern int matsprint(const double A[], int n, int m, int p, int q, char **buffer
         len += snprintf(result+len,maxSize,"\n");
     }
     *buffer = result;
-    return len;*/
-    std::string str = "MATRIX";
-    return str.copy(result, str.length(), 0);
+    return len;
+    /*std::vector<char> v(std::max(p+q+2,4)*m*n+1+n);
+    int i,j;
+    size_t len = 0;
+    for (i=0;i<n;i++) {
+        for (j=0;j<m;j++) {
+            //! Need fix next line for size
+            //str += std::format(" %*.*f",p,q,A[i+j*n]);
+            v.push_back()
+            int count = std::snprintf(v.data()+len,v.size()-len-1," %*.*f",p,q,A[i+j*n]);
+            if (count <= 0) {
+                free(result);
+                result = NULL;
+                return 0;
+            }
+            len += count;
+        }
+        len += snprintf(result+len,maxSize,"\n");
+    }
+
+    
+    *buffer = result;
+    return str.copy(result, str.length(), 0);*/
 }
 
 extern void tracet(int level, const char *format, ...) 
