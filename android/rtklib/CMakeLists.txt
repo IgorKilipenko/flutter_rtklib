@@ -1,6 +1,4 @@
 cmake_minimum_required(VERSION 3.6)
-set(PROJECT_NAME "rtklib")
-project(${PROJECT_NAME} LANGUAGES C)
 set(CM_TARGET_PLATFORM "Android")
 
 get_filename_component(ROOT_DIR "${CMAKE_SOURCE_DIR}/../../" ABSOLUTE)

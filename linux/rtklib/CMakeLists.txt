@@ -1,9 +1,4 @@
 cmake_minimum_required(VERSION 3.6)
-set(PROJECT_NAME "rtklib")
-project(${PROJECT_NAME} C CXX)
-set(CMAKE_C_STANDARD 17)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CM_TARGET_PLATFORM "Linux")
 
 #set(ROOT_DIR "../..")

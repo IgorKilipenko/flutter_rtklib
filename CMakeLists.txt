@@ -1,6 +1,12 @@
 cmake_minimum_required(VERSION 3.10)
-set(CMAKE_MESSAGE_LOG_LEVEL "STATUS")
+#set(CMAKE_MESSAGE_LOG_LEVEL "STATUS")
 set(CMAKE_VERBOSE_MAKEFILE ON)
+
+set(PROJECT_NAME "rtklib")
+project(${PROJECT_NAME} C CXX)
+set(CMAKE_C_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 if (NOT DEFINED INFO_TAG)
   set(INFO_TAG "[INF]")
@@ -10,6 +16,16 @@ if (NOT DEFINED INFO_TAG)
 endif()
 if (NOT DEFINED ERROR_TAG)
   set(ERROR_TAG "[ERROR]")
+endif()
+
+#set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+if(CMAKE_CXX_COMPILER_LOADED)
+  message("${INFO_TAG} Compiler platform: ${CMAKE_SYSTEM_NAME}")
+  message("${INFO_TAG} Compiler language: ${COMPILE_LANGUAGE_VALUE}")
+  message("${INFO_TAG} Compiler path: ${CMAKE_CXX_COMPILER}")
+  message("${INFO_TAG} Compiler ID: ${CMAKE_CXX_COMPILER_ID}")
+  message("${INFO_TAG} Compiler version:    
+          ${CMAKE_CXX_COMPILER_VERSION}")
 endif()
 
 if (NOT DEFINED ROOT_DIR)
