@@ -123,13 +123,19 @@ void main() {
     });
 
     testing.test("* Test tracet", () async {
-      const format = "Format string. Test value1 = %.2f, value2 = %3.3f.\n";
+      const format = "Format string. Test value1 = %.2f, value2 = %10.3f.\n";
       pkg_ffi.using((arena) {
-        rtklib.tracet_2arg(3, format, 3.066, 5.566, allocator: arena);
+        rtklib.tracet_2arg(3, format, 2543.0, 5322.566, allocator: arena);
       });
 
       String? ouputMsg = (await rtklib.console.getLastMessage())?.message;
-      print(ouputMsg);
+
+      testing.expect(ouputMsg, testing.isNotNull);
+      final regex = RegExp(r'\(time[\:\s]+[0-9]+[ms]+\)\s+'
+          r'Format string\.\s+'
+          r'Test value1[\s\=]+[0-9\.]{4,}\,\s+'
+          r'value2[\s\=]+[0-9\.\s]{10,}\n$');
+      testing.expect(regex.hasMatch(ouputMsg!), testing.isTrue);
     });
   });
 }
