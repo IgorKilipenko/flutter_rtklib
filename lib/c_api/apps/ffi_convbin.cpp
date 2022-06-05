@@ -187,8 +187,8 @@ static int convbin(int format, rnxopt_t *opt, const char *ifile, char **file,
     int i,def;
     static char work[1024],ofile_[NOUTFILE][1024]={"","","","","","","","",""};
     char ifile_[1024],*ofile[NOUTFILE],*p;
-    char *extnav=(opt->rnxver<=299||opt->navsys==SYS_GPS)?"N":"P";
-    char *extlog="sbs";
+    const char *extnav=(opt->rnxver<=299||opt->navsys==SYS_GPS)?"N":"P";
+    const char *extlog="sbs";
     
     /* replace wild-card (*) in input file by 0 */
     strcpy(ifile_,ifile);
