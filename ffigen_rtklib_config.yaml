@@ -50,6 +50,7 @@
     - '-Ithird_party/RTKLIB/src/'
     - '-Ilib/c_api/'
     - '-Ilib/c_api/apps/'
+    - '-I/home/igor/development/flutter/bin/cache/dart-sdk/include/'
   preamble: |
     // Part of the LLVM Project, under the Apache License v2.0 with LLVM
     // Exceptions.

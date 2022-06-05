@@ -1,10 +1,11 @@
 #ifndef RTKLIB_API_H
 #define RTKLIB_API_H
 
-#include <functional>
 #include "rtklib.h"
 
-typedef std::function<void()> Work; 
+#include "dart_api.h"
+
+#define FATAL(format, ...) trace(1, format, __VA_ARGS__)
 
 #ifdef __cplusplus
 extern "C" {
@@ -68,6 +69,11 @@ typedef struct {
     size_t gis_t;
 } struct_sizes_t;
 
+EXPORT intptr_t InitDartApiDL(void* data);
+EXPORT void RegisterPrintCallbackBlocking(Dart_Port send_port,
+                                            intptr_t (*callback)(const char* message, size_t message_len, int level));
+EXPORT void RegisterPrintCallbackNonBlocking(Dart_Port send_port,
+                                               void (*callback)(const char* message, size_t message_len, int level));
 
 /** 
  * @brief Convert obs to string

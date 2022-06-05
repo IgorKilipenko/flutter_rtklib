@@ -32,14 +32,16 @@ RtkLib _getDylibRtklib({int? traceLevel}) {
     }
   }
 
-  _dylibRtklib = RtkLib._(ffi.DynamicLibrary.open(
+  final dl = ffi.DynamicLibrary.open(
     resolveDylibPath(
       'rtklib',
       path: path,
       dartDefine: 'RTKLIB_PATH',
       environmentVariable: 'RTKLIB_PATH',
     ),
-  ));
+  );
+
+  _dylibRtklib = RtkLib._(dl);
 
   return _dylibRtklib!;
 }

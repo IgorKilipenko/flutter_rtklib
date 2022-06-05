@@ -1,4 +1,12 @@
 #include "rtklib_api.hpp"
+#include "dart_api.h"
+#include "dart_native_api.h"
+#include "dart_api_dl.h"
+
+// Initialize `dart_api_dl.h`
+extern intptr_t InitDartApiDL(void* data) {
+  return Dart_InitializeApiDL(data);
+}
 
 extern char* obs2str(const obsd_t *obs, size_t * strLen) {
     char str[64],id[16];

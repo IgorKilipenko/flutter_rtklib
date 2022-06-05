@@ -2,6 +2,7 @@
     "env": {
         "win_flutterSdkPath": "C:/src/flutter",
         "linux_flutterSdkPath": "~/development/flutter",
+        "linux_dartSdkPath": "~/development/flutter/bin/cache/dart-sdk/include",
         "msys64Path": "C:/msys64",
         "myDefaultIncludePath": [
             "${workspaceFolder}",
@@ -50,8 +51,9 @@
             "includePath": [
                 "${myDefaultIncludePath}",
                 "${workspaceFolder}/linux/**",
-                "${linux_flutterSdkPath}/bin/cache/artifacts/engine/windows-x64/",
-                "${linux_flutterSdkPath}/bin/cache/artifacts/engine/windows-x64/cpp_client_wrapper/include/"
+                "${linux_flutterSdkPath}/**"
+                //"${linux_flutterSdkPath}/bin/cache/artifacts/engine/windows-x64/",
+                //"${linux_flutterSdkPath}/bin/cache/artifacts/engine/windows-x64/cpp_client_wrapper/include/"
             ],
             "forcedInclude": [
                 "${workspaceFolder}/third_party/RTKLIB/src/rtklib.h"

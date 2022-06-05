@@ -7,6 +7,7 @@
     "files.associations": {
         "**.h": "c",
         "**.c": "c",
+        "functional": "cpp"
     }
     //"jest.jestCommandLine": "--dart-define=LIBSERIALPORT_PATH=${workspaceFolder}/test/.libs/ --dart-define=RTKLIB_PATH=${workspaceFolder}/test/.libs/",
     /*"jest.nodeEnv": {

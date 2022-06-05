@@ -39,8 +39,8 @@ void main() {
       testing.expect(rtkrcv, testing.isNotNull);
     });
 
-    testing.test("Test convert to Rinex from NovAtel format", () {
-      final cmd = "./rtkrcv -t 4 -o $configDir/rtk.conf";
+    testing.test("Test Rtkrcv", () {
+      final cmd = "./rtkrcv -t 4 -o $configDir/single.conf";
       final convbinResult = _execRtkrcvCmd(cmd);
       testing.expect(convbinResult, testing.isNonNegative);
     });

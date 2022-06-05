@@ -235,6 +235,26 @@ static opt_t rcvopts[]={
     {"",0,NULL,""}
 };
 
+extern opt_t* rtkrcv_getRcvOptions(int *count) {
+    /*
+    *count = sizeof(rcvopts);
+    opt_t *result = new opt_t[*count]{NULL};
+
+    std::copy(std::begin(rcvopts), std::end(rcvopts), std::back_inserter<opt_t *>(result));
+    return result;
+    */
+   *count = sizeof(rcvopts);
+   return rcvopts;
+}
+
+/// print usage (Cmd help info)
+extern void rtkrcv_printCmdHelpInfo(void) {
+    int i;
+    for (i=0;i<(int)(sizeof(usage)/sizeof(*usage));i++) {
+        showmsg("%s\n",usage[i]);
+    }
+}
+
 /* print usage ---------------------------------------------------------------*/
 static void printusage(void)
 {
@@ -245,6 +265,26 @@ static void printusage(void)
     exit(0);
 }
 
+/* read receiver commands ----------------------------------------------------*/
+extern int rtkrcv_readcmd(const char *file, char *cmd, int type)
+{
+    FILE *fp;
+    char buff[MAXSTR],*p=cmd;
+    int i=0;
+    
+    trace(3,"rtkrcv_startsvr: file=%s\n",file);
+    
+    if (!(fp=fopen(file,"r"))) return 0;
+    
+    while (fgets(buff,sizeof(buff),fp)) {
+        if (*buff=='@') i++;
+        else if (i==type&&p+strlen(buff)+1<cmd+MAXRCVCMD) {
+            p+=sprintf(p,"%s",buff);
+        }
+    }
+    fclose(fp);
+    return 1;
+}
 
 /* read antenna file ---------------------------------------------------------*/
 static void readant(prcopt_t *opt, nav_t *nav)
@@ -284,13 +324,13 @@ static void readant(prcopt_t *opt, nav_t *nav)
 }
 
 /* start rtk server ----------------------------------------------------------*/
-static int startsvr()
+extern int rtkrcv_startsvr()
 {
     static sta_t sta[MAXRCV]={{""}};
     double pos[3],npos[3];
     char s1[3][MAXRCVCMD]={"","",""},*cmds[]={NULL,NULL,NULL};
     char s2[3][MAXRCVCMD]={"","",""},*cmds_periodic[]={NULL,NULL,NULL};
-    char *ropts[]={"","",""};
+    char *ropts[3]={"","",""};
     char *paths[]={
         strpath[0],strpath[1],strpath[2],strpath[3],strpath[4],strpath[5],
         strpath[6],strpath[7]
@@ -298,16 +338,16 @@ static int startsvr()
     char errmsg[2048]="";
     int i,ret,stropt[8]={0};
     
-    trace(3,"startsvr:\n");
+    trace(3,"rtkrcv_startsvr:\n");
     
     /* read start commads from command files */
     for (i=0;i<3;i++) {
         if (!*rcvcmds[i]) continue;
-        if (!readcmd(rcvcmds[i],s1[i],0)) {
+        if (!rtkrcv_readcmd(rcvcmds[i],s1[i],0)) {
             showmsg("no command file: %s\n",rcvcmds[i]);
         }
         else cmds[i]=s1[i];
-        if (!readcmd(rcvcmds[i],s2[i],2)) {
+        if (!rtkrcv_readcmd(rcvcmds[i],s2[i],2)) {
             showmsg("no command file: %s\n",rcvcmds[i]);
         }
         else cmds_periodic[i]=s2[i];
@@ -367,18 +407,21 @@ static int startsvr()
     
     /* start rtk server */
     if (!rtksvrstart(&svr,svrcycle,buffsize,strtype,paths,strfmt,navmsgsel,
-                     cmds,cmds_periodic,ropts,nmeacycle,nmeareq,npos,&prcopt,
+                     cmds,cmds_periodic,reinterpret_cast<char**>(ropts),nmeacycle,nmeareq,npos,&prcopt,
                      solopt,&moni,errmsg)) {
         trace(2,"rtk server start error (%s)\n",errmsg);
         return 0;
     }
+
+    trace(3,"*** rtkrcv_startsvr: END\n");
     return 1;
 }
 
 extern int run_rtkrcv_cmd(int argc, char **argv) {
     con_t *con[MAXCON]={0};
     int i,port=0,outstat=0,trace_level=0,sock=0;
-    char *dev="",file[MAXSTR]="";
+    const char *dev="";
+    char file[MAXSTR]="";
     
     for (i=1;i<argc;i++) {
         if      (!strcmp(argv[i],"-s")) start=1;
@@ -419,7 +462,7 @@ extern int run_rtkrcv_cmd(int argc, char **argv) {
         rtkopenstat(STATFILE,outstat);
     }
 
-    /*if (start) */startsvr();
+    /*if (start) */rtkrcv_startsvr();
 
     return 0;
 }

@@ -3,6 +3,64 @@
 #include <memory>
 #include <vector>
 #include <algorithm>
+#include <functional>
+
+#include <stddef.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <csignal>
+
+#include "dart_api.h"
+#include "dart_native_api.h"
+#include "dart_api_dl.h"
+
+#if defined(WIN32)
+#include <psapi.h>
+#include <windows.h>
+#else
+#include <unistd.h>
+#endif
+
+typedef std::function<void()> PrintfWork;
+
+struct flutter_fprint_messgae {
+    const char * const message;
+    const int level;
+    const size_t message_lenght;
+};
+
+static intptr_t (*print_callback_blocking_fp_)(const char* message, size_t message_len, int level) = [](const char* message, size_t message_len, int level) {return NULL;};
+static Dart_Port send_port_blocking_ = -1;
+static void (*print_callback_non_blocking_fp_)(const char* message, size_t message_len, int level) = [](const char* message, size_t message_len, int level){};
+static Dart_Port send_port_non_blocking_ = -1;
+
+// Notify Dart through a port that the C lib has pending async callbacks.
+//
+// Expects heap allocated `PrintfWork` so delete can be called on it.
+//
+// The `send_port` should be from the isolate which registered the callback.
+static bool NotifyDart(Dart_Port send_port, char *message) {
+    if (send_port <= 0) return false;
+    
+    Dart_CObject dart_object;
+    dart_object.type = Dart_CObject_kString;
+    dart_object.value.as_string = message;
+
+    const bool result = Dart_PostCObject_DL(send_port, &dart_object);
+    return result;
+}
+
+extern void RegisterPrintCallbackBlocking(Dart_Port send_port,
+                                            intptr_t (*callback)(const char* message, size_t message_len, int level)) {
+    print_callback_blocking_fp_ = callback;
+    send_port_blocking_ = send_port;
+}
+
+extern void RegisterPrintCallbackNonBlocking(Dart_Port send_port,
+                                               void (*callback)(const char* message, size_t message_len, int level)) {
+    print_callback_non_blocking_fp_ = callback;
+    send_port_non_blocking_ = send_port;
+}
 
 // OVERRIDE TRACE FOR FLUTTER DEBUG
 #if !defined(TRACE) && defined(EXTERNAL_TRACE)
@@ -271,7 +329,11 @@ void (*flutter_print)(char *format, size_t length, int level) = flutter_default_
 
 extern void flutter_initialize(void (*printCallback)(char *, size_t, int))
 {
-    flutter_print = printCallback;
+    //flutter_print = printCallback;
+
+    flutter_print = [](char * message, size_t len, int level) {
+        NotifyDart(send_port_non_blocking_, message);
+    };
     if (flutter_print != NULL) {
         char str[] = "C library initialized\n";
         flutter_print(str, strlen(str), 3);

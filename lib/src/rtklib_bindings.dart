@@ -6768,6 +6768,80 @@ class RtkDylib {
       _lookup<ffi.NativeFunction<ffi.Void Function(gtime_t)>>('settime');
   late final _settime = _settimePtr.asFunction<void Function(gtime_t)>();
 
+  int InitDartApiDL(
+    ffi.Pointer<ffi.Void> data,
+  ) {
+    return _InitDartApiDL(
+      data,
+    );
+  }
+
+  late final _InitDartApiDLPtr =
+      _lookup<ffi.NativeFunction<ffi.IntPtr Function(ffi.Pointer<ffi.Void>)>>(
+          'InitDartApiDL');
+  late final _InitDartApiDL =
+      _InitDartApiDLPtr.asFunction<int Function(ffi.Pointer<ffi.Void>)>();
+
+  void RegisterPrintCallbackBlocking(
+    int send_port,
+    ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.IntPtr Function(ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int)>>
+        callback,
+  ) {
+    return _RegisterPrintCallbackBlocking(
+      send_port,
+      callback,
+    );
+  }
+
+  late final _RegisterPrintCallbackBlockingPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              Dart_Port,
+              ffi.Pointer<
+                  ffi.NativeFunction<
+                      ffi.IntPtr Function(ffi.Pointer<ffi.Char>, ffi.Size,
+                          ffi.Int)>>)>>('RegisterPrintCallbackBlocking');
+  late final _RegisterPrintCallbackBlocking =
+      _RegisterPrintCallbackBlockingPtr.asFunction<
+          void Function(
+              int,
+              ffi.Pointer<
+                  ffi.NativeFunction<
+                      ffi.IntPtr Function(
+                          ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int)>>)>();
+
+  void RegisterPrintCallbackNonBlocking(
+    int send_port,
+    ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int)>>
+        callback,
+  ) {
+    return _RegisterPrintCallbackNonBlocking(
+      send_port,
+      callback,
+    );
+  }
+
+  late final _RegisterPrintCallbackNonBlockingPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              Dart_Port,
+              ffi.Pointer<
+                  ffi.NativeFunction<
+                      ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Size,
+                          ffi.Int)>>)>>('RegisterPrintCallbackNonBlocking');
+  late final _RegisterPrintCallbackNonBlocking =
+      _RegisterPrintCallbackNonBlockingPtr.asFunction<
+          void Function(
+              int,
+              ffi.Pointer<
+                  ffi.NativeFunction<
+                      ffi.Void Function(
+                          ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int)>>)>();
+
   /// @brief Convert obs to string
   /// @param[in] obs - [obsd_t *] observation
   /// @param[out] strLen - [size_t *] output string length
@@ -7137,6 +7211,59 @@ class RtkDylib {
   late final _convbin_convert_cmd = _convbin_convert_cmdPtr.asFunction<
       int Function(int, ffi.Pointer<ffi.Pointer<ffi.Char>>,
           ffi.Pointer<rnxopt_t>, int)>();
+
+  ffi.Pointer<opt_t> rtkrcv_getRcvOptions(
+    ffi.Pointer<ffi.Int> count,
+  ) {
+    return _rtkrcv_getRcvOptions(
+      count,
+    );
+  }
+
+  late final _rtkrcv_getRcvOptionsPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<opt_t> Function(
+              ffi.Pointer<ffi.Int>)>>('rtkrcv_getRcvOptions');
+  late final _rtkrcv_getRcvOptions = _rtkrcv_getRcvOptionsPtr
+      .asFunction<ffi.Pointer<opt_t> Function(ffi.Pointer<ffi.Int>)>();
+
+  void rtkrcv_printCmdHelpInfo() {
+    return _rtkrcv_printCmdHelpInfo();
+  }
+
+  late final _rtkrcv_printCmdHelpInfoPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function()>>(
+          'rtkrcv_printCmdHelpInfo');
+  late final _rtkrcv_printCmdHelpInfo =
+      _rtkrcv_printCmdHelpInfoPtr.asFunction<void Function()>();
+
+  int rtkrcv_readcmd(
+    ffi.Pointer<ffi.Char> file,
+    ffi.Pointer<ffi.Char> cmd,
+    int type,
+  ) {
+    return _rtkrcv_readcmd(
+      file,
+      cmd,
+      type,
+    );
+  }
+
+  late final _rtkrcv_readcmdPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>,
+              ffi.Int)>>('rtkrcv_readcmd');
+  late final _rtkrcv_readcmd = _rtkrcv_readcmdPtr.asFunction<
+      int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>, int)>();
+
+  int rtkrcv_startsvr() {
+    return _rtkrcv_startsvr();
+  }
+
+  late final _rtkrcv_startsvrPtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function()>>('rtkrcv_startsvr');
+  late final _rtkrcv_startsvr =
+      _rtkrcv_startsvrPtr.asFunction<int Function()>();
 
   int run_rtkrcv_cmd(
     int argc,
@@ -9909,6 +10036,9 @@ class struct_sizes_t extends ffi.Struct {
   @ffi.Size()
   external int gis_t;
 }
+
+/// A port is used to send or receive inter-isolate messages
+typedef Dart_Port = ffi.Int64;
 
 class va_list_tag extends ffi.Struct {
   @ffi.UnsignedInt()

@@ -38,6 +38,7 @@ macro(setSrcDirs thirdPartyDir)
     set(SRC_DIR "${ARGV0}/RTKLIB/src")
     set(UTILS_DIR "${ROOT_DIR}/lib/c_api")
     set(FFI_DIR "${ROOT_DIR}/lib/c_api/apps")
+    set(DART_SDK_DIR "~/development/flutter/bin/cache/dart-sdk/include")
 endmacro()
 
 macro(setOptions)
@@ -101,6 +102,7 @@ macro(setLibs)
         ${UTILS_DIR}/io.cpp
         ${FFI_DIR}/ffi_convbin.cpp
         ${FFI_DIR}/ffi_rtkrcv.cpp
+        ${DART_SDK_DIR}/dart_api_dl.c
     )
 
     set(INCLUDE_DIRS 
@@ -112,6 +114,8 @@ macro(setLibs)
       "${SRC_DIR}"
       "${UTILS_DIR}"
       "${FFI_DIR}"
+      "${DART_SDK_DIR}"
+      "${DART_SDK_DIR}/internal"
     )
 endmacro()
 

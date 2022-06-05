@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ffi' as ffi;
 import 'dart:io';
+import 'dart:isolate';
 
 import 'package:ffi/ffi.dart' as pkg_ffi;
 import 'package:flutter/foundation.dart';
@@ -18,6 +19,10 @@ typedef _WrappedPrintC = ffi.Void Function(
 typedef PrintCallback = ffi.Pointer<
     ffi.NativeFunction<
         ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int)>>;
+typedef LookupFunction = ffi.Pointer<T> Function<T extends ffi.NativeType>(
+    String symbolName);
+
+class Printf extends ffi.Opaque {}
 
 class RtkLib extends RtkDylib {
   static UbloxImpl? _ubloxInstance;
@@ -27,12 +32,17 @@ class RtkLib extends RtkDylib {
       ffi.Pointer.fromFunction<_WrappedPrintC>(_printDebug);
 
   /// Holds the symbol lookup function.
-  late final ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
-      lookup;
+  late final LookupFunction lookup;
+  late final ReceivePort _receivePort;
 
   static void _printDebug(ffi.Pointer<ffi.Char> str, int len, int level) {
     final msg =
         TraceMessage(str.cast<pkg_ffi.Utf8>().toDartString(length: len));
+    _flutterTrace(msg);
+  }
+
+  static void _flutterTrace(TraceMessage msg) {
+
     RtkLib.virtualConsole.add(msg);
     if (RtkLib._customPrintCallback != null) {
       RtkLib._customPrintCallback!(msg);
@@ -65,6 +75,17 @@ class RtkLib extends RtkDylib {
   }
 
   void _init() {
+    assert(InitDartApiDL(ffi.NativeApi.initializeApiDLData) == 0,
+        "Init dart api failed");
+    _receivePort = ReceivePort()
+      ..listen((nativeMsg) {
+        if (nativeMsg is String) {
+          final msg = TraceMessage(nativeMsg);
+          _flutterTrace(msg);
+        }
+      });
+    final int nativePort = _receivePort.sendPort.nativePort;
+    RegisterPrintCallbackNonBlocking(nativePort, _printCallback);
     initTrace();
     _ubloxInstance ??= UbloxImpl(this);
   }
