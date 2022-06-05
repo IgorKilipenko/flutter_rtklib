@@ -1,4 +1,4 @@
-#include "rtklib_api.h"
+#include "rtklib_api.hpp"
 #include <string>
 #include <memory>
 #include <vector>

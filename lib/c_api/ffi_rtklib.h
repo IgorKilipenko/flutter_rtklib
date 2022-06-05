@@ -2,9 +2,9 @@
 #define FFI_RTKLIB_H
 
 #include "rtklib.h"
-#include "rtklib_api.h"
-#include "ffi_convbin.h"
-#include "ffi_rtkrcv.h"
+#include "rtklib_api.hpp"
+#include "ffi_convbin.hpp"
+#include "ffi_rtkrcv.hpp"
 
 #ifdef __cplusplus
 extern "C" {

@@ -1,7 +1,7 @@
 #ifndef FFI_RTKRCV_H
 #define FFI_RTKRCV_H
 
-#include "rtklib_api.h"
+#include "rtklib_api.hpp"
 
 #ifdef __cplusplus
 extern "C" {

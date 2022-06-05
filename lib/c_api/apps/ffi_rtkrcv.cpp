@@ -49,7 +49,7 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <errno.h>
-#include "ffi_rtkrcv.h"
+#include "ffi_rtkrcv.hpp"
 
 #define PRGNAME     "rtkrcv"            /* program name */
 #define CMDPROMPT   "rtkrcv> "          /* command prompt */
@@ -411,15 +411,15 @@ extern int run_rtkrcv_cmd(int argc, char **argv) {
     getsysopts(&prcopt,solopt,&filopt);
 
     /* read navigation data */
-    if (!readnav(NAVIFILE,&svr.nav)) {
+    /*if (!readnav(NAVIFILE,&svr.nav)) {
         trace(1,"no navigation data: %s\n",NAVIFILE);
-    }
+    }*/
 
     if (outstat>0) {
         rtkopenstat(STATFILE,outstat);
     }
 
-    if (start) startsvr();
+    /*if (start) */startsvr();
 
     return 0;
 }

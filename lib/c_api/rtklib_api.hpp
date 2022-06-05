@@ -1,7 +1,10 @@
 #ifndef RTKLIB_API_H
 #define RTKLIB_API_H
 
+#include <functional>
 #include "rtklib.h"
+
+typedef std::function<void()> Work; 
 
 #ifdef __cplusplus
 extern "C" {

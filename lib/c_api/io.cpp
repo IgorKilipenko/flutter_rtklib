@@ -1,4 +1,4 @@
-#include "rtklib_api.h"
+#include "rtklib_api.hpp"
 
 extern FILE* openReadFile(const char *filename) {
     return fopen(filename, "r");

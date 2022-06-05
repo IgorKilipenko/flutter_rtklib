@@ -49,7 +49,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include <sys/stat.h>
-#include "ffi_convbin.h"
+#include "ffi_convbin.hpp"
 
 #define PRGNAME   "CONVBIN"
 #define TRACEFILE "convbin.trace"

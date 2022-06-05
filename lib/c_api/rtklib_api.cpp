@@ -1,4 +1,4 @@
-#include "rtklib_api.h"
+#include "rtklib_api.hpp"
 
 extern char* obs2str(const obsd_t *obs, size_t * strLen) {
     char str[64],id[16];
