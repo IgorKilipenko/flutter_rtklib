@@ -15,6 +15,7 @@ void main() {
     await settingsController.loadSettings();
 
     await tester.pumpWidget(App(settingsController: settingsController));
+    await tester.pumpAndSettle();
 
     expect(
       find.byWidgetPredicate(
