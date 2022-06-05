@@ -95,12 +95,12 @@ macro(setLibs)
         ${SRC_DIR}/tides.c 
         ${SRC_DIR}/rcv/septentrio.c 
         ${SRC_DIR}/rcv/swiftnav.c
-        ${UTILS_DIR}/rtklib_api.c
+        ${UTILS_DIR}/rtklib_api.cpp
         ${UTILS_DIR}/trace.cpp
-        ${UTILS_DIR}/test_size.c
-        ${UTILS_DIR}/io.c
-        ${FFI_DIR}/ffi_convbin.c
-        ${FFI_DIR}/ffi_rtkrcv.c
+        ${UTILS_DIR}/test_size.cpp
+        ${UTILS_DIR}/io.cpp
+        ${FFI_DIR}/ffi_convbin.cpp
+        ${FFI_DIR}/ffi_rtkrcv.cpp
     )
 
     set(INCLUDE_DIRS 

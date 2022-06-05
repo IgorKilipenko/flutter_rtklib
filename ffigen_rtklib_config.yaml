@@ -6,9 +6,9 @@
       - 'lib/c_api/ffi_rtklib.h'
     include-directives:
       - '**rtklib.h'
-      - '**rtklib_api.h'
-      - '**ffi_convbin.h'
-      - '**ffi_rtkrcv.h'
+      - '**rtklib_api.hpp'
+      - '**ffi_convbin.hpp'
+      - '**ffi_rtkrcv.hpp'
       - '**ffi_rtklib.h'
   functions:
     exclude:
