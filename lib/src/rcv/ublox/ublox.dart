@@ -24,8 +24,9 @@ class UbloxImpl {
     return _obsSreamController.stream;
   }
 
-  int _inputUbx(ffi.Pointer<raw_t> raw, int data) {
+  Future<int> _inputUbx(ffi.Pointer<raw_t> raw, int data) async {
     final status = _rtkInstance.input_ubx(raw, data);
+    await Future.delayed(const Duration(milliseconds: 0));
     if (status == -1) {
       return -1;
     }
@@ -49,7 +50,7 @@ class UbloxImpl {
     return -1;
   }
 
-  void decodeUbx(Uint8List buffer) {
+  Future<void> decodeUbx(Uint8List buffer) async {
     final raw = pkg_ffi.calloc<raw_t>();
     final initStatus = _rtkInstance.init_raw(raw, STRFMT_UBX);
     if (initStatus == 0) {
@@ -62,7 +63,7 @@ class UbloxImpl {
     }
 
     for (int i = 0; i < buffer.length; i++) {
-      final inputStatus = _inputUbx(raw, buffer[i]);
+      final inputStatus = await _inputUbx(raw, buffer[i]);
       if (inputStatus == -1) {
         continue;
       }

@@ -44,6 +44,6 @@ class UbloxController extends GetxController {
     final bytes = await rootBundle.load('assets/data/ubx_20080526.ubx');
     final buffer =
         bytes.buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes);
-    _ublox.decodeUbx(buffer);
+    await _ublox.decodeUbx(buffer);
   }
 }
