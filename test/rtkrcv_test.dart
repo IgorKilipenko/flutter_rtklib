@@ -44,5 +44,11 @@ void main() {
       final convbinResult = _execRtkrcvCmd(cmd);
       testing.expect(convbinResult, testing.isNonNegative);
     });
+
+    testing.test("Test Rtkrcv for rinex L1/L2 files input", () {
+      final cmd = "./rtkrcv -t 4 -o $configDir/rtk_rinex_vsnk.conf";
+      final convbinResult = _execRtkrcvCmd(cmd);
+      testing.expect(convbinResult, testing.isNonNegative);
+    });
   });
 }

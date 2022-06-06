@@ -23,30 +23,49 @@
 
 typedef std::function<void()> PrintfWork;
 
-struct flutter_fprint_messgae {
-    const char * const message;
-    const int level;
-    const size_t message_lenght;
-};
+static void FreeFinalizer(void*, void* value) {
+  delete(value);
+}
 
 static intptr_t (*print_callback_blocking_fp_)(const char* message, size_t message_len, int level) = [](const char* message, size_t message_len, int level) {return NULL;};
 static Dart_Port send_port_blocking_ = -1;
 static void (*print_callback_non_blocking_fp_)(const char* message, size_t message_len, int level) = [](const char* message, size_t message_len, int level){};
 static Dart_Port send_port_non_blocking_ = -1;
+static Dart_Port print_send_port = -1;
 
 // Notify Dart through a port that the C lib has pending async callbacks.
 //
 // Expects heap allocated `PrintfWork` so delete can be called on it.
 //
 // The `send_port` should be from the isolate which registered the callback.
-static bool NotifyDart(Dart_Port send_port, char *message) {
+static bool NotifyDart(Dart_Port send_port, char *message, size_t length, int level) {
     if (send_port <= 0) return false;
     
+    /*
     Dart_CObject dart_object;
     dart_object.type = Dart_CObject_kString;
     dart_object.value.as_string = message;
+    */
+
+    auto dartMessage = new FlutterTraceMessgae {
+        message,
+        level,
+        length
+    };
+
+    Dart_CObject dart_object;
+    dart_object.type = Dart_CObject_kNativePointer;
+    auto ptr = reinterpret_cast<intptr_t>(&dartMessage);
+    dart_object.value.as_native_pointer.ptr = ptr;
+    dart_object.value.as_native_pointer.size = sizeof(struct FlutterTraceMessgae);
+    dart_object.value.as_native_pointer.callback = [](void*, void* value) {
+        delete value;
+    };
 
     const bool result = Dart_PostCObject_DL(send_port, &dart_object);
+    if (!result) {
+        FATAL("Posting message to port failed.");
+    }
     return result;
 }
 
@@ -327,17 +346,24 @@ static void flutter_default_debug_handler(char *format, size_t length, int level
 
 void (*flutter_print)(char *format, size_t length, int level) = flutter_default_debug_handler;
 
-extern void flutter_initialize(void (*printCallback)(char *, size_t, int))
+extern bool flutter_initialize(Dart_Port send_port)
 {
-    //flutter_print = printCallback;
+    assert(print_send_port < 0);
+    
+    if (send_port <= 0 || print_send_port > 0) {
+        return false;
+    } 
 
+    print_send_port = send_port;
     flutter_print = [](char * message, size_t len, int level) {
-        NotifyDart(send_port_non_blocking_, message);
+        NotifyDart(print_send_port, message, len, level);
     };
     if (flutter_print != NULL) {
         char str[] = "C library initialized\n";
         flutter_print(str, strlen(str), 3);
+        return true;
     }
+    return false;
 }
 
 extern int flutter_printf(const char *format, ...)
@@ -371,7 +397,7 @@ extern int flutter_vprintf(const char *format, va_list args)
     }
     int done = vsnprintf(str, size+1, format, args_copy);
 
-    flutter_print(str, done, -1);
+    flutter_print(str, done, 0);
     free(str);
     return done;
 }

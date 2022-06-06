@@ -6842,6 +6842,25 @@ class RtkDylib {
                       ffi.Void Function(
                           ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int)>>)>();
 
+  void Fatal(
+    ffi.Pointer<ffi.Char> file,
+    int line,
+    ffi.Pointer<ffi.Char> error,
+  ) {
+    return _Fatal(
+      file,
+      line,
+      error,
+    );
+  }
+
+  late final _FatalPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<ffi.Char>, ffi.Int, ffi.Pointer<ffi.Char>)>>('Fatal');
+  late final _Fatal = _FatalPtr.asFunction<
+      void Function(ffi.Pointer<ffi.Char>, int, ffi.Pointer<ffi.Char>)>();
+
   /// @brief Convert obs to string
   /// @param[in] obs - [obsd_t *] observation
   /// @param[out] strLen - [size_t *] output string length
@@ -7008,30 +7027,20 @@ class RtkDylib {
   late final _flutter_vtrace = _flutter_vtracePtr.asFunction<
       int Function(int, ffi.Pointer<ffi.Char>, ffi.Pointer<va_list_tag>)>();
 
-  void flutter_initialize(
-    ffi.Pointer<
-            ffi.NativeFunction<
-                ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int)>>
-        printCallback,
+  bool flutter_initialize(
+    int send_port,
   ) {
     return _flutter_initialize(
-      printCallback,
-    );
+          send_port,
+        ) !=
+        0;
   }
 
-  late final _flutter_initializePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Pointer<
-                  ffi.NativeFunction<
-                      ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Size,
-                          ffi.Int)>>)>>('flutter_initialize');
-  late final _flutter_initialize = _flutter_initializePtr.asFunction<
-      void Function(
-          ffi.Pointer<
-              ffi.NativeFunction<
-                  ffi.Void Function(
-                      ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int)>>)>();
+  late final _flutter_initializePtr =
+      _lookup<ffi.NativeFunction<ffi.Uint8 Function(Dart_Port)>>(
+          'flutter_initialize');
+  late final _flutter_initialize =
+      _flutter_initializePtr.asFunction<int Function(int)>();
 
   void vtracet(
     int level,
@@ -7065,6 +7074,16 @@ class RtkDylib {
           'set_level_trace');
   late final _set_level_trace =
       _set_level_tracePtr.asFunction<void Function(int)>();
+
+  Object GetFlutterRootLibraryUrl() {
+    return _GetFlutterRootLibraryUrl();
+  }
+
+  late final _GetFlutterRootLibraryUrlPtr =
+      _lookup<ffi.NativeFunction<ffi.Handle Function()>>(
+          'GetFlutterRootLibraryUrl');
+  late final _GetFlutterRootLibraryUrl =
+      _GetFlutterRootLibraryUrlPtr.asFunction<Object Function()>();
 
   /// @brief print matrix
   /// print matrix to stdout
@@ -10035,6 +10054,16 @@ class struct_sizes_t extends ffi.Struct {
 
   @ffi.Size()
   external int gis_t;
+}
+
+class FlutterTraceMessgae extends ffi.Struct {
+  external ffi.Pointer<ffi.Char> message;
+
+  @ffi.Int()
+  external int level;
+
+  @ffi.Size()
+  external int message_lenght;
 }
 
 /// A port is used to send or receive inter-isolate messages
