@@ -7189,6 +7189,50 @@ class RtkDylib {
   late final _native_free =
       _native_freePtr.asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
+  void native_deleteArray(
+    ffi.Pointer<ffi.Void> ptrArr,
+  ) {
+    return _native_deleteArray(
+      ptrArr,
+    );
+  }
+
+  late final _native_deleteArrayPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'native_deleteArray');
+  late final _native_deleteArray =
+      _native_deleteArrayPtr.asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void native_delete(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _native_delete(
+      ptr,
+    );
+  }
+
+  late final _native_deletePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+          'native_delete');
+  late final _native_delete =
+      _native_deletePtr.asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void native_delete_FlutterTraceMessgae(
+    ffi.Pointer<FlutterTraceMessgae> ptr,
+  ) {
+    return _native_delete_FlutterTraceMessgae(
+      ptr,
+    );
+  }
+
+  late final _native_delete_FlutterTraceMessgaePtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Pointer<FlutterTraceMessgae>)>>(
+      'native_delete_FlutterTraceMessgae');
+  late final _native_delete_FlutterTraceMessgae =
+      _native_delete_FlutterTraceMessgaePtr
+          .asFunction<void Function(ffi.Pointer<FlutterTraceMessgae>)>();
+
   ffi.Pointer<rnxopt_t> convbin_parse_options_cmd(
     int arg_count,
     ffi.Pointer<ffi.Pointer<ffi.Char>> arg_vars,

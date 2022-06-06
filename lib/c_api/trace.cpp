@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <functional>
+#include <iostream>
 
 #include <stddef.h>
 #include <stdlib.h>
@@ -23,6 +24,8 @@
 
 typedef std::function<void()> PrintfWork;
 
+const std::string COUT_TAG = "rtklib cout : ";
+
 static void FreeFinalizer(void*, void* value) {
   delete(value);
 }
@@ -33,6 +36,10 @@ static void (*print_callback_non_blocking_fp_)(const char* message, size_t messa
 static Dart_Port send_port_non_blocking_ = -1;
 static Dart_Port print_send_port = -1;
 
+bool FlutterTraceIsInitialized(void) {
+    return print_send_port > 0 &&  flutter_print != NULL;
+}
+
 // Notify Dart through a port that the C lib has pending async callbacks.
 //
 // Expects heap allocated `PrintfWork` so delete can be called on it.
@@ -40,26 +47,33 @@ static Dart_Port print_send_port = -1;
 // The `send_port` should be from the isolate which registered the callback.
 static bool NotifyDart(Dart_Port send_port, char *message, size_t length, int level) {
     if (send_port <= 0) return false;
-    
-    /*
-    Dart_CObject dart_object;
-    dart_object.type = Dart_CObject_kString;
-    dart_object.value.as_string = message;
-    */
+   
+    char * const buffer = new char[length+1]{'\0'};
+    strncpy(buffer, message, length);
 
     auto dartMessage = new FlutterTraceMessgae {
-        message,
+        buffer,
         level,
         length
     };
 
     Dart_CObject dart_object;
     dart_object.type = Dart_CObject_kNativePointer;
-    auto ptr = reinterpret_cast<intptr_t>(&dartMessage);
+    auto ptr = reinterpret_cast<intptr_t>(&*dartMessage);
     dart_object.value.as_native_pointer.ptr = ptr;
     dart_object.value.as_native_pointer.size = sizeof(struct FlutterTraceMessgae);
     dart_object.value.as_native_pointer.callback = [](void*, void* value) {
-        delete value;
+
+        /*
+        * Not worked, see : 
+        *   - https://github.com/dart-lang/sdk/issues/47901
+        *   - https://github.com/fzyzcjy/flutter_rust_bridge/issues/243
+        */
+        std::cout << COUT_TAG << "NotifyDart : " << "[ ### ] FreeFinalizer";
+
+        auto obj = reinterpret_cast<FlutterTraceMessgae*>(value);
+        delete[] obj->message;
+        delete obj;
     };
 
     const bool result = Dart_PostCObject_DL(send_port, &dart_object);
@@ -342,9 +356,12 @@ extern int showmsg(const char *format, ...)
 
 #if (defined(TRACE) || defined(EXTERNAL_TRACE)) && defined(FLUTTER_DEBUG)
 
-static void flutter_default_debug_handler(char *format, size_t length, int level) {}
+static void flutter_default_debug_handler(char *message, size_t length, int level) {
+    std::string msg{message, length};
+    std::cout << "rtklib cout: " << message << std::endl; 
+}
 
-void (*flutter_print)(char *format, size_t length, int level) = flutter_default_debug_handler;
+void (*flutter_print)(char *message, size_t length, int level) = flutter_default_debug_handler;
 
 extern bool flutter_initialize(Dart_Port send_port)
 {

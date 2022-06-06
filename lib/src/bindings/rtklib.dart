@@ -104,6 +104,15 @@ class RtkLib extends RtkDylib {
 
           final msg = TraceMessage(nativeMsg, traceLevel: level);
           _flutterTrace(msg);
+
+          if (!nativeMsgPtr.isNullPointer) {
+            if (!nativeMsgPtr.ref.message.isNullPointer) {
+              native_deleteArray(nativeMsgPtr.ref.message.cast());
+              //! pkg_ffi.calloc.free(nativeMsgPtr.ref.message);
+            }
+            native_delete_FlutterTraceMessgae(nativeMsgPtr);
+            //! pkg_ffi.calloc.free(nativeMsgPtr);
+          }
         }
       });
     final int nativePort = _receivePort.sendPort.nativePort;

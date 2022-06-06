@@ -1,6 +1,10 @@
 #ifndef RTKLIB_API_H
 #define RTKLIB_API_H
 
+#ifndef FFI_GEN
+#include <iostream>
+#endif
+
 #include "rtklib.h"
 
 #include "dart_api.h"
@@ -73,6 +77,12 @@ struct FlutterTraceMessgae {
     const char * const message;
     const int level;
     const size_t message_lenght;
+
+#ifndef FFI_GEN
+    ~FlutterTraceMessgae() {
+        std::cout << "FlutterTraceMessgae destruct" << std::endl;
+    }
+#endif
 };
 
 EXPORT intptr_t InitDartApiDL(void* data);
@@ -137,6 +147,9 @@ EXPORT FILE* openWriteFile(const char *filename);
 EXPORT FILE* openFile(const char *filename, const char * mode);
 
 EXPORT void native_free(void *ptr);
+EXPORT void native_deleteArray(void* ptrArr);
+EXPORT void native_delete(void* ptr);
+EXPORT void native_delete_FlutterTraceMessgae(FlutterTraceMessgae* ptr);
 
 #ifdef __cplusplus
 }
