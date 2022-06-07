@@ -89,3 +89,35 @@ extern int init_raw_2(raw_t **raw, int format) {
 extern void native_free(void *ptr) {
     if (ptr != NULL) free(ptr);
 }
+
+extern void Fatal(char const* file, int line, char const* error) {
+    trace(1, "FATAL %s:%i\n%s\n", file, line, error);
+    Dart_DumpNativeStackTrace(NULL);
+    Dart_PrepareToAbort();
+    abort();
+}
+
+extern Dart_Handle GetFlutterRootLibraryUrl() {
+    Dart_Handle root_lib = Dart_RootLibrary();
+    Dart_Handle lib_url = Dart_LibraryUrl(root_lib);
+    assert(!Dart_IsError(lib_url));
+    return lib_url;
+}
+
+extern bool FlutterTraceIsInitialized(void);
+
+extern void native_delete_FlutterTraceMessgae(FlutterTraceMessgae* ptr) {
+    if (ptr != NULL) {
+        delete ptr;
+    }
+}
+extern void native_deleteArray(void* ptrArr) {
+    if (ptrArr != NULL) {
+        delete[] ptrArr;
+    }
+}
+extern void native_delete(void* ptr) {
+    if (ptr != NULL) {
+        delete ptr;
+    }
+}

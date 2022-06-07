@@ -42,7 +42,6 @@ class RtkLib extends RtkDylib {
   }
 
   static void _flutterTrace(TraceMessage msg) {
-
     RtkLib.virtualConsole.add(msg);
     if (RtkLib._customPrintCallback != null) {
       RtkLib._customPrintCallback!(msg);
@@ -77,23 +76,48 @@ class RtkLib extends RtkDylib {
   void _init() {
     assert(InitDartApiDL(ffi.NativeApi.initializeApiDLData) == 0,
         "Init dart api failed");
-    _receivePort = ReceivePort()
-      ..listen((nativeMsg) {
-        if (nativeMsg is String) {
-          final msg = TraceMessage(nativeMsg);
-          _flutterTrace(msg);
-        }
-      });
-    final int nativePort = _receivePort.sendPort.nativePort;
-    RegisterPrintCallbackNonBlocking(nativePort, _printCallback);
+    //RegisterPrintCallbackNonBlocking(nativePort, _printCallback);
     initTrace();
     _ubloxInstance ??= UbloxImpl(this);
   }
 
   void initTrace(
       {void Function(TraceMessage message)? printCallback, int? traceLevel}) {
+    _receivePort = ReceivePort()
+      ..listen((msgPtrAdrress) {
+        if (msgPtrAdrress is int && msgPtrAdrress > 0) {
+          final nativeMsgPtr =
+              ffi.Pointer<FlutterTraceMessgae>.fromAddress(msgPtrAdrress);
+          assert(!nativeMsgPtr.isNullPointer);
+          if (nativeMsgPtr.isNullPointer) {
+            stderr.write(
+                "[WARN] Incoming message from C (rtklib) is null pointer\n");
+            return;
+          }
+          final level = nativeMsgPtr.ref.level;
+          final length = nativeMsgPtr.ref.message_lenght;
+          assert(length >= 0);
+          assert(!nativeMsgPtr.ref.message.isNullPointer);
+          final nativeMsg = nativeMsgPtr.ref.message
+              .cast<pkg_ffi.Utf8>()
+              .toDartString(length: length);
+
+          final msg = TraceMessage(nativeMsg, traceLevel: level);
+          _flutterTrace(msg);
+
+          if (!nativeMsgPtr.isNullPointer) {
+            if (!nativeMsgPtr.ref.message.isNullPointer) {
+              //! native_deleteArray(nativeMsgPtr.ref.message.cast());
+              pkg_ffi.calloc.free(nativeMsgPtr.ref.message);
+            }
+            //!native_delete_FlutterTraceMessgae(nativeMsgPtr);
+            pkg_ffi.calloc.free(nativeMsgPtr);
+          }
+        }
+      });
+    final int nativePort = _receivePort.sendPort.nativePort;
     _customPrintCallback = printCallback;
-    flutter_initialize(_printCallback);
+    flutter_initialize(nativePort);
     set_level_trace(traceLevel ?? (kDebugMode ? 3 : 2));
   }
 

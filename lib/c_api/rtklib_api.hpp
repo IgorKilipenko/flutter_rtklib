@@ -1,11 +1,15 @@
 #ifndef RTKLIB_API_H
 #define RTKLIB_API_H
 
+#ifndef FFI_GEN
+#include <iostream>
+#endif
+
 #include "rtklib.h"
 
 #include "dart_api.h"
 
-#define FATAL(format, ...) trace(1, format, __VA_ARGS__)
+// #define FATAL(format, ...) trace(1, format, __VA_ARGS__)
 
 #ifdef __cplusplus
 extern "C" {
@@ -69,11 +73,27 @@ typedef struct {
     size_t gis_t;
 } struct_sizes_t;
 
+struct FlutterTraceMessgae {
+    const char * message;
+    int level;
+    size_t message_lenght;
+
+#ifndef FFI_GEN
+    ~FlutterTraceMessgae() {
+        std::cout << "FlutterTraceMessgae destruct" << std::endl;
+    }
+#endif
+};
+
 EXPORT intptr_t InitDartApiDL(void* data);
 EXPORT void RegisterPrintCallbackBlocking(Dart_Port send_port,
                                             intptr_t (*callback)(const char* message, size_t message_len, int level));
 EXPORT void RegisterPrintCallbackNonBlocking(Dart_Port send_port,
                                                void (*callback)(const char* message, size_t message_len, int level));
+
+EXPORT void Fatal(char const* file, int line, char const* error);
+
+#define FATAL(error) Fatal(__FILE__, __LINE__, error)
 
 /** 
  * @brief Convert obs to string
@@ -102,9 +122,11 @@ EXPORT int flutter_printf(const char *format, ...);
 EXPORT int flutter_vprintf(const char *format, va_list args);
 EXPORT int flutter_trace(int level, const char *format, ...);
 EXPORT int flutter_vtrace(int level, const char *format, va_list args);
-EXPORT void flutter_initialize(void (*printCallback)(char *, size_t, int));
+EXPORT bool flutter_initialize(Dart_Port send_port);
 EXPORT void vtracet(int level, const char *format, va_list args);
 EXPORT void set_level_trace(int level);
+
+EXPORT Dart_Handle GetFlutterRootLibraryUrl(void);
 
 /** 
  * @brief print matrix 
@@ -125,6 +147,9 @@ EXPORT FILE* openWriteFile(const char *filename);
 EXPORT FILE* openFile(const char *filename, const char * mode);
 
 EXPORT void native_free(void *ptr);
+EXPORT void native_deleteArray(void* ptrArr);
+EXPORT void native_delete(void* ptr);
+EXPORT void native_delete_FlutterTraceMessgae(FlutterTraceMessgae* ptr);
 
 #ifdef __cplusplus
 }
