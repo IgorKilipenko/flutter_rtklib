@@ -1,8 +1,9 @@
 {
     "env": {
-        "win_flutterSdkPath": "C:/src/flutter",
+        "windows_flutterSdkPath": "C:/src/flutter",
         "linux_flutterSdkPath": "~/development/flutter",
         "linux_dartSdkPath": "~/development/flutter/bin/cache/dart-sdk/include",
+        "windows_dartSdkPath": "C:/src/flutter/bin/cache/dart-sdk/include",
         "msys64Path": "C:/msys64",
         "myDefaultIncludePath": [
             "${workspaceFolder}",
@@ -17,8 +18,8 @@
                 "${myDefaultIncludePath}",
                 "${msys64Path}/usr/include/**",
                 "${workspaceFolder}/windows/**",
-                "${win_flutterSdkPath}/bin/cache/artifacts/engine/windows-x64/",
-                "${win_flutterSdkPath}/bin/cache/artifacts/engine/windows-x64/cpp_client_wrapper/include/"
+                "${windows_flutterSdkPath}/**",
+                "${windows_dartSdkPath}/**"
             ],
             "defines": [
                 "_DEBUG",
@@ -37,12 +38,13 @@
                 "NEXOBS=3",
                 "SVR_REUSEADDR",
                 "FLUTTER_DEBUG",
-                "EXTERNAL_TRACE"
+                "EXTERNAL_TRACE",
+                "NOMINMAX"
             ],
             "windowsSdkVersion": "10.0.18362.0",
             "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64/cl.exe",
             "cStandard": "c17",
-            "cppStandard": "c++17",
+            "cppStandard": "c++20",
             "intelliSenseMode": "windows-msvc-x64",
             "configurationProvider": "ms-vscode.makefile-tools"
         },

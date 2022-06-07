@@ -377,7 +377,8 @@ static int cmdopts(int argc, char **argv, rnxopt_t *opt, char **ifile,
     double eps[]={1980,1,1,0,0,0},epe[]={2037,12,31,0,0,0};
     double epr[]={2010,1,1,0,0,0},span=0.0;
     int i,j,k,sat,nf=5,nc=2,format=-1;
-    char *p,*sys,*fmt="",*paths[1],path[1024],buff[256];
+    char *p,*sys,*paths[1],path[1024],buff[256];
+    const char *fmt="";
     
     opt->rnxver=304;
     opt->obstype=OBSTYPE_PR|OBSTYPE_CP;
@@ -587,7 +588,8 @@ static int __main(int argc, char **argv)
 {
     rnxopt_t opt={{0}};
     int format,trace=0,stat;
-    char *ifile="",*ofile[NOUTFILE]={0},*dir="";
+    char *ofile[NOUTFILE]={0};
+    char * ifile=(char*)"",*dir=(char*)"";
     
     /* parse command line options */
     format=cmdopts(argc,argv,&opt,&ifile,ofile,&dir,&trace);
@@ -621,7 +623,8 @@ static int __main(int argc, char **argv)
 extern rnxopt_t* convbin_parse_options_cmd(int argc, char **argv) {
     rnxopt_t* opt = NULL;
     int trace=gettracelevel();
-    char *ifile="",*ofile[NOUTFILE]={0},*dir="";
+    char *ofile[NOUTFILE]={0};
+    char *ifile=(char*)"",*dir=(char*)"";
 
     if (!(opt = (rnxopt_t *)malloc(sizeof(rnxopt_t)))) {
         if (opt) free(opt);
@@ -637,7 +640,8 @@ extern rnxopt_t* convbin_parse_options_cmd(int argc, char **argv) {
 extern int convbin_convert_cmd(int argc, char **argv, rnxopt_t *opt, int trace) {
     //rnxopt_t opt={{0}};
     int format,stat;
-    char *ifile="",*ofile[NOUTFILE]={0},*dir="";
+    char *ofile[NOUTFILE]={0};
+    char *ifile=(char*)"",*dir=(char*)"";
 
     if (trace < 0) {
         trace=gettracelevel();

@@ -5,6 +5,8 @@
 #include <iostream>
 #endif
 
+#define NOMINMAX
+
 #include "rtklib.h"
 
 #include "dart_api.h"
@@ -125,8 +127,11 @@ EXPORT int flutter_vtrace(int level, const char *format, va_list args);
 EXPORT bool flutter_initialize(Dart_Port send_port);
 EXPORT void vtracet(int level, const char *format, va_list args);
 EXPORT void set_level_trace(int level);
+EXPORT bool FlutterTraceIsInitialized(void);
 
+#if !defined(WIN32)
 EXPORT Dart_Handle GetFlutterRootLibraryUrl(void);
+#endif
 
 /** 
  * @brief print matrix 

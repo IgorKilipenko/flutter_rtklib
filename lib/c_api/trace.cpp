@@ -30,7 +30,7 @@ static void FreeFinalizer(void*, void* value) {
   delete(value);
 }
 
-static intptr_t (*print_callback_blocking_fp_)(const char* message, size_t message_len, int level) = [](const char* message, size_t message_len, int level) {return NULL;};
+static intptr_t (*print_callback_blocking_fp_)(const char* message, size_t message_len, int level) = [](const char* message, size_t message_len, int level) -> intptr_t {return 0;};
 static Dart_Port send_port_blocking_ = -1;
 static void (*print_callback_non_blocking_fp_)(const char* message, size_t message_len, int level) = [](const char* message, size_t message_len, int level){};
 static Dart_Port send_port_non_blocking_ = -1;

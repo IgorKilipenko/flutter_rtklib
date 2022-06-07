@@ -38,7 +38,12 @@ macro(setSrcDirs thirdPartyDir)
     set(SRC_DIR "${ARGV0}/RTKLIB/src")
     set(UTILS_DIR "${ROOT_DIR}/lib/c_api")
     set(FFI_DIR "${ROOT_DIR}/lib/c_api/apps")
-    set(DART_SDK_DIR "~/development/flutter/bin/cache/dart-sdk/include")
+
+    if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
+      set(DART_SDK_DIR "C:/src/flutter/bin/cache/dart-sdk/include")
+    else()
+      set(DART_SDK_DIR "~/development/flutter/bin/cache/dart-sdk/include")
+    endif()
 endmacro()
 
 macro(setOptions)
@@ -114,4 +119,3 @@ macro(setLibs)
       "${DART_SDK_DIR}/internal"
     )
 endmacro()
-

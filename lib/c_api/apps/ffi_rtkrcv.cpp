@@ -36,8 +36,18 @@
 *                           add option -w
 *           2017/09/01 1.21 add command ssr
 *-----------------------------------------------------------------------------*/
+#ifndef WIN32
+#define _POSIX_C_SOURCE 2
+#endif
+#include <stdio.h>
 #include <stdlib.h>
-#include <signal.h>
+#include <stdarg.h>
+#include <ctype.h>
+#ifdef WIN32
+#include <winsock2.h>
+#include <psapi.h>
+#include <windows.h>
+#else
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/types.h>
@@ -49,6 +59,12 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <errno.h>
+#include <termios.h>
+#endif
+
+#include <signal.h>
+#include <thread>
+
 #include "ffi_rtkrcv.hpp"
 
 #define PRGNAME     "rtkrcv"            /* program name */
@@ -75,7 +91,7 @@
 typedef struct {                       /* console type */
     int state;                         /* state (0:stop,1:run) */
     //vt_t *vt;                          /* virtual terminal */
-    pthread_t thread;                  /* console thread */
+    std::thread thread;                  /* console thread */
 } con_t;
 
 /* function prototypes -------------------------------------------------------*/
@@ -330,7 +346,7 @@ extern int rtkrcv_startsvr()
     double pos[3],npos[3];
     char s1[3][MAXRCVCMD]={"","",""},*cmds[]={NULL,NULL,NULL};
     char s2[3][MAXRCVCMD]={"","",""},*cmds_periodic[]={NULL,NULL,NULL};
-    char *ropts[3]={"","",""};
+    char *ropts[]={(char*)"",(char*)"",(char*)""};
     char *paths[]={
         strpath[0],strpath[1],strpath[2],strpath[3],strpath[4],strpath[5],
         strpath[6],strpath[7]
@@ -407,7 +423,7 @@ extern int rtkrcv_startsvr()
     
     /* start rtk server */
     if (!rtksvrstart(&svr,svrcycle,buffsize,strtype,paths,strfmt,navmsgsel,
-                     cmds,cmds_periodic,reinterpret_cast<char**>(ropts),nmeacycle,nmeareq,npos,&prcopt,
+                     cmds,cmds_periodic,ropts,nmeacycle,nmeareq,npos,&prcopt,
                      solopt,&moni,errmsg)) {
         trace(2,"rtk server start error (%s)\n",errmsg);
         return 0;
