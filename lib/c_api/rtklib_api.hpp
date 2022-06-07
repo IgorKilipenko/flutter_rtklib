@@ -78,7 +78,7 @@ struct FlutterTraceMessgae {
     int level;
     size_t message_lenght;
 
-#ifndef FFI_GEN
+#if !defined(FFI_GEN) && 0
     ~FlutterTraceMessgae() {
         std::cout << "FlutterTraceMessgae destruct" << std::endl;
     }
