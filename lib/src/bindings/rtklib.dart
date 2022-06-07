@@ -107,11 +107,11 @@ class RtkLib extends RtkDylib {
 
           if (!nativeMsgPtr.isNullPointer) {
             if (!nativeMsgPtr.ref.message.isNullPointer) {
-              native_deleteArray(nativeMsgPtr.ref.message.cast());
-              //! pkg_ffi.calloc.free(nativeMsgPtr.ref.message);
+              //! native_deleteArray(nativeMsgPtr.ref.message.cast());
+              pkg_ffi.calloc.free(nativeMsgPtr.ref.message);
             }
-            native_delete_FlutterTraceMessgae(nativeMsgPtr);
-            //! pkg_ffi.calloc.free(nativeMsgPtr);
+            //!native_delete_FlutterTraceMessgae(nativeMsgPtr);
+            pkg_ffi.calloc.free(nativeMsgPtr);
           }
         }
       });

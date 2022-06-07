@@ -74,9 +74,9 @@ typedef struct {
 } struct_sizes_t;
 
 struct FlutterTraceMessgae {
-    const char * const message;
-    const int level;
-    const size_t message_lenght;
+    const char * message;
+    int level;
+    size_t message_lenght;
 
 #ifndef FFI_GEN
     ~FlutterTraceMessgae() {

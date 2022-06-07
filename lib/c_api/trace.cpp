@@ -48,18 +48,20 @@ bool FlutterTraceIsInitialized(void) {
 static bool NotifyDart(Dart_Port send_port, char *message, size_t length, int level) {
     if (send_port <= 0) return false;
    
-    char * const buffer = new char[length+1]{'\0'};
+    char * const buffer = (char *)calloc(length+1, sizeof(char));
     strncpy(buffer, message, length);
 
-    auto dartMessage = new FlutterTraceMessgae {
-        buffer,
-        level,
-        length
+    struct FlutterTraceMessgae * const dartMessagePtr = (FlutterTraceMessgae*)malloc(sizeof(struct FlutterTraceMessgae));
+    struct FlutterTraceMessgae dartMessage =  {
+        .message = buffer,
+        .level = level,
+        .message_lenght = length
     };
+    *dartMessagePtr = dartMessage;
 
     Dart_CObject dart_object;
     dart_object.type = Dart_CObject_kNativePointer;
-    auto ptr = reinterpret_cast<intptr_t>(&*dartMessage);
+    auto ptr = reinterpret_cast<intptr_t>(&*dartMessagePtr);
     dart_object.value.as_native_pointer.ptr = ptr;
     dart_object.value.as_native_pointer.size = sizeof(struct FlutterTraceMessgae);
     dart_object.value.as_native_pointer.callback = [](void*, void* value) {
@@ -72,8 +74,8 @@ static bool NotifyDart(Dart_Port send_port, char *message, size_t length, int le
         std::cout << COUT_TAG << "NotifyDart : " << "[ ### ] FreeFinalizer";
 
         auto obj = reinterpret_cast<FlutterTraceMessgae*>(value);
-        delete[] obj->message;
-        delete obj;
+        free((char*)(obj->message));
+        free(obj);
     };
 
     const bool result = Dart_PostCObject_DL(send_port, &dart_object);
