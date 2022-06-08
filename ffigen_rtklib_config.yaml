@@ -38,7 +38,7 @@
     style: any
     length: full
   compiler-opts:
-    - '-std=c17 -ansi -Wall -pedantic -Wmissing-prototypes'
+    - '-Wall -pedantic -Wmissing-prototypes'
     - '-DTRACE -DENAGLO -DENAQZS -DENAGAL -DENACMP -DENAIRN -DNFREQ=5 -DNEXOBS=3'
     #- '-DWIN32'
     #- '-WIN_DLL'

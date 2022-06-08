@@ -7075,6 +7075,52 @@ class RtkDylib {
   late final _set_level_trace =
       _set_level_tracePtr.asFunction<void Function(int)>();
 
+  bool FlutterTraceIsInitialized() {
+    return _FlutterTraceIsInitialized() != 0;
+  }
+
+  late final _FlutterTraceIsInitializedPtr =
+      _lookup<ffi.NativeFunction<ffi.Uint8 Function()>>(
+          'FlutterTraceIsInitialized');
+  late final _FlutterTraceIsInitialized =
+      _FlutterTraceIsInitializedPtr.asFunction<int Function()>();
+
+  bool sendCommandMessageToFlutter(
+    int send_port,
+    ffi.Pointer<ffi.Char> command,
+  ) {
+    return _sendCommandMessageToFlutter(
+          send_port,
+          command,
+        ) !=
+        0;
+  }
+
+  late final _sendCommandMessageToFlutterPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Uint8 Function(Dart_Port,
+              ffi.Pointer<ffi.Char>)>>('sendCommandMessageToFlutter');
+  late final _sendCommandMessageToFlutter = _sendCommandMessageToFlutterPtr
+      .asFunction<int Function(int, ffi.Pointer<ffi.Char>)>();
+
+  bool sendMessageToFlutter(
+    int send_port,
+    ffi.Pointer<FlutterTraceMessage> message,
+  ) {
+    return _sendMessageToFlutter(
+          send_port,
+          message,
+        ) !=
+        0;
+  }
+
+  late final _sendMessageToFlutterPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Uint8 Function(Dart_Port,
+              ffi.Pointer<FlutterTraceMessage>)>>('sendMessageToFlutter');
+  late final _sendMessageToFlutter = _sendMessageToFlutterPtr
+      .asFunction<int Function(int, ffi.Pointer<FlutterTraceMessage>)>();
+
   Object GetFlutterRootLibraryUrl() {
     return _GetFlutterRootLibraryUrl();
   }
@@ -7217,21 +7263,21 @@ class RtkDylib {
   late final _native_delete =
       _native_deletePtr.asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
-  void native_delete_FlutterTraceMessgae(
-    ffi.Pointer<FlutterTraceMessgae> ptr,
+  void native_delete_FlutterTraceMessage(
+    ffi.Pointer<FlutterTraceMessage> ptr,
   ) {
-    return _native_delete_FlutterTraceMessgae(
+    return _native_delete_FlutterTraceMessage(
       ptr,
     );
   }
 
-  late final _native_delete_FlutterTraceMessgaePtr = _lookup<
+  late final _native_delete_FlutterTraceMessagePtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Pointer<FlutterTraceMessgae>)>>(
-      'native_delete_FlutterTraceMessgae');
-  late final _native_delete_FlutterTraceMessgae =
-      _native_delete_FlutterTraceMessgaePtr
-          .asFunction<void Function(ffi.Pointer<FlutterTraceMessgae>)>();
+              ffi.Void Function(ffi.Pointer<FlutterTraceMessage>)>>(
+      'native_delete_FlutterTraceMessage');
+  late final _native_delete_FlutterTraceMessage =
+      _native_delete_FlutterTraceMessagePtr
+          .asFunction<void Function(ffi.Pointer<FlutterTraceMessage>)>();
 
   ffi.Pointer<rnxopt_t> convbin_parse_options_cmd(
     int arg_count,
@@ -7328,6 +7374,86 @@ class RtkDylib {
   late final _rtkrcv_startsvr =
       _rtkrcv_startsvrPtr.asFunction<int Function()>();
 
+  int rtkrcv_rtksvrstart(
+    ffi.Pointer<rtksvr_t> svr,
+    int cycle,
+    int buffsize,
+    ffi.Pointer<ffi.Int> strs,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> paths,
+    ffi.Pointer<ffi.Int> formats,
+    int navsel,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> cmds,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> cmds_periodic,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> rcvopts,
+    int nmeacycle,
+    int nmeareq,
+    ffi.Pointer<ffi.Double> nmeapos,
+    ffi.Pointer<prcopt_t> prcopt,
+    ffi.Pointer<solopt_t> solopt,
+    ffi.Pointer<stream_t> moni,
+    ffi.Pointer<ffi.Char> errmsg,
+  ) {
+    return _rtkrcv_rtksvrstart(
+      svr,
+      cycle,
+      buffsize,
+      strs,
+      paths,
+      formats,
+      navsel,
+      cmds,
+      cmds_periodic,
+      rcvopts,
+      nmeacycle,
+      nmeareq,
+      nmeapos,
+      prcopt,
+      solopt,
+      moni,
+      errmsg,
+    );
+  }
+
+  late final _rtkrcv_rtksvrstartPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Int Function(
+              ffi.Pointer<rtksvr_t>,
+              ffi.Int,
+              ffi.Int,
+              ffi.Pointer<ffi.Int>,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>,
+              ffi.Pointer<ffi.Int>,
+              ffi.Int,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>,
+              ffi.Int,
+              ffi.Int,
+              ffi.Pointer<ffi.Double>,
+              ffi.Pointer<prcopt_t>,
+              ffi.Pointer<solopt_t>,
+              ffi.Pointer<stream_t>,
+              ffi.Pointer<ffi.Char>)>>('rtkrcv_rtksvrstart');
+  late final _rtkrcv_rtksvrstart = _rtkrcv_rtksvrstartPtr.asFunction<
+      int Function(
+          ffi.Pointer<rtksvr_t>,
+          int,
+          int,
+          ffi.Pointer<ffi.Int>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          ffi.Pointer<ffi.Int>,
+          int,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          ffi.Pointer<ffi.Pointer<ffi.Char>>,
+          int,
+          int,
+          ffi.Pointer<ffi.Double>,
+          ffi.Pointer<prcopt_t>,
+          ffi.Pointer<solopt_t>,
+          ffi.Pointer<stream_t>,
+          ffi.Pointer<ffi.Char>)>();
+
   int run_rtkrcv_cmd(
     int argc,
     ffi.Pointer<ffi.Pointer<ffi.Char>> argv,
@@ -7344,6 +7470,211 @@ class RtkDylib {
               ffi.Int, ffi.Pointer<ffi.Pointer<ffi.Char>>)>>('run_rtkrcv_cmd');
   late final _run_rtkrcv_cmd = _run_rtkrcv_cmdPtr
       .asFunction<int Function(int, ffi.Pointer<ffi.Pointer<ffi.Char>>)>();
+
+  void rtksvr_lock(
+    ffi.Pointer<rtksvr_t> svr,
+  ) {
+    return _rtksvr_lock(
+      svr,
+    );
+  }
+
+  late final _rtksvr_lockPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<rtksvr_t>)>>(
+          'rtksvr_lock');
+  late final _rtksvr_lock =
+      _rtksvr_lockPtr.asFunction<void Function(ffi.Pointer<rtksvr_t>)>();
+
+  void rtksvr_unlock(
+    ffi.Pointer<rtksvr_t> svr,
+  ) {
+    return _rtksvr_unlock(
+      svr,
+    );
+  }
+
+  late final _rtksvr_unlockPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<rtksvr_t>)>>(
+          'rtksvr_unlock');
+  late final _rtksvr_unlock =
+      _rtksvr_unlockPtr.asFunction<void Function(ffi.Pointer<rtksvr_t>)>();
+
+  void rtkrcv_start_rtksvrthread(
+    ffi.Pointer<rtksvr_t> svr,
+  ) {
+    return _rtkrcv_start_rtksvrthread(
+      svr,
+    );
+  }
+
+  late final _rtkrcv_start_rtksvrthreadPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<rtksvr_t>)>>(
+          'rtkrcv_start_rtksvrthread');
+  late final _rtkrcv_start_rtksvrthread = _rtkrcv_start_rtksvrthreadPtr
+      .asFunction<void Function(ffi.Pointer<rtksvr_t>)>();
+
+  int rtkrcv_decoderaw(
+    ffi.Pointer<rtksvr_t> svr,
+    int index,
+  ) {
+    return _rtkrcv_decoderaw(
+      svr,
+      index,
+    );
+  }
+
+  late final _rtkrcv_decoderawPtr = _lookup<
+          ffi.NativeFunction<ffi.Int Function(ffi.Pointer<rtksvr_t>, ffi.Int)>>(
+      'rtkrcv_decoderaw');
+  late final _rtkrcv_decoderaw = _rtkrcv_decoderawPtr
+      .asFunction<int Function(ffi.Pointer<rtksvr_t>, int)>();
+
+  void rtkrcv_decodefile(
+    ffi.Pointer<rtksvr_t> svr,
+    int index,
+  ) {
+    return _rtkrcv_decodefile(
+      svr,
+      index,
+    );
+  }
+
+  late final _rtkrcv_decodefilePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<rtksvr_t>, ffi.Int)>>('rtkrcv_decodefile');
+  late final _rtkrcv_decodefile = _rtkrcv_decodefilePtr
+      .asFunction<void Function(ffi.Pointer<rtksvr_t>, int)>();
+
+  void rtkrcv_corr_phase_bias(
+    ffi.Pointer<obsd_t> obs,
+    int n,
+    ffi.Pointer<nav_t> nav,
+  ) {
+    return _rtkrcv_corr_phase_bias(
+      obs,
+      n,
+      nav,
+    );
+  }
+
+  late final _rtkrcv_corr_phase_biasPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<obsd_t>, ffi.Int,
+              ffi.Pointer<nav_t>)>>('rtkrcv_corr_phase_bias');
+  late final _rtkrcv_corr_phase_bias = _rtkrcv_corr_phase_biasPtr.asFunction<
+      void Function(ffi.Pointer<obsd_t>, int, ffi.Pointer<nav_t>)>();
+
+  void rtkrcv_periodic_cmd(
+    int cycle,
+    ffi.Pointer<ffi.Char> cmd,
+    ffi.Pointer<stream_t> stream,
+  ) {
+    return _rtkrcv_periodic_cmd(
+      cycle,
+      cmd,
+      stream,
+    );
+  }
+
+  late final _rtkrcv_periodic_cmdPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int, ffi.Pointer<ffi.Char>,
+              ffi.Pointer<stream_t>)>>('rtkrcv_periodic_cmd');
+  late final _rtkrcv_periodic_cmd = _rtkrcv_periodic_cmdPtr.asFunction<
+      void Function(int, ffi.Pointer<ffi.Char>, ffi.Pointer<stream_t>)>();
+
+  void rtkrcv_writesolhead(
+    ffi.Pointer<stream_t> stream,
+    ffi.Pointer<solopt_t> solopt,
+  ) {
+    return _rtkrcv_writesolhead(
+      stream,
+      solopt,
+    );
+  }
+
+  late final _rtkrcv_writesolheadPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<stream_t>,
+              ffi.Pointer<solopt_t>)>>('rtkrcv_writesolhead');
+  late final _rtkrcv_writesolhead = _rtkrcv_writesolheadPtr.asFunction<
+      void Function(ffi.Pointer<stream_t>, ffi.Pointer<solopt_t>)>();
+
+  void rtkrcv_writesol(
+    ffi.Pointer<rtksvr_t> svr,
+    int index,
+  ) {
+    return _rtkrcv_writesol(
+      svr,
+      index,
+    );
+  }
+
+  late final _rtkrcv_writesolPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<rtksvr_t>, ffi.Int)>>('rtkrcv_writesol');
+  late final _rtkrcv_writesol = _rtkrcv_writesolPtr
+      .asFunction<void Function(ffi.Pointer<rtksvr_t>, int)>();
+
+  void rtkrcv_send_nmea(
+    ffi.Pointer<rtksvr_t> svr,
+    ffi.Pointer<ffi.Uint32> tickreset,
+  ) {
+    return _rtkrcv_send_nmea(
+      svr,
+      tickreset,
+    );
+  }
+
+  late final _rtkrcv_send_nmeaPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<rtksvr_t>,
+              ffi.Pointer<ffi.Uint32>)>>('rtkrcv_send_nmea');
+  late final _rtkrcv_send_nmea = _rtkrcv_send_nmeaPtr.asFunction<
+      void Function(ffi.Pointer<rtksvr_t>, ffi.Pointer<ffi.Uint32>)>();
+
+  void rtkrcv_saveoutbuf(
+    ffi.Pointer<rtksvr_t> svr,
+    ffi.Pointer<ffi.Uint8> buff,
+    int n,
+    int index,
+  ) {
+    return _rtkrcv_saveoutbuf(
+      svr,
+      buff,
+      n,
+      index,
+    );
+  }
+
+  late final _rtkrcv_saveoutbufPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<rtksvr_t>, ffi.Pointer<ffi.Uint8>,
+              ffi.Int, ffi.Int)>>('rtkrcv_saveoutbuf');
+  late final _rtkrcv_saveoutbuf = _rtkrcv_saveoutbufPtr.asFunction<
+      void Function(ffi.Pointer<rtksvr_t>, ffi.Pointer<ffi.Uint8>, int, int)>();
+
+  void rtkrcv_readant(
+    ffi.Pointer<prcopt_t> opt,
+    ffi.Pointer<nav_t> nav,
+    ffi.Pointer<filopt_t> filopt,
+  ) {
+    return _rtkrcv_readant(
+      opt,
+      nav,
+      filopt,
+    );
+  }
+
+  late final _rtkrcv_readantPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<prcopt_t>, ffi.Pointer<nav_t>,
+              ffi.Pointer<filopt_t>)>>('rtkrcv_readant');
+  late final _rtkrcv_readant = _rtkrcv_readantPtr.asFunction<
+      void Function(
+          ffi.Pointer<prcopt_t>, ffi.Pointer<nav_t>, ffi.Pointer<filopt_t>)>();
 }
 
 /// time struct
@@ -10100,8 +10431,11 @@ class struct_sizes_t extends ffi.Struct {
   external int gis_t;
 }
 
-class FlutterTraceMessgae extends ffi.Struct {
+class FlutterTraceMessage extends ffi.Struct {
   external ffi.Pointer<ffi.Char> message;
+
+  @ffi.Int()
+  external int type;
 
   @ffi.Int()
   external int level;
