@@ -75,15 +75,15 @@ typedef struct {
     size_t gis_t;
 } struct_sizes_t;
 
-struct FlutterTraceMessgae {
+struct FlutterTraceMessage {
     const char * message;
     int type;
     int level;
     size_t message_lenght;
 
 #if !defined(FFI_GEN) && 0
-    ~FlutterTraceMessgae() {
-        std::cout << "FlutterTraceMessgae destruct" << std::endl;
+    ~FlutterTraceMessage() {
+        std::cout << "FlutterTraceMessage destruct" << std::endl;
     }
 #endif
 };
@@ -130,7 +130,7 @@ EXPORT void vtracet(int level, const char *format, va_list args);
 EXPORT void set_level_trace(int level);
 EXPORT bool FlutterTraceIsInitialized(void);
 EXPORT bool sendCommandMessageToFlutter(Dart_Port send_port, const char* command);
-EXPORT bool sendMessageToFlutter(Dart_Port send_port, FlutterTraceMessgae* message /*, void (*callback)(void*, void*)*/);
+EXPORT bool sendMessageToFlutter(Dart_Port send_port, struct FlutterTraceMessage* message /*, void (*callback)(void*, void*)*/);
 
 #if !defined(WIN32) && !defined(ANDROID)
 EXPORT Dart_Handle GetFlutterRootLibraryUrl(void);
@@ -157,7 +157,7 @@ EXPORT FILE* openFile(const char *filename, const char * mode);
 EXPORT void native_free(void *ptr);
 EXPORT void native_deleteArray(void* ptrArr);
 EXPORT void native_delete(void* ptr);
-EXPORT void native_delete_FlutterTraceMessgae(FlutterTraceMessgae* ptr);
+EXPORT void native_delete_FlutterTraceMessage(struct FlutterTraceMessage* ptr);
 
 #ifdef __cplusplus
 }

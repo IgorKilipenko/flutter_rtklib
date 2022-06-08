@@ -111,7 +111,7 @@ extern Dart_Handle GetFlutterRootLibraryUrl() {
 }
 #endif /* !WIN32 */
 
-extern void native_delete_FlutterTraceMessgae(FlutterTraceMessgae* ptr) {
+extern void native_delete_FlutterTraceMessage(FlutterTraceMessage* ptr) {
     if (ptr != NULL) {
         delete ptr;
     }
@@ -126,7 +126,7 @@ extern void native_delete(void* ptr) {
         delete ptr;
     }
 }
-extern bool sendMessageToFlutter(Dart_Port send_port, FlutterTraceMessgae* message /*, void (*callback)(void*, void*)*/) {
+extern bool sendMessageToFlutter(Dart_Port send_port, FlutterTraceMessage* message /*, void (*callback)(void*, void*)*/) {
     if (send_port <= 0) return false;
     
     std::lock_guard<std::mutex> guard(mutex);
@@ -135,7 +135,7 @@ extern bool sendMessageToFlutter(Dart_Port send_port, FlutterTraceMessgae* messa
     dart_object.type = Dart_CObject_kNativePointer;
     auto ptr = reinterpret_cast<intptr_t>(&*message);
     dart_object.value.as_native_pointer.ptr = ptr;
-    dart_object.value.as_native_pointer.size = sizeof(struct FlutterTraceMessgae);
+    dart_object.value.as_native_pointer.size = sizeof(struct FlutterTraceMessage);
     dart_object.value.as_native_pointer.callback = [](void*, void* value) {
 
         /*
@@ -147,7 +147,7 @@ extern bool sendMessageToFlutter(Dart_Port send_port, FlutterTraceMessgae* messa
         std::cout << "NotifyDart : " << "[ ### ] FreeFinalizer";
         
         if (value != nullptr) {
-            auto obj = reinterpret_cast<FlutterTraceMessgae*>(value);
+            auto obj = reinterpret_cast<FlutterTraceMessage*>(value);
             if (obj->message != nullptr) {
                 free((char*)(obj->message));
                 free(obj);
@@ -166,7 +166,7 @@ extern bool sendMessageToFlutter(Dart_Port send_port, FlutterTraceMessgae* messa
 extern bool sendCommandMessageToFlutter(Dart_Port send_port, const char* command) {
     if (send_port <= 0) return false;
 
-    FlutterTraceMessgae* message = new FlutterTraceMessgae{
+    auto message = new FlutterTraceMessage{
         .message = command,
         .type = 2,
         .level = -1,
