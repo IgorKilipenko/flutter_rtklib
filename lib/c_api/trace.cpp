@@ -51,8 +51,8 @@ static bool notifyDart(Dart_Port send_port, char *message, size_t length, int le
     char * const buffer = (char *)calloc(length+1, sizeof(char));
     strncpy(buffer, message, length);
 
-    struct FlutterTraceMessgae * const dartMessagePtr = (FlutterTraceMessgae*)malloc(sizeof(struct FlutterTraceMessgae));
-    struct FlutterTraceMessgae dartMessage =  {
+    struct FlutterTraceMessage * const dartMessagePtr = (FlutterTraceMessage*)malloc(sizeof(struct FlutterTraceMessage));
+    struct FlutterTraceMessage dartMessage =  {
         .message = buffer,
         .type = 1,
         .level = level,
