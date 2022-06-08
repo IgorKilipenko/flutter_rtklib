@@ -1,4 +1,4 @@
-group 'com.example.flutter_rtklib'
+group 'dev.igorkili.flutter_rtklib'
 version '1.0-SNAPSHOT'
 
 buildscript {
