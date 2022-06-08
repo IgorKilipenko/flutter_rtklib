@@ -25,10 +25,21 @@ if(CMAKE_CXX_COMPILER_LOADED)
   message("${INFO_TAG} Compiler platform: ${CMAKE_SYSTEM_NAME}")
   message("${INFO_TAG} Compiler language: ${COMPILE_LANGUAGE_VALUE}")
   message("${INFO_TAG} Compiler path: ${CMAKE_CXX_COMPILER}")
-  message("${INFO_TAG} Compiler ID: ${CMAKE_CXX_COMPILER_ID}")
+  message("${INFO_TAG} C++ Compiler ID: ${CMAKE_CXX_COMPILER_ID}")
+  message("${INFO_TAG} C Compiler ID: ${CMAKE_C_COMPILER_ID}")
   message("${INFO_TAG} Compiler version:    
           ${CMAKE_CXX_COMPILER_VERSION}")
+  message("${INFO_TAG} CMAKE_ROOT: ${CMAKE_ROOT}")
+  message("${INFO_TAG} PROJECT_BINARY_DIR: ${PROJECT_BINARY_DIR}")
 endif()
+
+#message("DART: ${DART_SHARED_LIB}")
+get_filename_component(EPHEMERAL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../../../" ABSOLUTE)
+message("${INFO_TAG} EPHEMERAL_DIR: ${EPHEMERAL_DIR}")
+#include(${EPHEMERAL_DIR}/generated_config.cmake)
+message("${INFO_TAG} FLUTTER_TOOL_ENVIRONMENT: ${FLUTTER_TOOL_ENVIRONMENT}")
+message("${INFO_TAG} PLUGIN_BUNDLED_LIBRARIES: ${PLUGIN_BUNDLED_LIBRARIES}")
+
 
 if (NOT DEFINED ROOT_DIR)
   message(AUTHOR_WARNING "[${WARN_TAG}] ROOT_DIR is not defined/ Set by default.")
@@ -121,3 +132,16 @@ macro(setLibs)
       "${DART_SDK_DIR}/internal"
     )
 endmacro()
+
+add_custom_target(rtklib_target ALL
+    DEPENDS ${PROJECT_NAME}
+    VERBATIM
+)
+add_custom_command(
+  TARGET rtklib_target
+  POST_BUILD
+  COMMAND echo -e "\t${PROJECT_NAME} building complete."
+  COMMENT "platform: ${CMAKE_SYSTEM_NAME}"
+  VERBATIM
+  USES_TERMINAL
+)
