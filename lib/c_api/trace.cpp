@@ -45,7 +45,7 @@ bool FlutterTraceIsInitialized(void) {
 // Expects heap allocated `PrintfWork` so delete can be called on it.
 //
 // The `send_port` should be from the isolate which registered the callback.
-static bool NotifyDart(Dart_Port send_port, char *message, size_t length, int level) {
+static bool notifyDart(Dart_Port send_port, char *message, size_t length, int level) {
     if (send_port <= 0) return false;
    
     char * const buffer = (char *)calloc(length+1, sizeof(char));
@@ -54,34 +54,13 @@ static bool NotifyDart(Dart_Port send_port, char *message, size_t length, int le
     struct FlutterTraceMessgae * const dartMessagePtr = (FlutterTraceMessgae*)malloc(sizeof(struct FlutterTraceMessgae));
     struct FlutterTraceMessgae dartMessage =  {
         .message = buffer,
+        .type = 1,
         .level = level,
         .message_lenght = length
     };
     *dartMessagePtr = dartMessage;
 
-    Dart_CObject dart_object;
-    dart_object.type = Dart_CObject_kNativePointer;
-    auto ptr = reinterpret_cast<intptr_t>(&*dartMessagePtr);
-    dart_object.value.as_native_pointer.ptr = ptr;
-    dart_object.value.as_native_pointer.size = sizeof(struct FlutterTraceMessgae);
-    dart_object.value.as_native_pointer.callback = [](void*, void* value) {
-
-        /*
-        * Not worked, see : 
-        *   - https://github.com/dart-lang/sdk/issues/47901
-        *   - https://github.com/fzyzcjy/flutter_rust_bridge/issues/243
-        */
-        std::cout << COUT_TAG << "NotifyDart : " << "[ ### ] FreeFinalizer";
-
-        auto obj = reinterpret_cast<FlutterTraceMessgae*>(value);
-        free((char*)(obj->message));
-        free(obj);
-    };
-
-    const bool result = Dart_PostCObject_DL(send_port, &dart_object);
-    if (!result) {
-        FATAL("Posting message to port failed.");
-    }
+    const bool result = sendMessageToFlutter(send_port, dartMessagePtr);
     return result;
 }
 
@@ -375,7 +354,7 @@ extern bool flutter_initialize(Dart_Port send_port)
 
     print_send_port = send_port;
     flutter_print = [](char * message, size_t len, int level) {
-        NotifyDart(print_send_port, message, len, level);
+        notifyDart(print_send_port, message, len, level);
     };
     if (flutter_print != NULL) {
         char str[] = "C library initialized\n";

@@ -77,6 +77,7 @@ typedef struct {
 
 struct FlutterTraceMessgae {
     const char * message;
+    int type;
     int level;
     size_t message_lenght;
 
@@ -128,6 +129,8 @@ EXPORT bool flutter_initialize(Dart_Port send_port);
 EXPORT void vtracet(int level, const char *format, va_list args);
 EXPORT void set_level_trace(int level);
 EXPORT bool FlutterTraceIsInitialized(void);
+EXPORT bool sendCommandMessageToFlutter(Dart_Port send_port, const char* command);
+EXPORT bool sendMessageToFlutter(Dart_Port send_port, FlutterTraceMessgae* message /*, void (*callback)(void*, void*)*/);
 
 #if !defined(WIN32) && !defined(ANDROID)
 EXPORT Dart_Handle GetFlutterRootLibraryUrl(void);

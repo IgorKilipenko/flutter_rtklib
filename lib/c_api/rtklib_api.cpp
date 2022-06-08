@@ -2,6 +2,9 @@
 #include "dart_api.h"
 #include "dart_native_api.h"
 #include "dart_api_dl.h"
+#include <thread>
+
+static std::mutex mutex;
 
 // Initialize `dart_api_dl.h`
 extern intptr_t InitDartApiDL(void* data) {
@@ -122,4 +125,53 @@ extern void native_delete(void* ptr) {
     if (ptr != NULL) {
         delete ptr;
     }
+}
+extern bool sendMessageToFlutter(Dart_Port send_port, FlutterTraceMessgae* message /*, void (*callback)(void*, void*)*/) {
+    if (send_port <= 0) return false;
+    
+    std::lock_guard<std::mutex> guard(mutex);
+
+    Dart_CObject dart_object;
+    dart_object.type = Dart_CObject_kNativePointer;
+    auto ptr = reinterpret_cast<intptr_t>(&*message);
+    dart_object.value.as_native_pointer.ptr = ptr;
+    dart_object.value.as_native_pointer.size = sizeof(struct FlutterTraceMessgae);
+    dart_object.value.as_native_pointer.callback = [](void*, void* value) {
+
+        /*
+        * Not worked, see : 
+        *   - https://github.com/dart-lang/sdk/issues/47901
+        *   - https://github.com/fzyzcjy/flutter_rust_bridge/issues/243
+        */
+        
+        std::cout << "NotifyDart : " << "[ ### ] FreeFinalizer";
+        
+        if (value != nullptr) {
+            auto obj = reinterpret_cast<FlutterTraceMessgae*>(value);
+            if (obj->message != nullptr) {
+                free((char*)(obj->message));
+                free(obj);
+            }
+        }
+    };
+    
+    
+    const bool result = Dart_PostCObject_DL(send_port, &dart_object);
+    if (!result) {
+        FATAL("Posting message to port failed.");
+    }
+    return result;
+}
+
+extern bool sendCommandMessageToFlutter(Dart_Port send_port, const char* command) {
+    if (send_port <= 0) return false;
+
+    FlutterTraceMessgae* message = new FlutterTraceMessgae{
+        .message = command,
+        .type = 2,
+        .level = -1,
+        .message_lenght = strlen(command),
+    };
+
+    return sendMessageToFlutter(send_port, message);
 }
