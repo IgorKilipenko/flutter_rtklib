@@ -120,6 +120,7 @@ macro(setLibs)
         ${UTILS_DIR}/io.cpp
         ${FFI_DIR}/ffi_convbin.cpp
         ${FFI_DIR}/ffi_rtkrcv.cpp
+        ${FFI_DIR}/ffi_rtkrcv_common.cpp
         ${DART_SDK_DIR}/dart_api_dl.c
     )
 
