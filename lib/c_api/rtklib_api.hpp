@@ -129,7 +129,7 @@ EXPORT void vtracet(int level, const char *format, va_list args);
 EXPORT void set_level_trace(int level);
 EXPORT bool FlutterTraceIsInitialized(void);
 
-#if !defined(WIN32)
+#if !defined(WIN32) && !defined(ANDROID)
 EXPORT Dart_Handle GetFlutterRootLibraryUrl(void);
 #endif
 

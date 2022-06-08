@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.10)
 set(CM_TARGET_PLATFORM "Android")
 
 get_filename_component(ROOT_DIR "${CMAKE_SOURCE_DIR}/../../" ABSOLUTE)
@@ -25,7 +25,7 @@ if (NOT DEFINED CTARGET_BASE)
   message(SEND_ERROR "${ERROR_TAG}  CTARGET_BASE (compile definitions) not defined, used default values for CTARGET.")
   set(CTARGET "")
 else()
-  set(CTARGET ${CTARGET_BASE})
+  set(CTARGET ${CTARGET_BASE} -DANDROID)
 endif()
 message(STATUS "${INFO_TAG} CTARGET values (compile definitions) = ${CTARGET}")
 

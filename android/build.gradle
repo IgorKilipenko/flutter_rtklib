@@ -42,6 +42,12 @@ android {
 
     defaultConfig {
         minSdkVersion 28
+        externalNativeBuild {
+            cmake {
+                arguments "-DCMAKE_VERBOSE_MAKEFILE=ON", "V=1", "-DANDROID_TOOLCHAIN=clang"
+                cppFlags "-std=gnu++2a", "-fexceptions"
+            }
+        }
     }
 
     externalNativeBuild {

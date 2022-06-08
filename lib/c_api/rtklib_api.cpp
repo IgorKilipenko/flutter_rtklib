@@ -92,14 +92,14 @@ extern void native_free(void *ptr) {
 
 extern void Fatal(char const* file, int line, char const* error) {
     trace(1, "FATAL %s:%i\n%s\n", file, line, error);
-#if !defined(WIN32)
+#if !defined(WIN32) && !defined(ANDROID)
     Dart_DumpNativeStackTrace(NULL);
     Dart_PrepareToAbort();
 #endif
     abort();
 }
 
-#if !defined(WIN32)
+#if !defined(WIN32) && !defined(ANDROID)
 extern Dart_Handle GetFlutterRootLibraryUrl() {
     Dart_Handle root_lib = Dart_RootLibrary();
     Dart_Handle lib_url = Dart_LibraryUrl(root_lib);
