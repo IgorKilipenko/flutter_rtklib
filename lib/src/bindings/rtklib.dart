@@ -87,7 +87,7 @@ class RtkLib extends RtkDylib {
       ..listen((msgPtrAdrress) {
         if (msgPtrAdrress is int && msgPtrAdrress > 0) {
           final nativeMsgPtr =
-              ffi.Pointer<FlutterTraceMessgae>.fromAddress(msgPtrAdrress);
+              ffi.Pointer<FlutterTraceMessage>.fromAddress(msgPtrAdrress);
           assert(!nativeMsgPtr.isNullPointer);
           if (nativeMsgPtr.isNullPointer) {
             stderr.write(
@@ -114,7 +114,7 @@ class RtkLib extends RtkDylib {
               }
             }
             if (Platform.isWindows && kDebugMode) {
-              native_delete_FlutterTraceMessgae(nativeMsgPtr);
+              native_delete_FlutterTraceMessage(nativeMsgPtr);
             } else {
               pkg_ffi.calloc.free(nativeMsgPtr);
             }
