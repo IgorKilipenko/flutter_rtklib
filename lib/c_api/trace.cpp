@@ -185,47 +185,24 @@ extern void tracet(int level, const char *format, ...)
 
 extern void vtracet(int level, const char *format, va_list args) 
 {
-    /*va_list args2;
-    va_copy(args2, args);
-
-    if (level<=gettracelevel()) { 
-        const char * level_format = "(level: %d) (time: %dms)";
-        uint32_t timer = tickget()-tick_trace;
-        int size1 = snprintf(NULL, 0, level_format, level, timer);
-        char *str1 = (char*)calloc(size1+1, sizeof(char));
-        snprintf(str1, size1+1, level_format, level, timer);
-        
-        int size2 = vsnprintf(NULL, 0, format, args);
-        
-        char *str2 = (char*)calloc(size2+1, sizeof(char));
-        vsnprintf(str2, size2+1, format, args2);
-
-        flutter_printf("%s %s", str1, str2);
-    }*/
-
     va_list args2;
     va_copy(args2, args);
 
     if (level<=gettracelevel()) { 
-        const char * level_format = "(level: %d) (time: %dms)";
+        const char * time_format = "(time: %dms)";
         uint32_t timer = tickget()-tick_trace;
-        int size1 = snprintf(NULL, 0, level_format, level, timer);
-        char *str1 = new char[size1+1]{'\0'}; //(char*)calloc(size1+1, sizeof(char));
-        snprintf(str1, size1+1, level_format, level, timer);
+        int sizeTimer = snprintf(NULL, 0, time_format, timer);
+        char *timerStr = new char[sizeTimer+1]{'\0'};
+        snprintf(timerStr, sizeTimer+1, time_format, timer);
         
-        int size2 = vsnprintf(NULL, 0, format, args);
+        int size = vsnprintf(NULL, 0, format, args);
         
-        char *str2 = new char[size2+1]{'\0'}; //(char*)calloc(size2+1, sizeof(char));
-        vsnprintf(str2, size2+1, format, args2);
+        char *msg = new char[size+1]{'\0'}; 
+        size = vsnprintf(msg, size+1, format, args2);
 
-        const int maxSize = size1 + size2 + 2;
-        char * msg = new char[maxSize]{'\0'};
-        const int size = snprintf(msg, size1 + maxSize, "%s %s", str1, str2);
+        if (size) trace(level, "%s %s", timerStr, msg);
 
-        if (size) flutter_print(msg, size, level);
-
-        if (str1) delete[] str1;
-        if (str1) delete[] str2;
+        if (timerStr) delete[] timerStr;
         if (msg) delete[] msg;
     }
 }
@@ -439,43 +416,17 @@ extern int flutter_trace(int level, const char *format, ...) {
 }
 
 extern int flutter_vtrace(int level, const char *format, va_list args) {  
-    /*if (level<=gettracelevel()) {
-        va_list(args_copy);
-        va_copy(args_copy, args);
-
-        const char * level_format = "(level: %d)";
-        int size1 = snprintf(NULL, 0, level_format, level);
-        char *str1 = (char*)calloc(size1+1, sizeof(char));
-        snprintf(str1, size1+1, level_format, level);
-
-        int size2 = vsnprintf(NULL, 0, format, args);
-        char *str2 = (char*)calloc(size2+1, sizeof(char));
-        vsnprintf(str2, size2+1, format, args_copy);
-        return flutter_printf("%s %s", str1, str2);
-    }*/
-
     if (level<=gettracelevel()) {
         va_list(args_copy);
         va_copy(args_copy, args);
 
-        const char * level_format = "(level: %d)";
-        int size1 = snprintf(NULL, 0, level_format, level);
-        char *str1 = new char[size1+1]{'\0'}; //(char*)calloc(size1+1, sizeof(char));
-        snprintf(str1, size1+1, level_format, level);
-
-        int size2 = vsnprintf(NULL, 0, format, args);
-        char *str2 = new char[size2+1]{'\0'}; //(char*)calloc(size2+1, sizeof(char));
-        vsnprintf(str2, size2+1, format, args_copy);
-
-        const int maxSize = size1 + size2 + 2;
-        char * msg = new char[maxSize]{'\0'};
-        int size = snprintf(msg, maxSize, "%s %s", str1, str2);
+        int size = vsnprintf(NULL, 0, format, args);
+        char *msg = new char[size+1]{'\0'};
+        vsnprintf(msg, size+1, format, args_copy);
 
         if (size) flutter_print(msg, size, level);
 
         if (msg) delete[] msg;
-        if (str1) delete[] str1;
-        if (str2) delete[] str2;
 
         return size;
     }

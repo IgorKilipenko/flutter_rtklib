@@ -99,8 +99,7 @@ class RtkLib extends RtkDylib {
                 "[WARN] Incoming message from C (rtklib) is null pointer\n");
             return;
           }
-          final level = nativeMsgPtr.ref
-              .level; //! Removed for next change, now negative level is command message
+          final level = nativeMsgPtr.ref.level;
           final length = nativeMsgPtr.ref.message_lenght;
           assert(length >= 0);
           assert(!nativeMsgPtr.ref.message.isNullPointer);
@@ -164,44 +163,22 @@ enum TraceLevels {
 }
 
 class TraceMessage {
-  static final _levelRegex = RegExp(
-      r'^\(level: (?<level>\-?[0-5])\)\s+(?<msg>.*[\n\r\s])$',
-      multiLine: true);
   late final String message;
   late final int traceLevel;
+
   TraceMessage(String message,
       {this.traceLevel = 0, bool formatMessage = true}) {
-    //! const defaultTraceLevel = 0;
-    MapEntry<int, String>? parsedLevel = _parseTraceLevel(message,
+    this.message = _parseTraceLevel(message,
         level: traceLevel, formatMessage: formatMessage);
-    //! traceLevel ??= parsedLevel?.key;
-    //! this.traceLevel = traceLevel ?? defaultTraceLevel;
-    this.message = parsedLevel?.value ?? message;
   }
 
-  @Deprecated(
-      "Need change implementation for next version (to not use parsed Level)")
-  static MapEntry<int, String>? _parseTraceLevel(String message,
-      {int? level, bool formatMessage = true}) {
-    final match = _levelRegex.firstMatch(message);
-    final levelStr = match?.namedGroup("level");
-    if (levelStr != null) {
-      final parsedLevel = int.tryParse(levelStr);
-      if (parsedLevel != null) {
-        //! Only for current version. In next iteration need change implementation to not use parsed Level
-        //assert(level != null ? level == parsedLevel : true);
-        final _assert = level != null ? level == parsedLevel : true;
-        if (!_assert) {
-          print("");
-        }
-        if (formatMessage && match?.namedGroup("msg") != null) {
-          message =
-              '[${TraceLevels.getByValue(parsedLevel).name.toUpperCase()}] ${match!.namedGroup("msg")!}';
-        }
-        return MapEntry<int, String>(parsedLevel, message);
-      }
+  static String _parseTraceLevel(String message,
+      {required int level, bool formatMessage = true}) {
+    if (formatMessage) {
+      message =
+          'rtklib: [${TraceLevels.getByValue(level).name.toUpperCase()}] $message';
     }
-    return null;
+    return message;
   }
 
   bool get isAppMessgae => traceLevel == 0;
@@ -305,7 +282,7 @@ class TraceController {
       return true;
     }).timeout(timeLimit, onTimeout: () {
       isEmpty = true;
-      return TraceMessage("", formatMessage: false);
+      return TraceMessage("");
     });
     return !isEmpty ? res : null;
   }
@@ -323,7 +300,7 @@ class TraceController {
         ? first
         : first?.timeout(timeLimit, onTimeout: () {
             isEmpty = true;
-            return TraceMessage("", formatMessage: false);
+            return TraceMessage("");
           }));
     return !isEmpty ? res : null;
   }
