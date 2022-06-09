@@ -422,7 +422,7 @@ extern int rtkrcv_startsvr()
     solopt[1].posf=strfmt[4];
     
     /* start rtk server */
-    if (!rtksvrstart(&svr,svrcycle,buffsize,strtype,paths,strfmt,navmsgsel,
+    if (!rtkrcv_rtksvrstart(&svr,svrcycle,buffsize,strtype,paths,strfmt,navmsgsel,
                      cmds,cmds_periodic,ropts,nmeacycle,nmeareq,npos,&prcopt,
                      solopt,&moni,errmsg)) {
         trace(2,"rtk server start error (%s)\n",errmsg);
@@ -478,7 +478,74 @@ extern int run_rtkrcv_cmd(int argc, char **argv) {
         rtkopenstat(STATFILE,outstat);
     }
 
-    /*if (start) */rtkrcv_startsvr();
+    rtkrcv_startsvr();
+    rtkrcv_stopsvr();
 
     return 0;
+}
+
+/* stop rtk server -----------------------------------------------------------*/
+extern void rtkrcv_stopsvr(void)
+{
+    char s[3][MAXRCVCMD]={"","",""},*cmds[]={NULL,NULL,NULL};
+    int i,ret;
+    
+    trace(3,"rtkrcv_stopsvr:\n");
+    
+    if (!svr.state) return;
+    
+    /* read stop commads from command files */
+    for (i=0;i<3;i++) {
+        if (!*rcvcmds[i]) continue;
+        else cmds[i]=s[i];
+    }
+    /* stop rtk server */
+    rtksvrstop(&svr,cmds);
+    
+    /* execute stop command */
+    if (*stopcmd&&(ret=system(stopcmd))) {
+        trace(2,"command exec error: %s (%d)\n",stopcmd,ret);
+    }
+    if (solopt[0].geoid>0) closegeoid();
+    
+    trace(0,"stop rtk server\n");
+}
+
+/** 
+ * read antenna file 
+ **/
+extern void rtkrcv_readant(prcopt_t *opt, nav_t *nav, filopt_t *filopt )
+{
+    const pcv_t pcv0={0};
+    pcvs_t pcvr={0},pcvs={0};
+    pcv_t *pcv;
+    gtime_t time=timeget();
+    int i;
+    
+    trace(3,"readant:\n");
+    
+    opt->pcvr[0]=opt->pcvr[1]=pcv0;
+    if (!*filopt->rcvantp) return;
+    
+    if (readpcv(filopt->rcvantp,&pcvr)) {
+        for (i=0;i<2;i++) {
+            if (!*opt->anttype[i]) continue;
+            if (!(pcv=searchpcv(0,opt->anttype[i],time,&pcvr))) {
+                showmsg("no antenna %s in %s",opt->anttype[i],filopt->rcvantp);
+                continue;
+            }
+            opt->pcvr[i]=*pcv;
+        }
+    }
+    else showmsg("antenna file open error %s",filopt->rcvantp);
+    
+    if (readpcv(filopt->satantp,&pcvs)) {
+        for (i=0;i<MAXSAT;i++) {
+            if (!(pcv=searchpcv(i+1,"",time,&pcvs))) continue;
+            nav->pcvs[i]=*pcv;
+        }
+    }
+    else showmsg("antenna file open error %s",filopt->satantp);
+    
+    free(pcvr.pcv); free(pcvs.pcv);
 }

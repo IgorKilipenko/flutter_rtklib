@@ -18,19 +18,22 @@ EXPORT int rtkrcv_rtksvrstart(rtksvr_t *svr, int cycle, int buffsize, int *strs,
                        int nmeareq, const double *nmeapos, prcopt_t *prcopt,
                        solopt_t *solopt, stream_t *moni, char *errmsg);
 EXPORT int run_rtkrcv_cmd(int argc, char **argv);
+EXPORT void rtkrcv_stopsvr(void);
+EXPORT void rtkrcv_readant(prcopt_t *opt, nav_t *nav, filopt_t *filopt );
+
 EXPORT void rtksvr_lock  (rtksvr_t *svr);
 EXPORT void rtksvr_unlock(rtksvr_t *svr);
 
-EXPORT void rtkrcv_start_rtksvrthread(rtksvr_t *svr);
-EXPORT int rtkrcv_decoderaw(rtksvr_t *svr, int index);
-EXPORT void rtkrcv_decodefile(rtksvr_t *svr, int index);
-EXPORT void rtkrcv_corr_phase_bias(obsd_t *obs, int n, const nav_t *nav);
-EXPORT void rtkrcv_periodic_cmd(int cycle, const char *cmd, stream_t *stream);
-EXPORT void rtkrcv_writesolhead(stream_t *stream, const solopt_t *solopt);
-EXPORT void rtkrcv_writesol(rtksvr_t *svr, int index);
-EXPORT void rtkrcv_send_nmea(rtksvr_t *svr, uint32_t *tickreset);
-EXPORT void rtkrcv_saveoutbuf(rtksvr_t *svr, uint8_t *buff, int n, int index);
-EXPORT void rtkrcv_readant(prcopt_t *opt, nav_t *nav, filopt_t *filopt );
+EXPORT void rtksvr_start_rtksvrthread(rtksvr_t *svr);
+EXPORT int rtksvr_decoderaw(rtksvr_t *svr, int index);
+EXPORT void rtksvr_decodefile(rtksvr_t *svr, int index);
+EXPORT void rtksvr_corr_phase_bias(obsd_t *obs, int n, const nav_t *nav);
+EXPORT void rtksvr_periodic_cmd(int cycle, const char *cmd, stream_t *stream);
+EXPORT void rtksvr_writesolhead(stream_t *stream, const solopt_t *solopt);
+EXPORT void rtksvr_writesol(rtksvr_t *svr, int index);
+EXPORT void rtksvr_send_nmea(rtksvr_t *svr, uint32_t *tickreset);
+EXPORT void rtksvr_saveoutbuf(rtksvr_t *svr, uint8_t *buff, int n, int index);
+
 
 #ifdef __cplusplus
 }
