@@ -6,7 +6,9 @@
         "windows_dartSdkPath": "C:/src/flutter/bin/cache/dart-sdk/include",
         "msys64Path": "C:/msys64",
         "myDefaultIncludePath": [
-            "${workspaceFolder}",
+            "${workspaceFolder}/linux/**",
+            "${workspaceFolder}/windows/**",
+            "${workspaceFolder}/android/rtklib/**",
             "${workspaceFolder}/third_party/RTKLIB/**",
             "${workspaceFolder}/lib/c_api/**"
         ]
