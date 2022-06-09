@@ -55,21 +55,6 @@ void main() {
     });
 
     testing.test("* Test flutter_printf", () async {
-      const format = "Test tarce format";
-      int count = pkg_ffi.using((arena) {
-        final strPtr = format.toNativeUtf8(allocator: arena).cast<ffi.Char>();
-        return rtklib.flutter_printf(strPtr);
-      });
-
-      String? ouputMsg = (await rtklib.console.getLastMessage())?.message;
-
-      testing.expect(count, testing.isPositive);
-      testing.expect(ouputMsg, testing.isNotNull);
-      testing.expect(ouputMsg!.replaceAll(RegExp(r'[\n\r]+'), ""),
-          testing.equalsIgnoringCase(format));
-    });
-
-    testing.test("* Test flutter_printf", () async {
       const format = "Test tarce format\n";
       int count = pkg_ffi.using((arena) {
         final strPtr = format.toNativeUtf8(allocator: arena).cast<ffi.Char>();
@@ -80,7 +65,11 @@ void main() {
 
       testing.expect(count, testing.isPositive);
       testing.expect(ouputMsg, testing.isNotNull);
-      testing.expect(ouputMsg!, testing.equalsIgnoringCase(format));
+      final regex = RegExp(r"^.*"
+          "${format.replaceAll(RegExp(r'[\s+\n\r]+$'), '')}"
+          r"\n+");
+      final hasMatch = regex.hasMatch(ouputMsg!);
+      testing.expect(hasMatch, testing.isTrue);
     });
 
     testing.test("* Test matsprint", () {
