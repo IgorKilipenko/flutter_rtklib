@@ -7136,7 +7136,7 @@ class RtkDylib {
   /// args   : double *A        I   matrix A (n x m)
   /// int    n,m       I   number of rows and columns of A
   /// int    p,q       I   total columns, columns under decimal point
-  /// (char **buffer    O   output string)
+  /// (char **buffer    O   output string (need free after use) )
   /// @return [int] string length
   /// notes  : matirix stored by column-major order (fortran convention)
   int matsprint(
@@ -7470,6 +7470,14 @@ class RtkDylib {
               ffi.Int, ffi.Pointer<ffi.Pointer<ffi.Char>>)>>('run_rtkrcv_cmd');
   late final _run_rtkrcv_cmd = _run_rtkrcv_cmdPtr
       .asFunction<int Function(int, ffi.Pointer<ffi.Pointer<ffi.Char>>)>();
+
+  void rtkrcv_stopsvr() {
+    return _rtkrcv_stopsvr();
+  }
+
+  late final _rtkrcv_stopsvrPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function()>>('rtkrcv_stopsvr');
+  late final _rtkrcv_stopsvr = _rtkrcv_stopsvrPtr.asFunction<void Function()>();
 
   void rtksvr_lock(
     ffi.Pointer<rtksvr_t> svr,
