@@ -174,6 +174,7 @@ class TraceMessage {
 
   static String _parseTraceLevel(String message,
       {required int level, bool formatMessage = true}) {
+    if (level < 0) return message;
     if (formatMessage) {
       message =
           'rtklib: [${TraceLevels.getByValue(level).name.toUpperCase()}] $message';
@@ -295,7 +296,11 @@ class TraceController {
   Future<TraceMessage?> firstWhere(bool Function(TraceMessage) test,
       {TraceMessage Function()? orElse, Duration? timeLimit}) async {
     var isEmpty = true;
-    final first = _stream?.firstWhere(test, orElse: orElse);
+    final first = _stream?.firstWhere((msg) {
+      final result = test(msg);
+      isEmpty = !result;
+      return result;
+    }, orElse: orElse);
     final res = await (timeLimit == null
         ? first
         : first?.timeout(timeLimit, onTimeout: () {
