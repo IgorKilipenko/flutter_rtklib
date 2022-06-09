@@ -45,7 +45,7 @@ bool FlutterTraceIsInitialized(void) {
 // Expects heap allocated `PrintfWork` so delete can be called on it.
 //
 // The `send_port` should be from the isolate which registered the callback.
-static bool notifyDart(Dart_Port send_port, char *message, size_t length, int level) {
+static bool notifyDart(Dart_Port send_port, const char *message, size_t length, int level) {
     if (send_port <= 0) return false;
    
     char * const buffer = (char *)calloc(length+1, sizeof(char));
@@ -185,7 +185,7 @@ extern void tracet(int level, const char *format, ...)
 
 extern void vtracet(int level, const char *format, va_list args) 
 {
-    va_list args2;
+    /*va_list args2;
     va_copy(args2, args);
 
     if (level<=gettracelevel()) { 
@@ -201,6 +201,32 @@ extern void vtracet(int level, const char *format, va_list args)
         vsnprintf(str2, size2+1, format, args2);
 
         flutter_printf("%s %s", str1, str2);
+    }*/
+
+    va_list args2;
+    va_copy(args2, args);
+
+    if (level<=gettracelevel()) { 
+        const char * level_format = "(level: %d) (time: %dms)";
+        uint32_t timer = tickget()-tick_trace;
+        int size1 = snprintf(NULL, 0, level_format, level, timer);
+        char *str1 = new char[size1+1]{'\0'}; //(char*)calloc(size1+1, sizeof(char));
+        snprintf(str1, size1+1, level_format, level, timer);
+        
+        int size2 = vsnprintf(NULL, 0, format, args);
+        
+        char *str2 = new char[size2+1]{'\0'}; //(char*)calloc(size2+1, sizeof(char));
+        vsnprintf(str2, size2+1, format, args2);
+
+        const int maxSize = size1 + size2 + 2;
+        char * msg = new char[maxSize]{'\0'};
+        const int size = snprintf(msg, size1 + maxSize, "%s %s", str1, str2);
+
+        if (size) flutter_print(msg, size, level);
+
+        if (str1) delete[] str1;
+        if (str1) delete[] str2;
+        if (msg) delete[] msg;
     }
 }
 
@@ -337,12 +363,12 @@ extern int showmsg(const char *format, ...)
 
 #if (defined(TRACE) || defined(EXTERNAL_TRACE)) && defined(FLUTTER_DEBUG)
 
-static void flutter_default_debug_handler(char *message, size_t length, int level) {
+static void flutter_default_debug_handler(const char *message, size_t length, int level) {
     std::string msg{message, length};
     std::cout << "rtklib cout: " << message << std::endl; 
 }
 
-void (*flutter_print)(char *message, size_t length, int level) = flutter_default_debug_handler;
+void (*flutter_print)(const char *message, size_t length, int level) = flutter_default_debug_handler;
 
 extern bool flutter_initialize(Dart_Port send_port)
 {
@@ -353,7 +379,7 @@ extern bool flutter_initialize(Dart_Port send_port)
     } 
 
     print_send_port = send_port;
-    flutter_print = [](char * message, size_t len, int level) {
+    flutter_print = [](const char * message, size_t len, int level) {
         notifyDart(print_send_port, message, len, level);
     };
     if (flutter_print != NULL) {
@@ -413,7 +439,7 @@ extern int flutter_trace(int level, const char *format, ...) {
 }
 
 extern int flutter_vtrace(int level, const char *format, va_list args) {  
-    if (level<=gettracelevel()) {
+    /*if (level<=gettracelevel()) {
         va_list(args_copy);
         va_copy(args_copy, args);
 
@@ -426,6 +452,32 @@ extern int flutter_vtrace(int level, const char *format, va_list args) {
         char *str2 = (char*)calloc(size2+1, sizeof(char));
         vsnprintf(str2, size2+1, format, args_copy);
         return flutter_printf("%s %s", str1, str2);
+    }*/
+
+    if (level<=gettracelevel()) {
+        va_list(args_copy);
+        va_copy(args_copy, args);
+
+        const char * level_format = "(level: %d)";
+        int size1 = snprintf(NULL, 0, level_format, level);
+        char *str1 = new char[size1+1]{'\0'}; //(char*)calloc(size1+1, sizeof(char));
+        snprintf(str1, size1+1, level_format, level);
+
+        int size2 = vsnprintf(NULL, 0, format, args);
+        char *str2 = new char[size2+1]{'\0'}; //(char*)calloc(size2+1, sizeof(char));
+        vsnprintf(str2, size2+1, format, args_copy);
+
+        const int maxSize = size1 + size2 + 2;
+        char * msg = new char[maxSize]{'\0'};
+        int size = snprintf(msg, maxSize, "%s %s", str1, str2);
+
+        if (size) flutter_print(msg, size, level);
+
+        if (msg) delete[] msg;
+        if (str1) delete[] str1;
+        if (str2) delete[] str2;
+
+        return size;
     }
 
     return 0;

@@ -28,18 +28,23 @@ class RtkLib extends RtkDylib {
   static UbloxImpl? _ubloxInstance;
   static void Function(TraceMessage message)? _customPrintCallback;
   static final virtualConsole = TraceController.getController();
+
+  /*
   static final PrintCallback _printCallback =
       ffi.Pointer.fromFunction<_WrappedPrintC>(_printDebug);
+  */
 
   /// Holds the symbol lookup function.
   late final LookupFunction lookup;
   late final ReceivePort _receivePort;
 
+  /*
   static void _printDebug(ffi.Pointer<ffi.Char> str, int len, int level) {
     final msg =
         TraceMessage(str.cast<pkg_ffi.Utf8>().toDartString(length: len));
     _flutterTrace(msg);
   }
+  */
 
   static void _flutterTrace(TraceMessage msg) {
     RtkLib.virtualConsole.add(msg);
@@ -94,7 +99,8 @@ class RtkLib extends RtkDylib {
                 "[WARN] Incoming message from C (rtklib) is null pointer\n");
             return;
           }
-          final level = nativeMsgPtr.ref.level;
+          final level = nativeMsgPtr.ref
+              .level; //! Removed for next change, now negative level is command message
           final length = nativeMsgPtr.ref.message_lenght;
           assert(length >= 0);
           assert(!nativeMsgPtr.ref.message.isNullPointer);
@@ -141,7 +147,7 @@ class RtkLib extends RtkDylib {
 }
 
 enum TraceLevels {
-  //notDefined(-1),
+  systemCommand(-2),
   message(0),
   error(1),
   warning(2),
@@ -159,26 +165,35 @@ enum TraceLevels {
 
 class TraceMessage {
   static final _levelRegex = RegExp(
-      r'^\(level: (?<level>[0-5])\)\s+(?<msg>.*[\n\r\s])$',
+      r'^\(level: (?<level>\-?[0-5])\)\s+(?<msg>.*[\n\r\s])$',
       multiLine: true);
   late final String message;
   late final int traceLevel;
-  TraceMessage(String message, {int? traceLevel, bool formatMessage = true}) {
-    const defaultTraceLevel = 0;
-    MapEntry<int, String>? parsedLevel =
-        _parseTraceLevel(message, formatMessage: formatMessage);
-    traceLevel ??= parsedLevel?.key;
-    this.traceLevel = traceLevel ?? defaultTraceLevel;
+  TraceMessage(String message,
+      {this.traceLevel = 0, bool formatMessage = true}) {
+    //! const defaultTraceLevel = 0;
+    MapEntry<int, String>? parsedLevel = _parseTraceLevel(message,
+        level: traceLevel, formatMessage: formatMessage);
+    //! traceLevel ??= parsedLevel?.key;
+    //! this.traceLevel = traceLevel ?? defaultTraceLevel;
     this.message = parsedLevel?.value ?? message;
   }
 
+  @Deprecated(
+      "Need change implementation for next version (to not use parsed Level)")
   static MapEntry<int, String>? _parseTraceLevel(String message,
-      {bool formatMessage = true}) {
+      {int? level, bool formatMessage = true}) {
     final match = _levelRegex.firstMatch(message);
     final levelStr = match?.namedGroup("level");
     if (levelStr != null) {
       final parsedLevel = int.tryParse(levelStr);
       if (parsedLevel != null) {
+        //! Only for current version. In next iteration need change implementation to not use parsed Level
+        //assert(level != null ? level == parsedLevel : true);
+        final _assert = level != null ? level == parsedLevel : true;
+        if (!_assert) {
+          print("");
+        }
         if (formatMessage && match?.namedGroup("msg") != null) {
           message =
               '[${TraceLevels.getByValue(parsedLevel).name.toUpperCase()}] ${match!.namedGroup("msg")!}';
@@ -194,6 +209,7 @@ class TraceMessage {
   bool get isWarn => traceLevel == 2;
   bool get isDebug => traceLevel == 3;
   bool get isVerbose => traceLevel >= 4;
+  bool get isSystemMessage => traceLevel < 0;
 }
 
 class TraceController {
@@ -289,7 +305,7 @@ class TraceController {
       return true;
     }).timeout(timeLimit, onTimeout: () {
       isEmpty = true;
-      return TraceMessage("");
+      return TraceMessage("", formatMessage: false);
     });
     return !isEmpty ? res : null;
   }
@@ -297,5 +313,18 @@ class TraceController {
   Future<TraceMessage?> getLastMessage() async {
     await Future.delayed(const Duration(microseconds: 0));
     return _lastMessage;
+  }
+
+  Future<TraceMessage?> firstWhere(bool Function(TraceMessage) test,
+      {TraceMessage Function()? orElse, Duration? timeLimit}) async {
+    var isEmpty = true;
+    final first = _stream?.firstWhere(test, orElse: orElse);
+    final res = await (timeLimit == null
+        ? first
+        : first?.timeout(timeLimit, onTimeout: () {
+            isEmpty = true;
+            return TraceMessage("", formatMessage: false);
+          }));
+    return !isEmpty ? res : null;
   }
 }

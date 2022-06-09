@@ -119,7 +119,7 @@ EXPORT raw_t * create_raw(int format, uint32_t* status);
 
 EXPORT int init_raw_2 (raw_t **raw, int format);
 
-extern void (*flutter_print)(char *, size_t, int);
+extern void (*flutter_print)(const char *, size_t, int);
 
 EXPORT int flutter_printf(const char *format, ...);
 EXPORT int flutter_vprintf(const char *format, va_list args);
@@ -142,7 +142,7 @@ EXPORT Dart_Handle GetFlutterRootLibraryUrl(void);
  * args   : double *A        I   matrix A (n x m) 
  *          int    n,m       I   number of rows and columns of A 
  *          int    p,q       I   total columns, columns under decimal point 
- *         (char **buffer    O   output string) 
+ *         (char **buffer    O   output string (need free after use) ) 
  * @return [int] string length 
  * notes  : matirix stored by column-major order (fortran convention) 
  */
