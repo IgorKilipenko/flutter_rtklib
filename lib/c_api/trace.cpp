@@ -36,6 +36,7 @@ static void (*print_callback_non_blocking_fp_)(const char* message, size_t messa
 static Dart_Port send_port_non_blocking_ = -1;
 static Dart_Port print_send_port = -1;
 
+// Check for flutter trace port is initialized
 bool FlutterTraceIsInitialized(void) {
     return print_send_port > 0 &&  flutter_print != NULL;
 }
@@ -347,7 +348,8 @@ static void flutter_default_debug_handler(const char *message, size_t length, in
 
 void (*flutter_print)(const char *message, size_t length, int level) = flutter_default_debug_handler;
 
-extern bool flutter_initialize(Dart_Port send_port)
+/// Initialize flutter trace port
+extern bool FlutterTraceInitialize(Dart_Port send_port)
 {
     assert(print_send_port < 0);
     
@@ -441,7 +443,7 @@ extern void set_level_trace(int level) {
 
 #else
 
-extern void flutter_initialize(void (*printCallback)(char *, uint64_t)) {}
+extern void FlutterTraceInitialize(void (*printCallback)(char *, uint64_t)) {}
 extern int flutter_printf(const char *format, ...) { return 0; }
 extern int flutter_vprintf(const char *format, va_list args) { return 0; }
 extern int flutter_vprintf(const char *format, va_list args) { return 0; }

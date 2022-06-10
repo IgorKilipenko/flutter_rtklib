@@ -128,7 +128,7 @@ class RtkLib extends RtkDylib {
       });
     final int nativePort = _receivePort.sendPort.nativePort;
     _customPrintCallback = printCallback;
-    flutter_initialize(nativePort);
+    FlutterTraceInitialize(nativePort);
     set_level_trace(traceLevel ?? (kDebugMode ? 3 : 2));
   }
 

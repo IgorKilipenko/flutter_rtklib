@@ -125,12 +125,14 @@ EXPORT int flutter_printf(const char *format, ...);
 EXPORT int flutter_vprintf(const char *format, va_list args);
 EXPORT int flutter_trace(int level, const char *format, ...);
 EXPORT int flutter_vtrace(int level, const char *format, va_list args);
-EXPORT bool flutter_initialize(Dart_Port send_port);
 EXPORT void vtracet(int level, const char *format, va_list args);
 EXPORT void set_level_trace(int level);
-EXPORT bool FlutterTraceIsInitialized(void);
+
 EXPORT bool sendCommandMessageToFlutter(Dart_Port send_port, const char* command);
 EXPORT bool sendMessageToFlutter(Dart_Port send_port, struct FlutterTraceMessage* message /*, void (*callback)(void*, void*)*/);
+
+EXPORT bool FlutterTraceIsInitialized(void);
+EXPORT bool FlutterTraceInitialize(Dart_Port send_port);
 
 #if !defined(WIN32) && !defined(ANDROID)
 EXPORT Dart_Handle GetFlutterRootLibraryUrl(void);
