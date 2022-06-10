@@ -422,7 +422,7 @@ extern int rtkrcv_startsvr()
     solopt[1].posf=strfmt[4];
     
     /* start rtk server */
-    if (!rtkrcv_rtksvrstart(&svr,svrcycle,buffsize,strtype,paths,strfmt,navmsgsel,
+    if (!rtksvr_rtksvrstart(&svr,svrcycle,buffsize,strtype,paths,strfmt,navmsgsel,
                      cmds,cmds_periodic,ropts,nmeacycle,nmeareq,npos,&prcopt,
                      solopt,&moni,errmsg)) {
         trace(2,"rtk server start error (%s)\n",errmsg);

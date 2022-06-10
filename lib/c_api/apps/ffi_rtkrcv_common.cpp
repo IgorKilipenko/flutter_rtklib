@@ -1,6 +1,9 @@
 #include "ffi_rtkrcv.hpp"
 #include <thread>
 
+Dart_Port rtkrcv_send_port = -1;
+void (*rtkrcv_port_callback)() = NULL;
+
 #define MIN_INT_RESET   30000   /* mininum interval of reset command (ms) */
 
 /* baseline length -----------------------------------------------------------*/
@@ -260,7 +263,6 @@ static void *rtksvrthread(void *arg)
     
     tracet(3,"rtksvrthread:\n");
     
-    //!
     rtksvr_t *svr=(rtksvr_t *)arg;
 
     svr->state=1; obs.data=data;
@@ -271,12 +273,22 @@ static void *rtksvrthread(void *arg)
     for (cycle=0;svr->state;cycle++) {
         tracet(-1,"*** rtksvrthread: main for\n");
         tick=tickget();
+        bool isEofFile[3] = {false};
         for (i=0;i<3;i++) {
             tracet(-1,"*** rtksvrthread: read svr->buff (FOR)\n");
             p=svr->buff[i]+svr->nb[i]; q=svr->buff[i]+svr->buffsize;
             
             /* read receiver raw/rtcm data from input stream */
+            tracet(-1,"*** rtksvrthread read receiver raw/rtcm data from input stream stream->type = %d, i = %d\n", svr->stream[i].type, i);
             if ((n=strread(svr->stream+i,p,q-p))<=0) {
+                tracet(-1,"*** rtksvrthread svr->stream->type = %d, i = %d\n", svr->stream[i].type, i);
+                if (svr->stream[i].type == STR_FILE || svr->stream[i].type == STR_NONE) {
+                    isEofFile[i] = true;
+                    if (i == 2 && isEofFile[0] && isEofFile[1]) {
+                        tracet(-1,"*** rtksvrthread STOP SERVER\n");
+                        svr->state = 0;
+                    }
+                }
                 continue;
             }
             /* write receiver raw/rtcm data to log stream */
@@ -318,9 +330,7 @@ static void *rtksvrthread(void *arg)
                 svr->rtk.opt.rb[i]=svr->rb_ave[i];
             }
         }
-        if (!fobs[0]) {
-            break;
-        }
+
         for (i=0;i<fobs[0];i++) { /* for each rover observation data */
             tracet(-1,"*** rtksvrthread: for each rover observation data\n");
             obs.n=0;
@@ -706,52 +716,53 @@ extern void rtksvr_saveoutbuf(rtksvr_t *svr, uint8_t *buff, int n, int index)
     rtksvrunlock(svr);
 }
 
-/* start rtk server ------------------------------------------------------------
-* start rtk server thread
-* args   : rtksvr_t *svr    IO rtk server
-*          int     cycle    I  server cycle (ms)
-*          int     buffsize I  input buffer size (bytes)
-*          int     *strs    I  stream types (STR_???)
-*                              types[0]=input stream rover
-*                              types[1]=input stream base station
-*                              types[2]=input stream correction
-*                              types[3]=output stream solution 1
-*                              types[4]=output stream solution 2
-*                              types[5]=log stream rover
-*                              types[6]=log stream base station
-*                              types[7]=log stream correction
-*          char    *paths   I  input stream paths
-*          int     *format  I  input stream formats (STRFMT_???)
-*                              format[0]=input stream rover
-*                              format[1]=input stream base station
-*                              format[2]=input stream correction
-*          int     navsel   I  navigation message select
-*                              (0:rover,1:base,2:ephem,3:all)
-*          char    **cmds   I  input stream start commands
-*                              cmds[0]=input stream rover (NULL: no command)
-*                              cmds[1]=input stream base (NULL: no command)
-*                              cmds[2]=input stream corr (NULL: no command)
-*          char    **cmds_periodic I input stream periodic commands
-*                              cmds[0]=input stream rover (NULL: no command)
-*                              cmds[1]=input stream base (NULL: no command)
-*                              cmds[2]=input stream corr (NULL: no command)
-*          char    **rcvopts I receiver options
-*                              rcvopt[0]=receiver option rover
-*                              rcvopt[1]=receiver option base
-*                              rcvopt[2]=receiver option corr
-*          int     nmeacycle I nmea request cycle (ms) (0:no request)
-*          int     nmeareq  I  nmea request type
-*                              (0:no,1:base pos,2:single sol,3:reset and single)
-*          double *nmeapos  I  transmitted nmea position (ecef) (m)
-*          prcopt_t *prcopt I  rtk processing options
-*          solopt_t *solopt I  solution options
-*                              solopt[0]=solution 1 options
-*                              solopt[1]=solution 2 options
-*          stream_t *moni   I  monitor stream (NULL: not used)
-*          char   *errmsg   O  error message
-* return : status (1:ok 0:error)
-*-----------------------------------------------------------------------------*/
-extern int rtkrcv_rtksvrstart(rtksvr_t *svr, int cycle, int buffsize, int *strs,
+/** 
+ * start rtk server
+ * start rtk server thread
+ * args   : rtksvr_t *svr    IO rtk server
+ *          int     cycle    I  server cycle (ms)
+ *          int     buffsize I  input buffer size (bytes)
+ *          int     *strs    I  stream types (STR_???)
+ *                              types[0]=input stream rover
+ *                              types[1]=input stream base station
+ *                              types[2]=input stream correction
+ *                              types[3]=output stream solution 1
+ *                              types[4]=output stream solution 2
+ *                              types[5]=log stream rover
+ *                              types[6]=log stream base station
+ *                              types[7]=log stream correction
+ *          char    *paths   I  input stream paths
+ *          int     *format  I  input stream formats (STRFMT_???)
+ *                              format[0]=input stream rover
+ *                              format[1]=input stream base station
+ *                              format[2]=input stream correction
+ *          int     navsel   I  navigation message select
+ *                              (0:rover,1:base,2:ephem,3:all)
+ *          char    **cmds   I  input stream start commands
+ *                              cmds[0]=input stream rover (NULL: no command)
+ *                              cmds[1]=input stream base (NULL: no command)
+ *                              cmds[2]=input stream corr (NULL: no command)
+ *          char    **cmds_periodic I input stream periodic commands
+ *                              cmds[0]=input stream rover (NULL: no command)
+ *                              cmds[1]=input stream base (NULL: no command)
+ *                              cmds[2]=input stream corr (NULL: no command)
+ *          char    **rcvopts I receiver options
+ *                              rcvopt[0]=receiver option rover
+ *                              rcvopt[1]=receiver option base
+ *                              rcvopt[2]=receiver option corr
+ *          int     nmeacycle I nmea request cycle (ms) (0:no request)
+ *          int     nmeareq  I  nmea request type
+ *                              (0:no,1:base pos,2:single sol,3:reset and single)
+ *          double *nmeapos  I  transmitted nmea position (ecef) (m)
+ *          prcopt_t *prcopt I  rtk processing options
+ *          solopt_t *solopt I  solution options
+ *                              solopt[0]=solution 1 options
+ *                              solopt[1]=solution 2 options
+ *          stream_t *moni   I  monitor stream (NULL: not used)
+ *          char   *errmsg   O  error message
+ * return : status (1:ok 0:error)
+ */
+extern int rtksvr_rtksvrstart(rtksvr_t *svr, int cycle, int buffsize, int *strs,
                        char **paths, int *formats, int navsel, char **cmds,
                        char **cmds_periodic, char **rcvopts, int nmeacycle,
                        int nmeareq, const double *nmeapos, prcopt_t *prcopt,
@@ -760,7 +771,7 @@ extern int rtkrcv_rtksvrstart(rtksvr_t *svr, int cycle, int buffsize, int *strs,
     gtime_t time,time0={0};
     int i,j,rw;
     
-    tracet(3,"rtksvrstart: cycle=%d buffsize=%d navsel=%d nmeacycle=%d nmeareq=%d\n",
+    tracet(3,"rtksvr_rtksvrstart: cycle=%d buffsize=%d navsel=%d nmeacycle=%d nmeareq=%d\n",
            cycle,buffsize,navsel,nmeacycle,nmeareq);
     
     if (svr->state) {
@@ -789,7 +800,7 @@ extern int rtkrcv_rtksvrstart(rtksvr_t *svr, int cycle, int buffsize, int *strs,
         svr->nb[i]=svr->npb[i]=0;
         if (!(svr->buff[i]=(uint8_t *)malloc(buffsize))||
             !(svr->pbuf[i]=(uint8_t *)malloc(buffsize))) {
-            tracet(1,"rtksvrstart: malloc error\n");
+            tracet(1,"rtksvr_rtksvrstart: malloc error\n");
             sprintf(errmsg,"rtk server malloc error");
             return 0;
         }
@@ -801,27 +812,27 @@ extern int rtkrcv_rtksvrstart(rtksvr_t *svr, int cycle, int buffsize, int *strs,
         init_raw(svr->raw+i,formats[i]);
         init_rtcm(svr->rtcm+i);
         
-        trace(3,"*** rtksvrstart: set receiver and rtcm option\n");
+        trace(3,"*** rtksvr_rtksvrstart: set receiver and rtcm option\n");
         /* set receiver and rtcm option */
         strcpy(svr->raw [i].opt,rcvopts[i]);
         strcpy(svr->rtcm[i].opt,rcvopts[i]);
         
-        trace(3,"*** rtksvrstart: connect dgps corrections\n");
+        trace(3,"*** rtksvr_rtksvrstart: connect dgps corrections\n");
         /* connect dgps corrections */
         svr->rtcm[i].dgps=svr->nav.dgps;
     }
 
-    trace(3,"*** rtksvrstart: output peek buffer\n");
+    trace(3,"*** rtksvr_rtksvrstart: output peek buffer\n");
 
     for (i=0;i<2;i++) { /* output peek buffer */
         if (!(svr->sbuf[i]=(uint8_t *)malloc(buffsize))) {
-            tracet(1,"rtksvrstart: malloc error\n");
+            tracet(1,"rtksvr_rtksvrstart: malloc error\n");
             sprintf(errmsg,"rtk server malloc error");
             return 0;
         }
     }
 
-    trace(3,"*** rtksvrstart: set solution options\n");
+    trace(3,"*** rtksvr_rtksvrstart: set solution options\n");
 
     /* set solution options */
     for (i=0;i<2;i++) {
@@ -841,7 +852,7 @@ extern int rtkrcv_rtksvrstart(rtksvr_t *svr, int cycle, int buffsize, int *strs,
     /* set monitor stream */
     svr->moni=moni;
     
-    trace(3,"*** rtksvrstart: open input streams\n");
+    trace(3,"*** rtksvr_rtksvrstart: open input streams\n");
     /* open input streams */
     for (i=0;i<8;i++) {
         rw=i<3?STR_MODE_R:STR_MODE_W;
@@ -859,12 +870,12 @@ extern int rtkrcv_rtksvrstart(rtksvr_t *svr, int cycle, int buffsize, int *strs,
         }
     }
 
-    trace(3,"*** rtksvrstart: sync input streams\n");
+    trace(3,"*** rtksvr_rtksvrstart: sync input streams\n");
     /* sync input streams */
     strsync(svr->stream,svr->stream+1);
     strsync(svr->stream,svr->stream+2);
     
-    trace(3,"*** rtksvrstart: write start commands to input streams\n");
+    trace(3,"*** rtksvr_rtksvrstart: write start commands to input streams\n");
     /* write start commands to input streams */
     for (i=0;i<3;i++) {
         if (!cmds[i]) continue;
@@ -872,13 +883,13 @@ extern int rtkrcv_rtksvrstart(rtksvr_t *svr, int cycle, int buffsize, int *strs,
         sleepms(100);
         strsendcmd(svr->stream+i,cmds[i]);
     }
-    trace(3,"*** rtksvrstart: write solution header to solution streams\n");
+    trace(3,"*** rtksvr_rtksvrstart: write solution header to solution streams\n");
     /* write solution header to solution streams */
     for (i=3;i<5;i++) {
         rtksvr_writesolhead(svr->stream+i,svr->solopt+i-3);
     }
 
-    trace(3,"*** rtksvrstart: create rtk server thread\n");
+    trace(3,"*** rtksvr_rtksvrstart: create rtk server thread\n");
     /* create rtk server thread */
 #ifdef WIN32
     if (!(svr->thread=CreateThread(NULL,0,rtksvrthread,svr,0,NULL))) {
@@ -892,8 +903,21 @@ extern int rtkrcv_rtksvrstart(rtksvr_t *svr, int cycle, int buffsize, int *strs,
     
     //! rtksvr_start_rtksvrthread(svr);
     
-    trace(3,"*** rtksvrstart: thread created success\n");
+    trace(3,"*** rtksvr_rtksvrstart: thread created success\n");
 
-    trace(3,"*** rtksvrstart: END\n");
+    trace(3,"*** rtksvr_rtksvrstart: END\n");
     return 1;
+}
+
+/// Initialize port for async communication with flutter from rtk server
+/// return true if successful initialize
+extern bool FlutterRtkServerPortInitialize(Dart_Port send_port, void (*callback)()) {
+    trace(3,"FlutterRtkServerPortInitialize: \n");
+    assert(rtkrcv_send_port > 0);
+
+    if (rtkrcv_send_port > 0) {return false;}
+
+    rtkrcv_send_port = send_port;
+    rtkrcv_port_callback = callback;
+    return true;
 }
