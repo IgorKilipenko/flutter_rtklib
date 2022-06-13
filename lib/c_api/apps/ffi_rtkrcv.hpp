@@ -35,7 +35,7 @@ EXPORT void rtksvr_writesol(rtksvr_t *svr, int index);
 EXPORT void rtksvr_send_nmea(rtksvr_t *svr, uint32_t *tickreset);
 EXPORT void rtksvr_saveoutbuf(rtksvr_t *svr, uint8_t *buff, int n, int index);
 
-EXPORT bool FlutterRtkServerPortInitialize(Dart_Port send_port);
+EXPORT bool rtkrcv_registerSendPort(Dart_Port send_port);
 
 #ifdef __cplusplus
 }

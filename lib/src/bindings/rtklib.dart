@@ -7,6 +7,7 @@ import 'package:ffi/ffi.dart' as pkg_ffi;
 import 'package:flutter/foundation.dart';
 import 'package:flutter_rtklib/flutter_rtklib.dart';
 import 'package:flutter_rtklib/src/apps/convbin.dart';
+import 'package:flutter_rtklib/src/apps/rtkrcv.dart';
 import 'package:flutter_rtklib/src/rtklib_bindings.dart';
 import 'package:dylib/dylib.dart';
 
@@ -14,8 +15,8 @@ export 'package:flutter_rtklib/src/rtklib_bindings.dart';
 
 part 'package:flutter_rtklib/src/dylib.dart';
 
-typedef _WrappedPrintC = ffi.Void Function(
-    ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int);
+/*typedef _WrappedPrintC = ffi.Void Function(
+    ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int);*/
 typedef PrintCallback = ffi.Pointer<
     ffi.NativeFunction<
         ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Size, ffi.Int)>>;
@@ -138,6 +139,10 @@ class RtkLib extends RtkDylib {
 
   Convbin getConvbin() {
     return Convbin();
+  }
+
+  Rtkrcv getRtkrcv() {
+    return Rtkrcv.create(this);
   }
 
   TraceController get console {

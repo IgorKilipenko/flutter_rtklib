@@ -118,6 +118,7 @@ macro(setLibs)
         ${UTILS_DIR}/trace.cpp
         ${UTILS_DIR}/test_size.cpp
         ${UTILS_DIR}/io.cpp
+        ${UTILS_DIR}/ffi_ports.cpp
         ${FFI_DIR}/ffi_convbin.cpp
         ${FFI_DIR}/ffi_rtkrcv.cpp
         ${FFI_DIR}/ffi_rtkrcv_common.cpp

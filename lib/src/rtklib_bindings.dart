@@ -7684,20 +7684,20 @@ class RtkDylib {
   late final _rtksvr_saveoutbuf = _rtksvr_saveoutbufPtr.asFunction<
       void Function(ffi.Pointer<rtksvr_t>, ffi.Pointer<ffi.Uint8>, int, int)>();
 
-  bool FlutterRtkServerPortInitialize(
+  bool rtkrcv_registerSendPort(
     int send_port,
   ) {
-    return _FlutterRtkServerPortInitialize(
+    return _rtkrcv_registerSendPort(
           send_port,
         ) !=
         0;
   }
 
-  late final _FlutterRtkServerPortInitializePtr =
+  late final _rtkrcv_registerSendPortPtr =
       _lookup<ffi.NativeFunction<ffi.Uint8 Function(Dart_Port)>>(
-          'FlutterRtkServerPortInitialize');
-  late final _FlutterRtkServerPortInitialize =
-      _FlutterRtkServerPortInitializePtr.asFunction<int Function(int)>();
+          'rtkrcv_registerSendPort');
+  late final _rtkrcv_registerSendPort =
+      _rtkrcv_registerSendPortPtr.asFunction<int Function(int)>();
 }
 
 /// time struct

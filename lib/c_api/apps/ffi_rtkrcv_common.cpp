@@ -911,13 +911,13 @@ extern int rtksvr_rtksvrstart(rtksvr_t *svr, int cycle, int buffsize, int *strs,
 
 /// Initialize port for async communication with flutter from rtk server
 /// return true if successful initialize
-extern bool FlutterRtkServerPortInitialize(Dart_Port send_port, void (*callback)()) {
-    trace(3,"FlutterRtkServerPortInitialize: \n");
-    assert(rtkrcv_send_port > 0);
+extern bool rtkrcv_registerSendPort(Dart_Port send_port) {
+    trace(3,"rtkrcv_registerSendPort: \n");
+    assert(rtkrcv_send_port <= 0);  //! Only once initialized
 
     if (rtkrcv_send_port > 0) {return false;}
 
     rtkrcv_send_port = send_port;
-    rtkrcv_port_callback = callback;
+    // rtkrcv_port_callback = callback;
     return true;
 }
