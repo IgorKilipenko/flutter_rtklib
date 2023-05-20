@@ -6,4 +6,8 @@
     "cmake.buildToolArgs": [
         "--log-level=DEBUG"
     ],
+    "cSpell.words": [
+        "rtklib",
+        "Ublox"
+    ],
 }
