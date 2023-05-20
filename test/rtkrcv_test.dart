@@ -1,9 +1,6 @@
-import 'dart:ffi' as ffi;
 import 'dart:io';
 
-import 'package:ffi/ffi.dart' as pkg_ffi;
 import 'package:flutter_rtklib/flutter_rtklib.dart';
-import 'package:flutter_rtklib/src/apps/common.dart';
 import 'package:flutter_rtklib/src/apps/rtkrcv.dart';
 import 'package:flutter_rtklib/src/bindings/rtklib.dart';
 import 'package:flutter_test/flutter_test.dart' as testing;

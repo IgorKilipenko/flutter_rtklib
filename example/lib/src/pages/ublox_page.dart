@@ -1,9 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_rtklib/flutter_rtklib.dart';
 import 'package:flutter_rtklib_example/src/controllers/ublox_controller.dart';
 import 'package:flutter_rtklib_example/src/pages/settings_page.dart';
 import 'package:flutter_rtklib_example/src/widgets/app_drawer.dart';

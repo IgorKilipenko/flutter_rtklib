@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rtklib_example/src/controllers/settings_controller.dart';
-import 'package:flutter_rtklib_example/src/pages/uart_connection_page.dart';
 
 import 'package:get/get.dart';
 import 'page_routes.dart';
